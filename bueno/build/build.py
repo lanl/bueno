@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-
 #
 # Copyright (c)      2019 Triad National Security, LLC
 #                         All rights reserved.
@@ -8,6 +6,9 @@
 # top-level directory of this distribution for more information.
 #
 
-from bueno import build
+class Builder :
+    def __init__(self):
+        self.test = 42
 
-print('hello world')
+    def hi(self):
+        print(self.test)

@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #
 # Copyright (c)      2019 Triad National Security, LLC
 #                         All rights reserved.
@@ -17,7 +18,7 @@ def main():
     return os.EX_OK
 
 def package_setup(package_name, package_vers):
-    from setuptools import setup
+    from setuptools import setup, find_packages
 
     setup(
         name=package_name,
@@ -26,9 +27,8 @@ def package_setup(package_name, package_vers):
         author='Samuel K. Gutierrez',
         author_email='samuel@lanl.gov',
         license='BSD 3-Clause',
-        #NOTE(skg): This can probably be something older. Okay for now.
-        python_requires='>=3.6.4',
-        packages=[package_name],
+        python_requires='>=3.3',
+        packages=find_packages(),
         # Package Requirements
         install_requires =[],
 
