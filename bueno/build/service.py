@@ -6,9 +6,7 @@
 # top-level directory of this distribution for more information.
 #
 
-class Builder :
-    def __init__(self):
-        self.test = 42
-
-    def hi(self):
-        print(self.test)
+def go(argv):
+    print(argv)
+    for a in argv:
+        print(a)

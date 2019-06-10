@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+
 #
 # Copyright (c)      2019 Triad National Security, LLC
 #                         All rights reserved.

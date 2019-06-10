@@ -8,6 +8,71 @@
 # top-level directory of this distribution for more information.
 #
 
-from bueno import build
+from bueno.core import io as bio
 
-print('hello world')
+import os
+import sys
+import importlib
+
+class Bueno:
+    services = [
+        'build'
+    ]
+
+
+    @staticmethod
+    def usage():
+        # TODO(skg)
+        u = 'usage:'
+        print()
+        print(u)
+        print('Services Available:')
+        for s in Bueno.services:
+            print('- {}'.format(s))
+        print()
+        sys.exit(os.EX_USAGE)
+
+
+    @staticmethod
+    def valid_sname(sname):
+        return sname in Bueno.services
+
+
+    def check_args(self):
+        if self.argc == 1:
+            Bueno.usage()
+        # self.argv[1] shall be the service name.
+        self.sname = self.argv[1]
+        if not Bueno.valid_sname(self.sname):
+            bio.eprint("'{}': unrecognized service.".format(self.sname))
+            Bueno.usage()
+        # The service instance is passed all args except argv[0], so save them.
+        self.sargv = self.argv[1:]
+
+
+    def __init__(self):
+        self.argc = len(sys.argv)
+        self.argv = sys.argv
+
+        self.sname = None
+        self.sargv = None
+        self.service = None
+
+    def load_service(self):
+        self.service = importlib.import_module('bueno.{}.service'.format(self.sname))
+
+
+    def go(self):
+        self.check_args()
+        # Passed arguments are fine, so try loading the requested service.
+        self.load_service()
+        # Go!
+        self.service.go(self.sargv)
+
+def main():
+    bueno = Bueno()
+    return bueno.go()
+
+
+if __name__ == '__main__':
+    sys.exit(main())
