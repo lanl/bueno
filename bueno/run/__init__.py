@@ -6,15 +6,6 @@
 # top-level directory of this distribution for more information.
 #
 
-from bueno.core import service
-
-
-class impl(service.Service):
-    '''
-    Implements the build service.
-    '''
-    def __init__(self):
-        pass
-
-    def start(self):
-        pass
+'''
+bueno: Benchmarking Utilities
+'''

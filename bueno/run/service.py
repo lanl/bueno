@@ -11,7 +11,7 @@ from bueno.core import service
 
 class impl(service.Service):
     '''
-    Implements the build service.
+    Implements the run service.
     '''
     def __init__(self):
         pass

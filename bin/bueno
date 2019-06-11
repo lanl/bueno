@@ -14,7 +14,11 @@ import os
 import sys
 
 class Bueno:
-    def usage(self):
+    @staticmethod
+    def usage():
+        '''
+        Emits usage information.
+        '''
         # TODO(skg)
         u = 'usage:'
         print()
@@ -27,7 +31,7 @@ class Bueno:
 
     def check_args(self):
         if self.argc < 2:
-            self.usage()
+            Bueno.usage()
 
     def __init__(self):
         self.argc = len(sys.argv)
@@ -36,7 +40,7 @@ class Bueno:
         self.check_args()
 
         self.service = service.ServiceFactory.build(self.argv[1:])
-        self.service.go(self.argv)
+        self.service.start()
 
 
 def main():
@@ -44,7 +48,8 @@ def main():
         Bueno()
     except ValueError as e:
         print(e)
-        return os.EX_SOFTWARE
+        Bueno.usage()
+        return os.EX_USAGE
     return os.EX_OK
 
 

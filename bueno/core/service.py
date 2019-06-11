@@ -6,32 +6,45 @@
 # top-level directory of this distribution for more information.
 #
 
-import importlib
-
 class Service:
     def __init__(self):
         pass
 
+    def start(self):
+        pass
+
+
 class ServiceFactory:
-    # Supported service names.
+    '''The service factory.'''
+
+    # List of supported service names.
+    # Modify this list as services change.
     services = [
-        'build'
+        'build',
+        'run'
     ]
 
     @staticmethod
     def available():
+        '''
+        Returns list of available service names.
+        '''
         return ServiceFactory.services
 
     @staticmethod
     def known(sname):
         return sname in ServiceFactory.services
 
-
     @staticmethod
     def build(sargv):
+        '''
+        Imports and returns instance of requested service module.
+        '''
+        import importlib
+
         sname = sargv[0]
         if not ServiceFactory.known(sname):
-            raise ValueError("'{}': unrecognized service.".format(sname))
-        # Import and return requested service module.
+            raise ValueError("'{}': Unrecognized service.".format(sname))
         mod = 'bueno.{}.service'.format(sname)
-        return importlib.import_module(mod)
+        service = importlib.import_module(mod)
+        return service.impl()
