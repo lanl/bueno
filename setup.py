@@ -8,6 +8,7 @@
 # top-level directory of this distribution for more information.
 #
 
+
 def main():
     import os
 
@@ -18,7 +19,11 @@ def main():
 
     return os.EX_OK
 
+
 def package_setup(package_name, package_vers):
+    '''
+    Package setup routine.
+    '''
     from setuptools import setup, find_packages
 
     setup(
@@ -31,12 +36,13 @@ def package_setup(package_name, package_vers):
         python_requires='>=3.3',
         packages=find_packages(),
         # Package Requirements
-        install_requires =[],
+        install_requires=[],
 
         scripts=[
             'bin/bueno'
         ]
     )
+
 
 if __name__ == '__main__':
     exit(main())
