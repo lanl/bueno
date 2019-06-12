@@ -6,6 +6,10 @@
 # top-level directory of this distribution for more information.
 #
 
+'''
+The build service module.
+'''
+
 from bueno.core import service
 
 
@@ -13,8 +17,11 @@ class impl(service.Service):
     '''
     Implements the build service.
     '''
-    def __init__(self):
-        pass
+    def __init__(self, argv):
+        super().__init__(argv)
 
     def start(self):
+        pass
+
+    def help(self):
         pass

@@ -6,17 +6,32 @@
 # top-level directory of this distribution for more information.
 #
 
-class Service:
-    def __init__(self):
+'''
+Core services.
+'''
+
+from abc import ABC, abstractmethod
+
+
+class Service(ABC):
+    '''
+    Abstract base class of all bueno services.
+    '''
+    def __init__(self, argv):
+        self.argv = argv
+        super(Service, self).__init__()
+
+    @abstractmethod
+    def help(self):
         pass
 
+    @abstractmethod
     def start(self):
         pass
 
 
 class ServiceFactory:
     '''The service factory.'''
-
     # List of supported service names.
     # Modify this list as services change.
     services = [
@@ -33,18 +48,26 @@ class ServiceFactory:
 
     @staticmethod
     def known(sname):
+        '''
+        Returns a boolean indicating whether or not the provided services name
+        is known (i.e., recognized) by bueno.
+        '''
         return sname in ServiceFactory.services
 
     @staticmethod
     def build(sargv):
         '''
-        Imports and returns instance of requested service module.
+        Imports and returns an instance of requested service module.
         '''
         import importlib
 
         sname = sargv[0]
         if not ServiceFactory.known(sname):
             raise ValueError("'{}': Unrecognized service.".format(sname))
-        mod = 'bueno.{}.service'.format(sname)
-        service = importlib.import_module(mod)
-        return service.impl()
+        # Build the import_module string, following the project's service
+        # structure convention. Then feed it to import_module to get the
+        # requested service module.
+        imod = 'bueno.{}.service'.format(sname)
+        service = importlib.import_module(imod)
+        # Return the service instance.
+        return service.impl(sargv)

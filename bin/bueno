@@ -8,16 +8,24 @@
 # top-level directory of this distribution for more information.
 #
 
+'''
+The main driver for all bueno services.
+'''
+
 from bueno.core import service
 
 import os
 import sys
 
 class Bueno:
+    '''
+    Implements the bueno service dispatch system.
+    '''
+
     @staticmethod
     def usage():
         '''
-        Emits usage information.
+        Emits bueno usage information.
         '''
         # TODO(skg)
         u = 'usage:'
