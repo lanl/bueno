@@ -20,7 +20,9 @@ class Service(ABC):
     '''
     Abstract base class of all bueno services.
     '''
-    def __init__(self, argv):
+    def __init__(self, desc, argv):
+        # A description of the service and what it does.
+        self.desc = desc
         # The potentially modified argument vector passed to a service.
         self.argv = argv
         # The name of the service (program).
@@ -28,6 +30,7 @@ class Service(ABC):
         # An instance of the ArgumentParser
         self.argp = argparse.ArgumentParser(
                         prog=self.prog,
+                        description=self.desc,
                         allow_abbrev=False
                     )
         # The arguments obtained after _parseargs().

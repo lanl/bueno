@@ -17,16 +17,30 @@ class impl(service.Service):
     '''
     Implements the build service.
     '''
+    class _defaults:
+        '''
+        Convenience container for build service defaults.
+        '''
+        builder = 'charliecloud'
+
     def __init__(self, argv):
-        super().__init__(argv)
+        # TODO(skg) Add a proper service description.
+        self.desc = 'The build service builds containers.'
+
+        super().__init__(self.desc, argv)
 
     def _addargs(self):
         self.argp.add_argument(
-            '--test',
-            action='store_true',
-            help='Test help.',
-            required=True
+            '--builder',
+            type=str,
+            help='Specifies the container builder to use. '
+                 'Default: {}'.format(impl._defaults.builder),
+            default=impl._defaults.builder,
+            required=False
         )
 
+    def _emit_preamble(self):
+        pass
+
     def start(self):
-        print(self.args)
+        self._emit_preamble()
