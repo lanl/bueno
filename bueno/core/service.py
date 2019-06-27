@@ -12,22 +12,53 @@ Core services.
 
 from abc import ABC, abstractmethod
 
+import argparse
+import importlib
+
 
 class Service(ABC):
     '''
     Abstract base class of all bueno services.
     '''
     def __init__(self, argv):
+        # The potentially modified argument vector passed to a service.
         self.argv = argv
+        # The name of the service (program).
+        self.prog = argv[0]
+        # An instance of the ArgumentParser
+        self.argp = argparse.ArgumentParser(
+                        prog=self.prog,
+                        allow_abbrev=False
+                    )
+        # The arguments obtained after _parseargs().
+        self.args = None
+
+        self._addargs()
+        self._parseargs()
+
         super(Service, self).__init__()
 
     @abstractmethod
-    def help(self):
+    def _addargs(self):
+        '''
+        Hook that allows concrete instances to add service-specific arguments.
+        '''
         pass
 
     @abstractmethod
     def start(self):
+        '''
+        Starts the service. Akin to a service main().
+        '''
         pass
+
+    def _parseargs(self):
+        '''
+        Parses the arguments provided in self.argv.
+        '''
+        # argv[1:] to remove the service name. If present, the parser fails
+        # because it doesn't recognize the service name as the program name.
+        self.args = self.argp.parse_args(args=self.argv[1:])
 
 
 class ServiceFactory:
@@ -59,8 +90,6 @@ class ServiceFactory:
         '''
         Imports and returns an instance of requested service module.
         '''
-        import importlib
-
         sname = sargv[0]
         if not ServiceFactory.known(sname):
             raise ValueError("'{}': Unrecognized service.".format(sname))

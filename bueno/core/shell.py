@@ -11,10 +11,16 @@
 
 import subprocess
 import sys
+import os
 
 
 # TODO(skg): Add logging redirect, tee, etc through *args.
 def run(cmd):
+    '''
+    Executes the provided command.
+
+    Throws ChildProcessError on error.
+    '''
     p = subprocess.Popen(
             cmd,
             shell=True,
@@ -33,7 +39,7 @@ def run(cmd):
             break
 
     rc = p.wait()
-    if (rc != 0):
+    if (rc != os.EX_OK):
         e = ChildProcessError()
         e.errno = rc
         es = "Command '{}' returned non-zero exit status {}.".format(cmd, rc)
