@@ -14,13 +14,24 @@ import sys
 import os
 
 
+def capture(cmd):
+    '''
+    Executes the provided command and returns a string with the commands output.
+
+    See run() for exceptions.
+    '''
+    return run(cmd, capture=True)
+
+
 # TODO(skg): Add logging redirect, tee, etc through *args.
-def run(cmd):
+def run(cmd, capture=False):
     '''
     Executes the provided command.
 
     Throws ChildProcessError on error.
     '''
+    # Output string used to (optionally) capture command output.
+    ostr = str()
     p = subprocess.Popen(
             cmd,
             shell=True,
@@ -29,11 +40,14 @@ def run(cmd):
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT
         )
-    # Show progress.
+    # Show progress and store output to a string (if requested).
     while (True):
         stdout = p.stdout.readline()
-        sys.stdout.write(stdout)
-        sys.stdout.flush()
+        if capture:
+            ostr += stdout
+        else:
+            sys.stdout.write(stdout)
+            sys.stdout.flush()
 
         if not stdout and p.poll() is not None:
             break
@@ -45,3 +59,6 @@ def run(cmd):
         es = "Command '{}' returned non-zero exit status {}.".format(cmd, rc)
         e.strerror = es
         raise e
+
+    if capture:
+        return ostr
