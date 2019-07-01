@@ -36,7 +36,9 @@ def package_setup(package_name, package_vers):
         python_requires='>=3.3',
         packages=find_packages(),
         # Package Requirements
-        install_requires=[],
+        install_requires=[
+            'pyyaml'
+        ],
 
         scripts=[
             'bin/bueno'

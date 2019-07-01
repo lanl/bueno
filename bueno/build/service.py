@@ -15,6 +15,8 @@ from bueno.core import utils
 from bueno.core import opsys
 from bueno.core import user
 
+import yaml
+
 
 class impl(service.Service):
     '''
@@ -30,6 +32,7 @@ class impl(service.Service):
         builder = 'charliecloud'
 
     def __init__(self, argv):
+        self.yaml = None
         super().__init__(impl._defaults.desc, argv)
 
     def _addargs(self):
@@ -42,24 +45,27 @@ class impl(service.Service):
             required=False
         )
 
-    def _emit_service_config(self):
-        print('# Configuration')
-        for k, v in vars(self.args).items():
-            print(' - {}: {}'.format(k, v))
+    def _service_config(self):
+        self.confd['Configuration'] = vars(self.args)
 
-    def _emit_env_config(self):
-        print('# Environment Configuration')
-        print(' - Kernel: {}'.format(opsys.kernel()))
-        print(' - Kernel Release: {}'.format(opsys.kernelrel()))
+    def _env_config(self):
+        self.confd['Environment'] = {
+            'kernel': opsys.kernel(),
+            'kernel version': opsys.kernelrel()
+        }
+
+    def _emit_config(self):
+        print(yaml.dump(self.confd, default_flow_style=False))
 
     def _emit_preamble(self):
         print()
-        print('# Starting : {}'.format(utils.now()))
+        print('# Begin {} Configuration {}'.format(self.prog, utils.now()))
 
-        self._emit_service_config()
-        self._emit_env_config()
+        self._service_config()
+        self._env_config()
+        self._emit_config()
 
-        print('# Finish: {}'.format(utils.now()))
+        print('# End {} Configuration {}'.format(self.prog, utils.now()))
         print()
 
     def start(self):

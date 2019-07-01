@@ -35,6 +35,8 @@ class Service(ABC):
                     )
         # The arguments obtained after _parseargs().
         self.args = None
+        # Dictionary used to hold service configuration.
+        self.confd = dict()
 
         self._addargs()
         self._parseargs()
