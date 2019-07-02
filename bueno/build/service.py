@@ -32,7 +32,6 @@ class impl(service.Service):
         builder = 'charliecloud'
 
     def __init__(self, argv):
-        self.yaml = None
         super().__init__(impl._defaults.desc, argv)
 
     def _addargs(self):
@@ -45,24 +44,28 @@ class impl(service.Service):
             required=False
         )
 
-    def _service_config(self):
+    def _populate_service_config(self):
         self.confd['Configuration'] = vars(self.args)
 
-    def _env_config(self):
+    def _populate_env_config(self):
         self.confd['Environment'] = {
             'kernel': opsys.kernel(),
-            'kernel version': opsys.kernelrel()
+            'kernel release': opsys.kernelrel(),
+            'hostname': opsys.hostname(),
+            'os release': opsys.pretty_name()
         }
 
     def _emit_config(self):
-        print(yaml.dump(self.confd, default_flow_style=False))
+        # First build up the dictionary containing the configuration used.
+        self._populate_service_config()
+        self._populate_env_config()
+        # Then print it out in YAML format.
+        print(utils.chomp(yaml.dump(self.confd, default_flow_style=False)))
 
     def _emit_preamble(self):
         print()
         print('# Begin {} Configuration {}'.format(self.prog, utils.now()))
 
-        self._service_config()
-        self._env_config()
         self._emit_config()
 
         print('# End {} Configuration {}'.format(self.prog, utils.now()))
