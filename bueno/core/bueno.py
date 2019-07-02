@@ -34,11 +34,15 @@ class Bueno:
         for s in service.ServiceFactory.available():
             print('- {}'.format(s))
         print()
-        sys.exit(os.EX_USAGE)
 
     def check_args(self):
         if self.argc < 2:
             Bueno.usage()
+            sys.exit(os.EX_USAGE)
+
+        if self.argv[1] in ['-h', '--help']:
+            Bueno.usage()
+            sys.exit(os.EX_OK)
 
     def __init__(self):
         self.argc = len(sys.argv)
