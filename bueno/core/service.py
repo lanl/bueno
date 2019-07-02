@@ -66,7 +66,7 @@ class Service(ABC):
         self.args = self.argp.parse_args(args=self.argv[1:])
 
 
-class ServiceFactory:
+class Factory:
     '''The service factory.'''
     # List of supported service names.
     # Modify this list as services change.
@@ -80,7 +80,7 @@ class ServiceFactory:
         '''
         Returns list of available service names.
         '''
-        return ServiceFactory.services
+        return Factory.services
 
     @staticmethod
     def known(sname):
@@ -88,7 +88,7 @@ class ServiceFactory:
         Returns a boolean indicating whether or not the provided services name
         is known (i.e., recognized) by bueno.
         '''
-        return sname in ServiceFactory.services
+        return sname in Factory.services
 
     @staticmethod
     def build(sargv):
@@ -96,7 +96,7 @@ class ServiceFactory:
         Imports and returns an instance of requested service module.
         '''
         sname = sargv[0]
-        if not ServiceFactory.known(sname):
+        if not Factory.known(sname):
             raise ValueError("'{}': Unrecognized service.".format(sname))
         # Build the import_module string, following the project's service
         # structure convention. Then feed it to import_module to get the

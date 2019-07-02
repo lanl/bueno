@@ -31,7 +31,7 @@ class Bueno:
         print()
         print(u)
         print('Services Available:')
-        for s in service.ServiceFactory.available():
+        for s in service.Factory.available():
             print('- {}'.format(s))
         print()
 
@@ -50,7 +50,7 @@ class Bueno:
 
         self.check_args()
 
-        self.service = service.ServiceFactory.build(self.argv[1:])
+        self.service = service.Factory.build(self.argv[1:])
         self.service.start()
 
 

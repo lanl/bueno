@@ -14,6 +14,8 @@ from bueno.core import service
 from bueno.core import utils
 from bueno.core import opsys
 
+from bueno.build import builder
+
 import yaml
 
 
@@ -33,6 +35,11 @@ class impl(service.Service):
     def __init__(self, argv):
         super().__init__(impl._defaults.desc, argv)
 
+        self.stime = utils.now()
+        self.etime = None
+
+        self.builder = None
+
     def _addargs(self):
         self.argp.add_argument(
             '--builder',
@@ -40,6 +47,7 @@ class impl(service.Service):
             help='Specifies the container builder to use. '
                  'Default: {}'.format(impl._defaults.builder),
             default=impl._defaults.builder,
+            choices=builder.Factory.available(),
             required=False
         )
 
@@ -62,20 +70,16 @@ class impl(service.Service):
         # Then print it out in YAML format.
         print(utils.chomp(yaml.dump(self.confd, default_flow_style=False)))
 
-    def _emit_preamble(self):
-        print()
-        stime = utils.now()
-        print('# Begin {} Configuration {}'.format(self.prog, stime))
-
-        self._emit_config()
-
-        etime = utils.now()
-        print('# End {} Configuration {}'.format(self.prog, etime))
-        print('# {} Time {}'.format(self.prog, etime - stime))
-
     def _do_build(self):
-        pass
+        self.builder = builder.Factory.build(self.args.builder)
 
     def start(self):
-        self._emit_preamble()
+        print()
+        print('# Begin {} Configuration {}'.format(self.prog, self.stime))
+
+        self._emit_config()
         self._do_build()
+
+        self.etime = utils.now()
+        print('# End {} Configuration {}'.format(self.prog, self.etime))
+        print('# {} Time {}'.format(self.prog, self.etime - self.stime))
