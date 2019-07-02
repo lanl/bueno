@@ -13,7 +13,6 @@ The build service module.
 from bueno.core import service
 from bueno.core import utils
 from bueno.core import opsys
-from bueno.core import user
 
 import yaml
 
@@ -55,6 +54,7 @@ class impl(service.Service):
             'os release': opsys.pretty_name()
         }
 
+    # TODO(skg) Add more configuration info.
     def _emit_config(self):
         # First build up the dictionary containing the configuration used.
         self._populate_service_config()
@@ -64,12 +64,18 @@ class impl(service.Service):
 
     def _emit_preamble(self):
         print()
-        print('# Begin {} Configuration {}'.format(self.prog, utils.now()))
+        stime = utils.now()
+        print('# Begin {} Configuration {}'.format(self.prog, stime))
 
         self._emit_config()
 
-        print('# End {} Configuration {}'.format(self.prog, utils.now()))
-        print()
+        etime = utils.now()
+        print('# End {} Configuration {}'.format(self.prog, etime))
+        print('# {} Time {}'.format(self.prog, etime - stime))
+
+    def _do_build(self):
+        pass
 
     def start(self):
         self._emit_preamble()
+        self._do_build()
