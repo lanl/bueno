@@ -18,21 +18,21 @@ def kernel():
     '''
     Returns the kernel name.
     '''
-    return utils.chomp(shell.capture('uname -s'))
+    return shell.capture('uname -s')
 
 
 def kernelrel():
     '''
     Returns the kernel release.
     '''
-    return utils.chomp(shell.capture('uname -r'))
+    return shell.capture('uname -r')
 
 
 def hostname():
     '''
     Returns the host computer's name.
     '''
-    return utils.chomp(shell.capture('hostname'))
+    return shell.capture('hostname')
 
 
 def pretty_name():

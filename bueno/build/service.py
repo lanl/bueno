@@ -13,13 +13,14 @@ The build service module.
 from bueno.core import service
 from bueno.core import utils
 from bueno.core import opsys
+from bueno.core import io
 
 from bueno.build import builder
 
 import yaml
 
 
-class impl(service.Service):
+class impl(service.Base):
     '''
     Implements the build service.
     '''
@@ -34,9 +35,6 @@ class impl(service.Service):
 
     def __init__(self, argv):
         super().__init__(impl._defaults.desc, argv)
-
-        self.stime = utils.now()
-        self.etime = None
 
         self.builder = None
 
@@ -64,22 +62,30 @@ class impl(service.Service):
 
     # TODO(skg) Add more configuration info.
     def _emit_config(self):
+        print('# Begin {} Configuration'.format(self.prog))
         # First build up the dictionary containing the configuration used.
         self._populate_service_config()
         self._populate_env_config()
         # Then print it out in YAML format.
         print(utils.chomp(yaml.dump(self.confd, default_flow_style=False)))
+        print('# End {} Configuration'.format(self.prog))
 
     def _do_build(self):
         self.builder = builder.Factory.build(self.args.builder)
+        self.builder.start()
 
     def start(self):
-        print()
-        print('# Begin {} Configuration {}'.format(self.prog, self.stime))
+        stime = utils.now()
 
-        self._emit_config()
-        self._do_build()
+        try:
+            self._emit_config()
+            self._do_build()
+        except Exception as e:
+            io.ehorf()
+            io.eprint('What: {} error encountered.\n'
+                      'Why:  {}'.format(self.prog, e))
+            io.ehorf()
+            raise e
 
-        self.etime = utils.now()
-        print('# End {} Configuration {}'.format(self.prog, self.etime))
-        print('# {} Time {}'.format(self.prog, self.etime - self.stime))
+        etime = utils.now()
+        print('# {} Time {}'.format(self.prog, etime - stime))

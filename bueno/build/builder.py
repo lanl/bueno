@@ -59,10 +59,13 @@ class Base(ABC):
     Abstract base class of all builders.
     '''
     def __init__(self):
-        pass
+        # Name of the builder.
+        self.name = None
+
+        super(Base, self).__init__()
 
     @abstractmethod
-    def start(self):
+    def start(self, **kwargs):
         '''
         Starts the builder. Akin to a builder main().
         '''

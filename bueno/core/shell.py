@@ -9,18 +9,33 @@
 '''
 '''
 
+from bueno.core import utils
+
 import subprocess
 import sys
 import os
 
 
-def capture(cmd):
+def capture(cmd, chomp=True):
     '''
     Executes the provided command and returns a string with the commands output.
 
     See run() for exceptions.
     '''
-    return run(cmd, capture=True)
+    res = run(cmd, capture=True)
+    if chomp:
+        res = utils.chomp(res)
+
+    return res
+
+
+def which(cmd):
+    wcmd = None
+    try:
+        wcmd = capture('which {}'.format(cmd))
+    except ChildProcessError:
+        wcmd = None
+    return wcmd
 
 
 # TODO(skg): Add logging redirect, tee, etc through *args.

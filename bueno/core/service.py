@@ -16,7 +16,7 @@ import argparse
 import importlib
 
 
-class Service(ABC):
+class Base(ABC):
     '''
     Abstract base class of all bueno services.
     '''
@@ -41,7 +41,7 @@ class Service(ABC):
         self._addargs()
         self._parseargs()
 
-        super(Service, self).__init__()
+        super(Base, self).__init__()
 
     @abstractmethod
     def _addargs(self):

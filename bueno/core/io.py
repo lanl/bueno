@@ -11,4 +11,14 @@ import sys
 
 
 def eprint(*args, **kwargs):
+    '''
+    Similar to print(), but text is emitted to stderr.
+    '''
     print(*args, file=sys.stderr, **kwargs)
+
+
+def ehorf():
+    '''
+    Prints to stderr error header or footer.
+    '''
+    eprint('>>!<<')
