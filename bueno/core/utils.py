@@ -12,6 +12,8 @@ Utilities for good.
 
 from datetime import datetime
 
+import yaml
+
 
 def now():
     '''
@@ -32,3 +34,7 @@ def chomp(s):
     Returns a string without trailing newline characters.
     '''
     return s.rstrip()
+
+
+def pyaml(s):
+    print(chomp(yaml.dump(s, default_flow_style=False)))

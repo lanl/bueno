@@ -17,8 +17,6 @@ from bueno.core import io
 
 from bueno.build import builder
 
-import yaml
-
 
 class impl(service.Base):
     '''
@@ -85,7 +83,7 @@ class impl(service.Base):
         self._populate_service_config()
         self._populate_env_config()
         # Then print it out in YAML format.
-        print(utils.chomp(yaml.dump(self.confd, default_flow_style=False)))
+        utils.pyaml(self.confd)
         print('# End {} Configuration (YAML)'.format(self.prog))
 
     def _do_build(self):

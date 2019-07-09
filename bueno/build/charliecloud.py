@@ -11,6 +11,7 @@ The CharlieCloud container builder.
 '''
 
 from bueno.core import shell
+from bueno.core import utils
 from bueno.build import builder
 
 
@@ -18,7 +19,6 @@ class impl(builder.Base):
     '''
     Implements the CharlieCloud container builder.
     '''
-
     def __init__(self, **config):
         super().__init__(**config)
         # The command used to build a container.
@@ -44,21 +44,30 @@ class impl(builder.Base):
         if errs:
             raise OSError(errs)
 
-    def _build(self):
-        vers = shell.capture('{} --version'.format(self.buildc))
-        print('# Starting {} {} build...'.format(
-            self.config['builder'], vers
-        ))
+    def _emit_builder_info(self):
+        binfo = dict()
+        binfo['Builder'] = {
+            'which':   shell.which(self.buildc),
+            'version': shell.capture('{} --version'.format(self.buildc)),
+        }
 
+        print('# Begin Builder Details (YAML)')
+        utils.pyaml(binfo)
+        print('# End Builder Details (YAML)')
+
+    def _build(self):
         bcmd = '{} -b {} -t {} {}'.format(
             self.buildc,
             self.builder,
             self.config['cname'],
             self.config['spec']
         )
+        print('# Begin build output')
         # Run the command specified by bcmd.
         shell.run(bcmd, echo=True)
+        print('# End build output')
 
     def start(self):
         self._check_env()
+        self._emit_builder_info()
         self._build()
