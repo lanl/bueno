@@ -17,6 +17,8 @@ from bueno.core import io
 
 from bueno.build import builder
 
+import os
+
 
 class impl(service.Base):
     '''
@@ -31,9 +33,9 @@ class impl(service.Base):
         # The name of the builder back-end.
         builder = 'charliecloud'
         # Path to the build specification (e.g., a Dockerfile specification).
-        spec_path = '.'
+        spec_path = os.getcwd()
         # Path to save any generated files.
-        output_path = '.'
+        output_path = os.getcwd()
 
     def __init__(self, argv):
         super().__init__(impl._defaults.desc, argv)

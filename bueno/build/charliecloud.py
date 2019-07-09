@@ -62,6 +62,9 @@ class impl(builder.Base):
             raise OSError(utils.chomp(errs))
 
     def _emit_builder_info(self):
+        '''
+        Emits builder information gathered at run-time.
+        '''
         binfo = dict()
         binfo['Builder'] = {
             'which':   shell.which(self.buildc),
