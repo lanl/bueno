@@ -56,8 +56,8 @@ class impl(builder.Base):
             self.config['cname'],
             self.config['spec']
         )
-        print('# $ {}'.format(bcmd))
-        shell.run(bcmd)
+        # Run the command specified by bcmd.
+        shell.run(bcmd, echo=True)
 
     def start(self):
         self._check_env()

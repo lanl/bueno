@@ -39,12 +39,14 @@ def which(cmd):
 
 
 # TODO(skg): Add logging redirect, tee, etc through *args.
-def run(cmd, capture=False):
+def run(cmd, echo=False, capture=False):
     '''
     Executes the provided command.
 
     Throws ChildProcessError on error.
     '''
+    if echo:
+        print('# $ {}'.format(cmd))
     # Output string used to (optionally) capture command output.
     ostr = str()
     p = subprocess.Popen(
