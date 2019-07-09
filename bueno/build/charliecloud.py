@@ -38,22 +38,25 @@ class impl(builder.Base):
 
         Raises OSError if the environment is unsatisfactory.
         '''
+        print('# Checking your build environment...')
+
         inyp = 'Is it in your PATH?\n'
         notf = "'{}' not found. " + inyp
         errs = ''
 
-        print('# Checking your build environment...')
-
         if not shell.which(self.buildc):
             errs += notf.format(self.buildc)
 
+        if not shell.which(self.tarcmd):
+            errs += notf.format(self.tarcmd)
+
         # Make sure that a Dockerfile exists in the provided path.
-        dnotf = '{} does not exist. '
         fixs = 'Please update your specification path.\n'
+        dnotf = '{} does not exist. ' + fixs
         dockerf = os.path.join(self.config['spec'], self.spec_name)
 
         if not os.path.exists(dockerf):
-            errs += dnotf.format(dockerf) + fixs
+            errs += dnotf.format(dockerf)
 
         if errs:
             raise OSError(utils.chomp(errs))
