@@ -19,15 +19,14 @@ class impl(builder.Base):
     Implements the CharlieCloud container builder.
     '''
 
-    def __init__(self):
-        super().__init__()
-        self.name = "CharlieCloud"
+    def __init__(self, **config):
+        super().__init__(**config)
         # The command used to build a container.
         self.buildc = 'ch-build'
         # Use ch-grow for unprivileged container builds.
         self.builder = 'ch-grow'
 
-    def _sane_env(self):
+    def _check_env(self):
         '''
         Build environment verification function.
 
@@ -39,7 +38,7 @@ class impl(builder.Base):
 
         print('# Checking your build environment...')
 
-        if shell.which(self.buildc) is None:
+        if not shell.which(self.buildc):
             errs += notf.format(self.buildc)
 
         if errs:
@@ -47,12 +46,19 @@ class impl(builder.Base):
 
     def _build(self):
         vers = shell.capture('{} --version'.format(self.buildc))
-        print('# Starting {} {} build...'.format(self.name, vers))
+        print('# Starting {} {} build...'.format(
+            self.config['builder'], vers
+        ))
 
-        bcmd = '{} -b {} -t TODO .'.format(self.buildc, self.builder)
+        bcmd = '{} -b {} -t {} {}'.format(
+            self.buildc,
+            self.builder,
+            self.config['cname'],
+            self.config['spec']
+        )
         print('# $ {}'.format(bcmd))
         shell.run(bcmd)
 
-    def start(self, **kwargs):
-        self._sane_env()
+    def start(self):
+        self._check_env()
         self._build()

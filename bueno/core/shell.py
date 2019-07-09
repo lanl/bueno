@@ -71,7 +71,7 @@ def run(cmd, capture=False):
     if (rc != os.EX_OK):
         e = ChildProcessError()
         e.errno = rc
-        es = "Command '{}' returned non-zero exit status {}.".format(cmd, rc)
+        es = "Command '{}' returned non-zero exit status.".format(cmd)
         e.strerror = es
         raise e
 

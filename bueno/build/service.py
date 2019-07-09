@@ -30,8 +30,10 @@ class impl(service.Base):
         '''
         # TODO(skg) Add a proper service description.
         desc = 'The build service builds containers.'
-
+        # The name of the builder back-end.
         builder = 'charliecloud'
+        # Path to the build specification (e.g., a Dockerfile specification).
+        spec_path = '.'
 
     def __init__(self, argv):
         super().__init__(impl._defaults.desc, argv)
@@ -42,11 +44,27 @@ class impl(service.Base):
         self.argp.add_argument(
             '--builder',
             type=str,
-            help='Specifies the container builder to use. '
+            help='Specifies the container builder back-end to use. '
                  'Default: {}'.format(impl._defaults.builder),
             default=impl._defaults.builder,
             choices=builder.Factory.available(),
             required=False
+        )
+
+        self.argp.add_argument(
+            '--spec',
+            type=str,
+            help='Path to build specification file (e.g., a Dockerfile).'
+                 'Default: {}'.format(impl._defaults.spec_path),
+            default=impl._defaults.spec_path,
+            required=False
+        )
+
+        self.argp.add_argument(
+            '--cname',
+            type=str,
+            help='Container name.',
+            required=True
         )
 
     def _populate_service_config(self):
@@ -62,16 +80,16 @@ class impl(service.Base):
 
     # TODO(skg) Add more configuration info.
     def _emit_config(self):
-        print('# Begin {} Configuration'.format(self.prog))
+        print('# Begin {} Configuration (YAML)'.format(self.prog))
         # First build up the dictionary containing the configuration used.
         self._populate_service_config()
         self._populate_env_config()
         # Then print it out in YAML format.
         print(utils.chomp(yaml.dump(self.confd, default_flow_style=False)))
-        print('# End {} Configuration'.format(self.prog))
+        print('# End {} Configuration (YAML)'.format(self.prog))
 
     def _do_build(self):
-        self.builder = builder.Factory.build(self.args.builder)
+        self.builder = builder.Factory.build(**vars(self.args))
         self.builder.start()
 
     def start(self):

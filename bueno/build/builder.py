@@ -39,33 +39,33 @@ class Factory:
         return sname in Factory.avail
 
     @staticmethod
-    def build(cname):
+    def build(**config):
         '''
         Imports and returns an instance of requested builder module.
         '''
-        if not Factory.known(cname):
-            raise ValueError("'{}': Unrecognized builder.".format(cname))
+        builder = config['builder']
+        if not Factory.known(builder):
+            raise ValueError("'{}': Unrecognized builder.".format(builder))
         # Build the import_module string, following the project's service
         # structure convention. Then feed it to import_module to get the
         # requested builder module.
-        imod = 'bueno.build.{}'.format(cname)
+        imod = 'bueno.build.{}'.format(builder)
         builder = importlib.import_module(imod)
         # Return the builder instance.
-        return builder.impl()
+        return builder.impl(**config)
 
 
 class Base(ABC):
     '''
     Abstract base class of all builders.
     '''
-    def __init__(self):
-        # Name of the builder.
-        self.name = None
+    def __init__(self, **config):
+        self.config = config
 
         super(Base, self).__init__()
 
     @abstractmethod
-    def start(self, **kwargs):
+    def start(self):
         '''
         Starts the builder. Akin to a builder main().
         '''
