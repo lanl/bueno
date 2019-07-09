@@ -54,14 +54,14 @@ class impl(service.Base):
         self.argp.add_argument(
             '--spec',
             type=str,
-            help='Path to build specification file (e.g., a Dockerfile).'
+            help='Base path to build specification file (e.g., a Dockerfile). '
                  'Default: {}'.format(impl._defaults.spec_path),
             default=impl._defaults.spec_path,
             required=False
         )
 
         self.argp.add_argument(
-            '--cname',
+            '--tag',
             type=str,
             help='Specifies the container name (required).',
             required=True
@@ -70,7 +70,7 @@ class impl(service.Base):
         self.argp.add_argument(
             '--output-path',
             type=str,
-            help='Specifies the output directory used for all generated files.'
+            help='Specifies the output directory used for all generated files. '
                  'Default: {}'.format(impl._defaults.output_path),
             default=impl._defaults.output_path,
             required=False

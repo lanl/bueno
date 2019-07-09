@@ -29,6 +29,8 @@ class impl(builder.Base):
         self.builder = 'ch-grow'
         # The command used to flatten an image into a tarball.
         self.tarcmd = 'ch-builder2tar'
+        # The name of the specification file used to build containers.
+        self.spec_name = 'Dockerfile'
 
     def _check_env(self):
         '''
@@ -44,6 +46,14 @@ class impl(builder.Base):
 
         if not shell.which(self.buildc):
             errs += notf.format(self.buildc)
+
+        # Make sure that a Dockerfile exists in the provided path.
+        dnotf = '{} does not exist. '
+        fixs = 'Please update your specification path.'
+        dockerf = os.path.join(self.config['spec'], self.spec_name)
+
+        if not os.path.exists(dockerf):
+            errs += dnotf.format(dockerf) + fixs
 
         if errs:
             raise OSError(errs)
@@ -63,7 +73,7 @@ class impl(builder.Base):
         bcmd = '{} -b {} -t {} {}'.format(
             self.buildc,
             self.builder,
-            self.config['cname'],
+            self.config['tag'],
             self.config['spec']
         )
         print('# Begin build output')
@@ -73,7 +83,7 @@ class impl(builder.Base):
 
         tcmd = '{} {} {}'.format(
             self.tarcmd,
-            self.config['cname'],
+            self.config['tag'],
             self.config['output_path']
         )
         print('# Begin flatten output')
