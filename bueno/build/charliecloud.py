@@ -38,7 +38,7 @@ class impl(builder.Base):
 
         Raises OSError if the environment is unsatisfactory.
         '''
-        inyp = 'Is it in your PATH?'
+        inyp = 'Is it in your PATH?\n'
         notf = "'{}' not found. " + inyp
         errs = ''
 
@@ -49,14 +49,14 @@ class impl(builder.Base):
 
         # Make sure that a Dockerfile exists in the provided path.
         dnotf = '{} does not exist. '
-        fixs = 'Please update your specification path.'
+        fixs = 'Please update your specification path.\n'
         dockerf = os.path.join(self.config['spec'], self.spec_name)
 
         if not os.path.exists(dockerf):
             errs += dnotf.format(dockerf) + fixs
 
         if errs:
-            raise OSError(errs)
+            raise OSError(utils.chomp(errs))
 
     def _emit_builder_info(self):
         binfo = dict()
