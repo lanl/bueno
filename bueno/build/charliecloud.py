@@ -14,6 +14,8 @@ from bueno.core import shell
 from bueno.core import utils
 from bueno.build import builder
 
+import os
+
 
 class impl(builder.Base):
     '''
@@ -25,6 +27,8 @@ class impl(builder.Base):
         self.buildc = 'ch-build'
         # Use ch-grow for unprivileged container builds.
         self.builder = 'ch-grow'
+        # The command used to flatten an image into a tarball.
+        self.tarcmd = 'ch-builder2tar'
 
     def _check_env(self):
         '''
@@ -66,6 +70,16 @@ class impl(builder.Base):
         # Run the command specified by bcmd.
         shell.run(bcmd, echo=True)
         print('# End build output')
+
+        tcmd = '{} {} {}'.format(
+            self.tarcmd,
+            self.config['cname'],
+            self.config['output_path']
+        )
+        print('# Begin flatten output')
+        os.environ['CH_BUILDER'] = self.builder
+        shell.run(tcmd, echo=True)
+        print('# End flatten output')
 
     def start(self):
         self._check_env()

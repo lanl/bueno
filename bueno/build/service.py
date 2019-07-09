@@ -32,6 +32,8 @@ class impl(service.Base):
         builder = 'charliecloud'
         # Path to the build specification (e.g., a Dockerfile specification).
         spec_path = '.'
+        # Path to save any generated files.
+        output_path = '.'
 
     def __init__(self, argv):
         super().__init__(impl._defaults.desc, argv)
@@ -61,8 +63,17 @@ class impl(service.Base):
         self.argp.add_argument(
             '--cname',
             type=str,
-            help='Container name.',
+            help='Specifies the container name (required).',
             required=True
+        )
+
+        self.argp.add_argument(
+            '--output-path',
+            type=str,
+            help='Specifies the output directory used for all generated files.'
+                 'Default: {}'.format(impl._defaults.output_path),
+            default=impl._defaults.output_path,
+            required=False
         )
 
     def _populate_service_config(self):
