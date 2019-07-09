@@ -57,7 +57,7 @@ class impl(service.Base):
             '--spec',
             type=str,
             help='Base path to build specification file (e.g., a Dockerfile). '
-                 'Default: {}'.format(impl._defaults.spec_path),
+                 'Default: {}'.format('PWD'),
             default=impl._defaults.spec_path,
             required=False
         )
@@ -73,7 +73,7 @@ class impl(service.Base):
             '--output-path',
             type=str,
             help='Specifies the output directory used for all generated files. '
-                 'Default: {}'.format(impl._defaults.output_path),
+                 'Default: {}'.format('PWD'),
             default=impl._defaults.output_path,
             required=False
         )
