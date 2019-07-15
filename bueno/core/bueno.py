@@ -27,8 +27,7 @@ class Bueno:
         Emits bueno usage information.
         '''
         # TODO(skg)
-        u = 'usage:'
-        print()
+        u = '\nusage:'
         print(u)
         print('Services Available:')
         for s in service.Factory.available():
@@ -45,6 +44,9 @@ class Bueno:
         self.service.start()
 
     def check_args(self):
+        '''
+        Checks top-level arguments passed to the service dispatch system.
+        '''
         if self.argc < 2:
             Bueno.usage()
             sys.exit(os.EX_USAGE)
