@@ -37,8 +37,11 @@ def chomp(s):
     return s.rstrip()
 
 
-def pyaml(s):
-    logger.log(chomp(yaml.dump(s, default_flow_style=False)))
+def pyaml(d):
+    '''
+    Emits YAML output from the provided dictionary.
+    '''
+    logger.log(chomp(yaml.dump(d, default_flow_style=False)))
 
 
 def ehorf():

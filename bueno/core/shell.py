@@ -57,7 +57,7 @@ def cat(file):
             for line in file:
                 lines.append(utils.chomp(line))
     except (OSError, IOError) as e:
-        raise(e)
+        raise e
 
     return lines
 

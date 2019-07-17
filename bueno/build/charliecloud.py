@@ -83,6 +83,40 @@ class impl(builder.Base):
             logger.log(line)
         logger.log('# End spec output')
 
+    def _get_path_to_storage(self):
+        cmd = '{} -b {} -t {} --print-storage {}'.format(
+            self.buildc,
+            self.builder,
+            self.config['tag'],
+            self.config['spec']
+        )
+        cmdo = utils.chomp(shell.run(cmd, capture=True))
+        # Now do some filtering because the output emits more than just the
+        # storage path.
+        lst = list(filter(lambda x: 'building with' not in x, cmdo.split('\n')))
+        if len(lst) < 1:
+            msg = 'Could not determine storage path from the following:\n{}'
+            raise RuntimeError(msg.format(cmdo))
+        return lst[0]
+
+    def _add_metadata(self):
+        logger.log('# Adding metadata to container')
+        spath = self._get_path_to_storage()
+        lfs = '# Looking for {} in {}'
+        logger.log(lfs.format(self.config['tag'], spath))
+
+    def _flatten(self):
+        tcmd = '{} {} {}'.format(
+            self.tarcmd,
+            self.config['tag'],
+            self.config['output_path']
+        )
+
+        logger.log('# Begin flatten output')
+        os.environ['CH_BUILDER'] = self.builder
+        shell.run(tcmd, echo=True)
+        logger.log('# End flatten output')
+
     def _build(self):
         bcmd = '{} -b {} -t {} {}'.format(
             self.buildc,
@@ -95,18 +129,14 @@ class impl(builder.Base):
         shell.run(bcmd, echo=True)
         logger.log('# End build output')
 
-        tcmd = '{} {} {}'.format(
-            self.tarcmd,
-            self.config['tag'],
-            self.config['output_path']
-        )
-        logger.log('# Begin flatten output')
-        os.environ['CH_BUILDER'] = self.builder
-        shell.run(tcmd, echo=True)
-        logger.log('# End flatten output')
-
     def start(self):
         self._check_env()
+
+        self._add_metadata()
+        exit()
+
         self._emit_builder_info()
         self._emit_build_spec()
         self._build()
+        self._add_metadata()
+        self._flatten()
