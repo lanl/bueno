@@ -7,6 +7,7 @@
 #
 
 '''
+Quasi shell-like utilities.
 '''
 
 from bueno.core import utils
@@ -38,7 +39,7 @@ def which(cmd):
     return wcmd
 
 
-def run(cmd, echo=False, capture=False):
+def run(cmd, echo=True, capture=False):
     '''
     Executes the provided command.
 
