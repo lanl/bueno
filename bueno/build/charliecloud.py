@@ -12,6 +12,7 @@ The CharlieCloud container builder.
 
 from bueno.core import shell
 from bueno.core import utils
+from bueno.core import logger
 from bueno.build import builder
 
 import os
@@ -38,7 +39,7 @@ class impl(builder.Base):
 
         Raises OSError if the environment is unsatisfactory.
         '''
-        print('# Checking your build environment...')
+        logger.log('# Checking your build environment...')
 
         inyp = 'Is it in your PATH?\n'
         notf = "'{}' not found. " + inyp
@@ -71,9 +72,9 @@ class impl(builder.Base):
             'version': shell.capture('{} --version'.format(self.buildc)),
         }
 
-        print('# Begin Builder Details (YAML)')
+        logger.log('# Begin Builder Details (YAML)')
         utils.pyaml(binfo)
-        print('# End Builder Details (YAML)')
+        logger.log('# End Builder Details (YAML)')
 
     def _build(self):
         bcmd = '{} -b {} -t {} {}'.format(
@@ -82,20 +83,20 @@ class impl(builder.Base):
             self.config['tag'],
             self.config['spec']
         )
-        print('# Begin build output')
+        logger.log('# Begin build output')
         # Run the command specified by bcmd.
         shell.run(bcmd, echo=True)
-        print('# End build output')
+        logger.log('# End build output')
 
         tcmd = '{} {} {}'.format(
             self.tarcmd,
             self.config['tag'],
             self.config['output_path']
         )
-        print('# Begin flatten output')
+        logger.log('# Begin flatten output')
         os.environ['CH_BUILDER'] = self.builder
         shell.run(tcmd, echo=True)
-        print('# End flatten output')
+        logger.log('# End flatten output')
 
     def start(self):
         self._check_env()

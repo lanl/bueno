@@ -7,15 +7,13 @@
 #
 
 '''
-Core services.
+Core service infrastructure used by all bueno services.
 '''
 
 from abc import ABC, abstractmethod
 
-from io import StringIO
 import argparse
 import importlib
-import logging
 
 
 class Base(ABC):
@@ -24,10 +22,6 @@ class Base(ABC):
     '''
     def __init__(self, desc, argv):
         super().__init__()
-        # The logger used by derived services.
-        self.logger = None
-        # The in-memory buffer used to store logged events.
-        self.logsio = StringIO()
         # A description of the service and what it does.
         self.desc = desc
         # The potentially modified argument vector passed to a service.
@@ -44,9 +38,6 @@ class Base(ABC):
         self.args = None
         # Dictionary used to hold service configuration.
         self.confd = dict()
-        # Setup logging so derived services can log their output. Do this early
-        # so logging is available ASAP.
-        self._setup_logging()
         # Add and parse arguments.
         self._addargs()
         self._parseargs()
@@ -72,21 +63,6 @@ class Base(ABC):
         # argv[1:] to remove the service name. If present, the parser fails
         # because it doesn't recognize the service name as the program name.
         self.args = self.argp.parse_args(args=self.argv[1:])
-
-    def _setup_logging(self):
-        '''
-        Sets up logging infrastructure.
-        '''
-        loglvl = logging.INFO
-        # Setup the root logger first.
-        logging.basicConfig(
-            level=loglvl,
-            format='%(message)s',
-        )
-        # Now instantiate the logger used by derived services.
-        self.logger = logging.getLogger(__name__)
-        self.logger.addHandler(logging.StreamHandler(self.logsio))
-        self.logger.setLevel(loglvl)
 
 
 class Factory:
