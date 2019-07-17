@@ -85,7 +85,7 @@ class impl(builder.Base):
         )
         logger.log('# Begin build output')
         # Run the command specified by bcmd.
-        shell.run(bcmd)
+        shell.run(bcmd, echo=True)
         logger.log('# End build output')
 
         tcmd = '{} {} {}'.format(
@@ -95,7 +95,7 @@ class impl(builder.Base):
         )
         logger.log('# Begin flatten output')
         os.environ['CH_BUILDER'] = self.builder
-        shell.run(tcmd)
+        shell.run(tcmd, echo=True)
         logger.log('# End flatten output')
 
     def start(self):

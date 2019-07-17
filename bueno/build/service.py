@@ -117,3 +117,4 @@ class impl(service.Base):
 
         etime = utils.now()
         logger.log('# {} Time {}'.format(self.prog, etime - stime))
+        logger.log('# {} Done {}'.format(self.prog, utils.nows()))

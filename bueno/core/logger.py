@@ -13,7 +13,9 @@ Logging utilities for good.
 from bueno.core import metacls
 
 from io import StringIO
+import shutil
 import logging
+import os
 
 
 def log(msg, *args, **kwargs):
@@ -22,10 +24,17 @@ def log(msg, *args, **kwargs):
     '''
     _TheLogger().log(msg, *args, **kwargs)
 
+def save(to):
+    '''
+    Writes the current contents of the log to the path provided.
+    '''
+    _TheLogger().save(to)
+
 
 class _TheLogger(metaclass=metacls.Singleton):
     '''
-    The logger singleton used by all bueno services.
+    The logger singleton used indirectly (via calls to log(), etc.) by all bueno
+    services.
     '''
     def __init__(self):
         # Default logging level.
@@ -44,3 +53,15 @@ class _TheLogger(metaclass=metacls.Singleton):
 
     def log(self, msg, *args, **kwargs):
         self.logger.info(msg, *args, **kwargs)
+
+    def save(self, to):
+        # Start from the beginning.
+        self.logsio.seek(0)
+        try:
+            with open(to, 'w+') as f:
+                shutil.copyfileobj(self.logsio, f)
+        except (OSError, IOError) as e:
+            raise(e)
+        # Done, so seek back to end.
+        finally:
+            self.logsio.seek(os.SEEK_END)

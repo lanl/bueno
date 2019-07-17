@@ -31,6 +31,11 @@ def capture(cmd, chomp=True):
 
 
 def which(cmd):
+    '''
+    Akin to which(1).
+
+    Returns None if cmd is not found.
+    '''
     wcmd = None
     try:
         wcmd = capture('which {}'.format(cmd))
@@ -39,7 +44,7 @@ def which(cmd):
     return wcmd
 
 
-def run(cmd, echo=True, capture=False):
+def run(cmd, echo=False, capture=False):
     '''
     Executes the provided command.
 
