@@ -15,6 +15,7 @@ from bueno.core import metacls
 from io import StringIO
 import shutil
 import logging
+import sys
 import os
 
 
@@ -43,6 +44,8 @@ class _TheLogger(metaclass=metacls.Singleton):
         self.logsio = StringIO()
         # Setup the root logger first.
         logging.basicConfig(
+            # Emit to stdout, not stderr.
+            stream=sys.stdout,
             level=self.loglvl,
             format='%(message)s',
         )
