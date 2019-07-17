@@ -63,6 +63,7 @@ def main():
         print(e)
         Bueno.usage()
         return os.EX_USAGE
-    except Exception:
+    except Exception as e:
+        print(e)
         return os.EX_CONFIG
     return os.EX_OK

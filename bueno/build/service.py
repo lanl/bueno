@@ -10,10 +10,10 @@
 The build service module.
 '''
 
+from bueno.core import common
 from bueno.core import service
 from bueno.core import utils
 from bueno.core import opsys
-from bueno.core import io
 
 from bueno.build import builder
 
@@ -39,8 +39,7 @@ class impl(service.Base):
 
     def __init__(self, argv):
         super().__init__(impl._defaults.desc, argv)
-
-        self.builder = None
+        # Logger instance used to capture build service output.
 
     def _addargs(self):
         self.argp.add_argument(
@@ -110,11 +109,11 @@ class impl(service.Base):
             self._emit_config()
             self._do_build()
         except Exception as e:
-            io.ehorf()
-            io.eprint('What: {} error encountered.\n'
-                      'Why:  {}'.format(self.prog, e))
-            io.ehorf()
-            raise e
+            estr = common.ehorf()
+            estr += 'What: {} error encountered.\n' \
+                    'Why:  {}'.format(self.prog, e)
+            estr += common.ehorf()
+            raise type(e)(estr)
 
         etime = utils.now()
         print('# {} Time {}'.format(self.prog, etime - stime))
