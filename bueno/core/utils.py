@@ -10,8 +10,9 @@
 Utilities for good.
 '''
 
-from datetime import datetime
+from bueno.core import logger
 
+from datetime import datetime
 import yaml
 
 
@@ -37,4 +38,4 @@ def chomp(s):
 
 
 def pyaml(s):
-    print(chomp(yaml.dump(s, default_flow_style=False)))
+    logger.log(chomp(yaml.dump(s, default_flow_style=False)))

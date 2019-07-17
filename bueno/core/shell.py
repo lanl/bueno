@@ -10,9 +10,9 @@
 '''
 
 from bueno.core import utils
+from bueno.core import logger
 
 import subprocess
-import sys
 import os
 
 
@@ -38,7 +38,6 @@ def which(cmd):
     return wcmd
 
 
-# TODO(skg): Add logging redirect, tee, etc through *args.
 def run(cmd, echo=False, capture=False):
     '''
     Executes the provided command.
@@ -46,7 +45,7 @@ def run(cmd, echo=False, capture=False):
     Throws ChildProcessError on error.
     '''
     if echo:
-        print('# $ {}'.format(cmd))
+        logger.log('# $ {}'.format(cmd))
     # Output string used to (optionally) capture command output.
     ostr = str()
     p = subprocess.Popen(
@@ -63,8 +62,7 @@ def run(cmd, echo=False, capture=False):
         if capture:
             ostr += stdout
         else:
-            sys.stdout.write(stdout)
-            sys.stdout.flush()
+            logger.log(utils.chomp(stdout))
 
         if not stdout and p.poll() is not None:
             break

@@ -11,6 +11,7 @@ The build service module.
 '''
 
 from bueno.core import common
+from bueno.core import logger
 from bueno.core import service
 from bueno.core import utils
 from bueno.core import opsys
@@ -39,7 +40,6 @@ class impl(service.Base):
 
     def __init__(self, argv):
         super().__init__(impl._defaults.desc, argv)
-        # Logger instance used to capture build service output.
 
     def _addargs(self):
         self.argp.add_argument(
@@ -90,13 +90,13 @@ class impl(service.Base):
 
     # TODO(skg) Add more configuration info.
     def _emit_config(self):
-        print('# Begin {} Configuration (YAML)'.format(self.prog))
+        logger.log('# Begin {} Configuration (YAML)'.format(self.prog))
         # First build up the dictionary containing the configuration used.
         self._populate_service_config()
         self._populate_env_config()
         # Then print it out in YAML format.
         utils.pyaml(self.confd)
-        print('# End {} Configuration (YAML)'.format(self.prog))
+        logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
     def _do_build(self):
         self.builder = builder.Factory.build(**vars(self.args))
@@ -116,4 +116,4 @@ class impl(service.Base):
             raise type(e)(estr)
 
         etime = utils.now()
-        print('# {} Time {}'.format(self.prog, etime - stime))
+        logger.log('# {} Time {}'.format(self.prog, etime - stime))
