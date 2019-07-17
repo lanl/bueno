@@ -10,7 +10,6 @@
 The build service module.
 '''
 
-from bueno.core import common
 from bueno.core import logger
 from bueno.core import service
 from bueno.core import utils
@@ -109,10 +108,10 @@ class impl(service.Base):
             self._emit_config()
             self._do_build()
         except Exception as e:
-            estr = common.ehorf()
+            estr = utils.ehorf()
             estr += 'What: {} error encountered.\n' \
                     'Why:  {}'.format(self.prog, e)
-            estr += common.ehorf()
+            estr += utils.ehorf()
             raise type(e)(estr)
 
         etime = utils.now()

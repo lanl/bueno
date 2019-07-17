@@ -39,3 +39,10 @@ def chomp(s):
 
 def pyaml(s):
     logger.log(chomp(yaml.dump(s, default_flow_style=False)))
+
+
+def ehorf():
+    '''
+    Returns header/footer string used for error messages.
+    '''
+    return '\n>>!<<\n'
