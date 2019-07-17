@@ -44,6 +44,24 @@ def which(cmd):
     return wcmd
 
 
+def cat(file):
+    '''
+    Akin to cat(1), but returns a list of strings containing the contents of the
+    provided file.
+
+    Raises OSError or IOError on error.
+    '''
+    lines = []
+    try:
+        with open(file, 'r') as file:
+            for line in file:
+                lines.append(utils.chomp(line))
+    except (OSError, IOError) as e:
+        raise(e)
+
+    return lines
+
+
 def run(cmd, echo=False, capture=False):
     '''
     Executes the provided command.

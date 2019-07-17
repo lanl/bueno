@@ -76,6 +76,13 @@ class impl(builder.Base):
         utils.pyaml(binfo)
         logger.log('# End Builder Details (YAML)')
 
+    def _emit_build_spec(self):
+        dockerf = os.path.join(self.config['spec'], self.spec_name)
+        logger.log('# Begin spec output')
+        for line in shell.cat(dockerf):
+            logger.log(line)
+        logger.log('# End spec output')
+
     def _build(self):
         bcmd = '{} -b {} -t {} {}'.format(
             self.buildc,
@@ -101,4 +108,5 @@ class impl(builder.Base):
     def start(self):
         self._check_env()
         self._emit_builder_info()
+        self._emit_build_spec()
         self._build()
