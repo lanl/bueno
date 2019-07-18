@@ -35,6 +35,13 @@ def hostname():
     return shell.capture('hostname')
 
 
+def whoami():
+    '''
+    Akin to whoami(1).
+    '''
+    return shell.capture('whoami')
+
+
 def pretty_name():
     '''
     Returns the host's pretty name as reported by /etc/os-release.

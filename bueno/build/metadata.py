@@ -17,7 +17,14 @@ import os
 
 
 def add(basep):
+    '''
+    Adds build metadata rooted at basep.
+    '''
     _MetaData(basep).add()
+
+
+class Assets:
+    pass
 
 
 class _MetaData:

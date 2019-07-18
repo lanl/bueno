@@ -81,6 +81,7 @@ class impl(service.Base):
 
     def _populate_env_config(self):
         self.confd['Environment'] = {
+            'whoami': opsys.whoami(),
             'kernel': opsys.kernel(),
             'kernel release': opsys.kernelrel(),
             'hostname': opsys.hostname(),
@@ -102,6 +103,7 @@ class impl(service.Base):
         self.builder.start()
 
     def start(self):
+        logger.log('# Starting {} at {}'.format(self.prog, utils.nows()))
         stime = utils.now()
 
         try:
