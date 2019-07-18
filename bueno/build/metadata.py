@@ -15,7 +15,6 @@ from bueno.core import logger
 from bueno.core import metacls
 
 from abc import ABC, abstractmethod
-from io  import BytesIO
 
 import os
 import copy
@@ -75,32 +74,15 @@ class FileAsset(BaseAsset):
         # Path to source file asset.
         self.srcf = srcf
         # Optional subdirectory to store the provided file.
+        # TODO(skg) Implement.
         self.subd = subd
-        # Buffer used to store file contents.
-        self.fbuf = BytesIO()
-        # Save the contents of the provided file.
-        self._buffer()
-
-    def _buffer(self):
-        try:
-            with open(self.srcf, 'rb') as f:
-                shutil.copyfileobj(f, self.fbuf)
-        except (OSError, IOError) as e:
-            raise(e)
 
     def _get_fname(self):
         return os.path.basename(self.srcf)
 
     def deposit(self, basep):
-        try:
-            opath = os.path.join(basep, self._get_fname())
-            self.fbuf.seek(0)
-            with open(opath, 'wb+') as f:
-                shutil.copyfileobj(self.fbuf, f)
-        except (OSError, IOError) as e:
-            raise(e)
-        finally:
-            self.fbuf.seek(os.SEEK_END)
+        opath = os.path.join(basep, self._get_fname())
+        shutil.copy2(self.srcf, opath)
 
 
 class YAMLDictAsset(BaseAsset):

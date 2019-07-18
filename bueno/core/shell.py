@@ -19,7 +19,8 @@ import os
 
 def capture(cmd, chomp=True):
     '''
-    Executes the provided command and returns a string with the commands output.
+    Executes the provided command and returns a string with the command's
+    output.
 
     See run() for exceptions.
     '''
