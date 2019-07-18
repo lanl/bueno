@@ -76,7 +76,7 @@ class impl(builder.Base):
 
         logger.log('# Begin Builder Details (YAML)')
         utils.pyaml(binfo)
-        metadata.Assets().add(metadata.YAMLAsset(binfo, 'builder'))
+        metadata.Assets().add(metadata.YAMLDictAsset(binfo, 'builder'))
         logger.log('# End Builder Details (YAML)')
 
     def _emit_build_spec(self):

@@ -103,7 +103,7 @@ class FileAsset(BaseAsset):
             self.fbuf.seek(os.SEEK_END)
 
 
-class YAMLAsset(BaseAsset):
+class YAMLDictAsset(BaseAsset):
     '''
     Convenience YAML (from a dict()) asset.
     '''
@@ -112,7 +112,7 @@ class YAMLAsset(BaseAsset):
         # A deep copy of the provided YAML dictionary.
         self.ydict = copy.deepcopy(ydict)
         # Output file name.
-        self.fname = YAMLAsset._name_fixup(fname)
+        self.fname = YAMLDictAsset._name_fixup(fname)
 
     @staticmethod
     def _name_fixup(name):

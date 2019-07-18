@@ -99,7 +99,7 @@ class impl(service.Base):
         utils.pyaml(self.confd)
         # Add to metadata assets stored to container image.
         metadata.Assets().add(
-            metadata.YAMLAsset(self.confd, 'environment')
+            metadata.YAMLDictAsset(self.confd, 'environment')
         )
         logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
