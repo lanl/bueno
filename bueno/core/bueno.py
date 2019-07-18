@@ -14,6 +14,7 @@ from bueno.core import service
 
 import sys
 import os
+import traceback
 
 
 class Bueno:
@@ -64,7 +65,7 @@ def main():
         Bueno.usage()
         return os.EX_USAGE
     except Exception as e:
-        # TODO(skg) Add backtrace output.
         print(e)
+        traceback.print_exc()
         return os.EX_CONFIG
     return os.EX_OK
