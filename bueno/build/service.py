@@ -16,6 +16,7 @@ from bueno.core import utils
 from bueno.core import opsys
 
 from bueno.build import builder
+from bueno.build import metadata
 
 import os
 
@@ -83,9 +84,9 @@ class impl(service.Base):
         self.confd['Environment'] = {
             'whoami': opsys.whoami(),
             'kernel': opsys.kernel(),
-            'kernel release': opsys.kernelrel(),
+            'kernel_release': opsys.kernelrel(),
             'hostname': opsys.hostname(),
-            'os release': opsys.pretty_name()
+            'os_release': opsys.pretty_name()
         }
 
     # TODO(skg) Add more configuration info.
@@ -96,6 +97,10 @@ class impl(service.Base):
         self._populate_env_config()
         # Then print it out in YAML format.
         utils.pyaml(self.confd)
+        # Add to metadata assets stored to container image.
+        metadata.Assets().add(
+            metadata.YAMLAsset(self.confd, 'environment')
+        )
         logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
     def _do_build(self):
