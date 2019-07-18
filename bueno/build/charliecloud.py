@@ -81,6 +81,9 @@ class impl(builder.Base):
 
     def _emit_build_spec(self):
         dockerf = os.path.join(self.config['spec'], self.spec_name)
+        # Add spec file to the metadata assets.
+        metadata.Assets().add(metadata.FileAsset(dockerf))
+        # Emit the contents of the spec file.
         logger.log('# Begin Spec Output')
         for line in shell.cat(dockerf):
             logger.log(line)

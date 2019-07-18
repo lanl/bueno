@@ -15,8 +15,11 @@ from bueno.core import logger
 from bueno.core import metacls
 
 from abc import ABC, abstractmethod
+from io  import BytesIO
+
 import os
 import copy
+import shutil
 
 
 def write(basep):
@@ -69,12 +72,36 @@ class FileAsset(BaseAsset):
     '''
     def __init__(self, srcf, subd=None):
         super().__init__()
+        # Path to source file asset.
         self.srcf = srcf
         # Optional subdirectory to store the provided file.
         self.subd = subd
+        # Buffer used to store file contents.
+        self.fbuf = BytesIO()
+        # Save the contents of the provided file.
+        self._buffer()
+
+    def _buffer(self):
+        try:
+            with open(self.srcf, 'rb') as f:
+                shutil.copyfileobj(f, self.fbuf)
+        except (OSError, IOError) as e:
+            raise(e)
+
+    def _get_fname(self):
+        return os.path.basename(self.srcf)
 
     def deposit(self, basep):
-        pass
+        try:
+            opath = os.path.join(basep, self._get_fname())
+            self.fbuf.seek(0)
+            with open(opath, 'wb+') as f:
+                shutil.copyfileobj(self.fbuf, f)
+        except (OSError, IOError) as e:
+            raise(e)
+        finally:
+            self.fbuf.seek(os.SEEK_END)
+
 
 class YAMLAsset(BaseAsset):
     '''
@@ -110,7 +137,7 @@ class _LoggerAsset(BaseAsset):
     '''
     def __init__(self):
         super().__init__()
-        self.buildo = 'build-log.txt'
+        self.buildo = 'log.txt'
 
     def deposit(self, basep):
         logger.log('# Done {}'.format(utils.nows()))
