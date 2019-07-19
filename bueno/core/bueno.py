@@ -66,6 +66,7 @@ def main():
         return os.EX_USAGE
     except Exception as e:
         print(e)
+        # TODO(skg)
         traceback.print_exc()
         return os.EX_CONFIG
     return os.EX_OK

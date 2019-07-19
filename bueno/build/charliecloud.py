@@ -13,6 +13,7 @@ The CharlieCloud container builder.
 from bueno.core import shell
 from bueno.core import utils
 from bueno.core import logger
+from bueno.core import metadata as cmetadata
 
 from bueno.build import builder
 from bueno.build import metadata
@@ -76,13 +77,13 @@ class impl(builder.Base):
 
         logger.log('# Begin Builder Details (YAML)')
         utils.pyaml(binfo)
-        metadata.Assets().add(metadata.YAMLDictAsset(binfo, 'builder'))
+        cmetadata.Assets().add(cmetadata.YAMLDictAsset(binfo, 'builder'))
         logger.log('# End Builder Details (YAML)')
 
     def _emit_build_spec(self):
         dockerf = os.path.join(self.config['spec'], self.spec_name)
         # Add spec file to the metadata assets.
-        metadata.Assets().add(metadata.FileAsset(dockerf))
+        cmetadata.Assets().add(cmetadata.FileAsset(dockerf))
         # Emit the contents of the spec file.
         logger.log('# Begin Spec Output')
         for line in shell.cat(dockerf):

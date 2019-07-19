@@ -1,6 +1,6 @@
 # bueno
 
-## Setup
+## User Installation With pip
 ```
-./setup.py build
+python3 -m pip install --user .
 ```
