@@ -69,14 +69,17 @@ class FileAsset(BaseAsset):
         # Path to source file asset.
         self.srcf = srcf
         # Optional subdirectory to store the provided file.
-        # TODO(skg) Implement.
         self.subd = subd
 
     def _get_fname(self):
         return os.path.basename(self.srcf)
 
     def deposit(self, basep):
-        opath = os.path.join(basep, self._get_fname())
+        realbasep = basep
+        if self.subd:
+            realbasep = os.path.join(basep, self.subd)
+            os.makedirs(realbasep, 0o755)
+        opath = os.path.join(realbasep, self._get_fname())
         shutil.copy2(self.srcf, opath)
 
 
