@@ -26,7 +26,7 @@ class Assets(metaclass=metacls.Singleton):
     Metadata asset collection.
     '''
     def __init__(self):
-        self.assets = []
+        self.assets = list()
 
     def add(self, asset):
         '''
@@ -38,7 +38,7 @@ class Assets(metaclass=metacls.Singleton):
         '''
         Removes all assets from collection.
         '''
-        self.assets = []
+        self.assets = list()
 
     def deposit(self, basep):
         '''
@@ -101,11 +101,8 @@ class YAMLDictAsset(BaseAsset):
 
     def deposit(self, basep):
         target = os.path.join(basep, self.fname)
-        try:
-            with open(target, 'w+') as file:
-                file.write(utils.syaml(self.ydict))
-        except (OSError, IOError) as e:
-            raise e
+        with open(target, 'w+') as file:
+            file.write(utils.syaml(self.ydict))
 
 
 class LoggerAsset(BaseAsset):

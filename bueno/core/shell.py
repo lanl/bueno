@@ -52,13 +52,11 @@ def cat(file):
 
     Raises OSError or IOError on error.
     '''
-    lines = []
-    try:
-        with open(file, 'r') as file:
-            for line in file:
-                lines.append(utils.chomp(line))
-    except (OSError, IOError) as e:
-        raise e
+    lines = list()
+
+    with open(file, 'r') as file:
+        for line in file:
+            lines.append(utils.chomp(line))
 
     return lines
 

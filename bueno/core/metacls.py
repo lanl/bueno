@@ -12,7 +12,10 @@ Convenience metaclasses.
 
 
 class Singleton(type):
-    '''Instances'''
+    '''
+    Metaclass for singletons.
+    '''
+    # Instance storage.
     _insts = dict()
 
     def __call__(cls, *args, **kwargs):

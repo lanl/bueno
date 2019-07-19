@@ -64,8 +64,6 @@ class _TheLogger(metaclass=metacls.Singleton):
         try:
             with open(to, 'w+') as f:
                 shutil.copyfileobj(self.logsio, f)
-        except (OSError, IOError) as e:
-            raise(e)
-        # Done, so seek back to end.
+        # Always seek to end.
         finally:
             self.logsio.seek(os.SEEK_END)
