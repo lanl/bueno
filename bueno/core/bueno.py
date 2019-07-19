@@ -62,7 +62,7 @@ class Bueno:
     Implements the bueno service dispatch system.
     '''
     def __init__(self, pargs):
-        self.service = service.Factory.build(pargs)
+        self.service = service.Factory.build(pargs.command)
         self.service.start()
 
     @staticmethod
