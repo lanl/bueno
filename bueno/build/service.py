@@ -10,10 +10,10 @@
 The build service module.
 '''
 
-from bueno.core import logger
-from bueno.core import service
 from bueno.core import utils
 from bueno.core import opsys
+from bueno.core import logger
+from bueno.core import service
 from bueno.core import metadata
 
 from bueno.build import builder

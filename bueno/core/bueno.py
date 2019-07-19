@@ -7,66 +7,76 @@
 #
 
 '''
-The good stuff typically called by main().
+The good stuff typically called by __main__.
 '''
 
 from bueno.core import service
 
-import sys
 import os
+import argparse
 import traceback
+
+
+class ArgumentParser:
+    '''
+    bueno's argument parser.
+    '''
+    def __init__(self):
+        self.argp = argparse.ArgumentParser(
+                        description=self._desc(),
+                        allow_abbrev=False
+                    )
+
+    def _desc(self):
+        '''
+        Returns the description string for bueno.
+        '''
+        return 'Utilities for automating reproducible benchmarking.'
+
+    def _addargs(self):
+        self.argp.add_argument(
+            'command',
+            # Consume the remaining arguments for command's use.
+            nargs=argparse.REMAINDER,
+            help='Specifies the command to run with optional '
+                 'command-specific arguments that follow.',
+            choices=service.Factory.available()
+        )
+
+        self.argp.add_argument(
+            '--traceback',
+            help='Provides detailed exception information '
+                 'useful for bug reporting and debugging.',
+            action='store_true',
+            default=False,
+            required=False
+        )
+
+    def parse(self):
+        self._addargs()
+        return self.argp.parse_args()
 
 
 class Bueno:
     '''
     Implements the bueno service dispatch system.
     '''
-
-    @staticmethod
-    def usage():
-        '''
-        Emits bueno usage information.
-        '''
-        # TODO(skg)
-        u = '\nusage:'
-        print(u)
-        print('Services Available:')
-        for s in service.Factory.available():
-            print('- {}'.format(s))
-        print()
-
-    def __init__(self):
-        self.argc = len(sys.argv)
-        self.argv = sys.argv
-
-        self.check_args()
-
-        self.service = service.Factory.build(self.argv[1:])
+    def __init__(self, pargs):
+        self.service = service.Factory.build(pargs)
         self.service.start()
 
-    def check_args(self):
-        '''
-        Checks top-level arguments passed to the service dispatch system.
-        '''
-        if self.argc < 2:
-            Bueno.usage()
-            sys.exit(os.EX_USAGE)
-
-        if self.argv[1] in ['-h', '--help']:
-            Bueno.usage()
-            sys.exit(os.EX_OK)
+    @staticmethod
+    def main(pargs):
+        try:
+            Bueno(pargs)
+        except Exception as e:
+            print(e)
+            if pargs.traceback:
+                traceback.print_exc()
+            return os.EX_SOFTWARE
+        return os.EX_OK
 
 
 def main():
-    try:
-        Bueno()
-    except ValueError as e:
-        print(e)
-        Bueno.usage()
-        return os.EX_USAGE
-    except Exception as e:
-        print(e)
-        # TODO(skg)
-        traceback.print_exc()
-        return os.EX_CONFIG
-    return os.EX_OK
+    pargs = ArgumentParser().parse()
+    return Bueno.main(pargs)
