@@ -40,12 +40,12 @@ class Assets(metaclass=metacls.Singleton):
         '''
         self.assets = list()
 
-    def deposit(self, basep):
+    def write(self, basep):
         '''
         Deposits metadata contained in current assets.
         '''
         for a in self.assets:
-            a.deposit(basep)
+            a.write(basep)
 
 
 class BaseAsset(ABC):
@@ -56,7 +56,7 @@ class BaseAsset(ABC):
         super().__init__()
 
     @abstractmethod
-    def deposit(self, basep):
+    def write(self, basep):
         pass
 
 
@@ -74,7 +74,7 @@ class FileAsset(BaseAsset):
     def _get_fname(self):
         return os.path.basename(self.srcf)
 
-    def deposit(self, basep):
+    def write(self, basep):
         realbasep = basep
         if self.subd:
             realbasep = os.path.join(basep, self.subd)
@@ -102,7 +102,7 @@ class YAMLDictAsset(BaseAsset):
         else:
             return name
 
-    def deposit(self, basep):
+    def write(self, basep):
         target = os.path.join(basep, self.fname)
         with open(target, 'w+') as file:
             file.write(utils.syaml(self.ydict))
@@ -116,6 +116,6 @@ class LoggerAsset(BaseAsset):
         super().__init__()
         self.buildo = 'log.txt'
 
-    def deposit(self, basep):
+    def write(self, basep):
         logger.log('# Done {}'.format(utils.nows()))
-        logger.save(os.path.join(basep, self.buildo))
+        logger.write(os.path.join(basep, self.buildo))

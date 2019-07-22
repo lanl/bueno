@@ -32,7 +32,7 @@ class _MetaData:
 
     def write(self):
         self._add_default_assets()
-        metadata.Assets().deposit(self.metad)
+        metadata.Assets().write(self.metad)
 
     def _add_default_assets(self):
         metadata.Assets().add(metadata.LoggerAsset())

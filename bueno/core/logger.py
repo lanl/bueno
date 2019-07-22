@@ -27,11 +27,11 @@ def log(msg, *args, **kwargs):
     _TheLogger().log(msg, *args, **kwargs)
 
 
-def save(to):
+def write(to):
     '''
     Writes the current contents of the log to the path provided.
     '''
-    _TheLogger().save(to)
+    _TheLogger().write(to)
 
 
 class _TheLogger(metaclass=metacls.Singleton):
@@ -59,7 +59,7 @@ class _TheLogger(metaclass=metacls.Singleton):
     def log(self, msg, *args, **kwargs):
         self.logger.info(msg, *args, **kwargs)
 
-    def save(self, to):
+    def write(self, to):
         # Start from the beginning.
         self.logsio.seek(0)
         try:
