@@ -26,6 +26,7 @@ def log(msg, *args, **kwargs):
     '''
     _TheLogger().log(msg, *args, **kwargs)
 
+
 def save(to):
     '''
     Writes the current contents of the log to the path provided.

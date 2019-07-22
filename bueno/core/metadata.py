@@ -7,7 +7,7 @@
 #
 
 '''
-Stores build metadata and provides metadata asset types.
+Core metadata types.
 '''
 
 from bueno.core import utils
