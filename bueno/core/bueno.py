@@ -10,9 +10,11 @@
 The good stuff typically called by __main__.
 '''
 
+from bueno import _version
 from bueno.core import service
 
 import os
+import sys
 import argparse
 import traceback
 
@@ -44,17 +46,28 @@ class ArgumentParser:
         )
 
         self.argp.add_argument(
-            '--traceback',
+            '-t', '--traceback',
             help='Provides detailed exception information '
                  'useful for bug reporting and debugging.',
             action='store_true',
             default=False,
             required=False
         )
+        self.argp.add_argument(
+            '-v', '--version',
+            help='Displays version information.',
+            action='version',
+            version='%(prog)s {}'.format(_version.__version__)
+        )
 
     def parse(self):
         self._addargs()
-        return self.argp.parse_args()
+        pr = self.argp.parse_args()
+        # Make sure that a command was supplied.
+        if len(pr.command) == 0:
+            self.argp.print_help()
+            sys.exit(os.EX_USAGE)
+        return pr
 
 
 class Bueno:

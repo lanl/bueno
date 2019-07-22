@@ -8,12 +8,22 @@
 # top-level directory of this distribution for more information.
 #
 
+import re
+
+
+def get_version():
+    verline = open('./bueno/_version.py').read()
+    sr = re.search(r"^__version__ = ['\']([^'\']*)['\']", verline)
+    if sr:
+        return sr.group(1)
+    else:
+        raise RuntimeError('Cannot determine version from version file.')
 
 def main():
     import os
 
     package_name = 'bueno'
-    package_vers = '0.1'
+    package_vers = get_version()
 
     package_setup(package_name, package_vers)
 
