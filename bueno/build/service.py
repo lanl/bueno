@@ -43,7 +43,7 @@ class impl(service.Base):
 
     def _addargs(self):
         self.argp.add_argument(
-            '--builder',
+            '-b', '--builder',
             type=str,
             help='Specifies the container builder back-end to use. '
                  'Default: {}'.format(impl._defaults.builder),
@@ -53,7 +53,7 @@ class impl(service.Base):
         )
 
         self.argp.add_argument(
-            '--spec',
+            '-s', '--spec',
             type=str,
             help='Base path to build specification file (e.g., a Dockerfile). '
                  'Default: {}'.format('PWD'),
@@ -62,14 +62,14 @@ class impl(service.Base):
         )
 
         self.argp.add_argument(
-            '--tag',
+            '-t', '--tag',
             type=str,
             help='Specifies the container name (required).',
             required=True
         )
 
         self.argp.add_argument(
-            '--output-path',
+            '-o', '--output-path',
             type=str,
             help='Specifies the output directory used for all generated files. '
                  'Default: {}'.format('PWD'),
