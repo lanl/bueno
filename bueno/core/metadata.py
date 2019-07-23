@@ -21,6 +21,31 @@ import copy
 import shutil
 
 
+def write(basep):
+    '''
+    Adds build metadata rooted at basep.
+    '''
+    _MetaData(basep).write()
+
+
+class _MetaData:
+    def __init__(self, basep):
+        self.basep = basep
+        # The base path where all metadata are stored.
+        self.metad = os.path.join(basep, 'bueno')
+
+        os.makedirs(self.metad, 0o755)
+
+    def write(self):
+        self._add_default_assets()
+        Assets().write(self.metad)
+
+    def _add_default_assets(self):
+        Assets().add(LoggerAsset())
+
+    # TODO(skg) Add setters.
+
+
 class Assets(metaclass=metacls.Singleton):
     '''
     Metadata asset collection.
