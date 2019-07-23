@@ -17,19 +17,19 @@ from bueno.core import service
 from bueno.core import metadata
 
 import os
+import importlib.util
 
 
-class Runner:
-    '''
-    Loads and executes the run program specified.
-    '''
-    def __init__(self, progp):
-        pass
-
-    def run(self):
+class _Runner:
+    @staticmethod
+    def run(progp):
         '''
+        Loads and executes the run program specified.
         '''
-        pass
+        spec = importlib.util.spec_from_file_location(progp, progp)
+        prog = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(prog)
+        prog.main()
 
 
 class impl(service.Base):
@@ -94,7 +94,8 @@ class impl(service.Base):
         logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
     def _run(self):
-        Runner().run()
+        _Runner.run(self.args.spec)
+        logger.write('./LOG.txt')
 
     def start(self):
         logger.log('# Starting {} at {}'.format(self.prog, utils.nows()))

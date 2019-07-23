@@ -43,7 +43,7 @@ def package_setup(package_name, package_vers):
         author='Samuel K. Gutierrez',
         author_email='samuel@lanl.gov',
         license='BSD 3-Clause',
-        python_requires='>=3.3',
+        python_requires='>=3.5',
         packages=find_packages(),
         # Package Requirements
         install_requires=[
