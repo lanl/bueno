@@ -26,6 +26,10 @@ class _Runner:
         '''
         Loads and executes the run program specified.
         '''
+        if not os.path.isfile(progp):
+            es = '{} is not a file. Cannot continue.'.format(progp)
+            raise RuntimeError(es)
+
         spec = importlib.util.spec_from_file_location(progp, progp)
         prog = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(prog)
@@ -95,7 +99,6 @@ class impl(service.Base):
 
     def _run(self):
         _Runner.run(self.args.spec)
-        logger.write('./LOG.txt')
 
     def start(self):
         logger.log('# Starting {} at {}'.format(self.prog, utils.nows()))
@@ -114,3 +117,4 @@ class impl(service.Base):
         etime = utils.now()
         logger.log('# {} Time {}'.format(self.prog, etime - stime))
         logger.log('# {} Done {}'.format(self.prog, utils.nows()))
+        logger.write('./LOG.txt')
