@@ -21,12 +21,11 @@ import copy
 import shutil
 
 
-# TODO(skg) Remove use of subdir, it's not needed.
-def write(basep, subdir):
+def write(basep):
     '''
-    Writes build metadata rooted at basep/subdir.
+    Writes build metadata rooted at basep.
     '''
-    _MetaData(basep, subdir).write()
+    _MetaData(basep).write()
 
 def add_asset(asset):
     '''
@@ -36,21 +35,23 @@ def add_asset(asset):
 
 
 class _MetaData:
-    def __init__(self, basep, subdir):
-        self.basep = basep
+    def __init__(self, basep):
         # The base path where all metadata are stored.
-        self.metad = os.path.join(basep, subdir)
-
-        os.makedirs(self.metad, 0o755)
+        self.basep = basep
+        os.makedirs(self.basep, 0o755)
 
     def write(self):
         self._add_default_assets()
-        _Assets().write(self.metad)
+        _Assets().write(self.basep)
 
     def _add_default_assets(self):
         _Assets().add(LoggerAsset())
 
-    # TODO(skg) Add setters.
+    def set_basep(basep):
+        self.basep = basep
+
+    def get_basep():
+        return sefl.basep
 
 
 class _Assets(metaclass=metacls.Singleton):

@@ -123,7 +123,7 @@ class impl(service.Base):
         base = self.args.output_path
         subd = 'TODO'
         outp = os.path.join(base, subd)
-        metadata.write(base, subd)
+        metadata.write(outp)
         logger.log('# Run Output Written to: {}'.format(outp))
 
     def start(self):
