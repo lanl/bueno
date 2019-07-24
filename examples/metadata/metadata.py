@@ -12,4 +12,4 @@ from bueno.core import metadata
 
 def main(argv):
     logger.log('adding file asset...')
-    metadata.Assets().add(metadata.FileAsset('some-metadata.txt'))
+    metadata.add_asset(metadata.FileAsset('some-metadata.txt'))

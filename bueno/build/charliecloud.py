@@ -76,13 +76,13 @@ class impl(builder.Base):
 
         logger.log('# Begin Builder Details (YAML)')
         utils.pyaml(binfo)
-        metadata.Assets().add(metadata.YAMLDictAsset(binfo, 'builder'))
+        metadata.add_asset(metadata.YAMLDictAsset(binfo, 'builder'))
         logger.log('# End Builder Details (YAML)')
 
     def _emit_build_spec(self):
         dockerf = os.path.join(self.config['spec'], self.spec_name)
         # Add spec file to the metadata assets.
-        metadata.Assets().add(metadata.FileAsset(dockerf))
+        metadata.add_asset(metadata.FileAsset(dockerf))
         # Emit the contents of the spec file.
         logger.log('# Begin Spec Output')
         for line in shell.cat(dockerf):

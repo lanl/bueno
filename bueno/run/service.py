@@ -91,7 +91,7 @@ class impl(service.Base):
 
     def _populate_service_config(self):
         self.confd['Configuration'] = vars(self.args)
-        metadata.Assets().add(metadata.YAMLDictAsset(self.confd, 'run'))
+        metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'run'))
 
     def _populate_env_config(self):
         self.confd['Environment'] = {
@@ -111,7 +111,7 @@ class impl(service.Base):
         # Then print it out in YAML format.
         utils.pyaml(self.confd)
         # Add to metadata assets stored to container image.
-        metadata.Assets().add(metadata.YAMLDictAsset(self.confd, 'environment'))
+        metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'environment'))
         logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
     def _run(self):
