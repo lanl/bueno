@@ -9,3 +9,8 @@ python3 -m pip install --user .
 ```
 python3 -m pip uninstall bueno
 ```
+
+## Building an RPM
+```
+python3 setup.py bdist_rpm
+```

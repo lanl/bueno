@@ -137,6 +137,7 @@ class impl(builder.Base):
         logger.log('# End Flatten Output')
 
     def _build(self):
+        # TODO(skg) allow a user to specify a Dockerfile or a base path.
         bcmd = '{} -b {} -t {} {}'.format(
             self.buildc,
             self.builder,
