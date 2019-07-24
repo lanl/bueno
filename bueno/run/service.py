@@ -17,23 +17,28 @@ from bueno.core import service
 from bueno.core import metadata
 
 import os
+import argparse
 import importlib.util
 
 
 class _Runner:
     @staticmethod
-    def run(progp):
+    def run(argv):
         '''
-        Loads and executes the run program specified.
+        Loads and executes the run program specified at argv[0], passing along
+        all program-specific arguments to the program (argv).
         '''
-        if not os.path.isfile(progp):
-            es = '{} is not a file. Cannot continue.'.format(progp)
+        if len(argv) == 0:
+            raise RuntimeError('Invalid argv format provided.')
+        prog = argv[0]
+        if not os.path.isfile(prog):
+            es = '{} is not a file. Cannot continue.'.format(prog)
             raise RuntimeError(es)
-
-        spec = importlib.util.spec_from_file_location(progp, progp)
+        # Import and run the specified program.
+        spec = importlib.util.spec_from_file_location(prog, prog)
         prog = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(prog)
-        prog.main()
+        prog.main(argv)
 
 
 class impl(service.Base):
@@ -45,9 +50,7 @@ class impl(service.Base):
         Convenience container for run service defaults.
         '''
         # TODO(skg) Add a proper description.
-        desc = 'The run service runs things.'
-        # Path to the run specification.
-        spec_path = os.getcwd()
+        desc = 'The run service runs programs.'
         # Path to save any generated files.
         output_path = os.getcwd()
 
@@ -56,12 +59,12 @@ class impl(service.Base):
 
     def _addargs(self):
         self.argp.add_argument(
-            '-s', '--spec',
-            type=str,
-            help='Path to run specification file. '
-                 'Default: {}'.format('PWD'),
-            default=impl._defaults.spec_path,
-            required=False
+            '-p', '--program',
+            # Consume the remaining arguments for program's use.
+            nargs=argparse.REMAINDER,
+            help='Specifies the program to run with optional '
+                 'program-specific arguments that follow.',
+            required=True
         )
 
         self.argp.add_argument(
@@ -98,7 +101,9 @@ class impl(service.Base):
         logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
     def _run(self):
-        _Runner.run(self.args.spec)
+        logger.log('\n# Begin program output')
+        _Runner.run(self.args.program)
+        logger.log('# End program output\n')
 
     def start(self):
         logger.log('# Starting {} at {}'.format(self.prog, utils.nows()))

@@ -9,5 +9,5 @@
 from bueno.core import logger
 
 
-def main():
+def main(argv):
     logger.log('hello world')
