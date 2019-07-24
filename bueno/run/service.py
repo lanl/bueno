@@ -45,11 +45,12 @@ class _Runner:
         spec.loader.exec_module(prog)
         # Save cwd so we can restore it after program execution.
         scwd = os.getcwd()
-        # What's the specified program's cwd?
-        pbase = os.path.dirname(argz)
-        # cddir to base of given program so relative operations work properly.
-        os.chdir(pbase)
         try:
+            # What's the specified program's cwd?
+            pbase = os.path.dirname(argz)
+            # cddir to base of given program so relative operations work
+            # properly.
+            os.chdir(pbase)
             prog.main(argv)
         finally:
             os.chdir(scwd)
@@ -73,21 +74,21 @@ class impl(service.Base):
 
     def _addargs(self):
         self.argp.add_argument(
-            '-p', '--program',
-            # Consume the remaining arguments for program's use.
-            nargs=argparse.REMAINDER,
-            help='Specifies the program to run with optional '
-                 'program-specific arguments that follow.',
-            required=True
-        )
-
-        self.argp.add_argument(
             '-o', '--output-path',
             type=str,
             help='Specifies the base output directory used for all '
                   'generated files. Default: {}'.format('PWD'),
             default=impl._defaults.output_path,
             required=False
+        )
+
+        self.argp.add_argument(
+            '-p', '--program',
+            # Consume the remaining arguments for program's use.
+            nargs=argparse.REMAINDER,
+            help='Specifies the program to run with optional '
+                 'program-specific arguments that follow.',
+            required=True
         )
 
     def _populate_service_config(self):

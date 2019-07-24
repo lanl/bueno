@@ -35,6 +35,14 @@ class impl(builder.Base):
         # The name of the specification file used to build containers.
         self.spec_name = 'Dockerfile'
 
+        self._spec_fixup()
+
+    def _spec_fixup(self):
+        ospec = self.config['spec']
+        basen = os.path.basename(ospec)
+        if basen == self.spec_name:
+            self.config['spec'] = os.path.dirname(ospec)
+
     def _check_env(self):
         '''
         Build environment verification function.
@@ -137,7 +145,6 @@ class impl(builder.Base):
         logger.log('# End Flatten Output')
 
     def _build(self):
-        # TODO(skg) allow a user to specify a Dockerfile or a base path.
         bcmd = '{} -b {} -t {} {}'.format(
             self.buildc,
             self.builder,
