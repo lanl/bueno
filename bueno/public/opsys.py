@@ -10,8 +10,8 @@
 Operating system utilities for *nix systems.
 '''
 
-from bueno.core import utils
-from bueno.core import shell
+from bueno.public import utils
+from bueno.public import shell
 
 
 def kernel():

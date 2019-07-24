@@ -10,8 +10,8 @@
 Quasi shell-like utilities.
 '''
 
-from bueno.core import utils
-from bueno.core import logger
+from bueno.public import utils
+from bueno.public import logger
 
 import subprocess
 import os

@@ -10,12 +10,12 @@
 The CharlieCloud container builder.
 '''
 
-from bueno.core import shell
-from bueno.core import utils
-from bueno.core import logger
-from bueno.core import metadata
-
 from bueno.build import builder
+
+from bueno.public import shell
+from bueno.public import utils
+from bueno.public import logger
+from bueno.public import metadata
 
 import os
 

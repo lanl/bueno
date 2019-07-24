@@ -6,7 +6,7 @@
 # top-level directory of this distribution for more information.
 #
 
-from bueno.core import logger
+from bueno.public import logger
 
 
 def main(argv):

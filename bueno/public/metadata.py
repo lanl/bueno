@@ -10,9 +10,10 @@
 Core metadata types.
 '''
 
-from bueno.core import utils
-from bueno.core import logger
 from bueno.core import metacls
+
+from bueno.public import utils
+from bueno.public import logger
 
 from abc import ABC, abstractmethod
 

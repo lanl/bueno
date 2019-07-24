@@ -10,11 +10,12 @@
 The run service module.
 '''
 
-from bueno.core import utils
-from bueno.core import opsys
-from bueno.core import logger
 from bueno.core import service
-from bueno.core import metadata
+
+from bueno.public import utils
+from bueno.public import opsys
+from bueno.public import logger
+from bueno.public import metadata
 
 import os
 import argparse

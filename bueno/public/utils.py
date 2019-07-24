@@ -10,7 +10,7 @@
 Utilities for good.
 '''
 
-from bueno.core import logger
+from bueno.public import logger
 
 from datetime import datetime
 import yaml

@@ -6,9 +6,9 @@
 # top-level directory of this distribution for more information.
 #
 
-from bueno.core import opsys
-from bueno.core import logger
-from bueno.core import metadata
+from bueno.public import opsys
+from bueno.public import logger
+from bueno.public import metadata
 
 
 def main(argv):
