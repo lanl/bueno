@@ -104,16 +104,20 @@ class impl(service.Base):
             'os_release': opsys.pretty_name()
         }
 
-    # TODO(skg) Add more configuration info.
-    def _emit_config(self):
-        logger.log('# Begin {} Configuration (YAML)'.format(self.prog))
-        # First build up the dictionary containing the configuration used.
+    def _populate_config(self):
         self._populate_service_config()
         self._populate_sys_config()
-        # Then print it out in YAML format.
-        utils.pyaml(self.confd)
+
+    # TODO(skg) Add more configuration info.
+    def _emit_config(self):
+        # First build up the dictionary containing the configuration used.
+        self._populate_config()
         # Add to metadata assets stored to container image.
         metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'environment'))
+
+        logger.log('# Begin {} Configuration (YAML)'.format(self.prog))
+        # Then print it out in YAML format.
+        utils.pyaml(self.confd)
         logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
     def _run(self):
