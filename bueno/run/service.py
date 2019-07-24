@@ -95,8 +95,8 @@ class impl(service.Base):
         self.confd['Configuration'] = vars(self.args)
         metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'run'))
 
-    def _populate_env_config(self):
-        self.confd['Environment'] = {
+    def _populate_sys_config(self):
+        self.confd['System'] = {
             'whoami': opsys.whoami(),
             'kernel': opsys.kernel(),
             'kernel_release': opsys.kernelrel(),
@@ -109,7 +109,7 @@ class impl(service.Base):
         logger.log('# Begin {} Configuration (YAML)'.format(self.prog))
         # First build up the dictionary containing the configuration used.
         self._populate_service_config()
-        self._populate_env_config()
+        self._populate_sys_config()
         # Then print it out in YAML format.
         utils.pyaml(self.confd)
         # Add to metadata assets stored to container image.

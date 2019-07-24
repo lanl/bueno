@@ -18,7 +18,7 @@ def main(argv):
     logger.log('adding a yaml dict asset...')
     adict = dict()
     adict['Application'] = {'argv': argv}
-    adict['Environment'] = {
+    adict['System'] = {
         'whoami': opsys.whoami(),
         'hostname': opsys.hostname()
     }
