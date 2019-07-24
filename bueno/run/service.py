@@ -30,15 +30,28 @@ class _Runner:
         '''
         if len(argv) == 0:
             raise RuntimeError('Invalid argv format provided.')
-        prog = argv[0]
-        if not os.path.isfile(prog):
-            es = '{} is not a file. Cannot continue.'.format(prog)
+
+        # Capture and update argv[0] to an absolute path.
+        argz = argv[0] = os.path.abspath(argv[0])
+        if not os.path.isfile(argz):
+            es = '{} is not a file. Cannot continue.'.format(argz)
             raise RuntimeError(es)
-        # Import and run the specified program.
-        spec = importlib.util.spec_from_file_location(prog, prog)
+
+        # Import and run the specified program. argz passed twice for nicer
+        # error messages when a user specifies a bogus program.
+        spec = importlib.util.spec_from_file_location(argz, argz)
         prog = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(prog)
-        prog.main(argv)
+        # Save cwd so we can restore it after program execution.
+        scwd = os.getcwd()
+        # What's the specified program's cwd?
+        pbase = os.path.dirname(argz)
+        # cddir to base of given program so relative operations work properly.
+        os.chdir(pbase)
+        try:
+            prog.main(argv)
+        finally:
+            os.chdir(scwd)
 
 
 class impl(service.Base):
@@ -102,9 +115,9 @@ class impl(service.Base):
         logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
     def _run(self):
-        logger.log('\n# Begin program output')
+        logger.log('\n# Begin Program Output')
         _Runner.run(self.args.program)
-        logger.log('# End program output\n')
+        logger.log('\n# End Program Output')
 
     def _write_metadata(self):
         base = self.args.output_path

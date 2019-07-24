@@ -91,8 +91,8 @@ class FileAsset(BaseAsset):
     '''
     def __init__(self, srcf, subd=None):
         super().__init__()
-        # Path to source file asset.
-        self.srcf = srcf
+        # Absolute to source file asset.
+        self.srcf = os.path.abspath(srcf)
         # Optional subdirectory to store the provided file.
         self.subd = subd
 
