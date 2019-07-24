@@ -122,7 +122,7 @@ class impl(builder.Base):
             msg = 'The following path does not exist: {}'.format(spath)
             raise RuntimeError(msg)
         logger.log('# Looks good. Adding metadata...')
-        metadata.write(spath)
+        metadata.write(spath, 'bueno')
 
     def _flatten(self):
         tcmd = '{} {} {}'.format(

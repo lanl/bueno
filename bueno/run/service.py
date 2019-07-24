@@ -70,14 +70,15 @@ class impl(service.Base):
         self.argp.add_argument(
             '-o', '--output-path',
             type=str,
-            help='Specifies the output directory used for all generated files. '
-                 'Default: {}'.format('PWD'),
+            help='Specifies the base output directory used for all '
+                  'generated files. Default: {}'.format('PWD'),
             default=impl._defaults.output_path,
             required=False
         )
 
     def _populate_service_config(self):
         self.confd['Configuration'] = vars(self.args)
+        metadata.Assets().add(metadata.YAMLDictAsset(self.confd, 'run'))
 
     def _populate_env_config(self):
         self.confd['Environment'] = {
@@ -105,6 +106,13 @@ class impl(service.Base):
         _Runner.run(self.args.program)
         logger.log('# End program output\n')
 
+    def _write_metadata(self):
+        base = self.args.output_path
+        subd = 'TODO'
+        outp = os.path.join(base, subd)
+        metadata.write(base, subd)
+        logger.log('# Run Output Written to: {}'.format(outp))
+
     def start(self):
         logger.log('# Starting {} at {}'.format(self.prog, utils.nows()))
         stime = utils.now()
@@ -122,4 +130,5 @@ class impl(service.Base):
         etime = utils.now()
         logger.log('# {} Time {}'.format(self.prog, etime - stime))
         logger.log('# {} Done {}'.format(self.prog, utils.nows()))
-        logger.write('./LOG.txt')
+
+        self._write_metadata()

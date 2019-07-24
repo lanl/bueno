@@ -21,18 +21,18 @@ import copy
 import shutil
 
 
-def write(basep):
+def write(basep, subdir):
     '''
     Adds build metadata rooted at basep.
     '''
-    _MetaData(basep).write()
+    _MetaData(basep, subdir).write()
 
 
 class _MetaData:
-    def __init__(self, basep):
+    def __init__(self, basep, subdir):
         self.basep = basep
         # The base path where all metadata are stored.
-        self.metad = os.path.join(basep, 'bueno')
+        self.metad = os.path.join(basep, subdir)
 
         os.makedirs(self.metad, 0o755)
 
@@ -67,7 +67,7 @@ class Assets(metaclass=metacls.Singleton):
 
     def write(self, basep):
         '''
-        Deposits metadata contained in current assets.
+        Writes metadata contained in assets.
         '''
         for a in self.assets:
             a.write(basep)
