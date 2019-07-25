@@ -13,8 +13,8 @@ Quasi shell-like utilities.
 from bueno.public import utils
 from bueno.public import logger
 
-import subprocess
 import os
+import subprocess
 
 
 def capture(cmd, chomp=True):
@@ -74,6 +74,7 @@ def run(cmd, echo=False, capture=False):
     p = subprocess.Popen(
             cmd,
             shell=True,
+            bufsize=1,
             # Enables text mode, making write() et al. happy.
             universal_newlines=True,
             stdout=subprocess.PIPE,
@@ -82,13 +83,13 @@ def run(cmd, echo=False, capture=False):
     # Show progress and store output to a string (if requested).
     while (True):
         stdout = p.stdout.readline()
+
+        if not stdout:
+            break
         if capture:
             ostr += stdout
         else:
             logger.log(utils.chomp(stdout))
-
-        if not stdout and p.poll() is not None:
-            break
 
     rc = p.wait()
     if (rc != os.EX_OK):
