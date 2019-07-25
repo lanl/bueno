@@ -75,7 +75,10 @@ class impl(service.Base):
 
         def __call__(self, parser, namespace, values, option_string=None):
             if len(values) == 0:
-                help = '{} requires at least one argument (none provided).'
+                help = '{} requires at least one argument (none provided).\n'\
+                       'Please provide a path to the program you wish to run, '\
+                       'optionally followed by program-specific arguments.'
+
                 parser.error(help.format(option_string))
             setattr(namespace, self.dest, values)
 
