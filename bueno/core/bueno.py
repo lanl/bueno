@@ -60,6 +60,9 @@ class ArgumentParser:
         )
 
     class CommandAction(argparse.Action):
+        '''
+        Custom action class used for 'command' argument structure verification.
+        '''
         def __init__(self, option_strings, dest, nargs, **kwargs):
             super().__init__(option_strings, dest, nargs, **kwargs)
 

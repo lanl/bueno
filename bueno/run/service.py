@@ -11,6 +11,7 @@ The run service module.
 '''
 
 from bueno.core import service
+from bueno.core import cntrimg
 
 from bueno.public import utils
 from bueno.public import opsys
@@ -29,9 +30,6 @@ class _Runner:
         Loads and executes the run program specified at argv[0], passing along
         all program-specific arguments to the program (argv).
         '''
-        if len(argv) == 0:
-            raise RuntimeError('Invalid argv format provided.')
-
         # Capture and update argv[0] to an absolute path.
         argz = argv[0] = os.path.abspath(argv[0])
         if not os.path.isfile(argz):
@@ -68,8 +66,13 @@ class impl(service.Base):
         desc = 'The run service runs programs.'
         # Path to save any generated files.
         output_path = os.getcwd()
+        # The image activator to use by default.
+        imgactvtr = 'charliecloud'
 
     class ProgramAction(argparse.Action):
+        '''
+        Custom action class used for 'program' argument structure verification.
+        '''
         def __init__(self, option_strings, dest, nargs, **kwargs):
             super().__init__(option_strings, dest, nargs, **kwargs)
 
@@ -93,6 +96,24 @@ class impl(service.Base):
                   'generated files. Default: {}'.format('PWD'),
             default=impl._defaults.output_path,
             required=False
+        )
+
+        self.argp.add_argument(
+            '-a', '--image-activator',
+            type=str,
+            help='Specifies the image activator used to execute '
+                 'commands within a container. '
+                 'Default: {}'.format(impl._defaults.imgactvtr),
+            default=impl._defaults.imgactvtr,
+            choices=cntrimg.ImageActivatorFactory.available(),
+            required=False
+        )
+
+        self.argp.add_argument(
+            '-i', '--image-dir',
+            type=str,
+            help='Specifies the base container image directory.',
+            required=True
         )
 
         self.argp.add_argument(
@@ -135,9 +156,13 @@ class impl(service.Base):
         logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
     def _run(self):
-        pargv = self.args.program
+        actvtr = self.args.image_activator
+        # TODO(skg) Cleanup.
+        imgdir = os.path.abspath(self.args.image_dir)
+        cntrimg.ImageActivatorFactory().build(actvtr, imgdir)
+
         logger.log('\n# Begin Program Output')
-        _Runner.run(pargv)
+        _Runner.run(self.args.program)
         logger.log('\n# End Program Output')
 
     def _write_metadata(self):

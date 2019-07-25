@@ -53,7 +53,7 @@ class impl(builder.Base):
 
         inyp = 'Is it in your PATH?\n'
         notf = "'{}' not found. " + inyp
-        errs = ''
+        errs = str()
 
         if not shell.which(self.buildc):
             errs += notf.format(self.buildc)
