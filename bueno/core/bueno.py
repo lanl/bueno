@@ -14,7 +14,6 @@ from bueno import _version
 from bueno.core import service
 
 import os
-import sys
 import argparse
 import traceback
 
@@ -37,15 +36,6 @@ class ArgumentParser:
 
     def _addargs(self):
         self.argp.add_argument(
-            'command',
-            # Consume the remaining arguments for command's use.
-            nargs=argparse.REMAINDER,
-            help='Specifies the command to run with optional '
-                 'command-specific arguments that follow.',
-            choices=service.Factory.available()
-        )
-
-        self.argp.add_argument(
             '-t', '--traceback',
             help='Provides detailed exception information '
                  'useful for bug reporting and debugging.',
@@ -59,14 +49,30 @@ class ArgumentParser:
             action='version',
             version='%(prog)s {}'.format(_version.__version__)
         )
+        self.argp.add_argument(
+            'command',
+            # Consume the remaining arguments for command's use.
+            nargs=argparse.REMAINDER,
+            help='Specifies the command to run with optional '
+                 'command-specific arguments that follow.',
+            choices=service.Factory.available(),
+            action=ArgumentParser.CommandAction
+        )
+
+    class CommandAction(argparse.Action):
+        def __init__(self, option_strings, dest, nargs, **kwargs):
+            super().__init__(option_strings, dest, nargs, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            if len(values) == 0:
+                help = '{} requires one positional argument (none provided).'
+                parser.print_help()
+                parser.error(help.format('bueno'))
+            setattr(namespace, self.dest, values)
 
     def parse(self):
         self._addargs()
         pr = self.argp.parse_args()
-        # Make sure that a command was supplied.
-        if len(pr.command) == 0:
-            self.argp.print_help()
-            sys.exit(os.EX_USAGE)
         return pr
 
 

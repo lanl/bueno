@@ -69,6 +69,16 @@ class impl(service.Base):
         # Path to save any generated files.
         output_path = os.getcwd()
 
+    class ProgramAction(argparse.Action):
+        def __init__(self, option_strings, dest, nargs, **kwargs):
+            super().__init__(option_strings, dest, nargs, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            if len(values) == 0:
+                help = '{} requires at least one argument (none provided).'
+                parser.error(help.format(option_string))
+            setattr(namespace, self.dest, values)
+
     def __init__(self, argv):
         super().__init__(impl._defaults.desc, argv)
 
@@ -88,7 +98,8 @@ class impl(service.Base):
             nargs=argparse.REMAINDER,
             help='Specifies the program to run with optional '
                  'program-specific arguments that follow.',
-            required=True
+            required=True,
+            action=impl.ProgramAction
         )
 
     def _populate_service_config(self):
@@ -121,8 +132,9 @@ class impl(service.Base):
         logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
     def _run(self):
+        pargv = self.args.program
         logger.log('\n# Begin Program Output')
-        _Runner.run(self.args.program)
+        _Runner.run(pargv)
         logger.log('\n# End Program Output')
 
     def _write_metadata(self):
