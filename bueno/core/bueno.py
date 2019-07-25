@@ -53,8 +53,8 @@ class ArgumentParser:
             'command',
             # Consume the remaining arguments for command's use.
             nargs=argparse.REMAINDER,
-            help='Specifies the command to run with optional '
-                 'command-specific arguments that follow.',
+            help='Specifies the command to run '
+                 'followed by command-specific arguments.',
             choices=service.Factory.available(),
             action=ArgumentParser.CommandAction
         )

@@ -99,8 +99,8 @@ class impl(service.Base):
             '-p', '--program',
             # Consume the remaining arguments for program's use.
             nargs=argparse.REMAINDER,
-            help='Specifies the program to run with optional '
-                 'program-specific arguments that follow.',
+            help='Specifies the program to run, optionally '
+                 'followed by program-specific arguments.',
             required=True,
             action=impl.ProgramAction
         )
