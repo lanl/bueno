@@ -93,10 +93,12 @@ class CharlieCloudImageActivator(BaseImageActivator):
             raise RuntimeError(errs)
 
     def run(self, cmd):
-        # TODO(skg) add sh -c and deal with quoting.
-        cmds = '{} {} -- {}'.format(
+        cmds = '{} {} -- {} "{}"'.format(
             self.runcmd,
             self.imgp,
+            # The magic from https://stackoverflow.com/questions/1711970
+            # makes cmd quoting a non-issue. Pretty slick...
+            'bash -c \'${0} ${1+"$@"}\'',
             cmd
         )
         shell.run(cmds)

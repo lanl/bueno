@@ -1,4 +1,4 @@
-# bueno
+# bueno: Utilities for Automated Benchmarking
 
 ## User Installation with pip
 ```
