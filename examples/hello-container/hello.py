@@ -10,8 +10,10 @@
 An example illustrating how to execute commands inside a container.
 '''
 
+from bueno.public import shell
 from bueno.public import container
 
 
 def main(argv):
     container.run('echo "hello from a container!"')
+    shell.run('echo "hello from the host!"')

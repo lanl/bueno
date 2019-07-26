@@ -16,6 +16,8 @@ from bueno.public import shell
 
 from abc import ABC, abstractmethod
 
+import os
+
 
 class ImageActivatorFactory:
     '''
@@ -63,7 +65,9 @@ class BaseImageActivator(ABC):
         super().__init__()
         # Image path.
         self.imgp = imgp
-        # TODO(skg) Validate path.
+        if not os.path.isdir(self.imgp):
+            ers = 'Invalid container image path provided: {}'
+            raise RuntimeError(ers.format(self.imgp))
 
     @abstractmethod
     def run(self, cmd):
@@ -89,7 +93,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
             raise RuntimeError(errs)
 
     def run(self, cmd):
-        # TODO(skg) add sh -c
+        # TODO(skg) add sh -c and deal with quoting.
         cmds = '{} {} -- {}'.format(
             self.runcmd,
             self.imgp,

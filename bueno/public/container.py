@@ -14,4 +14,7 @@ from bueno.core import cntrimg
 
 
 def run(cmd):
+    '''
+    Runs the given command string from within a container.
+    '''
     cntrimg.Activator().impl().run(cmd)
