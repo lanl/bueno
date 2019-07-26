@@ -93,7 +93,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
             raise RuntimeError(errs)
 
     def run(self, cmd):
-        cmds = '{} {} -- {} "{}"'.format(
+        cmds = '{} {} -- {} {}'.format(
             self.runcmd,
             self.imgp,
             # The magic from https://stackoverflow.com/questions/1711970
