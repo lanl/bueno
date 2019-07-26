@@ -97,8 +97,9 @@ class CharlieCloudImageActivator(BaseImageActivator):
             self.runcmd,
             self.imgp,
             # The magic from https://stackoverflow.com/questions/1711970
-            # makes cmd quoting a non-issue. Pretty slick...
-            'bash -c \'${0} ${1+"$@"}\'',
+            # makes cmd quoting a non-issue. Pretty slick... Notice that this is
+            # a slightly modified version to meet our needs.
+            'bash -c \'${0} ${1+$@}\'',
             cmd
         )
         shell.run(cmds)

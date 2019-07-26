@@ -10,14 +10,19 @@
 Tests for container.run()
 '''
 
+from bueno.public import shell
 from bueno.public import logger
 from bueno.public import container
 
 
 def main(argv):
     logger.log('# Testing globbing...')
-    # FIXME(skg)
-    # container.run('ls b*')
+    container.run('ls b*')
 
     logger.log('# Testing redirection...')
     container.run('echo "Some Text" | tee OUT.txt')
+    container.run('echo "More \'Text\'" >> OUT.txt')
+    shell.run('cat OUT.txt')
+
+    logger.log('# Testing quoting...')
+    container.run('echo "Some \'Text\'"')
