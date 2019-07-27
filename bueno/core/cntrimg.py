@@ -25,9 +25,8 @@ class ImageActivatorFactory:
     '''
     # Modify this list as image activators change.
     # TODO(skg) Add self-registration.
-    # TODO(skg) Use lambdas for instance creation?
     items = [
-        'charliecloud'
+        ('charliecloud', lambda x: CharlieCloudImageActivator(x))
     ]
 
     @staticmethod
@@ -35,7 +34,7 @@ class ImageActivatorFactory:
         '''
         Returns list of available container names.
         '''
-        return ImageActivatorFactory.items
+        return [i[0] for i in ImageActivatorFactory.items]
 
     @staticmethod
     def known(sname):
@@ -43,18 +42,17 @@ class ImageActivatorFactory:
         Returns a boolean indicating whether or not the provided container name
         is known (i.e., recognized) by bueno.
         '''
-        return sname in ImageActivatorFactory.items
+        return sname in ImageActivatorFactory.available()
 
     @staticmethod
     def build(activator_name, imgp):
-        actvtr = None
-        if activator_name == 'charliecloud':
-            actvtr = CharlieCloudImageActivator(imgp)
-        else:
+        try:
+            aidx = ImageActivatorFactory.available().index(activator_name)
+        except:
             ers = 'Unknown container image activator requested: {}'
             raise RuntimeError(ers.format(activator_name))
         # Initialize the activator singleton with the proper implementation.
-        Activator(actvtr)
+        Activator(ImageActivatorFactory.items[aidx][1](imgp))
 
 
 class BaseImageActivator(ABC):

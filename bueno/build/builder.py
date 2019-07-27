@@ -62,7 +62,7 @@ class Base(ABC):
     def __init__(self, **config):
         self.config = config
 
-        super(Base, self).__init__()
+        super().__init__()
 
     @abstractmethod
     def start(self):
