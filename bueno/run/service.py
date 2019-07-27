@@ -126,6 +126,8 @@ class impl(service.Base):
             action=impl.ProgramAction
         )
 
+        # TODO(skg) Add --bind option.
+
     def _populate_service_config(self):
         self.confd['Configuration'] = vars(self.args)
         metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'run'))
