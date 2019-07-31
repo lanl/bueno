@@ -30,12 +30,7 @@ class _Runner:
         Loads and executes the run program specified at argv[0], passing along
         all program-specific arguments to the program (argv).
         '''
-        # Capture and update argv[0] to an absolute path.
-        argz = argv[0] = os.path.abspath(argv[0])
-        if not os.path.isfile(argz):
-            es = '{} is not a file. Cannot continue.'.format(argz)
-            raise RuntimeError(es)
-
+        argz = argv[0]
         # Import and run the specified program. argz passed twice for nicer
         # error messages when a user specifies a bogus program.
         spec = importlib.util.spec_from_file_location(argz, argz)
@@ -83,6 +78,12 @@ class impl(service.Base):
                        'optionally followed by program-specific arguments.'
 
                 parser.error(help.format(option_string))
+            # Capture and update values[0] to an absolute path.
+            prog = values[0] = os.path.abspath(values[0])
+            if not os.path.isfile(prog):
+                es = '{} is not a file. Cannot continue.'.format(prog)
+                parser.error(es.format(prog))
+
             setattr(namespace, self.dest, values)
 
     class ImageDirAction(argparse.Action):
