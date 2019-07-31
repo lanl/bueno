@@ -56,3 +56,10 @@ def ehorf():
     Returns header/footer string used for error messages.
     '''
     return '\n>>!<<\n'
+
+
+def emptystr(s):
+    '''
+    Returns True if the provided string is not empty; False otherwise.
+    '''
+    return not (s and s.strip())

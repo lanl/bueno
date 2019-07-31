@@ -17,6 +17,7 @@ from bueno.public import utils
 from bueno.public import opsys
 from bueno.public import logger
 from bueno.public import metadata
+from bueno.public import experiment
 
 import os
 import argparse
@@ -36,8 +37,11 @@ class _Runner:
         # Import and run the specified program. argz passed twice for nicer
         # error messages when a user specifies a bogus program.
         spec = importlib.util.spec_from_file_location(argz, argz)
-        prog = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(prog)
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        # Make sure the experiment is setup properly. We can only do this after
+        # the module has been loaded.
+        experiment._TheExperiment().sanity()
         # Save cwd so we can restore it after program execution.
         scwd = os.getcwd()
         try:
@@ -46,7 +50,7 @@ class _Runner:
             # cddir to base of given program so relative operations work
             # properly.
             os.chdir(pbase)
-            prog.main(argv)
+            mod.main(argv)
         finally:
             os.chdir(scwd)
 
@@ -178,15 +182,14 @@ class impl(service.Base):
         imgdir = self.args.image_dir
         cntrimg.ImageActivatorFactory().build(actvtr, imgdir)
 
-        logger.log('\n# Begin Program Output')
+        pname = os.path.basename(self.args.program[0])
+        logger.log('\n# Begin Program Output ({})'.format(pname))
         _Runner.run(self.args.program)
         logger.log('\n# End Program Output')
 
     def _getmetasubd(self):
-        prog = os.path.basename(self.args.program[0])
-        # Remove the program's file extension.
-        prog = os.path.splitext(prog)[0]
-        return '{}-{}'.format(prog, utils.nows().replace(' ', '-'))
+        expn = experiment.name()
+        return '{}-{}'.format(expn, utils.nows().replace(' ', '-'))
 
     def _write_metadata(self):
         base = self.args.output_path

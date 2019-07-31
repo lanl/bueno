@@ -9,6 +9,9 @@
 from bueno.public import utils
 from bueno.public import logger
 from bueno.public import container
+from bueno.public import experiment
+
+experiment.name('nbody')
 
 
 def main(argv):
