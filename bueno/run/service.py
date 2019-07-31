@@ -62,8 +62,8 @@ class impl(service.Base):
         '''
         Convenience container for run service defaults.
         '''
-        # TODO(skg) Add a proper description.
-        desc = 'The run service runs programs.'
+        desc = 'The run service runs programs and can serve ' \
+               'as a dispatch service to container activators.'
         # Path to save any generated files.
         output_path = os.getcwd()
         # The image activator to use by default.

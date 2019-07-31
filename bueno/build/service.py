@@ -30,8 +30,7 @@ class impl(service.Base):
         '''
         Convenience container for build service defaults.
         '''
-        # TODO(skg) Add a proper service description.
-        desc = 'The build service builds containers.'
+        desc = 'The build service is a front-end to container builders.'
         # The name of the builder back-end.
         builder = 'charliecloud'
         # Path to the build specification (e.g., a Dockerfile specification).
