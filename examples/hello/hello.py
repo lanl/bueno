@@ -7,6 +7,9 @@
 #
 
 from bueno.public import logger
+from bueno.public import experiment
+
+experiment.name('hello')
 
 
 def main(argv):

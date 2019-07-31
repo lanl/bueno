@@ -9,6 +9,9 @@
 from bueno.public import opsys
 from bueno.public import logger
 from bueno.public import metadata
+from bueno.public import experiment
+
+experiment.name('metadata')
 
 
 def main(argv):

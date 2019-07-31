@@ -14,6 +14,9 @@ from bueno.public import shell
 from bueno.public import logger
 from bueno.public import metadata
 from bueno.public import container
+from bueno.public import experiment
+
+experiment.name('test-shellcmds')
 
 
 def main(argv):

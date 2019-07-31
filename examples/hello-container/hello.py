@@ -12,6 +12,9 @@ An example illustrating how to execute commands inside a container.
 
 from bueno.public import shell
 from bueno.public import container
+from bueno.public import experiment
+
+experiment.name('hello-container')
 
 
 def main(argv):
