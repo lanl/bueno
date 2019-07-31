@@ -182,9 +182,15 @@ class impl(service.Base):
         _Runner.run(self.args.program)
         logger.log('\n# End Program Output')
 
+    def _getmetasubd(self):
+        prog = os.path.basename(self.args.program[0])
+        # Remove the program's file extension.
+        prog = os.path.splitext(prog)[0]
+        return '{}-{}'.format(prog, utils.nows().replace(' ', '-'))
+
     def _write_metadata(self):
         base = self.args.output_path
-        subd = 'TODO'
+        subd = self._getmetasubd()
         outp = os.path.join(base, subd)
         metadata.write(outp)
         logger.log('# Run Output Written to: {}'.format(outp))
