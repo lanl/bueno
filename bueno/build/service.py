@@ -81,7 +81,7 @@ class impl(service.Base):
         self.confd['Configuration'] = vars(self.args)
 
     def _populate_sys_config(self):
-        self.confd['System'] = {
+        self.confd['Host'] = {
             'whoami': opsys.whoami(),
             'kernel': opsys.kernel(),
             'kernel_release': opsys.kernelrel(),

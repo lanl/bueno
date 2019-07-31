@@ -31,6 +31,8 @@ class _Runner:
         all program-specific arguments to the program (argv).
         '''
         argz = argv[0]
+        # Stash the program.
+        metadata.add_asset(metadata.FileAsset(argz))
         # Import and run the specified program. argz passed twice for nicer
         # error messages when a user specifies a bogus program.
         spec = importlib.util.spec_from_file_location(argz, argz)
@@ -146,7 +148,7 @@ class impl(service.Base):
         metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'run'))
 
     def _populate_sys_config(self):
-        self.confd['System'] = {
+        self.confd['Host'] = {
             'whoami': opsys.whoami(),
             'kernel': opsys.kernel(),
             'kernel_release': opsys.kernelrel(),
