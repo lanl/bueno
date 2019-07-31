@@ -170,6 +170,7 @@ class impl(service.Base):
         logger.log('# End {} Configuration (YAML)'.format(self.prog))
 
     def _run(self):
+        # Setup image activator so that it is ready-to-go for the run.
         actvtr = self.args.image_activator
         imgdir = self.args.image_dir
         cntrimg.ImageActivatorFactory().build(actvtr, imgdir)

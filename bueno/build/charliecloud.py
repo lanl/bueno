@@ -151,6 +151,7 @@ class impl(builder.Base):
             self.config['tag'],
             self.config['spec']
         )
+
         logger.log('# Begin Build Output')
         # Run the command specified by bcmd.
         shell.run(bcmd, echo=True)

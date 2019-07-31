@@ -1,0 +1,19 @@
+# Example Dockerfile that builds an image containing a simple MPI program.
+
+FROM debian:stretch
+
+RUN \
+apt-get update \
+&& \
+apt-get install -y --no-install-recommends \
+openssh-client \
+libopenmpi-dev openmpi-bin \
+gcc \
+make \
+&& \
+rm -rf /var/lib/apt/lists/*
+
+COPY nbody .
+
+WORKDIR /nbody
+RUN make CC=mpicc
