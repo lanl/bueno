@@ -39,7 +39,7 @@ class _Runner:
         spec = importlib.util.spec_from_file_location(argz, argz)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        # Make sure the experiment is setup properly. We can only do this after
+        # Make sure the experiment is setup properly. We can do this only after
         # the module has been loaded.
         experiment._TheExperiment().sanity()
         # Save cwd so we can restore it after program execution.
