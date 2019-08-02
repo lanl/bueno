@@ -30,10 +30,18 @@ def main(argv):
         range(2, 5)
     )
 
+    etimes = list()
     for r in runcmds:
         stime = utils.now()
         container.run(r)
         etime = utils.now()
-        logger.log('# Execution Time: {} s\n'.format(etime - stime))
+        telapsed = etime - stime
+        etimes.append(telapsed)
+        logger.log('# Execution Time: {} s\n'.format(telapsed))
         # Take a break between runs.
         time.sleep(1)
+
+    logger.log('# Report')
+    logger.log('# Command, Execution Time (s)')
+    for i in zip(runcmds, etimes):
+        logger.log('{}, {}'.format(*i))

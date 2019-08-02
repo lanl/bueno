@@ -35,11 +35,10 @@ def generate(spec, *args):
     generated from the provided specification and corresponding inputs.
     '''
     if not isinstance(spec, str):
-        # TODO(skg) Add proper error message that calls out this function.
-        raise ValueError('src must be a string')
+        es = '{}.generate() expects a string specification.'.format(__name__)
+        raise ValueError(es)
     argg = zip(* args)
-    # For efficiency use generator.
-    return (spec.format(*a) for a in argg)
+    return [spec.format(*a) for a in argg]
 
 
 class _TheExperiment(metaclass=metacls.Singleton):
