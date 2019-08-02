@@ -40,9 +40,21 @@ def generate(spec, *args):
     argg = zip(* args)
     return [spec.format(*a) for a in argg]
 
-def readf(f):
-    # TODO(skg) Add some checks and nice errors messages.
-    return open(f).read()
+
+def readgs(gs):
+    '''
+    A convenience routine for reading generate specification files.
+
+    TODO(skg) Add description of formatting rules, etc.
+    '''
+    res = str()
+    with open(gs) as f:
+        lines = [x.strip() for x in f.readlines()]
+        for l in lines:
+            if l.startswith('#'):
+                continue
+            res += l
+    return res
 
 
 class _TheExperiment(metaclass=metacls.Singleton):
