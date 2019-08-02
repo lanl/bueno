@@ -14,6 +14,9 @@ from bueno.core import metacls
 
 from bueno.public import utils
 
+# TODO(skg) Add a convenience function that allows for the specification of a
+# list (in priority order) of executables. The first one found wins!
+
 
 def name(n=None):
     if n is None:
@@ -23,6 +26,20 @@ def name(n=None):
         raise RuntimeError(es)
     else:
         _TheExperiment().name = n
+
+
+def generate(spec, *args):
+    '''
+    Given a string containing string.format() replacement fields and a variable
+    number of iterables, attempt to generate an iterable collection of strings
+    generated from the provided specification and corresponding inputs.
+    '''
+    if not isinstance(spec, str):
+        # TODO(skg) Add proper error message that calls out this function.
+        raise ValueError('src must be a string')
+    argg = zip(* args)
+    # For efficiency use generator.
+    return (spec.format(*a) for a in argg)
 
 
 class _TheExperiment(metaclass=metacls.Singleton):

@@ -11,18 +11,29 @@ from bueno.public import logger
 from bueno.public import container
 from bueno.public import experiment
 
+import time
+
 experiment.name('nbody')
 
 
 def main(argv):
-    logger.log('# Executing an MPI Application...')
+    logger.log('# Experiment: {}'.format(experiment.name()))
 
     prun = 'mpiexec'
-    numpe = 2
     app = '/nbody/nbody-mpi'
 
-    stime = utils.now()
-    container.run('{} -n {} {}'.format(prun, numpe, app))
-    etime = utils.now()
+    # The seemingly strange replacement of the second set of brackets with '{}'
+    # allows us to first format the string with arguments and then generate
+    # strings with values passed to -n from the output of range().
+    runcmds = experiment.generate(
+        '{} -n {} {}'.format(prun, '{}', app),
+        range(2, 5)
+    )
 
-    logger.log('# Execution Time: {} s'.format(etime - stime))
+    for r in runcmds:
+        stime = utils.now()
+        container.run(r)
+        etime = utils.now()
+        logger.log('# Execution Time: {} s\n'.format(etime - stime))
+        # Take a break between runs.
+        time.sleep(1)
