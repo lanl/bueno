@@ -37,11 +37,11 @@ def main(argv):
         etime = utils.now()
         telapsed = etime - stime
         etimes.append(telapsed)
-        logger.log('# Execution Time: {} s\n'.format(telapsed))
+        logger.log('# Execution Time: {}\n'.format(telapsed))
         # Take a break between runs.
         time.sleep(1)
 
     logger.log('# Report')
-    logger.log('# Command, Execution Time (s)')
+    logger.log('# Command, Execution Time')
     for i in zip(runcmds, etimes):
         logger.log('{}, {}'.format(*i))
