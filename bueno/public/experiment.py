@@ -40,6 +40,10 @@ def generate(spec, *args):
     argg = zip(* args)
     return [spec.format(*a) for a in argg]
 
+def readf(f):
+    # TODO(skg) Add some checks and nice errors messages.
+    return open(f).read()
+
 
 class _TheExperiment(metaclass=metacls.Singleton):
     '''

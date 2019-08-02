@@ -22,11 +22,11 @@ def main(argv):
     prun = 'mpiexec'
     app = '/nbody/nbody-mpi'
 
-    # The seemingly strange replacement of the second set of brackets with '{}'
-    # allows us to first format the string with arguments and then generate
-    # strings with values passed to -n from the output of range().
+    # The seemingly strange use of {{}} allows us to first format the string
+    # with arguments (the {}) and then generate strings with values passed to -n
+    # from the output of range() (the {{}}).
     runcmds = experiment.generate(
-        '{} -n {} {}'.format(prun, '{}', app),
+        '{} -n {{}} {}'.format(prun, app),
         range(2, 5)
     )
 
@@ -35,6 +35,7 @@ def main(argv):
         stime = utils.now()
         container.run(r)
         etime = utils.now()
+
         telapsed = etime - stime
         etimes.append(telapsed)
         logger.log('# Execution Time: {}\n'.format(telapsed))
