@@ -15,6 +15,7 @@ from bueno.core import metacls
 from bueno.public import utils
 
 from abc import ABC, abstractmethod
+
 import argparse
 import copy
 import os
@@ -86,8 +87,6 @@ def readgs(gs, argprsr=None):
 
     # TODO(skg) Emit arguments provided and parsed from file.
 def parsedargs(argprsr, argv):
-    '''
-    '''
     # Make a deep copy of the provided argument parser.
     auxap = copy.deepcopy(argprsr)
     # Known args, remaining (not used) = auxap.parse_known_args(argv)
@@ -138,38 +137,52 @@ class CLIConfiguration:
     Command-line interface configuration container and associated utilities.
     '''
     def __init__(self, desc, argv):
-        self.desc = desc
-        self.argv = argv
-        self.prog = os.path.basename(argv[0])
+        self._desc = desc
+        self._argv = argv
+        self._prog = os.path.basename(argv[0])
 
-        self.argprsr = None
         self._args = None
 
-        self.argprsr = argparse.ArgumentParser(
-            prog=self.prog,
-            description=self.desc,
+        self._argprsr = argparse.ArgumentParser(
+            prog=self._prog,
+            description=self._desc,
             allow_abbrev=False
         )
+
         self.addargs()
+
+    @property
+    def description(self):
+        return self._desc
+
+    @property
+    def argv(self):
+        return self._argv
+
+    @property
+    def program(self):
+        return self._prog
+
+    @property
+    def argparser(self):
+        return self._argprsr
+
+    @property
+    def args(self):
+        return self._args
 
     @abstractmethod
     def addargs(self):
         pass
 
-    def argparser(self):
-        return self.argprsr
-
     def parseargs(self):
-        self._args = self.argprsr.parse_args(self.argv[1:])
-
-    def args(self):
-        return self._args
+        self._args = self.argparser.parse_args(self.argv[1:])
 
     # TODO(skg) cleanup
     def update(self, confns):
         confd = vars(confns)
         argsd = vars(self._args)
-        pcmdargs = vars(parsedargs(self.argprsr, self.argv[1:]))
+        pcmdargs = vars(parsedargs(self.argparser, self.argv[1:]))
 
         # Look at the arguments provided in the configuration (gs) file.
         for k, v in argsd.items():
