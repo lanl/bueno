@@ -170,11 +170,8 @@ class impl(service.Base):
         self._populate_config()
         # Add to metadata assets stored to container image.
         metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'environment'))
-
-        logger.log('# Begin {} Configuration (YAML)'.format(self.prog))
         # Then print it out in YAML format.
-        utils.pyaml(self.confd)
-        logger.log('# End {} Configuration (YAML)'.format(self.prog))
+        utils.pyaml(self.confd, self.prog)
 
     def _run(self):
         # Setup image activator so that it is ready-to-go for the run.

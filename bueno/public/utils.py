@@ -44,11 +44,17 @@ def syaml(d):
     return chomp(yaml.dump(d, default_flow_style=False))
 
 
-def pyaml(d):
+def pyaml(d, label=None):
     '''
     Emits YAML output from the provided dictionary.
     '''
+    if not emptystr(label):
+        logger.log('# Begin {} Configuration (YAML)'.format(label))
+
     logger.log(syaml(d))
+
+    if not emptystr(label):
+        logger.log('# End {} Configuration (YAML)'.format(label))
 
 
 def ehorf():
