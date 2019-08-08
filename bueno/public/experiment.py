@@ -14,7 +14,7 @@ from bueno.core import metacls
 
 from bueno.public import utils
 
-from abc import ABC, abstractmethod
+from abc import abstractmethod
 
 import argparse
 import copy
@@ -85,7 +85,7 @@ def readgs(gs, argprsr=None):
 
     return gsstr, gsargs
 
-    # TODO(skg) Emit arguments provided and parsed from file.
+
 def parsedargs(argprsr, argv):
     # Make a deep copy of the provided argument parser.
     auxap = copy.deepcopy(argprsr)
@@ -141,15 +141,13 @@ class CLIConfiguration:
         self._argv = argv
         self._prog = os.path.basename(argv[0])
 
-        self._args = None
-
         self._argprsr = argparse.ArgumentParser(
             prog=self._prog,
             description=self._desc,
             allow_abbrev=False
         )
-
         self.addargs()
+        self._args = self.parseargs()
 
     @property
     def description(self):
@@ -176,7 +174,7 @@ class CLIConfiguration:
         pass
 
     def parseargs(self):
-        self._args = self.argparser.parse_args(self.argv[1:])
+        return self.argparser.parse_args(self.argv[1:])
 
     # TODO(skg) cleanup
     def update(self, confns):
