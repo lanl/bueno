@@ -176,15 +176,23 @@ class CLIConfiguration:
     def parseargs(self):
         return self.argparser.parse_args(self.argv[1:])
 
-    # TODO(skg) cleanup
     def update(self, confns):
+        '''
+        Update the current configuration using the parsedargs provided through
+        confns.
+        '''
         confd = vars(confns)
         argsd = vars(self._args)
-        pcmdargs = vars(parsedargs(self.argparser, self.argv[1:]))
+        pcags = vars(parsedargs(self.argparser, self.argv[1:]))
 
-        # Look at the arguments provided in the configuration (gs) file.
+        # Look at the arguments provided in the configuration (gs) file. The
+        # order in which the updates occur matter:
+        # - confns arguments will overwrite any already set
+        # - pcags will overwrite any. This allows the setting of values
+        # through a configuration file, while also allowing the ability to
+        # overwrite those at run-time through parameters passed to the cli.
         for k, v in argsd.items():
             if confd[k] is not None:
                 argsd[k] = confd[k]
-            if pcmdargs[k] is not None:
-                argsd[k] = pcmdargs[k]
+            if pcags[k] is not None:
+                argsd[k] = pcags[k]
