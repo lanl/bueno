@@ -93,8 +93,7 @@ class impl(builder.Base):
         metadata.add_asset(metadata.FileAsset(dockerf))
         # Emit the contents of the spec file.
         logger.log('# Begin Spec Output')
-        for line in shell.cat(dockerf):
-            logger.log(line)
+        logger.log(str().join(shell.cat(dockerf)))
         logger.log('# End Spec Output')
 
     def _get_path_to_storage(self):
@@ -104,7 +103,7 @@ class impl(builder.Base):
             self.config['tag'],
             self.config['spec']
         )
-        cmdo = utils.chomp(shell.run(cmd, capture=True))
+        cmdo = utils.chomp(shell.capture(cmd))
         # Now do some filtering because the output emits more than just the
         # storage path.
         lst = list(filter(lambda x: 'building with' not in x, cmdo.split('\n')))

@@ -8,6 +8,7 @@
 # top-level directory of this distribution for more information.
 #
 
+import os
 import re
 
 
@@ -18,16 +19,6 @@ def get_version():
         return sr.group(1)
     else:
         raise RuntimeError('Cannot determine version from version file.')
-
-def main():
-    import os
-
-    package_name = 'bueno'
-    package_vers = get_version()
-
-    package_setup(package_name, package_vers)
-
-    return os.EX_OK
 
 
 def package_setup(package_name, package_vers):
@@ -54,6 +45,15 @@ def package_setup(package_name, package_vers):
             'bin/bueno'
         ]
     )
+
+
+def main():
+    package_name = 'bueno'
+    package_vers = get_version()
+
+    package_setup(package_name, package_vers)
+
+    return os.EX_OK
 
 
 if __name__ == '__main__':

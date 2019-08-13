@@ -151,5 +151,5 @@ class LoggerAsset(BaseAsset):
         self.buildo = 'log.txt'
 
     def write(self, basep):
-        logger.log('# Done {}'.format(utils.nows()))
+        # logger.log('# Done {}'.format(utils.nows()))
         logger.write(os.path.join(basep, self.buildo))
