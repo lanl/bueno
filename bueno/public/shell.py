@@ -10,14 +10,14 @@
 Quasi shell-like utilities.
 '''
 
-from bueno.public import utils
 from bueno.public import logger
+from bueno.public import utils
 
 import os
 import subprocess
 
 
-def capture(cmd, chomp=True):
+def capture(cmd):
     '''
     Executes the provided command and returns a string with the command's
     output.
@@ -25,10 +25,7 @@ def capture(cmd, chomp=True):
     See run() for exceptions.
     '''
     res = run(cmd, capture=True)
-    if chomp:
-        res = utils.chomp(res)
-
-    return res
+    return utils.chomp(str().join(res))
 
 
 def which(cmd):
@@ -42,6 +39,7 @@ def which(cmd):
         wcmd = capture('which {}'.format(cmd))
     except ChildProcessError:
         wcmd = None
+
     return wcmd
 
 
@@ -56,7 +54,7 @@ def cat(file):
 
     with open(file, 'r') as file:
         for line in file:
-            lines.append(utils.chomp(line))
+            lines.append(line)
 
     return lines
 
@@ -65,12 +63,14 @@ def run(cmd, echo=False, capture=False):
     '''
     Executes the provided command.
 
+    Returns newline-delimited list of output if capture if True.
+
     Throws ChildProcessError on error.
     '''
     if echo:
         logger.log('# $ {}'.format(cmd))
-    # Output string used to (optionally) capture command output.
-    ostr = str()
+    # Output list of strings used to (optionally) capture command output.
+    olst = list()
     p = subprocess.Popen(
             cmd,
             shell=True,
@@ -87,7 +87,7 @@ def run(cmd, echo=False, capture=False):
         if not stdout:
             break
         if capture:
-            ostr += stdout
+            olst.append(stdout)
         else:
             logger.log(utils.chomp(stdout))
 
@@ -100,4 +100,4 @@ def run(cmd, echo=False, capture=False):
         raise e
 
     if capture:
-        return ostr
+        return olst

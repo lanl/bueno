@@ -13,6 +13,7 @@ Experiment utilities for good.
 from bueno.core import metacls
 
 from bueno.public import logger
+from bueno.public import shell
 from bueno.public import utils
 
 from abc import abstractmethod
@@ -65,6 +66,9 @@ def readgs(gs, config=None):
     # -c/--carg [ARG PARAMS] [positional arguments]
     '''
     logger.log('# Reading generate specification file: {}'.format(gs))
+    # Emit contents of gs file.
+    logger.log(str().join(shell.cat(gs)))
+
     gsstr = str()
     with open(gs) as f:
         argv = list()
@@ -90,8 +94,6 @@ def readgs(gs, config=None):
                 raise ValueError(es)
             gsargs = parsedargs(config.argparser, argv)
             config.update(gsargs)
-    # Emit parsed contents of gs file.
-    logger.log('{}'.format(gsstr))
 
     return gsstr
 
