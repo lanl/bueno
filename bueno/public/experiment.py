@@ -54,7 +54,7 @@ def generate(spec, *args):
     return [spec.format(*a) for a in argg]
 
 
-def readgs(gs, argprsr=None):
+def readgs(gs, config=None):
     '''
     A convenience routine for reading generate specification files.
 
@@ -73,7 +73,7 @@ def readgs(gs, argprsr=None):
             # Interpret as special comment used to specify run-time arguments.
             if l.startswith('# -'):
                 # Add to argument list.
-                if argprsr is not None:
+                if config is not None:
                     argv.extend(l.lstrip('# ').split())
             # Skip comments.
             elif l.startswith('#'):
@@ -83,12 +83,17 @@ def readgs(gs, argprsr=None):
                 gsstr += l
         # Parse arguments if provided an argument parser.
         gsargs = None
-        if argprsr is not None:
-            gsargs = parsedargs(argprsr, argv)
+        if config is not None:
+            if not isinstance(config, CLIConfiguration):
+                es = '{} expects an instance of ' \
+                     'CLIConfiguration'.format(__name__)
+                raise ValueError(es)
+            gsargs = parsedargs(config.argparser, argv)
+            config.update(gsargs)
     # Emit parsed contents of gs file.
     logger.log('{}'.format(gsstr))
 
-    return gsstr, gsargs
+    return gsstr
 
 
 def parsedargs(argprsr, argv):
