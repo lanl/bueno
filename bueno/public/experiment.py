@@ -12,6 +12,7 @@ Experiment utilities for good.
 
 from bueno.core import metacls
 
+from bueno.public import logger
 from bueno.public import utils
 
 from abc import abstractmethod
@@ -47,6 +48,7 @@ def generate(spec, *args):
     if not isinstance(spec, str):
         es = '{}.generate() expects a string specification.'.format(__name__)
         raise ValueError(es)
+
     argg = zip(* args)
 
     return [spec.format(*a) for a in argg]
@@ -62,6 +64,7 @@ def readgs(gs, argprsr=None):
     # -a/--aarg [ARG_PARAMS] -b/--bargs [ARG PARAMS]
     # -c/--carg [ARG PARAMS] [positional arguments]
     '''
+    logger.log('# Reading generate specification file: {}'.format(gs))
     gsstr = str()
     with open(gs) as f:
         argv = list()
@@ -82,6 +85,8 @@ def readgs(gs, argprsr=None):
         gsargs = None
         if argprsr is not None:
             gsargs = parsedargs(argprsr, argv)
+    # Emit parsed contents of gs file.
+    logger.log('{}'.format(gsstr))
 
     return gsstr, gsargs
 
@@ -179,7 +184,7 @@ class CLIConfiguration:
     def update(self, confns):
         '''
         Update the current configuration using the parsedargs provided through
-        confns.
+        confns, a namespace.
         '''
         confd = vars(confns)
         argsd = vars(self._args)

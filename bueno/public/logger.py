@@ -22,7 +22,7 @@ import os
 
 def log(msg, *args, **kwargs):
     '''
-    Used to log all service activities.
+    Logs the provided message to a central logger.
     '''
     _TheLogger().log(msg, *args, **kwargs)
 
@@ -36,8 +36,8 @@ def write(to):
 
 class _TheLogger(metaclass=metacls.Singleton):
     '''
-    The logger singleton used indirectly (via calls to log(), etc.) by all bueno
-    services.
+    The central logger singleton used indirectly (via calls to log(), etc.) by
+    all bueno services.
     '''
     def __init__(self):
         # Default logging level.
