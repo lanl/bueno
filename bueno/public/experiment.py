@@ -99,11 +99,10 @@ def readgs(gs, config=None):
 def parsedargs(argprsr, argv):
     # Make a deep copy of the provided argument parser.
     auxap = copy.deepcopy(argprsr)
-    # Known args, remaining (not used) = auxap.parse_known_args(argv)
-    kargs, _ = auxap.parse_known_args(argv)
+    aargs = auxap.parse_args(argv)
     # Set defaults to None so we can detect setting of arguments.
     nonedefs = dict()
-    for key in vars(kargs):
+    for key in vars(aargs):
         nonedefs[key] = None
     auxap.set_defaults(**nonedefs)
     # Parse the arguments present in file.

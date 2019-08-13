@@ -17,4 +17,4 @@ def run(cmd):
     '''
     Runs the given command string from within a container.
     '''
-    cntrimg.Activator().impl().run(cmd)
+    cntrimg.Activator().impl.run(cmd)

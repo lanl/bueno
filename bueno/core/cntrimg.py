@@ -111,5 +111,6 @@ class Activator(metaclass=metacls.Singleton):
     def __init__(self, imgactvtr):
         self.imgactvtr = imgactvtr
 
+    @property
     def impl(self):
         return self.imgactvtr
