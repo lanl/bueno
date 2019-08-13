@@ -105,10 +105,8 @@ def parsedargs(argprsr, argv):
     for key in vars(aargs):
         nonedefs[key] = None
     auxap.set_defaults(**nonedefs)
-    # Parse the arguments present in file.
-    pargs, _ = auxap.parse_known_args(argv)
-
-    return pargs
+    # Parse and return the arguments present in argv.
+    return auxap.parse_args(argv)
 
 
 class _TheExperiment(metaclass=metacls.Singleton):
