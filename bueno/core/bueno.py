@@ -11,10 +11,11 @@ The good stuff typically called by __main__.
 '''
 
 from bueno import _version
+
 from bueno.core import service
 
-import os
 import argparse
+import os
 import traceback
 
 
@@ -24,9 +25,9 @@ class ArgumentParser:
     '''
     def __init__(self):
         self.argp = argparse.ArgumentParser(
-                        description=self._desc(),
-                        allow_abbrev=False
-                    )
+            description=self._desc(),
+            allow_abbrev=False
+        )
 
     def _desc(self):
         '''

@@ -14,11 +14,17 @@ from bueno.core import cntrimg
 
 
 class RunPreAction:
+    '''
+    Base RunPreAction class.
+    '''
     def __init__(self, cmd):
         self.cmd = cmd
 
 
 class RunPostAction:
+    '''
+    Base RunPostAction class.
+    '''
     def __init__(self, cmd, output):
         self.cmd = cmd
         self.output = output
