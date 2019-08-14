@@ -21,6 +21,7 @@ from abc import abstractmethod
 import argparse
 import copy
 import os
+import shlex
 
 # TODO(skg) Add a convenience function that allows for the specification of a
 # list (in priority order) of executables. The first one found wins!
@@ -78,7 +79,7 @@ def readgs(gs, config=None):
             if l.startswith('# -'):
                 # Add to argument list.
                 if config is not None:
-                    argv.extend(l.lstrip('# ').split())
+                    argv.extend(shlex.split(l.lstrip('# ')))
             # Skip comments.
             elif l.startswith('#'):
                 continue
