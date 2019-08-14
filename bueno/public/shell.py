@@ -24,7 +24,7 @@ def capture(cmd):
 
     See run() for exceptions.
     '''
-    res = run(cmd, capture=True)
+    res = run(cmd, capture=True, verbose=False)
     return utils.chomp(str().join(res))
 
 
@@ -59,7 +59,7 @@ def cat(file):
     return lines
 
 
-def run(cmd, echo=False, capture=False):
+def run(cmd, echo=False, capture=False, verbose=True):
     '''
     Executes the provided command.
 
@@ -72,14 +72,14 @@ def run(cmd, echo=False, capture=False):
     # Output list of strings used to (optionally) capture command output.
     olst = list()
     p = subprocess.Popen(
-            cmd,
-            shell=True,
-            bufsize=1,
-            # Enables text mode, making write() et al. happy.
-            universal_newlines=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.STDOUT
-        )
+        cmd,
+        shell=True,
+        bufsize=1,
+        # Enables text mode, making write() et al. happy.
+        universal_newlines=True,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.STDOUT
+    )
     # Show progress and store output to a string (if requested).
     while (True):
         stdout = p.stdout.readline()
@@ -88,7 +88,7 @@ def run(cmd, echo=False, capture=False):
             break
         if capture:
             olst.append(stdout)
-        else:
+        if verbose:
             logger.log(utils.chomp(stdout))
 
     rc = p.wait()
@@ -101,3 +101,5 @@ def run(cmd, echo=False, capture=False):
 
     if capture:
         return olst
+    else:
+        return None

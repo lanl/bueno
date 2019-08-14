@@ -10,18 +10,18 @@
 The run service module.
 '''
 
-from bueno.core import service
 from bueno.core import cntrimg
+from bueno.core import service
 
-from bueno.public import utils
-from bueno.public import opsys
+from bueno.public import experiment
 from bueno.public import logger
 from bueno.public import metadata
-from bueno.public import experiment
+from bueno.public import opsys
+from bueno.public import utils
 
-import os
 import argparse
 import importlib.util
+import os
 
 
 class _Runner:

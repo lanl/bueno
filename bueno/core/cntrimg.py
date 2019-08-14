@@ -68,7 +68,7 @@ class BaseImageActivator(ABC):
             raise RuntimeError(ers.format(self.imgp))
 
     @abstractmethod
-    def run(self, cmd, echo=True):
+    def run(self, cmd, echo=True, capture=False, verbose=True):
         '''
         Runs the specified command in a container. By default the executed
         command is emitted echoed before its execution.
@@ -91,7 +91,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
             errs = notf.format(self.runcmd)
             raise RuntimeError(errs)
 
-    def run(self, cmd, echo=True):
+    def run(self, cmd, echo=True, capture=False, verbose=True):
         cmds = '{} {} -- {} {}'.format(
             self.runcmd,
             self.imgp,
@@ -101,7 +101,8 @@ class CharlieCloudImageActivator(BaseImageActivator):
             'bash -c \'${0} ${1+$@}\'',
             cmd
         )
-        shell.run(cmds, echo)
+
+        return shell.run(cmds, echo=echo, capture=capture, verbose=verbose)
 
 
 class Activator(metaclass=metacls.Singleton):
