@@ -12,8 +12,8 @@ Core metadata types.
 
 from bueno.core import metacls
 
-from bueno.public import utils
 from bueno.public import logger
+from bueno.public import utils
 
 from abc import ABC, abstractmethod
 
@@ -28,6 +28,7 @@ def write(basep):
     '''
     _MetaData(basep).write()
 
+
 def add_asset(asset):
     '''
     Adds a metadata asset to the collection of assets to be written.
@@ -38,7 +39,7 @@ def add_asset(asset):
 class _MetaData:
     def __init__(self, basep):
         # The base path where all metadata are stored.
-        self.basep = basep
+        self._basep = basep
         os.makedirs(self.basep, 0o755)
 
     def write(self):
@@ -48,11 +49,13 @@ class _MetaData:
     def _add_default_assets(self):
         _Assets().add(LoggerAsset())
 
-    def set_basep(basep):
-        self.basep = basep
+    @property
+    def basep(self):
+        return self._basep
 
-    def get_basep():
-        return sefl.basep
+    @basep.setter
+    def basep(self, basep):
+        self._basep = basep
 
 
 class _Assets(metaclass=metacls.Singleton):
@@ -155,5 +158,5 @@ class LoggerAsset(BaseAsset):
         self.buildo = 'log.txt'
 
     def write(self, basep):
-        # logger.log('# Done {}'.format(utils.nows()))
+        logger.log('# Done {}'.format(utils.nows()))
         logger.write(os.path.join(basep, self.buildo))
