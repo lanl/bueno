@@ -82,10 +82,8 @@ class impl(builder.Base):
             'version': shell.capture('{} --version'.format(self.buildc)),
         }
 
-        logger.log('# Begin Builder Details (YAML)')
-        utils.pyaml(binfo)
+        utils.pyaml(binfo, 'Builder')
         metadata.add_asset(metadata.YAMLDictAsset(binfo, 'builder'))
-        logger.log('# End Builder Details (YAML)')
 
     def _emit_build_spec(self):
         dockerf = os.path.join(self.config['spec'], self.spec_name)
