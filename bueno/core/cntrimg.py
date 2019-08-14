@@ -48,7 +48,7 @@ class ImageActivatorFactory:
     def build(activator_name, imgp):
         try:
             aidx = ImageActivatorFactory.available().index(activator_name)
-        except:
+        except Exception:
             ers = 'Unknown container image activator requested: {}'
             raise RuntimeError(ers.format(activator_name))
         # Initialize the activator singleton with the proper implementation.
