@@ -191,7 +191,7 @@ class CLIConfiguration:
         confns, a namespace.
         '''
         confd = vars(confns)
-        argsd = vars(self._args)
+        argsd = vars(self.args)
         pcags = vars(parsedargs(self.argparser, self.argv[1:]))
 
         # Look at the arguments provided in the configuration (gs) file. The
