@@ -126,18 +126,22 @@ class YAMLDictAsset(BaseAsset):
         # A deep copy of the provided YAML dictionary.
         self.ydict = copy.deepcopy(ydict)
         # Output file name.
-        self.fname = YAMLDictAsset._name_fixup(fname)
+        self.fname = fname
 
-    @staticmethod
-    def _name_fixup(name):
+    @property
+    def fname(self):
+        return self._fname
+
+    @fname.setter
+    def fname(self, name):
         yamlex = '.yaml'
         if not name.endswith(yamlex):
-            return name + yamlex
+            self._fname = name + yamlex
         else:
-            return name
+            self._fname = name
 
     def write(self, basep):
-        target = os.path.join(basep, self.fname)
+        target = os.path.join(basep, self._fname)
         with open(target, 'w+') as file:
             file.write(utils.syaml(self.ydict))
 
