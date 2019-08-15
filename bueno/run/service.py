@@ -20,8 +20,10 @@ from bueno.public import opsys
 from bueno.public import utils
 
 import argparse
+import copy
 import importlib.util
 import os
+import sys
 
 
 class _Runner:
@@ -148,7 +150,11 @@ class impl(service.Base):
         # TODO(skg) Add --bind option.
 
     def _populate_service_config(self):
-        self.confd['Configuration'] = vars(self.args)
+        # Remove program from output since it is reduntant and because we don't
+        # know how it'll be parsed by the given program.
+        tmpargs = copy.deepcopy(vars(self.args))
+        tmpargs.pop('program')
+        self.confd['Configuration'] = tmpargs
         metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'run'))
 
     def _populate_sys_config(self):
@@ -197,8 +203,9 @@ class impl(service.Base):
 
     def start(self):
         logger.log('# Starting {} at {}'.format(self.prog, utils.nows()))
-        stime = utils.now()
+        logger.log('# $ {}'.format(' '.join(sys.argv)))
 
+        stime = utils.now()
         try:
             self._emit_config()
             self._run()
@@ -208,8 +215,8 @@ class impl(service.Base):
                     'Why:  {}'.format(self.prog, e)
             estr += utils.ehorf()
             raise type(e)(estr)
-
         etime = utils.now()
+
         logger.log('# {} Time {}'.format(self.prog, etime - stime))
         logger.log('# {} Done {}'.format(self.prog, utils.nows()))
 

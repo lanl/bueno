@@ -20,6 +20,7 @@ from bueno.public import opsys
 from bueno.public import utils
 
 import os
+import sys
 
 
 class impl(service.Base):
@@ -108,8 +109,9 @@ class impl(service.Base):
 
     def start(self):
         logger.log('# Starting {} at {}'.format(self.prog, utils.nows()))
-        stime = utils.now()
+        logger.log('# $ {}'.format(' '.join(sys.argv)))
 
+        stime = utils.now()
         try:
             self._emit_config()
             self._do_build()
@@ -119,7 +121,7 @@ class impl(service.Base):
                     'Why:  {}'.format(self.prog, e)
             estr += utils.ehorf()
             raise type(e)(estr)
-
         etime = utils.now()
+
         logger.log('# {} Time {}'.format(self.prog, etime - stime))
         logger.log('# {} Done {}'.format(self.prog, utils.nows()))
