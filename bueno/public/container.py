@@ -15,49 +15,27 @@ from bueno.core import cntrimg
 from bueno.public import utils
 
 
-class RunPreAction:
-    '''
-    Base RunPreAction class.
-    '''
-    def __init__(self, **kwargs):
-        self.data = kwargs
-
-
-class RunPostAction:
-    '''
-    Base RunPostAction class.
-    '''
-    def __init__(self, **kwargs):
-        self.data = kwargs
-
-
-def run(cmd, PreAction=None, PostAction=None):
+def run(cmd, preaction=None, postaction=None):
     '''
     Runs the given command string from within a container.  Optionally
     initializes and calls pre- or post-actions if provided.
     '''
-    acers = '{} expects {{}} subclass.'.format(__name__)
+    capture = postaction is not None
 
-    capture = PostAction is not None
-
-    if PreAction is not None:
+    if preaction is not None:
         preargs = {
             'command': cmd
         }
-        if not issubclass(PreAction, RunPreAction):
-            raise ValueError(acers.format('RunPreAction'))
-        PreAction(**preargs)
+        preaction(**preargs)
 
     stime = utils.now()
     coutput = cntrimg.Activator().impl.run(cmd, capture=capture)
     etime = utils.now()
 
-    if PostAction is not None:
+    if postaction is not None:
         postargs = {
             'command': cmd,
             'exectime': etime - stime,
             'output': coutput
         }
-        if not issubclass(PostAction, RunPostAction):
-            raise ValueError(acers.format('RunPostAction'))
-        PostAction(**postargs)
+        postaction(**postargs)
