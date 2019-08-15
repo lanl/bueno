@@ -108,8 +108,8 @@ class impl(service.Base):
         self.builder.start()
 
     def start(self):
-        logger.log('# Starting {} at {}'.format(self.prog, utils.nows()))
-        logger.log('# $ {}'.format(' '.join(sys.argv)))
+        logger.emlog('# Starting {} at {}'.format(self.prog, utils.nows()))
+        logger.log('# $ {}\n'.format(' '.join(sys.argv)))
 
         stime = utils.now()
         try:

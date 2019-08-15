@@ -66,9 +66,11 @@ def readgs(gs, config=None):
     # -a/--aarg [ARG_PARAMS] -b/--bargs [ARG PARAMS]
     # -c/--carg [ARG PARAMS] [positional arguments]
     '''
-    logger.log('# Reading generate specification file: {}'.format(gs))
+    logger.emlog('# Reading Generate Specification File: {}'.format(gs))
     # Emit contents of gs file.
-    logger.log(str().join(shell.cat(gs)))
+    logger.log('# Begin Generate Specification')
+    logger.log(utils.chomp(str().join(shell.cat(gs))))
+    logger.log('# End Generate Specification\n')
 
     gsstr = str()
     with open(gs) as f:

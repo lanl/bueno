@@ -49,7 +49,7 @@ class impl(builder.Base):
 
         Raises OSError if the environment is unsatisfactory.
         '''
-        logger.log('# Checking your build environment...')
+        logger.emlog('# Checking your build environment...')
 
         inyp = 'Is it in your PATH?\n'
         notf = "'{}' not found. " + inyp
@@ -91,7 +91,7 @@ class impl(builder.Base):
         metadata.add_asset(metadata.FileAsset(dockerf))
         # Emit the contents of the spec file.
         logger.log('# Begin Spec Output')
-        logger.log(str().join(shell.cat(dockerf)))
+        logger.log(utils.chomp(str().join(shell.cat(dockerf))))
         logger.log('# End Spec Output')
 
     def _get_path_to_storage(self):
@@ -149,10 +149,10 @@ class impl(builder.Base):
             self.config['spec']
         )
 
-        logger.log('# Begin Build Output')
+        logger.emlog('# Begin Build Output')
         # Run the command specified by bcmd.
         shell.run(bcmd, echo=True)
-        logger.log('# End Build Output')
+        logger.emlog('# End Build Output')
 
     def start(self):
         self._check_env()

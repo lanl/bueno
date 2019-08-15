@@ -186,9 +186,9 @@ class impl(service.Base):
         cntrimg.ImageActivatorFactory().build(actvtr, imgdir)
 
         pname = os.path.basename(self.args.program[0])
-        logger.log('\n# Begin Program Output ({})'.format(pname))
+        logger.emlog('# Begin Program Output ({})'.format(pname))
         _Runner.run(self.args.program)
-        logger.log('\n# End Program Output')
+        logger.emlog('# End Program Output')
 
     def _getmetasubd(self):
         expn = experiment.name()
@@ -202,8 +202,8 @@ class impl(service.Base):
         logger.log('# Run Output Written to: {}'.format(outp))
 
     def start(self):
-        logger.log('# Starting {} at {}'.format(self.prog, utils.nows()))
-        logger.log('# $ {}'.format(' '.join(sys.argv)))
+        logger.emlog('# Starting {} at {}'.format(self.prog, utils.nows()))
+        logger.log('# $ {}\n'.format(' '.join(sys.argv)))
 
         stime = utils.now()
         try:

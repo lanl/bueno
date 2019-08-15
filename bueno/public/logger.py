@@ -20,6 +20,15 @@ import sys
 import os
 
 
+def emlog(msg, *args, **kwargs):
+    '''
+    Logs the provided message to a central logger with emphasis.
+    '''
+    _TheLogger().log('\n##')
+    _TheLogger().log(msg, *args, **kwargs)
+    _TheLogger().log('##\n')
+
+
 def log(msg, *args, **kwargs):
     '''
     Logs the provided message to a central logger.
