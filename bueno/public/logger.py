@@ -24,9 +24,8 @@ def emlog(msg, *args, **kwargs):
     '''
     Logs the provided message to a central logger with emphasis.
     '''
-    _TheLogger().log('\n##')
-    _TheLogger().log(msg, *args, **kwargs)
-    _TheLogger().log('##\n')
+    realmsg = '\n##\n' + msg + '\n##\n'
+    _TheLogger().log(realmsg, *args, **kwargs)
 
 
 def log(msg, *args, **kwargs):
