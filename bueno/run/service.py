@@ -129,6 +129,7 @@ class impl(service.Base):
             required=False
         )
 
+        # TODO(skg) Optionally required if activator is not none.
         self.argp.add_argument(
             '-i', '--image-dir',
             type=str,

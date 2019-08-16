@@ -24,7 +24,6 @@ class ImageActivatorFactory:
     The container image activator factory.
     '''
     # Modify this list as image activators change.
-    # TODO(skg) Add self-registration.
     items = [
         ('charliecloud', lambda x: CharlieCloudImageActivator(x)),
         ('none', lambda x: NoneImageActivator(x))

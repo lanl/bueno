@@ -22,17 +22,17 @@ experiment.name('test-shellcmds')
 def main(argv):
     fname = 'afile.txt'
     logger.log('# Testing globbing...')
-    container.run('ls b*')
+    container.run('ls *')
 
-    logger.log('# Testing redirection...')
+    logger.emlog('# Testing redirection...')
     logger.log('# Adding text to {}:'.format(fname))
     container.run('echo "Some Text" | tee {}'.format(fname))
     container.run('echo "More \'Text\'" >> {}'.format(fname))
 
-    logger.log('# The contents of {} are:'.format(fname))
+    logger.emlog('# The contents of {} are:'.format(fname))
     shell.run('cat {}'.format(fname))
 
-    logger.log('# Testing quoting...')
+    logger.emlog('# Testing quoting...')
     container.run('echo "Some \'Text\'"')
 
     metadata.add_asset(metadata.FileAsset(fname))
