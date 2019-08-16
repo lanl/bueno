@@ -118,7 +118,15 @@ class NoneImageActivator(BaseImageActivator):
         super().__init__(imgp)
 
     def run(self, cmd, echo=True, capture=False, verbose=True):
-        return shell.run(cmd, echo=echo, capture=capture, verbose=verbose)
+        cmds = '{} {}'.format(
+            # Note that we use this strategy instead of just running the
+            # provided command so that quoting and escape requirements are
+            # consistent across activators.
+            'bash -c \'${0} ${1+$@}\'',
+            cmd
+        )
+
+        return shell.run(cmds, echo=echo, capture=capture, verbose=verbose)
 
 
 class Activator(metaclass=metacls.Singleton):

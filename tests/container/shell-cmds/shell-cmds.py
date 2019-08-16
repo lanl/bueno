@@ -22,8 +22,9 @@ experiment.name('test-shellcmds')
 def main(argv):
     fname = 'afile.txt'
     logger.log('# Testing globbing...')
-    # TODO(skg) FIXME
-    container.run('ls -l')
+    # Wildcards need to be escaped with a `\' or quoted to protect them from
+    # expansion by the shell.
+    container.run('ls \\*')
 
     logger.emlog('# Testing redirection...')
     logger.log('# Adding text to {}:'.format(fname))
