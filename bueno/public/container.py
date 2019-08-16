@@ -15,7 +15,7 @@ from bueno.core import cntrimg
 from bueno.public import utils
 
 
-def run(cmd, preaction=None, postaction=None):
+def run(cmd, echo=True, preaction=None, postaction=None):
     '''
     Runs the given command string from within a container.  Optionally
     initializes and calls pre- or post-actions if provided.
@@ -29,7 +29,7 @@ def run(cmd, preaction=None, postaction=None):
         preaction(**preargs)
 
     stime = utils.now()
-    coutput = cntrimg.Activator().impl.run(cmd, capture=capture)
+    coutput = cntrimg.Activator().impl.run(cmd, echo=echo, capture=capture)
     etime = utils.now()
 
     if postaction is not None:
