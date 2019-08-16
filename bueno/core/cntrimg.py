@@ -59,6 +59,11 @@ class BaseImageActivator(ABC):
     '''
     Abstract base class for container image activators.
     '''
+    # The magic from https://stackoverflow.com/questions/1711970 makes cmd
+    # quoting a non-issue. Pretty slick... Notice that this is a slightly
+    # modified version to meet our needs.
+    bashmagic = 'bash -c \'${0} ${1+$@}\''
+
     def __init__(self, imgp):
         super().__init__()
         # Optional image path.
@@ -99,10 +104,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
         cmds = '{} {} -- {} {}'.format(
             self.runcmd,
             self.imgp,
-            # The magic from https://stackoverflow.com/questions/1711970
-            # makes cmd quoting a non-issue. Pretty slick... Notice that this is
-            # a slightly modified version to meet our needs.
-            'bash -c \'${0} ${1+$@}\'',
+            BaseImageActivator.bashmagic,
             cmd
         )
 
@@ -121,7 +123,7 @@ class NoneImageActivator(BaseImageActivator):
             # Note that we use this strategy instead of just running the
             # provided command so that quoting and escape requirements are
             # consistent across activators.
-            'bash -c \'${0} ${1+$@}\'',
+            BaseImageActivator.bashmagic,
             cmd
         )
 

@@ -115,7 +115,6 @@ class impl(service.Base):
             super().__init__(option_strings, dest, **kwargs)
 
         def __call__(self, parser, namespace, values, option_string=None):
-            print('values:{}'.format(values))
             # Adjust image-dir options if the image activator is none.
             if values == 'none':
                 self.imgdir_arg.required = False
