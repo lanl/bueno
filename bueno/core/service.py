@@ -69,6 +69,7 @@ class Factory:
     '''The service factory.'''
     # List of supported service names.
     # Modify this list as services change.
+    # TODO(skg) Update and use strategy found in cntrimg.py.
     services = [
         'build',
         'run'

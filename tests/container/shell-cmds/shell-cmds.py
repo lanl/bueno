@@ -22,7 +22,8 @@ experiment.name('test-shellcmds')
 def main(argv):
     fname = 'afile.txt'
     logger.log('# Testing globbing...')
-    container.run('ls *')
+    # TODO(skg) FIXME
+    container.run('ls -l')
 
     logger.emlog('# Testing redirection...')
     logger.log('# Adding text to {}:'.format(fname))

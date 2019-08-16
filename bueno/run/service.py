@@ -105,6 +105,23 @@ class impl(service.Base):
             imgp = os.path.abspath(values)
             setattr(namespace, self.dest, imgp)
 
+    class ImageActivatorAction(argparse.Action):
+        '''
+        Custom action class used for 'image-activator' argument handling.
+        '''
+        def __init__(self, option_strings, dest, nargs=None, **kwargs):
+            # Store reference to imgdir_arg for later use.
+            self.imgdir_arg = kwargs.pop('imgdir_arg')
+            super().__init__(option_strings, dest, **kwargs)
+
+        def __call__(self, parser, namespace, values, option_string=None):
+            print('values:{}'.format(values))
+            # Adjust image-dir options if the image activator is none.
+            if values == 'none':
+                self.imgdir_arg.required = False
+                self.imgdir_arg.help = argparse.SUPPRESS
+            setattr(namespace, self.dest, values)
+
     def __init__(self, argv):
         super().__init__(impl._defaults.desc, argv)
 
@@ -118,6 +135,14 @@ class impl(service.Base):
             required=False
         )
 
+        imgdir_arg = self.argp.add_argument(
+            '-i', '--image-dir',
+            type=str,
+            help='Specifies the base container image directory.',
+            required=True,
+            action=impl.ImageDirAction
+        )
+
         self.argp.add_argument(
             '-a', '--image-activator',
             type=str,
@@ -126,16 +151,9 @@ class impl(service.Base):
                  'Default: {}'.format(impl._defaults.imgactvtr),
             default=impl._defaults.imgactvtr,
             choices=cntrimg.ImageActivatorFactory.available(),
-            required=False
-        )
-
-        # TODO(skg) Optionally required if activator is not none.
-        self.argp.add_argument(
-            '-i', '--image-dir',
-            type=str,
-            help='Specifies the base container image directory.',
-            required=True,
-            action=impl.ImageDirAction
+            required=False,
+            action=impl.ImageActivatorAction,
+            imgdir_arg=imgdir_arg
         )
 
         self.argp.add_argument(

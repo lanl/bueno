@@ -61,8 +61,11 @@ class BaseImageActivator(ABC):
     '''
     def __init__(self, imgp):
         super().__init__()
-        # Image path.
+        # Optional image path.
         self.imgp = imgp
+
+        if self.imgp is None:
+            return
         if not os.path.isdir(self.imgp):
             ers = 'Invalid container image path provided: {}'
             raise RuntimeError(ers.format(self.imgp))
@@ -93,6 +96,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
             raise RuntimeError(errs)
 
     def run(self, cmd, echo=True, capture=False, verbose=True):
+        # TODO(skg) FIXME ls * is still broken.
         cmds = '{} {} -- {} {}'.format(
             self.runcmd,
             self.imgp,
@@ -110,7 +114,7 @@ class NoneImageActivator(BaseImageActivator):
     '''
     The non-image-activator activator. Just a passthrough to the host's shell.
     '''
-    def __init__(self, imgp):
+    def __init__(self, imgp=None):
         super().__init__(imgp)
 
     def run(self, cmd, echo=True, capture=False, verbose=True):
