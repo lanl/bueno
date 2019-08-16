@@ -96,7 +96,6 @@ class CharlieCloudImageActivator(BaseImageActivator):
             raise RuntimeError(errs)
 
     def run(self, cmd, echo=True, capture=False, verbose=True):
-        # TODO(skg) FIXME ls * is still broken.
         cmds = '{} {} -- {} {}'.format(
             self.runcmd,
             self.imgp,
