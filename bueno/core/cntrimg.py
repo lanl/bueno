@@ -26,7 +26,8 @@ class ImageActivatorFactory:
     # Modify this list as image activators change.
     # TODO(skg) Add self-registration.
     items = [
-        ('charliecloud', lambda x: CharlieCloudImageActivator(x))
+        ('charliecloud', lambda x: CharlieCloudImageActivator(x)),
+        ('none', lambda x: NoneImageActivator(x))
     ]
 
     @staticmethod
@@ -82,6 +83,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
     '''
     def __init__(self, imgp):
         super().__init__(imgp)
+
         self.runcmd = 'ch-run'
 
         inyp = 'Is it in your PATH?\n'
@@ -103,6 +105,17 @@ class CharlieCloudImageActivator(BaseImageActivator):
         )
 
         return shell.run(cmds, echo=echo, capture=capture, verbose=verbose)
+
+
+class NoneImageActivator(BaseImageActivator):
+    '''
+    The non-image-activator activator. Just a passthrough to the host's shell.
+    '''
+    def __init__(self, imgp):
+        super().__init__(imgp)
+
+    def run(self, cmd, echo=True, capture=False, verbose=True):
+        return shell.run(cmd, echo=echo, capture=capture, verbose=verbose)
 
 
 class Activator(metaclass=metacls.Singleton):
