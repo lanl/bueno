@@ -196,9 +196,8 @@ class CLIConfiguration:
         confd = vars(confns)
         argsd = vars(self.args)
         pcags = vars(parsedargs(self.argparser, self.argv[1:]))
-
         # Look at the arguments provided in the configuration (gs) file. The
-        # order in which the updates occur matter:
+        # order in which the updates occur matters:
         # - confns arguments will overwrite any already set
         # - pcags will overwrite any. This allows the setting of values
         # through a configuration file, while also allowing the ability to
