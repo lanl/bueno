@@ -17,8 +17,8 @@ from bueno.public import utils
 
 def run(cmd, echo=True, preaction=None, postaction=None):
     '''
-    Runs the given command string from within a container.  Optionally
-    initializes and calls pre- or post-actions if provided.
+    Runs the given command string from within a container.  Optionally calls
+    pre- or post-actions if provided.
     '''
     capture = postaction is not None
 
