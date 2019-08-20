@@ -59,6 +59,16 @@ def cat(file):
     return lines
 
 
+def cats(file):
+    '''
+    Akin to cat(1), but returns a string containing the contents of the provided
+    file.
+
+    Raises OSError or IOError on error.
+    '''
+    return str().join(cat(file))
+
+
 def run(cmd, echo=False, capture=False, verbose=True):
     '''
     Executes the provided command.
