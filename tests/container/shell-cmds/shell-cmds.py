@@ -37,4 +37,8 @@ def main(argv):
     logger.emlog('# Testing quoting...')
     container.run('echo "Some \'Text\'"')
 
+    logger.emlog('# Testing command chaining...')
+    container.run('true && echo true!')
+    container.run('false || echo false... && echo and done!')
+
     metadata.add_asset(metadata.FileAsset(fname))
