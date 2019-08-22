@@ -23,9 +23,6 @@ import copy
 import os
 import shlex
 
-# TODO(skg) Add a convenience function that allows for the specification of a
-# list (in priority order) of executables. The first one found wins!
-
 
 def name(n=None):
     '''

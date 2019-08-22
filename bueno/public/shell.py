@@ -43,6 +43,21 @@ def which(cmd):
     return wcmd
 
 
+def whichl(cmds):
+    '''
+    Akin to which(1), but accepts a list of commands to search for. The first
+    command found by which() is returned.
+
+    Returns None if none of the provided commands are found.
+    '''
+    for cmd in cmds:
+        wcmd = which(cmd)
+        if wcmd is not None:
+            return wcmd
+
+    return None
+
+
 def cat(file):
     '''
     Akin to cat(1), but returns a list of strings containing the contents of the
