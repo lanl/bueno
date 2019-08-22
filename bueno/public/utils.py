@@ -38,21 +38,21 @@ def chomp(s):
     return s.rstrip()
 
 
-def syaml(d):
+def yamls(d):
     '''
     Returns YAML string from the provided dictionary.
     '''
     return chomp(yaml.dump(d, default_flow_style=False))
 
 
-def pyaml(d, label=None):
+def yamlp(d, label=None):
     '''
     Emits YAML output from the provided dictionary.
     '''
     if not emptystr(label):
         logger.log('# Begin {} Configuration (YAML)'.format(label))
 
-    logger.log(syaml(d))
+    logger.log(yamls(d))
 
     if not emptystr(label):
         logger.log('# End {} Configuration (YAML)'.format(label))

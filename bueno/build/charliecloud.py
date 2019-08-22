@@ -82,7 +82,7 @@ class impl(builder.Base):
             'version': shell.capture('{} --version'.format(self.buildc)),
         }
 
-        utils.pyaml(binfo, 'Builder')
+        utils.yamlp(binfo, 'Builder')
         metadata.add_asset(metadata.YAMLDictAsset(binfo, 'builder'))
 
     def _emit_build_spec(self):

@@ -147,7 +147,7 @@ class YAMLDictAsset(BaseAsset):
     def write(self, basep):
         target = os.path.join(basep, self._fname)
         with open(target, 'w+') as file:
-            file.write(utils.syaml(self.ydict))
+            file.write(utils.yamls(self.ydict))
 
 
 class LoggerAsset(BaseAsset):

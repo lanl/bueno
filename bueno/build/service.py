@@ -101,7 +101,7 @@ class impl(service.Base):
         # Add to metadata assets stored to container image.
         metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'environment'))
         # Then print it out in YAML format.
-        utils.pyaml(self.confd, self.prog)
+        utils.yamlp(self.confd, self.prog)
 
     def _do_build(self):
         self.builder = builder.Factory.build(**vars(self.args))
