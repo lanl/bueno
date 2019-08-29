@@ -12,10 +12,12 @@ The good stuff typically called by __main__.
 
 from bueno import _version
 
+from bueno.core import perms
 from bueno.core import service
 
 import argparse
 import os
+import sys
 import traceback
 
 
@@ -100,5 +102,9 @@ class Bueno:
 
 
 def main():
+    if perms.privileged_user():
+        ers = 'Running this program as root is a bad idea...Exiting now.\n'
+        sys.exit(ers)
+
     pargs = ArgumentParser().parse()
     return Bueno.main(pargs)
