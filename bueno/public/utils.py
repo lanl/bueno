@@ -73,11 +73,32 @@ def emptystr(s):
 
 
 class Table:
+    class Row():
+        def __init__(self, data, withrule=False):
+            self.data = data
+            self.withrule = withrule
+
+    class RowFormatter():
+        def __init__(self, mcls):
+            self.colpad = 2
+            self.mcls = list(map(lambda x: x + self.colpad, mcls))
+            self.fmts = str()
+            # Generate format string based on max column lengths.
+            for l in self.mcls:
+                self.fmts += '{{:<{}s}}'.format(l)
+
+        def format(self, row):
+            res = str()
+            res += self.fmts.format(*row.data)
+            if (row.withrule):
+                res += '\n' + ('-' * (sum(self.mcls) - self.colpad))
+            return res
+
     def __init__(self):
         self.rows = list()
         self.maxcollens = list()
 
-    def addrow(self, row):
+    def addrow(self, row, withrule=False):
         if (len(self.rows) == 0):
             ncols = len(row)
             self.maxcollens = [0] * ncols
@@ -86,16 +107,9 @@ class Table:
         maxlens = map(len, srow)
 
         self.maxcollens = list(map(max, zip(self.maxcollens, maxlens)))
-        self.rows.append(srow)
-
-    def addheader(self):
-        pass
+        self.rows.append(Table.Row(srow, withrule))
 
     def emit(self):
-        fmts = str()
-        # Generate format string based on max column lengths.
-        for l in self.maxcollens:
-            fmts += '{{:<{}s}}'.format(l + 2)
-
+        rowformatter = Table.RowFormatter(self.maxcollens)
         for r in self.rows:
-            logger.log(fmts.format(*r))
+            logger.log(rowformatter.format(r))
