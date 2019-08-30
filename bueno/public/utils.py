@@ -70,3 +70,32 @@ def emptystr(s):
     Returns True if the provided string is not empty; False otherwise.
     '''
     return not (s and s.strip())
+
+
+class Table:
+    def __init__(self):
+        self.rows = list()
+        self.maxcollens = list()
+
+    def addrow(self, row):
+        if (len(self.rows) == 0):
+            ncols = len(row)
+            self.maxcollens = [0] * ncols
+
+        srow = list(map(str, row))
+        maxlens = map(len, srow)
+
+        self.maxcollens = list(map(max, zip(self.maxcollens, maxlens)))
+        self.rows.append(srow)
+
+    def addheader(self):
+        pass
+
+    def emit(self):
+        fmts = str()
+        # Generate format string based on max column lengths.
+        for l in self.maxcollens:
+            fmts += '{{:<{}s}}'.format(l + 2)
+
+        for r in self.rows:
+            logger.log(fmts.format(*r))

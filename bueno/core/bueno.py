@@ -103,7 +103,7 @@ class Bueno:
 
 def main():
     if utils.privileged_user():
-        ers = '\nRunning this program as root is a bad idea...Exiting now.\n'
+        ers = '\nRunning this program as root is a bad idea... Exiting now.\n'
         sys.exit(ers)
 
     pargs = ArgumentParser().parse()
