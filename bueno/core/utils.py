@@ -7,7 +7,7 @@
 #
 
 '''
-Core permissions module.
+Core utility module.
 '''
 
 import os

@@ -12,8 +12,8 @@ The good stuff typically called by __main__.
 
 from bueno import _version
 
-from bueno.core import perms
 from bueno.core import service
+from bueno.core import utils
 
 import argparse
 import os
@@ -41,7 +41,7 @@ class ArgumentParser:
         self.argp.add_argument(
             '-t', '--traceback',
             help='Provides detailed exception information '
-                 'useful for bug reporting and debugging.',
+                 'useful for bug reporting and run script debugging.',
             action='store_true',
             default=False,
             required=False
@@ -102,8 +102,8 @@ class Bueno:
 
 
 def main():
-    if perms.privileged_user():
-        ers = 'Running this program as root is a bad idea...Exiting now.\n'
+    if utils.privileged_user():
+        ers = '\nRunning this program as root is a bad idea...Exiting now.\n'
         sys.exit(ers)
 
     pargs = ArgumentParser().parse()
