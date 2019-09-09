@@ -99,6 +99,9 @@ def readgs(gs, config=None):
 
 
 def parsedargs(argprsr, argv):
+    '''
+    TODO(skg) add a proper description.
+    '''
     # Make a deep copy of the provided argument parser.
     auxap = copy.deepcopy(argprsr)
     aargs = auxap.parse_args(argv)

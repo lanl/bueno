@@ -84,6 +84,8 @@ def cats(file):
     return str().join(cat(file))
 
 
+# TODO(skg): Should run et al. behave exactly as container.run()? If so, move
+# and use bashmagic.
 def run(cmd, echo=False, capture=False, verbose=True):
     '''
     Executes the provided command.

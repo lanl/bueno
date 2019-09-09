@@ -110,6 +110,6 @@ class Table:
         self.rows.append(Table.Row(srow, withrule))
 
     def emit(self):
-        rowformatter = Table.RowFormatter(self.maxcollens)
+        rf = Table.RowFormatter(self.maxcollens)
         for r in self.rows:
-            logger.log(rowformatter.format(r))
+            logger.log(rf.format(r))
