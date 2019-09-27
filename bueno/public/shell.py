@@ -105,7 +105,11 @@ def run(cmd, verbatim=False, echo=False, capture=False, verbose=True):
     realcmd = getrealcmd(cmd, verbatim)
 
     if echo:
-        logger.log('# $ {}'.format(realcmd))
+        logcmd = realcmd
+        # No need to let the user know that we are using magic here.
+        if not verbatim:
+            logcmd = realcmd.lstrip(bashmagic)
+        logger.log('# $ {}'.format(logcmd))
     # Output list of strings used to (optionally) capture command output.
     olst = list()
     p = subprocess.Popen(
