@@ -59,11 +59,6 @@ class BaseImageActivator(ABC):
     '''
     Abstract base class for container image activators.
     '''
-    # The magic from https://stackoverflow.com/questions/1711970 makes cmd
-    # quoting a non-issue. Pretty slick... Notice that this is a slightly
-    # modified version to meet our needs.
-    bashmagic = 'bash -c \'${0} ${1+$@}\''
-
     def __init__(self, imgp):
         super().__init__()
         # Optional image path.
@@ -104,11 +99,16 @@ class CharlieCloudImageActivator(BaseImageActivator):
         cmds = '{} {} -- {} {}'.format(
             self.runcmd,
             self.imgp,
-            BaseImageActivator.bashmagic,
+            shell.bashmagic,
             cmd
         )
-
-        return shell.run(cmds, echo=echo, capture=capture, verbose=verbose)
+        runargs = {
+            'verbatim': True,
+            'echo': echo,
+            'capture': capture,
+            'verbose': verbose
+        }
+        return shell.run(cmds, **runargs)
 
 
 class NoneImageActivator(BaseImageActivator):
@@ -126,8 +126,13 @@ class NoneImageActivator(BaseImageActivator):
             BaseImageActivator.bashmagic,
             cmd
         )
-
-        return shell.run(cmds, echo=echo, capture=capture, verbose=verbose)
+        runargs = {
+            'verbatim': True,
+            'echo': echo,
+            'capture': capture,
+            'verbose': verbose
+        }
+        return shell.run(cmds, **runargs)
 
 
 class Activator(metaclass=metacls.Singleton):

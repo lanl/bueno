@@ -25,6 +25,8 @@ def main(argv):
     # Wildcards need to be escaped with a `\' or quoted to protect them from
     # expansion by the shell.
     container.run('ls \\*')
+    # shell and container interfaces should behave as identically as possible.
+    shell.run('ls \\*')
 
     logger.emlog('# Testing redirection...')
     logger.log('# Adding text to {}:'.format(fname))

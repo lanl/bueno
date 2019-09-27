@@ -16,6 +16,11 @@ from bueno.public import utils
 import os
 import subprocess
 
+# The magic from https://stackoverflow.com/questions/1711970 makes cmd
+# quoting a non-issue. Pretty slick... Notice that this is a slightly
+# modified version to meet our needs.
+bashmagic = 'bash -c \'${0} ${1+$@}\''
+
 
 def capture(cmd):
     '''
@@ -84,9 +89,7 @@ def cats(file):
     return str().join(cat(file))
 
 
-# TODO(skg): Should run et al. behave exactly as container.run()? If so, move
-# and use bashmagic.
-def run(cmd, echo=False, capture=False, verbose=True):
+def run(cmd, verbatim=False, echo=False, capture=False, verbose=True):
     '''
     Executes the provided command.
 
@@ -94,12 +97,19 @@ def run(cmd, echo=False, capture=False, verbose=True):
 
     Throws ChildProcessError on error.
     '''
+    def getrealcmd(cmd, verbatim):
+        if not verbatim:
+            return '{} {}'.format(bashmagic, cmd)
+        return cmd
+
+    realcmd = getrealcmd(cmd, verbatim)
+
     if echo:
-        logger.log('# $ {}'.format(cmd))
+        logger.log('# $ {}'.format(realcmd))
     # Output list of strings used to (optionally) capture command output.
     olst = list()
     p = subprocess.Popen(
-        cmd,
+        realcmd,
         shell=True,
         bufsize=1,
         # Enables text mode, making write() et al. happy.
@@ -122,7 +132,7 @@ def run(cmd, echo=False, capture=False, verbose=True):
     if (rc != os.EX_OK):
         e = ChildProcessError()
         e.errno = rc
-        es = "Command '{}' returned non-zero exit status.".format(cmd)
+        es = "Command '{}' returned non-zero exit status.".format(realcmd)
         e.strerror = es
         raise e
 

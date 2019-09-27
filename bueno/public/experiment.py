@@ -36,6 +36,7 @@ def name(n=None):
         raise RuntimeError(es)
     else:
         _TheExperiment().name = n
+        return None
 
 
 def generate(spec, *args):
