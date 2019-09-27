@@ -22,11 +22,14 @@ experiment.name('test-shellcmds')
 def main(argv):
     fname = 'afile.txt'
     logger.log('# Testing globbing...')
+    shargs = {
+        'echo': True
+    }
     # Wildcards need to be escaped with a `\' or quoted to protect them from
     # expansion by the shell.
     container.run('ls \\*')
     # shell and container interfaces should behave as identically as possible.
-    shell.run('ls \\*')
+    shell.run('ls \\*', **shargs)
 
     logger.emlog('# Testing redirection...')
     logger.log('# Adding text to {}:'.format(fname))
@@ -34,7 +37,7 @@ def main(argv):
     container.run('echo "More \'Text\'" >> {}'.format(fname))
 
     logger.emlog('# The contents of {} are:'.format(fname))
-    shell.run('cat {}'.format(fname))
+    shell.run('cat {}'.format(fname), **shargs)
 
     logger.emlog('# Testing quoting...')
     container.run('echo "Some \'Text\'"')
