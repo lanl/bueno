@@ -216,8 +216,10 @@ class impl(service.Base):
         base = self.args.output_path
         subd = self._getmetasubd()
         outp = os.path.join(base, subd)
+        # Do this here so the output log has the output directory in it.
+        logger.log('# {} Output Target: {}'.format(self.prog, outp))
         metadata.write(outp)
-        logger.log('# Run Output Written to: {}'.format(outp))
+        logger.log('# {} Output Written to: {}'.format(self.prog, outp))
 
     def start(self):
         logger.emlog('# Starting {} at {}'.format(self.prog, utils.nows()))
