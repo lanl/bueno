@@ -22,3 +22,6 @@ python3 -m pip uninstall bueno
 ```
 python3 setup.py bdist_rpm
 ```
+
+## Los Alamos National Laboratory Code Release
+C19133 bueno
