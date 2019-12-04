@@ -8,20 +8,22 @@ bueno that provides mechanisms to record and automate many arduous, error-prone
 benchmarking tasks: environmental discovery, environmental setup, program
 compilation, program execution, data storage, and analysis. More on this later.
 
-## User Installation with pip
+## Installation
+
+### User Installation with pip
 ```
 python3 -m pip install --user .
 ```
 
-## User Uninstallation with pip
+### User Uninstallation with pip
 ```
 python3 -m pip uninstall bueno
 ```
 
-## Building an RPM
+### Building an RPM
 ```
 python3 setup.py bdist_rpm
 ```
 
-## Los Alamos National Laboratory Code Release
+### Los Alamos National Laboratory Code Release
 C19133 bueno
