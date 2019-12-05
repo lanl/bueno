@@ -1,4 +1,4 @@
-# bueno: A Software Framework for Automated, Reproducible Benchmarking and Analysis
+# bueno: Automated, Reproducible Benchmarking and Analysis
 
 System benchmarking provides a means to compare or assess the performance of
 hardware or software against a point of reference. Because of the multitude of
