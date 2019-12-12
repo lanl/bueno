@@ -94,9 +94,9 @@ class impl(service.Base):
 
             setattr(namespace, self.dest, values)
 
-    class ImageDirAction(argparse.Action):
+    class ImageAction(argparse.Action):
         '''
-        Custom action class used for 'image-dir' argument handling.
+        Custom action class used for 'image' argument handling.
         '''
         def __init__(self, option_strings, dest, nargs=None, **kwargs):
             super().__init__(option_strings, dest, **kwargs)
@@ -115,7 +115,7 @@ class impl(service.Base):
             super().__init__(option_strings, dest, **kwargs)
 
         def __call__(self, parser, namespace, values, option_string=None):
-            # Adjust image-dir options if the image activator is none.
+            # Adjust image options if the image activator is none.
             if values == 'none':
                 self.imgdir_arg.required = False
                 self.imgdir_arg.help = argparse.SUPPRESS
@@ -135,11 +135,11 @@ class impl(service.Base):
         )
 
         imgdir_arg = self.argp.add_argument(
-            '-i', '--image-dir',
+            '-i', '--image',
             type=str,
-            help='Specifies the base container image directory.',
+            help='Specifies the base container image (directory or tarball).',
             required=True,
-            action=impl.ImageDirAction
+            action=impl.ImageAction
         )
 
         self.argp.add_argument(
@@ -164,8 +164,6 @@ class impl(service.Base):
             required=True,
             action=impl.ProgramAction
         )
-
-        # TODO(skg) Add --bind option.
 
     def _populate_service_config(self):
         # Remove program from output since it is reduntant and because we don't
@@ -200,7 +198,7 @@ class impl(service.Base):
     def _run(self):
         # Setup image activator so that it is ready-to-go for the run.
         actvtr = self.args.image_activator
-        imgdir = self.args.image_dir
+        imgdir = self.args.image
         cntrimg.ImageActivatorFactory().build(actvtr, imgdir)
 
         pname = os.path.basename(self.args.program[0])
