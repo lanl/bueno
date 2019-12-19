@@ -19,6 +19,10 @@ from bueno.public import metadata
 from bueno.public import opsys
 from bueno.public import utils
 
+from typing import (
+    List
+)
+
 import os
 import sys
 
@@ -39,10 +43,10 @@ class impl(service.Base):
         # Path to save any generated files.
         output_path = os.getcwd()
 
-    def __init__(self, argv):
+    def __init__(self, argv: List[str]) -> None:
         super().__init__(impl._defaults.desc, argv)
 
-    def _addargs(self):
+    def _addargs(self) -> None:
         self.argp.add_argument(
             '-b', '--builder',
             type=str,
@@ -78,10 +82,10 @@ class impl(service.Base):
             required=False
         )
 
-    def _populate_service_config(self):
+    def _populate_service_config(self) -> None:
         self.confd['Configuration'] = vars(self.args)
 
-    def _populate_sys_config(self):
+    def _populate_sys_config(self) -> None:
         self.confd['Host'] = {
             'whoami': opsys.whoami(),
             'kernel': opsys.kernel(),
@@ -90,12 +94,12 @@ class impl(service.Base):
             'os_release': opsys.pretty_name()
         }
 
-    def _populate_config(self):
+    def _populate_config(self) -> None:
         self._populate_service_config()
         self._populate_sys_config()
 
     # TODO(skg) Add more configuration info.
-    def _emit_config(self):
+    def _emit_config(self) -> None:
         # First build up the dictionary containing the configuration used.
         self._populate_config()
         # Add to metadata assets stored to container image.
@@ -103,11 +107,11 @@ class impl(service.Base):
         # Then print it out in YAML format.
         utils.yamlp(self.confd, self.prog)
 
-    def _do_build(self):
+    def _do_build(self) -> None:
         self.builder = builder.Factory.build(**vars(self.args))
         self.builder.start()
 
-    def start(self):
+    def start(self) -> None:
         logger.emlog('# Starting {} at {}'.format(self.prog, utils.nows()))
         logger.log('# $ {}\n'.format(' '.join(sys.argv)))
 

@@ -19,25 +19,26 @@ import argparse
 import os
 import sys
 import traceback
+import typing
 
 
 class ArgumentParser:
     '''
     bueno's argument parser.
     '''
-    def __init__(self):
+    def __init__(self) -> None:
         self.argp = argparse.ArgumentParser(
             description=self._desc(),
             allow_abbrev=False
         )
 
-    def _desc(self):
+    def _desc(self) -> str:
         '''
         Returns the description string for bueno.
         '''
         return 'Utilities for automating reproducible benchmarking.'
 
-    def _addargs(self):
+    def _addargs(self) -> None:
         self.argp.add_argument(
             '-t', '--traceback',
             help='Provides detailed exception information '
@@ -66,9 +67,11 @@ class ArgumentParser:
         '''
         Custom action class used for 'command' argument structure verification.
         '''
+        @typing.no_type_check
         def __init__(self, option_strings, dest, nargs, **kwargs):
             super().__init__(option_strings, dest, nargs, **kwargs)
 
+        @typing.no_type_check
         def __call__(self, parser, namespace, values, option_string=None):
             if len(values) == 0:
                 help = '{} requires one positional argument (none provided).'
@@ -76,21 +79,21 @@ class ArgumentParser:
                 parser.error(help.format('bueno'))
             setattr(namespace, self.dest, values)
 
-    def parse(self):
+    def parse(self) -> argparse.Namespace:
         self._addargs()
-        pr = self.argp.parse_args()
-        return pr
+
+        return self.argp.parse_args()
 
 
 class Bueno:
     '''
     Implements the bueno service dispatch system.
     '''
-    def __init__(self, pargs):
+    def __init__(self, pargs: argparse.Namespace) -> None:
         service.Factory.build(pargs.command).start()
 
     @staticmethod
-    def main(pargs):
+    def main(pargs: argparse.Namespace) -> int:
         try:
             Bueno(pargs)
         except Exception as e:
@@ -101,10 +104,9 @@ class Bueno:
         return os.EX_OK
 
 
-def main():
+def main() -> int:
     if utils.privileged_user():
         ers = '\nRunning this program as root is a bad idea... Exiting now.\n'
         sys.exit(ers)
 
-    pargs = ArgumentParser().parse()
-    return Bueno.main(pargs)
+    return Bueno.main(ArgumentParser().parse())

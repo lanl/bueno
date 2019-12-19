@@ -13,6 +13,7 @@ Logging utilities for good.
 from bueno.core import metacls
 
 from io import StringIO
+from typing import Any
 
 import shutil
 import logging
@@ -20,7 +21,7 @@ import sys
 import os
 
 
-def emlog(msg, *args, **kwargs):
+def emlog(msg: str, *args: Any, **kwargs: Any) -> None:
     '''
     Logs the provided message to a central logger with emphasis.
     '''
@@ -28,14 +29,14 @@ def emlog(msg, *args, **kwargs):
     _TheLogger().log(realmsg, *args, **kwargs)
 
 
-def log(msg, *args, **kwargs):
+def log(msg: str, *args: Any, **kwargs: Any) -> None:
     '''
     Logs the provided message to a central logger.
     '''
     _TheLogger().log(msg, *args, **kwargs)
 
 
-def write(to):
+def write(to: str) -> None:
     '''
     Writes the current contents of the log to the path provided.
     '''
@@ -47,7 +48,7 @@ class _TheLogger(metaclass=metacls.Singleton):
     The central logger singleton used indirectly (via calls to log(), etc.) by
     all bueno services.
     '''
-    def __init__(self):
+    def __init__(self) -> None:
         # Default logging level.
         self.loglvl = logging.INFO
         # The in-memory buffer used to store logged events.
@@ -64,10 +65,10 @@ class _TheLogger(metaclass=metacls.Singleton):
         self.logger.addHandler(logging.StreamHandler(self.logsio))
         self.logger.setLevel(self.loglvl)
 
-    def log(self, msg, *args, **kwargs):
+    def log(self, msg: str, *args: Any, **kwargs: Any) -> None:
         self.logger.info(msg, *args, **kwargs)
 
-    def write(self, to):
+    def write(self, to: str) -> None:
         # Start from the beginning.
         self.logsio.seek(0)
         try:

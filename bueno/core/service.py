@@ -10,7 +10,16 @@
 Core service infrastructure used by all bueno services.
 '''
 
-from abc import ABC, abstractmethod
+from abc import (
+    ABC,
+    abstractmethod
+)
+
+from typing import (
+    Any,
+    Dict,
+    List
+)
 
 import argparse
 import importlib
@@ -20,14 +29,14 @@ class Base(ABC):
     '''
     Abstract base class of all bueno services.
     '''
-    def __init__(self, desc, argv):
+    def __init__(self, desc: str, argv: List[str]) -> None:
         super().__init__()
         # A description of the service and what it does.
-        self.desc = desc
+        self.desc: str = desc
         # The potentially modified argument vector passed to a service.
-        self.argv = argv
+        self.argv: List[str] = argv
         # The name of the service (program).
-        self.prog = argv[0]
+        self.prog: str = argv[0]
         # An instance of the ArgumentParser
         self.argp = argparse.ArgumentParser(
                         prog=self.prog,
@@ -35,28 +44,28 @@ class Base(ABC):
                         allow_abbrev=False
                     )
         # The arguments obtained after _parseargs().
-        self.args = None
+        self.args: argparse.Namespace
         # Dictionary used to hold service configuration.
-        self.confd = dict()
+        self.confd: Dict[str, Any] = dict()
         # Add and parse arguments.
         self._addargs()
         self._parseargs()
 
     @abstractmethod
-    def _addargs(self):
+    def _addargs(self) -> None:
         '''
         Hook that allows concrete instances to add service-specific arguments.
         '''
         pass
 
     @abstractmethod
-    def start(self):
+    def start(self) -> None:
         '''
         Starts the service. Akin to a service main().
         '''
         pass
 
-    def _parseargs(self):
+    def _parseargs(self) -> None:
         '''
         Parses the arguments provided in self.argv.
         '''
@@ -75,14 +84,14 @@ class Factory:
     ]
 
     @staticmethod
-    def available():
+    def available() -> List[str]:
         '''
         Returns list of available service names.
         '''
         return Factory.services
 
     @staticmethod
-    def known(sname):
+    def known(sname: str) -> bool:
         '''
         Returns a boolean indicating whether or not the provided services name
         is known (i.e., recognized) by bueno.
@@ -90,7 +99,7 @@ class Factory:
         return sname in Factory.services
 
     @staticmethod
-    def build(sargv):
+    def build(sargv: List[str]) -> Any:
         '''
         Imports and returns an instance of requested service module.
         '''
@@ -103,4 +112,4 @@ class Factory:
         imod = 'bueno.{}.service'.format(sname)
         service = importlib.import_module(imod)
         # Return the service instance.
-        return service.impl(sargv)
+        return service.impl(sargv)  # type: ignore

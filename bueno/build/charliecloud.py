@@ -17,6 +17,10 @@ from bueno.public import metadata
 from bueno.public import shell
 from bueno.public import utils
 
+from typing import (
+    Any
+)
+
 import os
 
 
@@ -24,7 +28,7 @@ class impl(builder.Base):
     '''
     Implements the CharlieCloud container builder.
     '''
-    def __init__(self, **config):
+    def __init__(self, **config: Any) -> None:
         super().__init__(**config)
         # The command used to build a container.
         self.buildc = 'ch-build'
@@ -37,13 +41,13 @@ class impl(builder.Base):
 
         self._spec_fixup()
 
-    def _spec_fixup(self):
+    def _spec_fixup(self) -> None:
         ospec = self.config['spec']
         basen = os.path.basename(ospec)
         if basen == self.spec_name:
             self.config['spec'] = os.path.dirname(ospec)
 
-    def _check_env(self):
+    def _check_env(self) -> None:
         '''
         Build environment verification function.
 
@@ -72,7 +76,7 @@ class impl(builder.Base):
         if errs:
             raise OSError(utils.chomp(errs))
 
-    def _emit_builder_info(self):
+    def _emit_builder_info(self) -> None:
         '''
         Emits builder information gathered at run-time.
         '''
@@ -85,7 +89,7 @@ class impl(builder.Base):
         utils.yamlp(binfo, 'Builder')
         metadata.add_asset(metadata.YAMLDictAsset(binfo, 'builder'))
 
-    def _emit_build_spec(self):
+    def _emit_build_spec(self) -> None:
         dockerf = os.path.join(self.config['spec'], self.spec_name)
         # Add spec file to the metadata assets.
         metadata.add_asset(metadata.FileAsset(dockerf))
@@ -94,7 +98,7 @@ class impl(builder.Base):
         logger.log(utils.chomp(str().join(shell.cat(dockerf))))
         logger.log('# End Spec Output')
 
-    def _get_path_to_storage(self):
+    def _get_path_to_storage(self) -> str:
         cmd = '{} -b {} -t {} --print-storage {}'.format(
             self.buildc,
             self.builder,
@@ -119,7 +123,7 @@ class impl(builder.Base):
         specn = '{}:latest'.format(self.config['tag'])
         return os.path.join(basep, 'img', specn)
 
-    def _add_metadata(self):
+    def _add_metadata(self) -> None:
         logger.log('# Adding metadata to container...')
         spath = self._get_path_to_storage()
         logger.log('# Looking for {}'.format(spath))
@@ -129,7 +133,7 @@ class impl(builder.Base):
         logger.log('# Looks good. Adding metadata...')
         metadata.write(os.path.join(spath, 'bueno'))
 
-    def _flatten(self):
+    def _flatten(self) -> None:
         tcmd = '{} {} {}'.format(
             self.tarcmd,
             self.config['tag'],
@@ -141,7 +145,7 @@ class impl(builder.Base):
         shell.run(tcmd, echo=True)
         logger.log('# End Flatten Output')
 
-    def _build(self):
+    def _build(self) -> None:
         bcmd = '{} -b {} -t {} {}'.format(
             self.buildc,
             self.builder,
@@ -154,7 +158,7 @@ class impl(builder.Base):
         shell.run(bcmd, echo=True)
         logger.emlog('# End Build Output')
 
-    def start(self):
+    def start(self) -> None:
         self._check_env()
         self._emit_builder_info()
         self._emit_build_spec()

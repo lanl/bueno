@@ -19,16 +19,22 @@ from bueno.public import metadata
 from bueno.public import opsys
 from bueno.public import utils
 
+from typing import (
+    List
+)
+
 import argparse
 import copy
 import importlib.util
 import os
 import sys
+import typing
 
 
 class _Runner:
+    @typing.no_type_check
     @staticmethod
-    def run(argv):
+    def run(argv: List[str]) -> None:
         '''
         Loads and executes the run program specified at argv[0], passing along
         all program-specific arguments to the program (argv).
@@ -76,9 +82,11 @@ class impl(service.Base):
         '''
         Custom action class used for 'program' argument structure verification.
         '''
+        @typing.no_type_check
         def __init__(self, option_strings, dest, nargs, **kwargs):
             super().__init__(option_strings, dest, nargs, **kwargs)
 
+        @typing.no_type_check
         def __call__(self, parser, namespace, values, option_string=None):
             if len(values) == 0:
                 help = '{} requires at least one argument (none provided).\n'\
@@ -98,9 +106,11 @@ class impl(service.Base):
         '''
         Custom action class used for 'image' argument handling.
         '''
+        @typing.no_type_check
         def __init__(self, option_strings, dest, nargs=None, **kwargs):
             super().__init__(option_strings, dest, **kwargs)
 
+        @typing.no_type_check
         def __call__(self, parser, namespace, values, option_string=None):
             imgp = os.path.abspath(values)
             setattr(namespace, self.dest, imgp)
@@ -109,11 +119,13 @@ class impl(service.Base):
         '''
         Custom action class used for 'image-activator' argument handling.
         '''
+        @typing.no_type_check
         def __init__(self, option_strings, dest, nargs=None, **kwargs):
             # Store reference to imgdir_arg for later use.
             self.imgdir_arg = kwargs.pop('imgdir_arg')
             super().__init__(option_strings, dest, **kwargs)
 
+        @typing.no_type_check
         def __call__(self, parser, namespace, values, option_string=None):
             # Adjust image options if the image activator is none.
             if values == 'none':
@@ -121,10 +133,10 @@ class impl(service.Base):
                 self.imgdir_arg.help = argparse.SUPPRESS
             setattr(namespace, self.dest, values)
 
-    def __init__(self, argv):
+    def __init__(self, argv: List[str]) -> None:
         super().__init__(impl._defaults.desc, argv)
 
-    def _addargs(self):
+    def _addargs(self) -> None:
         self.argp.add_argument(
             '-o', '--output-path',
             type=str,
@@ -165,7 +177,7 @@ class impl(service.Base):
             action=impl.ProgramAction
         )
 
-    def _populate_service_config(self):
+    def _populate_service_config(self) -> None:
         # Remove program from output since it is reduntant and because we don't
         # know how it'll be parsed by the given program.
         tmpargs = copy.deepcopy(vars(self.args))
@@ -173,7 +185,7 @@ class impl(service.Base):
         self.confd['Configuration'] = tmpargs
         metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'run'))
 
-    def _populate_sys_config(self):
+    def _populate_sys_config(self) -> None:
         self.confd['Host'] = {
             'whoami': opsys.whoami(),
             'kernel': opsys.kernel(),
@@ -182,12 +194,12 @@ class impl(service.Base):
             'os_release': opsys.pretty_name()
         }
 
-    def _populate_config(self):
+    def _populate_config(self) -> None:
         self._populate_service_config()
         self._populate_sys_config()
 
     # TODO(skg) Add more configuration info.
-    def _emit_config(self):
+    def _emit_config(self) -> None:
         # First build up the dictionary containing the configuration used.
         self._populate_config()
         # Add to metadata assets stored to container image.
@@ -195,7 +207,7 @@ class impl(service.Base):
         # Then print it out in YAML format.
         utils.yamlp(self.confd, self.prog)
 
-    def _run(self):
+    def _run(self) -> None:
         # Setup image activator so that it is ready-to-go for the run.
         actvtr = self.args.image_activator
         imgdir = self.args.image
@@ -206,11 +218,11 @@ class impl(service.Base):
         _Runner.run(self.args.program)
         logger.emlog('# End Program Output')
 
-    def _getmetasubd(self):
+    def _getmetasubd(self) -> str:
         expn = experiment.name()
         return '{}-{}'.format(expn, utils.nows().replace(' ', '-'))
 
-    def _write_metadata(self):
+    def _write_metadata(self) -> None:
         base = self.args.output_path
         subd = self._getmetasubd()
         outp = os.path.join(base, subd)
@@ -219,7 +231,7 @@ class impl(service.Base):
         metadata.write(outp)
         logger.log('# {} Output Written to: {}'.format(self.prog, outp))
 
-    def start(self):
+    def start(self) -> None:
         logger.emlog('# Starting {} at {}'.format(self.prog, utils.nows()))
         logger.log('# $ {}\n'.format(' '.join(sys.argv)))
 

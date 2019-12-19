@@ -17,84 +17,27 @@ from bueno.public import utils
 
 from abc import ABC, abstractmethod
 
-import os
+from typing import (
+    Any,
+    Dict,
+    List,
+    Union
+)
+
 import copy
+import os
 import shutil
-
-
-def write(basep):
-    '''
-    Writes build metadata rooted at basep.
-    '''
-    _MetaData(basep).write()
-
-
-def add_asset(asset):
-    '''
-    Adds a metadata asset to the collection of assets to be written.
-    '''
-    _Assets().add(asset)
-
-
-class _MetaData:
-    def __init__(self, basep):
-        # The base path where all metadata are stored.
-        self._basep = basep
-        os.makedirs(self.basep, 0o755)
-
-    def write(self):
-        self._add_default_assets()
-        _Assets().write(self.basep)
-
-    def _add_default_assets(self):
-        _Assets().add(LoggerAsset())
-
-    @property
-    def basep(self):
-        return self._basep
-
-    @basep.setter
-    def basep(self, basep):
-        self._basep = basep
-
-
-class _Assets(metaclass=metacls.Singleton):
-    '''
-    Metadata asset collection.
-    '''
-    def __init__(self):
-        self.assets = list()
-
-    def add(self, asset):
-        '''
-        Adds provided asset to assets.
-        '''
-        self.assets.append(asset)
-
-    def clear(self):
-        '''
-        Removes all assets from collection.
-        '''
-        self.assets = list()
-
-    def write(self, basep):
-        '''
-        Writes metadata contained in assets.
-        '''
-        logger.log('# Writing Metadata Assets at {}'.format(utils.nows()))
-        for a in self.assets:
-            a.write(basep)
 
 
 class BaseAsset(ABC):
     '''
     Abstract base metadata asset class.
     '''
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
 
     @abstractmethod
-    def write(self, basep):
+    def write(self, basep: str) -> None:
         pass
 
 
@@ -102,17 +45,17 @@ class FileAsset(BaseAsset):
     '''
     File asset.
     '''
-    def __init__(self, srcf, subd=None):
+    def __init__(self, srcf: str, subd: Union[str, None] = None):
         super().__init__()
         # Absolute to source file asset.
         self.srcf = os.path.abspath(srcf)
         # Optional subdirectory to store the provided file.
         self.subd = subd
 
-    def _get_fname(self):
+    def _get_fname(self) -> str:
         return os.path.basename(self.srcf)
 
-    def write(self, basep):
+    def write(self, basep: str) -> None:
         realbasep = basep
         if self.subd:
             realbasep = os.path.join(basep, self.subd)
@@ -125,7 +68,7 @@ class YAMLDictAsset(BaseAsset):
     '''
     Convenience YAML (from a dict()) asset.
     '''
-    def __init__(self, ydict, fname):
+    def __init__(self, ydict: Dict[Any, Any], fname: str) -> None:
         super().__init__()
         # A deep copy of the provided YAML dictionary.
         self.ydict = copy.deepcopy(ydict)
@@ -133,18 +76,18 @@ class YAMLDictAsset(BaseAsset):
         self.fname = fname
 
     @property
-    def fname(self):
+    def fname(self) -> str:
         return self._fname
 
     @fname.setter
-    def fname(self, name):
+    def fname(self, name: str) -> None:
         yamlex = '.yaml'
         if not name.endswith(yamlex):
             self._fname = name + yamlex
         else:
             self._fname = name
 
-    def write(self, basep):
+    def write(self, basep: str) -> None:
         target = os.path.join(basep, self._fname)
         with open(target, 'w+') as file:
             file.write(utils.yamls(self.ydict))
@@ -154,9 +97,73 @@ class LoggerAsset(BaseAsset):
     '''
     bueno logger asset.
     '''
-    def __init__(self):
+    def __init__(self) -> None:
         super().__init__()
         self.buildo = 'log.txt'
 
-    def write(self, basep):
+    def write(self, basep: str) -> None:
         logger.write(os.path.join(basep, self.buildo))
+
+
+class _MetaData:
+    def __init__(self, basep: str) -> None:
+        # The base path where all metadata are stored.
+        self._basep = basep
+        os.makedirs(self.basep, 0o755)
+
+    def write(self) -> None:
+        self._add_default_assets()
+        _Assets().write(self.basep)
+
+    def _add_default_assets(self) -> None:
+        _Assets().add(LoggerAsset())
+
+    @property
+    def basep(self) -> str:
+        return self._basep
+
+    @basep.setter
+    def basep(self, basep: str) -> None:
+        self._basep = basep
+
+
+class _Assets(metaclass=metacls.Singleton):
+    '''
+    Metadata asset collection.
+    '''
+    def __init__(self) -> None:
+        self.assets: List[BaseAsset] = list()
+
+    def add(self, asset: BaseAsset) -> None:
+        '''
+        Adds provided asset to assets.
+        '''
+        self.assets.append(asset)
+
+    def clear(self) -> None:
+        '''
+        Removes all assets from collection.
+        '''
+        self.assets = list()
+
+    def write(self, basep: str) -> None:
+        '''
+        Writes metadata contained in assets.
+        '''
+        logger.log('# Writing Metadata Assets at {}'.format(utils.nows()))
+        for a in self.assets:
+            a.write(basep)
+
+
+def write(basep: str) -> None:
+    '''
+    Writes build metadata rooted at basep.
+    '''
+    _MetaData(basep).write()
+
+
+def add_asset(asset: BaseAsset) -> None:
+    '''
+    Adds a metadata asset to the collection of assets to be written.
+    '''
+    _Assets().add(asset)

@@ -11,11 +11,19 @@ Container utilities.
 '''
 
 from bueno.core import cntrimg
-
 from bueno.public import utils
 
+from typing import (
+    Any
+)
 
-def run(cmd, echo=True, preaction=None, postaction=None):
+
+def run(
+    cmd: str,
+    echo: bool = True,
+    preaction: Any = None,
+    postaction: Any = None
+) -> None:
     '''
     Runs the given command string from within a container.  Optionally calls
     pre- or post-actions if provided.
@@ -29,6 +37,7 @@ def run(cmd, echo=True, preaction=None, postaction=None):
         preaction(**preargs)
 
     stime = utils.now()
+    # TODO(skg) FIXME: I don't like how Activator's __init__ is set up.
     coutput = cntrimg.Activator().impl.run(cmd, echo=echo, capture=capture)
     etime = utils.now()
 

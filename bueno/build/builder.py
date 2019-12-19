@@ -12,7 +12,29 @@ Builders for good.
 
 from abc import ABC, abstractmethod
 
+from typing import (
+    Any,
+    List
+)
+
 import importlib
+
+
+class Base(ABC):
+    '''
+    Abstract base class of all builders.
+    '''
+    def __init__(self, **config: Any) -> None:
+        self.config = config
+
+        super().__init__()
+
+    @abstractmethod
+    def start(self) -> None:
+        '''
+        Starts the builder. Akin to a builder main().
+        '''
+        pass
 
 
 class Factory:
@@ -24,14 +46,14 @@ class Factory:
     ]
 
     @staticmethod
-    def available():
+    def available() -> List[str]:
         '''
         Returns list of available builders.
         '''
         return Factory.avail
 
     @staticmethod
-    def known(sname):
+    def known(sname: str) -> bool:
         '''
         Returns a boolean indicating whether or not the provided name is known
         builder.
@@ -39,7 +61,7 @@ class Factory:
         return sname in Factory.avail
 
     @staticmethod
-    def build(**config):
+    def build(**config: Any) -> Any:
         '''
         Imports and returns an instance of requested builder module.
         '''
@@ -53,20 +75,3 @@ class Factory:
         builder = importlib.import_module(imod)
         # Return the builder instance.
         return builder.impl(**config)
-
-
-class Base(ABC):
-    '''
-    Abstract base class of all builders.
-    '''
-    def __init__(self, **config):
-        self.config = config
-
-        super().__init__()
-
-    @abstractmethod
-    def start(self):
-        '''
-        Starts the builder. Akin to a builder main().
-        '''
-        pass

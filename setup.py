@@ -7,6 +7,7 @@
 # This file is part of the bueno project. See the LICENSE file at the
 # top-level directory of this distribution for more information.
 #
+# type: ignore
 
 import os
 import re

@@ -14,35 +14,35 @@ from bueno.public import shell
 from bueno.public import utils
 
 
-def kernel():
+def kernel() -> str:
     '''
     Returns the kernel name.
     '''
     return shell.capture('uname -s')
 
 
-def kernelrel():
+def kernelrel() -> str:
     '''
     Returns the kernel release.
     '''
     return shell.capture('uname -r')
 
 
-def hostname():
+def hostname() -> str:
     '''
     Returns the host computer's name.
     '''
     return shell.capture('hostname')
 
 
-def whoami():
+def whoami() -> str:
     '''
     Akin to whoami(1).
     '''
     return shell.capture('whoami')
 
 
-def pretty_name():
+def pretty_name() -> str:
     '''
     Returns the host's pretty name as reported by /etc/os-release.
     '''

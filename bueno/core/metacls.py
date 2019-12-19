@@ -10,15 +10,20 @@
 Convenience metaclasses.
 '''
 
+from typing import (
+    Any,
+    Dict
+)
+
 
 class Singleton(type):
     '''
     Metaclass for singletons.
     '''
     # Instance storage.
-    _insts = dict()
+    _insts: Dict[Any, Any] = dict()
 
-    def __call__(cls, *args, **kwargs):
+    def __call__(cls: Any, *args: Any, **kwargs: Any) -> Any:
         if cls not in cls._insts:
             cls._insts[cls] = super(Singleton, cls).__call__(*args, **kwargs)
         return cls._insts[cls]

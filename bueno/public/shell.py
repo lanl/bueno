@@ -13,6 +13,11 @@ Quasi shell-like utilities.
 from bueno.public import logger
 from bueno.public import utils
 
+from typing import (
+    List,
+    Union
+)
+
 import os
 import subprocess
 
@@ -22,7 +27,7 @@ import subprocess
 bashmagic = 'bash -c \'${0} ${1+$@}\''
 
 
-def capture(cmd):
+def capture(cmd: str) -> str:
     '''
     Executes the provided command and returns a string with the command's
     output.
@@ -33,7 +38,7 @@ def capture(cmd):
     return utils.chomp(str().join(res))
 
 
-def which(cmd):
+def which(cmd: str) -> Union[str, None]:
     '''
     Akin to which(1).
 
@@ -48,7 +53,7 @@ def which(cmd):
     return wcmd
 
 
-def whichl(cmds):
+def whichl(cmds: List[str]) -> Union[str, None]:
     '''
     Akin to which(1), but accepts a list of commands to search for. The first
     command found by which() is returned.
@@ -63,23 +68,23 @@ def whichl(cmds):
     return None
 
 
-def cat(file):
+def cat(file: str) -> List[str]:
     '''
     Akin to cat(1), but returns a list of strings containing the contents of the
     provided file.
 
     Raises OSError or IOError on error.
     '''
-    lines = list()
+    lines: List[str] = list()
 
-    with open(file, 'r') as file:
+    with open(file, 'r') as file:  # type: ignore
         for line in file:
             lines.append(line)
 
     return lines
 
 
-def cats(file):
+def cats(file: str) -> str:
     '''
     Akin to cat(1), but returns a string containing the contents of the provided
     file.
@@ -89,7 +94,13 @@ def cats(file):
     return str().join(cat(file))
 
 
-def run(cmd, verbatim=False, echo=False, capture=False, verbose=True):
+def run(
+    cmd: str,
+    verbatim: bool = False,
+    echo: bool = False,
+    capture: bool = False,
+    verbose: bool = True
+) -> List[str]:
     '''
     Executes the provided command.
 
@@ -97,7 +108,7 @@ def run(cmd, verbatim=False, echo=False, capture=False, verbose=True):
 
     Throws ChildProcessError on error.
     '''
-    def getrealcmd(cmd, verbatim):
+    def getrealcmd(cmd: str, verbatim: bool) -> str:
         if not verbatim:
             return '{} {}'.format(bashmagic, cmd)
         return cmd
@@ -113,7 +124,7 @@ def run(cmd, verbatim=False, echo=False, capture=False, verbose=True):
         logger.log('# $ {}'.format(logcmd))
 
     # Output list of strings used to (optionally) capture command output.
-    olst = list()
+    olst: List[str] = list()
     p = subprocess.Popen(
         realcmd,
         shell=True,
@@ -142,7 +153,4 @@ def run(cmd, verbatim=False, echo=False, capture=False, verbose=True):
         e.strerror = es
         raise e
 
-    if capture:
-        return olst
-    else:
-        return None
+    return olst

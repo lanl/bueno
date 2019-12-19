@@ -13,7 +13,7 @@ Core utility module.
 import os
 
 
-def privileged_user():
+def privileged_user() -> bool:
     '''
     Returns whether or not the user is a privileged user.
     '''
