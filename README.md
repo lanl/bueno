@@ -9,8 +9,8 @@ compilation, program execution, data storage, and analysis. More on this later.
 
 ## Installation
 
-### User Installation With
-[pip](https://docs.python.org/3/installing/index.html)
+### User Installation With [pip]\
+(https://docs.python.org/3/installing/index.html)
 In a terminal perform the following (assumes a bash-like shell).
 ```
 cd bueno
