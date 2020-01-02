@@ -13,7 +13,7 @@ compilation, program execution, data storage, and analysis. More on this later.
 ### User Installation With pip
 In a terminal perform the following (assumes a bash-like shell).
 ```
-cd bueno
+cd bueno # The directory in which setup.py is located.
 python3 -m pip install --user .
 ```
 Add bueno's installation prefix to `PATH`.
