@@ -1,5 +1,4 @@
 # bueno: Automated, Reproducible Benchmarking and Analysis
-
 System benchmarking provides a means to compare or assess the performance of
 hardware or software against a point of reference. Because of the multitude of
 factors that ultimately influence a benchmark’s results, reproducibility is
@@ -10,19 +9,23 @@ compilation, program execution, data storage, and analysis. More on this later.
 
 ## Installation
 
-### User Installation with pip
+### User Installation With
+[pip](https://docs.python.org/3/installing/index.html)
+In a terminal perform the following (assumes a bash-like shell).
 ```
+cd bueno
 python3 -m pip install --user .
 ```
+Add bueno's installation prefix to PATH.
+```
+export PY_USER_BIN=$(python -c 'import site; print(site.USER_BASE + "/bin")')
+export PATH=$PY_USER_BIN:$PATH
+```
+Now, the `bueno` command should be available for use.
 
 ### User Uninstallation with pip
 ```
 python3 -m pip uninstall bueno
-```
-
-### Building an RPM
-```
-python3 setup.py bdist_rpm
 ```
 
 ### Los Alamos National Laboratory Code Release
