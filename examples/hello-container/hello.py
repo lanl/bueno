@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -10,13 +10,13 @@
 An example illustrating how to execute commands inside a container.
 '''
 
-from bueno.public import shell
 from bueno.public import container
 from bueno.public import experiment
+from bueno.public import host
 
 experiment.name('hello-container')
 
 
 def main(argv):
     container.run('echo "hello from a container!"')
-    shell.run('echo "hello from the host!"')
+    host.run('echo "hello from the host!"')

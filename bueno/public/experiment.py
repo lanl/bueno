@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -13,7 +13,6 @@ Experiment utilities for good.
 from bueno.core import metacls
 
 from bueno.public import logger
-from bueno.public import shell
 from bueno.public import utils
 
 from abc import abstractmethod
@@ -169,7 +168,7 @@ def readgs(gs: str, config: Optional[CLIConfiguration] = None) -> str:
     logger.emlog('# Reading Generate Specification File: {}'.format(gs))
     # Emit contents of gs file.
     logger.log('# Begin Generate Specification')
-    logger.log(utils.chomp(str().join(shell.cat(gs))))
+    logger.log(utils.chomp(str().join(utils.cat(gs))))
     logger.log('# End Generate Specification\n')
 
     gsstr = str()

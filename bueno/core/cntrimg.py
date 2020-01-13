@@ -11,6 +11,8 @@ Core container image infrastructure.
 '''
 
 from bueno.core import metacls
+
+from bueno.public import host
 from bueno.public import shell
 
 from abc import ABC, abstractmethod
@@ -110,7 +112,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
 
         self.runcmd = 'ch-run'
 
-        if not shell.which(self.runcmd):
+        if not host.which(self.runcmd):
             inyp = 'Is it in your PATH?\n'
             notf = "'{}' not found. " + inyp
             errs = notf.format(self.runcmd)
@@ -135,7 +137,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
             'capture': capture,
             'verbose': verbose
         }
-        return shell.run(cmds, **runargs)
+        return host.run(cmds, **runargs)
 
 
 class NoneImageActivator(BaseImageActivator):
@@ -165,4 +167,4 @@ class NoneImageActivator(BaseImageActivator):
             'capture': capture,
             'verbose': verbose
         }
-        return shell.run(cmds, **runargs)
+        return host.run(cmds, **runargs)

@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -20,6 +20,32 @@ from typing import (
 )
 
 import yaml
+
+
+def cat(file: str) -> List[str]:
+    '''
+    Akin to cat(1), but returns a list of strings containing the contents of the
+    provided file.
+
+    Raises OSError or IOError on error.
+    '''
+    lines: List[str] = list()
+
+    with open(file, 'r') as file:  # type: ignore
+        for line in file:
+            lines.append(line)
+
+    return lines
+
+
+def cats(file: str) -> str:
+    '''
+    Akin to cat(1), but returns a string containing the contents of the provided
+    file.
+
+    Raises OSError or IOError on error.
+    '''
+    return str().join(cat(file))
 
 
 def now() -> datetime:

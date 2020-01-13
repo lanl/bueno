@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -10,11 +10,11 @@
 Tests for container.run()
 '''
 
-from bueno.public import shell
-from bueno.public import logger
-from bueno.public import metadata
 from bueno.public import container
 from bueno.public import experiment
+from bueno.public import host
+from bueno.public import logger
+from bueno.public import metadata
 
 experiment.name('test-shellcmds')
 
@@ -26,10 +26,10 @@ def main(argv):
         'echo': True
     }
     # Wildcards need to be escaped with a `\' or quoted to protect them from
-    # expansion by the shell.
+    # expansion by the host.
     container.run('ls \\*')
     # shell and container interfaces should behave as identically as possible.
-    shell.run('ls \\*', **shargs)
+    host.run('ls \\*', **shargs)
 
     logger.emlog('# Testing redirection...')
     logger.log('# Adding text to {}:'.format(fname))
@@ -37,7 +37,7 @@ def main(argv):
     container.run('echo "More \'Text\'" >> {}'.format(fname))
 
     logger.emlog('# The contents of {} are:'.format(fname))
-    shell.run('cat {}'.format(fname), **shargs)
+    host.run('cat {}'.format(fname), **shargs)
 
     logger.emlog('# Testing quoting...')
     container.run('echo "Some \'Text\'"')

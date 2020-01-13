@@ -12,9 +12,9 @@ The CharlieCloud container builder.
 
 from bueno.build import builder
 
+from bueno.public import host
 from bueno.public import logger
 from bueno.public import metadata
-from bueno.public import shell
 from bueno.public import utils
 
 from typing import (
@@ -59,10 +59,10 @@ class impl(builder.Base):
         notf = "'{}' not found. " + inyp
         errs = str()
 
-        if not shell.which(self.buildc):
+        if not host.which(self.buildc):
             errs += notf.format(self.buildc)
 
-        if not shell.which(self.tarcmd):
+        if not host.which(self.tarcmd):
             errs += notf.format(self.tarcmd)
 
         # Make sure that a Dockerfile exists in the provided path.
@@ -82,8 +82,8 @@ class impl(builder.Base):
         '''
         binfo = dict()
         binfo['Builder'] = {
-            'which':   shell.which(self.buildc),
-            'version': shell.capture('{} --version'.format(self.buildc)),
+            'which':   host.which(self.buildc),
+            'version': host.capture('{} --version'.format(self.buildc)),
         }
 
         utils.yamlp(binfo, 'Builder')
@@ -95,7 +95,7 @@ class impl(builder.Base):
         metadata.add_asset(metadata.FileAsset(dockerf))
         # Emit the contents of the spec file.
         logger.log('# Begin Spec Output')
-        logger.log(utils.chomp(str().join(shell.cat(dockerf))))
+        logger.log(utils.chomp(str().join(utils.cat(dockerf))))
         logger.log('# End Spec Output')
 
     def _get_path_to_storage(self) -> str:
@@ -105,7 +105,7 @@ class impl(builder.Base):
             self.config['tag'],
             self.config['spec']
         )
-        cmdo = utils.chomp(shell.capture(cmd))
+        cmdo = utils.chomp(host.capture(cmd))
         # Now do some filtering because the output emits more than just the
         # storage path.
         lst = list(filter(lambda x: 'building with' not in x, cmdo.split('\n')))
@@ -142,7 +142,7 @@ class impl(builder.Base):
 
         logger.log('# Begin Flatten Output')
         os.environ['CH_BUILDER'] = self.builder
-        shell.run(tcmd, echo=True)
+        host.run(tcmd, echo=True)
         logger.log('# End Flatten Output')
 
     def _build(self) -> None:
@@ -155,7 +155,7 @@ class impl(builder.Base):
 
         logger.emlog('# Begin Build Output')
         # Run the command specified by bcmd.
-        shell.run(bcmd, echo=True)
+        host.run(bcmd, echo=True)
         logger.emlog('# End Build Output')
 
     def start(self) -> None:

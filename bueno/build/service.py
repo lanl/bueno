@@ -14,9 +14,9 @@ from bueno.core import service
 
 from bueno.build import builder
 
+from bueno.public import host
 from bueno.public import logger
 from bueno.public import metadata
-from bueno.public import opsys
 from bueno.public import utils
 
 from typing import (
@@ -87,11 +87,11 @@ class impl(service.Base):
 
     def _populate_sys_config(self) -> None:
         self.confd['Host'] = {
-            'whoami': opsys.whoami(),
-            'kernel': opsys.kernel(),
-            'kernel_release': opsys.kernelrel(),
-            'hostname': opsys.hostname(),
-            'os_release': opsys.pretty_name()
+            'whoami': host.whoami(),
+            'kernel': host.kernel(),
+            'kernel_release': host.kernelrel(),
+            'hostname': host.hostname(),
+            'os_release': host.os_pretty_name()
         }
 
     def _populate_config(self) -> None:
