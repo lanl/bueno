@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -22,6 +22,18 @@ def get_version():
         raise RuntimeError('Cannot determine version from version file.')
 
 
+def get_minimum_python_vers():
+    verline = open('./bueno/_minpyversion.py').read()
+    sr = re.search(
+        r"^__bueno_minimum_python_version_str__ = ['\']([^'\']*)['\']",
+        verline
+    )
+    if sr:
+        return sr.group(1)
+    else:
+        raise RuntimeError('Cannot determine minimum Python version.')
+
+
 def package_setup(package_name, package_vers):
     '''
     Package setup routine.
@@ -35,7 +47,7 @@ def package_setup(package_name, package_vers):
         author='Samuel K. Gutierrez',
         author_email='samuel@lanl.gov',
         license='BSD 3-Clause',
-        python_requires='>=3.5',
+        python_requires='>={}'.format(get_minimum_python_vers()),
         packages=find_packages(),
         # Package Requirements
         install_requires=[

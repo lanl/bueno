@@ -82,6 +82,7 @@ def capture(cmd: str) -> str:
 
 
 def which(cmd: str) -> Union[str, None]:
+    # TODO(skg) Use shutil.which instead.
     '''
     Akin to which(1).
 
@@ -89,7 +90,7 @@ def which(cmd: str) -> Union[str, None]:
     '''
     wcmd = None
     try:
-        wcmd = capture('which {}'.format(cmd))
+        wcmd = capture(F'which {cmd}')
     except ChildProcessError:
         wcmd = None
 
@@ -127,7 +128,7 @@ def run(
     '''
     def getrealcmd(cmd: str, verbatim: bool) -> str:
         if not verbatim:
-            return '{} {}'.format(shell.bashmagic, cmd)
+            return F'{shell.bashmagic} {cmd}'
         return cmd
 
     realcmd = getrealcmd(cmd, verbatim)
@@ -138,7 +139,7 @@ def run(
         if not verbatim:
             # +1 to account for the space added after magic.
             logcmd = realcmd[len(shell.bashmagic) + 1:]
-        logger.log('# $ {}'.format(logcmd))
+        logger.log(F'# $ {logcmd}')
 
     # Output list of strings used to (optionally) capture command output.
     olst: List[str] = list()
@@ -166,7 +167,7 @@ def run(
     if (rc != os.EX_OK):
         e = ChildProcessError()
         e.errno = rc
-        es = "Command '{}' returned non-zero exit status.".format(realcmd)
+        es = F"Command '{realcmd}' returned non-zero exit status."
         e.strerror = es
         raise e
 

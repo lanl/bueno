@@ -1,0 +1,1 @@
+__bueno_minimum_python_version_str__ = '3.6'

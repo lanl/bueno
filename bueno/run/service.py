@@ -97,7 +97,7 @@ class impl(service.Base):
             # Capture and update values[0] to an absolute path.
             prog = values[0] = os.path.abspath(values[0])
             if not os.path.isfile(prog):
-                es = '{} is not a file. Cannot continue.'.format(prog)
+                es = F'{prog} is not a file. Cannot continue.'
                 parser.error(es.format(prog))
 
             setattr(namespace, self.dest, values)
@@ -141,7 +141,7 @@ class impl(service.Base):
             '-o', '--output-path',
             type=str,
             help='Specifies the base output directory used for all '
-                  'generated files. Default: {}'.format('PWD'),
+                 'generated files. Default: {}'.format('PWD'),
             default=impl._defaults.output_path,
             required=False
         )
@@ -157,9 +157,9 @@ class impl(service.Base):
         self.argp.add_argument(
             '-a', '--image-activator',
             type=str,
-            help='Specifies the image activator used to execute '
-                 'commands within a container. '
-                 'Default: {}'.format(impl._defaults.imgactvtr),
+            help=F'Specifies the image activator used to execute '
+                 F'commands within a container. '
+                 F'Default: {impl._defaults.imgactvtr}',
             default=impl._defaults.imgactvtr,
             choices=cntrimg.ImageActivatorFactory.available(),
             required=False,
@@ -214,26 +214,26 @@ class impl(service.Base):
         cntrimg.ImageActivatorFactory().build(actvtr, imgdir)
 
         pname = os.path.basename(self.args.program[0])
-        logger.emlog('# Begin Program Output ({})'.format(pname))
+        logger.emlog(F'# Begin Program Output ({pname})')
         _Runner.run(self.args.program)
         logger.emlog('# End Program Output')
 
     def _getmetasubd(self) -> str:
         expn = experiment.name()
-        return '{}-{}'.format(expn, utils.nows().replace(' ', '-'))
+        return F"{expn}-{utils.nows().replace(' ', '-')}"
 
     def _write_metadata(self) -> None:
         base = self.args.output_path
         subd = self._getmetasubd()
         outp = os.path.join(base, subd)
         # Do this here so the output log has the output directory in it.
-        logger.log('# {} Output Target: {}'.format(self.prog, outp))
+        logger.log(F'# {self.prog} Output Target: {outp}')
         metadata.write(outp)
-        logger.log('# {} Output Written to: {}'.format(self.prog, outp))
+        logger.log(F'# {self.prog} Output Written to: {outp}')
 
     def start(self) -> None:
-        logger.emlog('# Starting {} at {}'.format(self.prog, utils.nows()))
-        logger.log('# $ {}\n'.format(' '.join(sys.argv)))
+        logger.emlog(F'# Starting {self.prog} at {utils.nows()}')
+        logger.log(F"# $ {' '.join(sys.argv)}\n")
 
         stime = utils.now()
         try:
@@ -241,13 +241,13 @@ class impl(service.Base):
             self._run()
         except Exception as e:
             estr = utils.ehorf()
-            estr += 'What: {} error encountered.\n' \
-                    'Why:  {}'.format(self.prog, e)
+            estr += F'What: {self.prog} error encountered.\n' \
+                    F'Why:  {e}'
             estr += utils.ehorf()
             raise type(e)(estr)
         etime = utils.now()
 
-        logger.log('# {} Time {}'.format(self.prog, etime - stime))
-        logger.log('# {} Done {}'.format(self.prog, utils.nows()))
+        logger.log(F'# {self.prog} Time {etime - stime}')
+        logger.log(F'# {self.prog} Done {utils.nows()}')
 
         self._write_metadata()

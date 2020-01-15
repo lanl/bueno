@@ -58,7 +58,7 @@ class _TheLogger(metaclass=metacls.Singleton):
             # Emit to stdout, not stderr.
             stream=sys.stdout,
             level=self.loglvl,
-            format='%(message)s',
+            format='%(message)s'
         )
         # Now instantiate the logger used by derived services.
         self.logger = logging.getLogger(__name__)

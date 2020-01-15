@@ -105,11 +105,11 @@ class Factory:
         '''
         sname = sargv[0]
         if not Factory.known(sname):
-            raise ValueError("'{}': Unrecognized service.".format(sname))
+            raise ValueError(F"'{sname}': Unrecognized service.")
         # Build the import_module string, following the project's service
         # structure convention. Then feed it to import_module to get the
         # requested service module.
-        imod = 'bueno.{}.service'.format(sname)
+        imod = F'bueno.{sname}.service'
         service = importlib.import_module(imod)
         # Return the service instance.
         return service.impl(sargv)  # type: ignore

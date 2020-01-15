@@ -125,12 +125,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
         capture: bool = False,
         verbose: bool = True
     ) -> List[str]:
-        cmds = '{} {} -- {} {}'.format(
-            self.runcmd,
-            self.imgp,
-            shell.bashmagic,
-            cmd
-        )
+        cmds = F'{self.runcmd} {self.imgp} -- {shell.bashmagic} {cmd}'
         runargs = {
             'verbatim': True,
             'echo': echo,
@@ -154,13 +149,10 @@ class NoneImageActivator(BaseImageActivator):
         capture: bool = False,
         verbose: bool = True
     ) -> List[str]:
-        cmds = '{} {}'.format(
-            # Note that we use this strategy instead of just running the
-            # provided command so that quoting and escape requirements are
-            # consistent across activators.
-            shell.bashmagic,
-            cmd
-        )
+        # Note that we use this strategy instead of just running the
+        # provided command so that quoting and escape requirements are
+        # consistent across activators.
+        cmds = F'{shell.bashmagic} {cmd}'
         runargs = {
             'verbatim': True,
             'echo': echo,

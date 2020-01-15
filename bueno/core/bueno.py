@@ -51,7 +51,7 @@ class ArgumentParser:
             '-v', '--version',
             help='Displays version information.',
             action='version',
-            version='%(prog)s {}'.format(_version.__version__)
+            version=F'%(prog)s {_version.__version__}'
         )
         self.argp.add_argument(
             'command',

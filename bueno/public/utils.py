@@ -81,12 +81,12 @@ def yamlp(d: Any, label: Union[None, str] = None) -> None:
     Emits YAML output from the provided dictionary.
     '''
     if not emptystr(label):
-        logger.log('# Begin {} Configuration (YAML)'.format(label))
+        logger.log(F'# Begin {label} Configuration (YAML)')
 
     logger.log(yamls(d))
 
     if not emptystr(label):
-        logger.log('# End {} Configuration (YAML)'.format(label))
+        logger.log(F'# End {label} Configuration (YAML)')
 
 
 def ehorf() -> str:
@@ -116,7 +116,7 @@ class Table:
             self.fmts = str()
             # Generate format string based on max column lengths.
             for l in self.mcls:
-                self.fmts += '{{:<{}s}}'.format(l)
+                self.fmts += F'{{:<{l}s}}'
 
         def format(self, row: 'Table.Row') -> str:
             res = str()

@@ -133,7 +133,7 @@ def name(n: Optional[str] = None) -> Optional[str]:
     if n is None:
         return _TheExperiment().name
     elif not isinstance(n, str):
-        es = '{}.name() expects a string.'.format(__name__)
+        es = F'{__name__}.name() expects a string.'
         raise RuntimeError(es)
     else:
         _TheExperiment().name = n
@@ -147,7 +147,7 @@ def generate(spec: str, *args: Any) -> List[str]:
     generated from the provided specification and corresponding inputs.
     '''
     if not isinstance(spec, str):
-        es = '{}.generate() expects a string specification.'.format(__name__)
+        es = F'{__name__}.generate() expects a string specification.'
         raise ValueError(es)
 
     argg = zip(* args)
@@ -165,7 +165,7 @@ def readgs(gs: str, config: Optional[CLIConfiguration] = None) -> str:
     # -a/--aarg [ARG_PARAMS] -b/--bargs [ARG PARAMS]
     # -c/--carg [ARG PARAMS] [positional arguments]
     '''
-    logger.emlog('# Reading Generate Specification File: {}'.format(gs))
+    logger.emlog(F'# Reading Generate Specification File: {gs}')
     # Emit contents of gs file.
     logger.log('# Begin Generate Specification')
     logger.log(utils.chomp(str().join(utils.cat(gs))))
@@ -191,8 +191,7 @@ def readgs(gs: str, config: Optional[CLIConfiguration] = None) -> str:
         gsargs = None
         if config is not None:
             if not isinstance(config, CLIConfiguration):
-                es = '{} expects an instance of ' \
-                     'CLIConfiguration'.format(__name__)
+                es = F'{__name__} expects an instance of CLIConfiguration'
                 raise ValueError(es)
             gsargs = parsedargs(config.argparser, argv)
             config.update(gsargs)

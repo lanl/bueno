@@ -32,12 +32,12 @@ def main(argv):
     host.run('ls \\*', **shargs)
 
     logger.emlog('# Testing redirection...')
-    logger.log('# Adding text to {}:'.format(fname))
-    container.run('echo "Some Text" | tee {}'.format(fname))
-    container.run('echo "More \'Text\'" >> {}'.format(fname))
+    logger.log(F'# Adding text to {fname}:')
+    container.run(F'echo "Some Text" | tee {fname}')
+    container.run(F'echo "More \'Text\'" >> {fname}')
 
-    logger.emlog('# The contents of {} are:'.format(fname))
-    host.run('cat {}'.format(fname), **shargs)
+    logger.emlog(F'# The contents of {fname} are:')
+    host.run(F'cat {fname}', **shargs)
 
     logger.emlog('# Testing quoting...')
     container.run('echo "Some \'Text\'"')

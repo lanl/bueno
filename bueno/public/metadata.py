@@ -150,7 +150,7 @@ class _Assets(metaclass=metacls.Singleton):
         '''
         Writes metadata contained in assets.
         '''
-        logger.log('# Writing Metadata Assets at {}'.format(utils.nows()))
+        logger.log(F'# Writing Metadata Assets at {utils.nows()}')
         for a in self.assets:
             a.write(basep)
 
