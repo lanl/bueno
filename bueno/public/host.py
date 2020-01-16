@@ -20,6 +20,7 @@ from typing import (
 )
 
 import os
+import shutil
 import subprocess
 
 
@@ -82,19 +83,12 @@ def capture(cmd: str) -> str:
 
 
 def which(cmd: str) -> Union[str, None]:
-    # TODO(skg) Use shutil.which instead.
     '''
     Akin to which(1).
 
     Returns None if cmd is not found.
     '''
-    wcmd = None
-    try:
-        wcmd = capture(F'which {cmd}')
-    except ChildProcessError:
-        wcmd = None
-
-    return wcmd
+    return shutil.which(cmd)
 
 
 def whichl(cmds: List[str]) -> Union[str, None]:

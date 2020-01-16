@@ -113,7 +113,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
         self.runcmd = 'ch-run'
 
         if not host.which(self.runcmd):
-            inyp = 'Is it in your PATH?\n'
+            inyp = 'Is it in your PATH?'
             notf = "'{}' not found. " + inyp
             errs = notf.format(self.runcmd)
             raise RuntimeError(errs)
