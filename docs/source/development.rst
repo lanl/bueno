@@ -4,20 +4,16 @@
 bueno Development
 =================
 
-
 Building RPMs
-#############
-
-Prerequisites
-- rpm-build
+-------------
+Prerequisites: ``rpm-build``
 
 .. code-block:: console
 
    $ python3 setup.py bdist_rpm
 
-
 MyPy
-####
+----
 
 .. code-block:: console
 

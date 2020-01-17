@@ -13,7 +13,9 @@ analysis.
    :maxdepth: 2
    :caption: Contents:
 
+   intro
    installation
+   bueno-run-getting-started
    modules
    development
 

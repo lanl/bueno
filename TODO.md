@@ -7,3 +7,4 @@
 - Document how to use mypy: ```mypy --strict .```
 - Automate the running of mypy for development purposes.
 - Automate the running of flake8 for development purposes.
+- Change  the way ```experiment.name()``` behaves.
