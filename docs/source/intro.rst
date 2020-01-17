@@ -36,7 +36,7 @@ generated images to perform operations critical to reproducibility and
 post-mortem analysis.
 
 The *run* service coordinates container image activation and the execution of
-bueno run scripts—a programmatic description of the steps required to conduct a
+bueno run scripts--—a programmatic description of the steps required to conduct a
 benchmarking activity. Currently, there are two image activators implemented in
 bueno: ``charliecloud`` and ``none``. The former uses Charliecloud to activate a
 given container image and the latter is a pass-through to the host.

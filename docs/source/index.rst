@@ -4,10 +4,7 @@
 bueno
 =====
 
-bueno is an extensible software framework that provides mechanisms to record and
-automate many arduous, error-prone benchmarking tasks: environmental discovery,
-environmental setup, program compilation, program execution, data storage, and
-analysis.
+bueno is a software framework for automated, reproducible benchmarking and analysis.
 
 .. toctree::
    :maxdepth: 2
@@ -16,7 +13,6 @@ analysis.
    intro
    installation
    bueno-run-getting-started
-   modules
    development
 
 Indices and tables

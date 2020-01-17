@@ -14,7 +14,13 @@ Prerequisites: ``rpm-build``
 
 MyPy
 ----
-
 .. code-block:: console
 
    $ python3 -m mypy --strict .
+
+bueno Source Documentation
+--------------------------
+.. toctree::
+   :maxdepth: 4
+
+   bueno

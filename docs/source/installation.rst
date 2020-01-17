@@ -13,7 +13,7 @@ In a terminal perform the following (assumes a bash-like shell).
    $ cd bueno # The directory in which setup.py is located.
    $ python3 -m pip install --user .
 
-Add bueno's installation prefix to ``PATH``.
+Add bueno's installation prefix to your ``PATH``.
 
 .. code-block:: console
 
