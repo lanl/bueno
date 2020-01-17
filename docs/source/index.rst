@@ -1,16 +1,21 @@
-.. bueno documentation master file, created by
-   sphinx-quickstart on Thu Jan 16 15:39:23 2020.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+.. Copyright (c) 2019-2020, Triad National Security, LLC
+                            All rights reserved.
 
-Welcome to bueno's documentation!
-=================================
+bueno
+=====
+
+bueno is an extensible software framework that provides mechanisms to record and
+automate many arduous, error-prone benchmarking tasks: environmental discovery,
+environmental setup, program compilation, program execution, data storage, and
+analysis.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
+   installation
    modules
+   development
 
 Indices and tables
 ==================
