@@ -55,7 +55,7 @@ class Factory:
     @staticmethod
     def known(sname: str) -> bool:
         '''
-        Returns a boolean indicating whether or not the provided name is known
+        Returns a boolean indicating whether or not the provided name is a known
         builder.
         '''
         return sname in Factory.avail
