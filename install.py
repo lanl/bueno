@@ -94,6 +94,7 @@ class Installer:
     # Application name.
     app = 'bueno-install'
     # Application version.
+    # IMPORTANT: Never change manually, always use bumpversion.
     ver = '0.0.1'
 
     def __init__(self, config):

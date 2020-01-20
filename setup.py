@@ -13,15 +13,6 @@ import os
 import re
 
 
-def get_version():
-    verline = open('./bueno/_version.py').read()
-    sr = re.search(r"^__version__ = ['\']([^'\']*)['\']", verline)
-    if sr:
-        return sr.group(1)
-    else:
-        raise RuntimeError('Cannot determine version from version file.')
-
-
 def get_minimum_python_vers():
     verline = open('./bueno/_minpyversion.py').read()
     sr = re.search(
@@ -63,7 +54,8 @@ def package_setup(package_name, package_vers):
 
 def main():
     package_name = 'bueno'
-    package_vers = get_version()
+    # IMPORTANT: Never change manually, always use bumpversion.
+    package_vers = '0.0.1'
 
     package_setup(package_name, package_vers)
 

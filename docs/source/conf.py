@@ -1,3 +1,12 @@
+#
+# Copyright (c)      2020 Triad National Security, LLC
+#                         All rights reserved.
+#
+# This file is part of the bueno project. See the LICENSE file at the
+# top-level directory of this distribution for more information.
+#
+# type: ignore
+
 # Configuration file for the Sphinx documentation builder.
 #
 # This file only contains a selection of the most common options. For a full
@@ -17,13 +26,12 @@ sys.path.insert(0, os.path.abspath('../..'))
 
 
 # -- Project information -----------------------------------------------------
-
 project = 'bueno'
 copyright = '2020, Triad National Security, LLC'
 author = 'Samuel K. Gutierrez'
 
 # The full version, including alpha/beta/rc tags
-# TODO(skg) Automatically get this string from somewhere.
+# IMPORTANT: Never change manually, always use bumpversion.
 release = '0.0.1'
 
 
