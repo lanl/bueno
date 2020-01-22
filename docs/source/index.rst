@@ -13,6 +13,7 @@ bueno is a software framework for automated, reproducible benchmarking and analy
    intro
    installation
    bueno-run-getting-started
+   cookbook
    development
 
 Indices and tables

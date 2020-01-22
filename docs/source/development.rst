@@ -18,6 +18,9 @@ MyPy
 
    $ python3 -m mypy --strict .
 
+Building the Documentation
+--------------------------
+
 bueno Source Documentation
 --------------------------
 .. toctree::
