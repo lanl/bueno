@@ -1,0 +1,32 @@
+#
+# Starting run at 2020-01-22 10:46:16
+#
+
+# $ /home/samuel/.local/bin/bueno run -a none -p hello.py
+
+# Begin run Configuration (YAML)
+Configuration:
+ image: null
+ image_activator: none
+ output_path: /home/samuel
+Host:
+ hostname: localhost.localdomain
+ kernel: Linux
+ kernel_release: 5.3.7-200.fc30.x86_64
+ os_release: Fedora 30 (Workstation Edition)
+ whoami: samuel
+# End run Configuration (YAML)
+
+#
+# Begin Program Output (hello.py)
+#
+
+hello world
+
+#
+# End Program Output
+#
+
+# run Time 0:00:00.095917
+# run Done 2020-01-22 10:46:16
+# run Output Target: /home/samuel/hello-world-2020-01-22-10:46:16

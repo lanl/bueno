@@ -1,11 +1,12 @@
 bueno Run Scripts: Getting Started
 ##################################
 
-``bueno run`` coordinates container image activation and the execution of
-bueno run scripts---a programmatic description of the steps required to conduct a
+``bueno run`` coordinates container image activation and the execution of bueno
+run scripts---a programmatic description of the steps required to conduct a
 benchmarking activity. Currently, there are two image activators implemented in
-bueno: ``charliecloud`` and ``none``. The former uses Charliecloud to activate a
-given container image and the latter is a pass-through to the host.
+bueno: ``charliecloud`` and ``none``. The former uses `Charliecloud
+<https://hpc.github.io/charliecloud/>`_ to activate a given container image and
+the latter is a pass-through to the host.
 
 Hello World!
 ------------
@@ -25,43 +26,17 @@ command (assumes ``hello.py`` is stored in your current working directory):
 
 This program invocation should produce console output similar to the following:
 
-.. code-block:: console
-
-   #
-   # Starting run at 2020-01-22 10:46:16
-   #
-
-   # $ /home/samuel/.local/bin/bueno run -a none -p hello.py
-
-   # Begin run Configuration (YAML)
-   Configuration:
-     image: null
-     image_activator: none
-     output_path: /home/samuel
-   Host:
-     hostname: localhost.localdomain
-     kernel: Linux
-     kernel_release: 5.3.7-200.fc30.x86_64
-     os_release: Fedora 30 (Workstation Edition)
-     whoami: samuel
-   # End run Configuration (YAML)
-
-   #
-   # Begin Program Output (hello.py)
-   #
-
-   hello world
-
-   #
-   # End Program Output
-   #
-
-   # run Time 0:00:00.095917
-   # run Done 2020-01-22 10:46:16
-   # run Output Target: /home/samuel/hello-world-2020-01-22-10:46:16
+.. literalinclude:: ./includes/hello-output.txt
 
 
-Help
-----
+Public Module Reference
+-----------------------
+.. toctree::
+   :maxdepth: 2
+
+   bueno.public
+
+More bueno run Help
+-------------------
 Additional run service information is provided by the output of ``bueno run
 --help``.
