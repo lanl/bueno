@@ -42,7 +42,7 @@ release = '0.0.1'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx_rtd_theme'
+    'sphinx.ext.githubpages',
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -64,7 +64,11 @@ exclude_patterns = []
 # python3 -m pip install --user sphinx_rtd_theme
 import sphinx_rtd_theme # noqa: #E402
 html_theme = 'sphinx_rtd_theme'
+extensions.append('sphinx.ext.githubpages')
 
+html_theme_options = {
+    'style_nav_header_background': '#333131',
+}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
