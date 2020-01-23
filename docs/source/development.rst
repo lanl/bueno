@@ -20,6 +20,19 @@ MyPy
 
 Building the Documentation
 --------------------------
+Install Sphinx and the RTD theme.
+
+.. code-block:: console
+
+   $ python3 -m pip install --user sphinx
+   $ python3 -m pip install --user sphinx_rtd_theme
+
+Build the documentation.
+
+.. code-block:: console
+
+   $ cd docs
+   $ make html
 
 bueno Source Documentation
 --------------------------
