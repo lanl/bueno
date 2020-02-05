@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -11,6 +11,7 @@ The run service module.
 '''
 
 from bueno.core import cntrimg
+from bueno.core import constants
 from bueno.core import service
 
 from bueno.public import experiment
@@ -77,6 +78,8 @@ class impl(service.Base):
         output_path = os.getcwd()
         # The image activator to use by default.
         imgactvtr = 'charliecloud'
+        # The image path.
+        image = None
 
     class ProgramAction(argparse.Action):
         '''
@@ -151,6 +154,7 @@ class impl(service.Base):
             type=str,
             help='Specifies the base container image (directory or tarball).',
             required=True,
+            default=impl._defaults.image,
             action=impl.ImageAction
         )
 
@@ -207,12 +211,38 @@ class impl(service.Base):
         # Then print it out in YAML format.
         utils.yamlp(self.confd, self.prog)
 
-    def _run(self) -> None:
-        # Setup image activator so that it is ready-to-go for the run.
+    def _add_container_metadata(self) -> None:
+        '''
+        Adds container metadata to run metadata assets.
+        '''
+        logger.emlog(F'# Looking for container metadata...')
+
+        # Skip any image activators that do not have build metadata.
+        if not cntrimg.Activator().impl.has_metadata():
+            ia = self.args.image_activator
+            logger.log(F'# Note: the {ia} activator has no metadata\n')
+            return
+
+        imgdir = self.args.image
+        # The subdirectory where container metadata will be stored.
+        mdatadir = 'container'
+        logger.log(F'# Adding metadata from {imgdir}\n')
+        buildl = os.path.join(
+            imgdir,
+            constants.METADATA_DIR,
+            constants.SERVICE_LOG_NAME
+        )
+        metadata.add_asset(metadata.FileAsset(buildl, mdatadir))
+
+    def _build_image_activator(self) -> None:
+        '''
+        Builds the image activator instance.
+        '''
         actvtr = self.args.image_activator
         imgdir = self.args.image
         cntrimg.ImageActivatorFactory().build(actvtr, imgdir)
 
+    def _run(self) -> None:
         pname = os.path.basename(self.args.program[0])
         logger.emlog(F'# Begin Program Output ({pname})')
         _Runner.run(self.args.program)
@@ -237,6 +267,8 @@ class impl(service.Base):
 
         stime = utils.now()
         try:
+            self._build_image_activator()
+            self._add_container_metadata()
             self._emit_config()
             self._run()
         except Exception as e:

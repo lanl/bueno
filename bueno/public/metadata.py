@@ -10,6 +10,7 @@
 Core metadata types.
 '''
 
+from bueno.core import constants
 from bueno.core import metacls
 
 from bueno.public import logger
@@ -99,7 +100,7 @@ class LoggerAsset(BaseAsset):
     '''
     def __init__(self) -> None:
         super().__init__()
-        self.buildo = 'log.txt'
+        self.buildo = constants.SERVICE_LOG_NAME
 
     def write(self, basep: str) -> None:
         logger.write(os.path.join(basep, self.buildo))

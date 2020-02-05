@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -11,6 +11,8 @@ The CharlieCloud container builder.
 '''
 
 from bueno.build import builder
+
+from bueno.core import constants
 
 from bueno.public import host
 from bueno.public import logger
@@ -126,7 +128,7 @@ class impl(builder.Base):
             msg = 'The following path does not exist: {}'.format(spath)
             raise RuntimeError(msg)
         logger.log('# Looks good. Adding metadata...')
-        metadata.write(os.path.join(spath, 'bueno'))
+        metadata.write(os.path.join(spath, constants.METADATA_DIR))
 
     def _flatten(self) -> None:
         tcmd = '{} {} {}'.format(

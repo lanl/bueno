@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -52,6 +52,15 @@ class BaseImageActivator(ABC):
         command is emitted echoed before its execution.
         '''
         pass
+
+    @abstractmethod
+    def has_metadata(self) -> bool:
+        '''
+        Returns whether or not the image activator instance has metadata.
+        '''
+        # By defualt assume the image activator has metadata.
+        return True
+
 
 
 class Activator(metaclass=metacls.Singleton):
@@ -134,6 +143,9 @@ class CharlieCloudImageActivator(BaseImageActivator):
         }
         return host.run(cmds, **runargs)
 
+    def has_metadata(self) -> bool:
+        return True
+
 
 class NoneImageActivator(BaseImageActivator):
     '''
@@ -160,3 +172,7 @@ class NoneImageActivator(BaseImageActivator):
             'verbose': verbose
         }
         return host.run(cmds, **runargs)
+
+    def has_metadata(self) -> bool:
+        # This activator does not have metadata.
+        return False
