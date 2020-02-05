@@ -36,16 +36,19 @@ class impl(builder.Base):
         self.builder = 'ch-grow'
         # The command used to flatten an image into a tarball.
         self.tarcmd = 'ch-builder2tar'
-        # The name of the specification file used to build containers.
-        self.spec_name = 'Dockerfile'
 
         self._spec_fixup()
 
     def _spec_fixup(self) -> None:
+        # The entire specification. This should be a file, something like
+        # /home/user/Dockerfile.custom.
         ospec = self.config['spec']
-        basen = os.path.basename(ospec)
-        if basen == self.spec_name:
-            self.config['spec'] = os.path.dirname(ospec)
+
+        if (not os.path.isfile(ospec)):
+            emsg = F'Invalid build specification file provided: {ospec}'
+            raise ValueError(emsg)
+
+        self.config['spec'] = os.path.abspath(ospec)
 
     def _check_env(self) -> None:
         '''
@@ -65,14 +68,6 @@ class impl(builder.Base):
         if not host.which(self.tarcmd):
             errs += notf.format(self.tarcmd)
 
-        # Make sure that a Dockerfile exists in the provided path.
-        fixs = 'Please update your specification path.\n'
-        dnotf = '{} does not exist. ' + fixs
-        dockerf = os.path.join(self.config['spec'], self.spec_name)
-
-        if not os.path.exists(dockerf):
-            errs += dnotf.format(dockerf)
-
         if errs:
             raise OSError(utils.chomp(errs))
 
@@ -90,7 +85,7 @@ class impl(builder.Base):
         metadata.add_asset(metadata.YAMLDictAsset(binfo, 'builder'))
 
     def _emit_build_spec(self) -> None:
-        dockerf = os.path.join(self.config['spec'], self.spec_name)
+        dockerf = self.config['spec']
         # Add spec file to the metadata assets.
         metadata.add_asset(metadata.FileAsset(dockerf))
         # Emit the contents of the spec file.
@@ -146,11 +141,15 @@ class impl(builder.Base):
         logger.log('# End Flatten Output')
 
     def _build(self) -> None:
-        bcmd = '{} -b {} -t {} {}'.format(
+        dockerf = self.config['spec']
+        context = os.path.dirname(self.config['spec'])
+
+        bcmd = '{} -b {} -t {} -f {} {}'.format(
             self.buildc,
             self.builder,
             self.config['tag'],
-            self.config['spec']
+            dockerf,
+            context
         )
 
         logger.emlog('# Begin Build Output')

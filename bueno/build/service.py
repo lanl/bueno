@@ -38,8 +38,6 @@ class impl(service.Base):
         desc = 'The build service is a front-end to container builders.'
         # The name of the builder back-end.
         builder = 'charliecloud'
-        # Path to the build specification (e.g., a Dockerfile specification).
-        spec_path = os.getcwd()
         # Path to save any generated files.
         output_path = os.getcwd()
 
@@ -58,12 +56,19 @@ class impl(service.Base):
         )
 
         self.argp.add_argument(
+            '-o', '--output-path',
+            type=str,
+            help='Specifies the output directory used for all generated files. '
+                 'Default: {}'.format('PWD'),
+            default=impl._defaults.output_path,
+            required=False
+        )
+
+        self.argp.add_argument(
             '-s', '--spec',
             type=str,
-            help='Base path to build specification file (e.g., a Dockerfile). '
-                 'Default: {}'.format('PWD'),
-            default=impl._defaults.spec_path,
-            required=False
+            help='Path to build specification file (e.g., a Dockerfile).',
+            required=True
         )
 
         self.argp.add_argument(
@@ -71,15 +76,6 @@ class impl(service.Base):
             type=str,
             help='Specifies the container name (required).',
             required=True
-        )
-
-        self.argp.add_argument(
-            '-o', '--output-path',
-            type=str,
-            help='Specifies the output directory used for all generated files. '
-                 'Default: {}'.format('PWD'),
-            default=impl._defaults.output_path,
-            required=False
         )
 
     def _populate_service_config(self) -> None:
