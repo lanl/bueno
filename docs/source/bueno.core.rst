@@ -20,6 +20,14 @@ bueno.core.cntrimg module
    :undoc-members:
    :show-inheritance:
 
+bueno.core.constants module
+---------------------------
+
+.. automodule:: bueno.core.constants
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 bueno.core.metacls module
 -------------------------
 
