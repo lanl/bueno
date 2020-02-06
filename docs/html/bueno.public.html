@@ -1,0 +1,584 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bueno.public package &mdash; bueno 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cookbook" href="cookbook.html" />
+    <link rel="prev" title="bueno Run Scripts: Getting Started" href="bueno-run-getting-started.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #333131" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> bueno
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="bueno-run-getting-started.html">bueno Run Scripts: Getting Started</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="bueno-run-getting-started.html#hello-world">Hello World!</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="bueno-run-getting-started.html#public-module-reference">Public Module Reference</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">bueno.public package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-bueno.public.container">bueno.public.container module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-bueno.public.experiment">bueno.public.experiment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-bueno.public.host">bueno.public.host module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-bueno.public.logger">bueno.public.logger module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-bueno.public.metadata">bueno.public.metadata module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-bueno.public.shell">bueno.public.shell module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-bueno.public.utils">bueno.public.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-bueno.public">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bueno-run-getting-started.html#more-bueno-run-help">More bueno run Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">bueno Development</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bueno</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="bueno-run-getting-started.html">bueno Run Scripts: Getting Started</a> &raquo;</li>
+        
+      <li>bueno.public package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/bueno.public.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bueno-public-package">
+<h1>bueno.public package<a class="headerlink" href="#bueno-public-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bueno.public.container">
+<span id="bueno-public-container-module"></span><h2>bueno.public.container module<a class="headerlink" href="#module-bueno.public.container" title="Permalink to this headline">¶</a></h2>
+<p>Container utilities.</p>
+<dl class="function">
+<dt id="bueno.public.container.run">
+<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">preaction: Any = None</em>, <em class="sig-param">postaction: Any = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.container.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the given command string from within a container.  Optionally calls
+pre- or post-actions if provided.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.public.experiment">
+<span id="bueno-public-experiment-module"></span><h2>bueno.public.experiment module<a class="headerlink" href="#module-bueno.public.experiment" title="Permalink to this headline">¶</a></h2>
+<p>Experiment utilities for good.</p>
+<dl class="class">
+<dt id="bueno.public.experiment.CLIConfiguration">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.public.experiment.</code><code class="sig-name descname">CLIConfiguration</code><span class="sig-paren">(</span><em class="sig-param">desc: str, argv: List[str]</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.experiment.CLIConfiguration" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Command-line interface configuration container and associated utilities.</p>
+<dl class="method">
+<dt id="bueno.public.experiment.CLIConfiguration.addargs">
+<em class="property">abstract </em><code class="sig-name descname">addargs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.addargs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.experiment.CLIConfiguration.argparser">
+<em class="property">property </em><code class="sig-name descname">argparser</code><a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.argparser" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.experiment.CLIConfiguration.args">
+<em class="property">property </em><code class="sig-name descname">args</code><a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.args" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.experiment.CLIConfiguration.argv">
+<em class="property">property </em><code class="sig-name descname">argv</code><a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.argv" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.experiment.CLIConfiguration.description">
+<em class="property">property </em><code class="sig-name descname">description</code><a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.description" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.experiment.CLIConfiguration.parseargs">
+<code class="sig-name descname">parseargs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; argparse.Namespace<a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.parseargs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.experiment.CLIConfiguration.program">
+<em class="property">property </em><code class="sig-name descname">program</code><a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.program" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.experiment.CLIConfiguration.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">confns: argparse.Namespace</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the current configuration using the parsedargs provided through
+confns, a namespace.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.experiment.generate">
+<code class="sig-prename descclassname">bueno.public.experiment.</code><code class="sig-name descname">generate</code><span class="sig-paren">(</span><em class="sig-param">spec: str</em>, <em class="sig-param">*args: Any</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.public.experiment.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a string containing string.format() replacement fields and a variable
+number of iterables, attempt to generate an iterable collection of strings
+generated from the provided specification and corresponding inputs.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.experiment.name">
+<code class="sig-prename descclassname">bueno.public.experiment.</code><code class="sig-name descname">name</code><span class="sig-paren">(</span><em class="sig-param">n: Optional[str] = None</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#bueno.public.experiment.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Experiment name getter/setter. If a name string is provided, then it acts as
+a setter, acting as a getter otherwise.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.experiment.parsedargs">
+<code class="sig-prename descclassname">bueno.public.experiment.</code><code class="sig-name descname">parsedargs</code><span class="sig-paren">(</span><em class="sig-param">argprsr: argparse.ArgumentParser, argv: List[str]</em><span class="sig-paren">)</span> &#x2192; argparse.Namespace<a class="headerlink" href="#bueno.public.experiment.parsedargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO(skg) add a proper description.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.experiment.readgs">
+<code class="sig-prename descclassname">bueno.public.experiment.</code><code class="sig-name descname">readgs</code><span class="sig-paren">(</span><em class="sig-param">gs: str</em>, <em class="sig-param">config: Optional[bueno.public.experiment.CLIConfiguration] = None</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.experiment.readgs" title="Permalink to this definition">¶</a></dt>
+<dd><p>A convenience routine for reading generate specification files.</p>
+<p>TODO(skg) Add description of formatting rules, etc.</p>
+<p>We accept the following forms:
+# -a/–aarg [ARG_PARAMS] -b/–bargs [ARG PARAMS]
+# -c/–carg [ARG PARAMS] [positional arguments]</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.public.host">
+<span id="bueno-public-host-module"></span><h2>bueno.public.host module<a class="headerlink" href="#module-bueno.public.host" title="Permalink to this headline">¶</a></h2>
+<p>Host utilities.</p>
+<dl class="function">
+<dt id="bueno.public.host.capture">
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">capture</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.host.capture" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the provided command and returns a string with the command’s
+output.</p>
+<p>See run() for exceptions.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.host.hostname">
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">hostname</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.host.hostname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the host computer’s name.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.host.kernel">
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">kernel</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.host.kernel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the kernel name.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.host.kernelrel">
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">kernelrel</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.host.kernelrel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the kernel release.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.host.os_pretty_name">
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">os_pretty_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.host.os_pretty_name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the host’s pretty name as reported by /etc/os-release.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.host.run">
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">verbatim: bool = False</em>, <em class="sig-param">echo: bool = False</em>, <em class="sig-param">capture: bool = False</em>, <em class="sig-param">verbose: bool = True</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.public.host.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the provided command.</p>
+<p>Returns newline-delimited list of output if capture if True.</p>
+<p>Throws ChildProcessError on error.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.host.which">
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">which</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#bueno.public.host.which" title="Permalink to this definition">¶</a></dt>
+<dd><p>Akin to which(1).</p>
+<p>Returns None if cmd is not found.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.host.whichl">
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">whichl</code><span class="sig-paren">(</span><em class="sig-param">cmds: List[str]</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#bueno.public.host.whichl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Akin to which(1), but accepts a list of commands to search for. The first
+command found by which() is returned.</p>
+<p>Returns None if none of the provided commands are found.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.host.whoami">
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">whoami</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.host.whoami" title="Permalink to this definition">¶</a></dt>
+<dd><p>Akin to whoami(1).</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.public.logger">
+<span id="bueno-public-logger-module"></span><h2>bueno.public.logger module<a class="headerlink" href="#module-bueno.public.logger" title="Permalink to this headline">¶</a></h2>
+<p>Logging utilities for good.</p>
+<dl class="function">
+<dt id="bueno.public.logger.emlog">
+<code class="sig-prename descclassname">bueno.public.logger.</code><code class="sig-name descname">emlog</code><span class="sig-paren">(</span><em class="sig-param">msg: str</em>, <em class="sig-param">*args: Any</em>, <em class="sig-param">**kwargs: Any</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.logger.emlog" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs the provided message to a central logger with emphasis.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.logger.log">
+<code class="sig-prename descclassname">bueno.public.logger.</code><code class="sig-name descname">log</code><span class="sig-paren">(</span><em class="sig-param">msg: str</em>, <em class="sig-param">*args: Any</em>, <em class="sig-param">**kwargs: Any</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.logger.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Logs the provided message to a central logger.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.logger.write">
+<code class="sig-prename descclassname">bueno.public.logger.</code><code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">to: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.logger.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the current contents of the log to the path provided.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.public.metadata">
+<span id="bueno-public-metadata-module"></span><h2>bueno.public.metadata module<a class="headerlink" href="#module-bueno.public.metadata" title="Permalink to this headline">¶</a></h2>
+<p>Core metadata types.</p>
+<dl class="class">
+<dt id="bueno.public.metadata.BaseAsset">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.public.metadata.</code><code class="sig-name descname">BaseAsset</code><a class="headerlink" href="#bueno.public.metadata.BaseAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstract base metadata asset class.</p>
+<dl class="method">
+<dt id="bueno.public.metadata.BaseAsset.write">
+<em class="property">abstract </em><code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">basep: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.metadata.BaseAsset.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.public.metadata.FileAsset">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.public.metadata.</code><code class="sig-name descname">FileAsset</code><span class="sig-paren">(</span><em class="sig-param">srcf: str</em>, <em class="sig-param">subd: Optional[str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.metadata.FileAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.BaseAsset" title="bueno.public.metadata.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.BaseAsset</span></code></a></p>
+<p>File asset.</p>
+<dl class="method">
+<dt id="bueno.public.metadata.FileAsset.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">basep: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.metadata.FileAsset.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.public.metadata.LoggerAsset">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.public.metadata.</code><code class="sig-name descname">LoggerAsset</code><a class="headerlink" href="#bueno.public.metadata.LoggerAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.BaseAsset" title="bueno.public.metadata.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.BaseAsset</span></code></a></p>
+<p>bueno logger asset.</p>
+<dl class="method">
+<dt id="bueno.public.metadata.LoggerAsset.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">basep: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.metadata.LoggerAsset.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.public.metadata.YAMLDictAsset">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.public.metadata.</code><code class="sig-name descname">YAMLDictAsset</code><span class="sig-paren">(</span><em class="sig-param">ydict: Dict[Any, Any], fname: str</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.metadata.YAMLDictAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.BaseAsset" title="bueno.public.metadata.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.BaseAsset</span></code></a></p>
+<p>Convenience YAML (from a dict()) asset.</p>
+<dl class="method">
+<dt id="bueno.public.metadata.YAMLDictAsset.fname">
+<em class="property">property </em><code class="sig-name descname">fname</code><a class="headerlink" href="#bueno.public.metadata.YAMLDictAsset.fname" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.metadata.YAMLDictAsset.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">basep: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.metadata.YAMLDictAsset.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.metadata.add_asset">
+<code class="sig-prename descclassname">bueno.public.metadata.</code><code class="sig-name descname">add_asset</code><span class="sig-paren">(</span><em class="sig-param">asset: bueno.public.metadata.BaseAsset</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.metadata.add_asset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a metadata asset to the collection of assets to be written.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.metadata.write">
+<code class="sig-prename descclassname">bueno.public.metadata.</code><code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">basep: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.metadata.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes build metadata rooted at basep.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.public.shell">
+<span id="bueno-public-shell-module"></span><h2>bueno.public.shell module<a class="headerlink" href="#module-bueno.public.shell" title="Permalink to this headline">¶</a></h2>
+<p>Quasi shell-like utilities.</p>
+</div>
+<div class="section" id="module-bueno.public.utils">
+<span id="bueno-public-utils-module"></span><h2>bueno.public.utils module<a class="headerlink" href="#module-bueno.public.utils" title="Permalink to this headline">¶</a></h2>
+<p>Utilities for good.</p>
+<dl class="class">
+<dt id="bueno.public.utils.Table">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">Table</code><a class="headerlink" href="#bueno.public.utils.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="class">
+<dt id="bueno.public.utils.Table.Row">
+<em class="property">class </em><code class="sig-name descname">Row</code><span class="sig-paren">(</span><em class="sig-param">data: List[Any], withrule: bool = False</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.utils.Table.Row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.public.utils.Table.RowFormatter">
+<em class="property">class </em><code class="sig-name descname">RowFormatter</code><span class="sig-paren">(</span><em class="sig-param">mcls: List[int]</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.utils.Table.RowFormatter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="bueno.public.utils.Table.RowFormatter.format">
+<code class="sig-name descname">format</code><span class="sig-paren">(</span><em class="sig-param">row: bueno.public.utils.Table.Row</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.utils.Table.RowFormatter.format" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.utils.Table.addrow">
+<code class="sig-name descname">addrow</code><span class="sig-paren">(</span><em class="sig-param">row: List[Any], withrule: bool = False</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.utils.Table.addrow" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.utils.Table.emit">
+<code class="sig-name descname">emit</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.utils.Table.emit" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.utils.cat">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">cat</code><span class="sig-paren">(</span><em class="sig-param">file: str</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.public.utils.cat" title="Permalink to this definition">¶</a></dt>
+<dd><p>Akin to cat(1), but returns a list of strings containing the contents of the
+provided file.</p>
+<p>Raises OSError or IOError on error.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.utils.cats">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">cats</code><span class="sig-paren">(</span><em class="sig-param">file: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.utils.cats" title="Permalink to this definition">¶</a></dt>
+<dd><p>Akin to cat(1), but returns a string containing the contents of the provided
+file.</p>
+<p>Raises OSError or IOError on error.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.utils.chomp">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">chomp</code><span class="sig-paren">(</span><em class="sig-param">s: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.utils.chomp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string without trailing newline characters.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.utils.ehorf">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">ehorf</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.utils.ehorf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns header/footer string used for error messages.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.utils.emptystr">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">emptystr</code><span class="sig-paren">(</span><em class="sig-param">s: Optional[str]</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.public.utils.emptystr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns True if the provided string is not empty; False otherwise.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.utils.now">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">now</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#bueno.public.utils.now" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current date and time.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.utils.nows">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">nows</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.utils.nows" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representation of the current date and time.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.utils.yamlp">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">yamlp</code><span class="sig-paren">(</span><em class="sig-param">d: Any</em>, <em class="sig-param">label: Union[None</em>, <em class="sig-param">str] = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.utils.yamlp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emits YAML output from the provided dictionary.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.utils.yamls">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">yamls</code><span class="sig-paren">(</span><em class="sig-param">d: Any</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.utils.yamls" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns YAML string from the provided dictionary.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.public">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bueno.public" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cookbook.html" class="btn btn-neutral float-right" title="Cookbook" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bueno-run-getting-started.html" class="btn btn-neutral float-left" title="bueno Run Scripts: Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Triad National Security, LLC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

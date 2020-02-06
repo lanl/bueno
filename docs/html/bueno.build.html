@@ -1,0 +1,312 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bueno.build package &mdash; bueno 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="bueno.core package" href="bueno.core.html" />
+    <link rel="prev" title="bueno package" href="bueno.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #333131" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> bueno
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bueno-run-getting-started.html">bueno Run Scripts: Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="development.html">bueno Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="development.html#building-rpms">Building RPMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#mypy">MyPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#building-the-documentation">Building the Documentation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="development.html#bueno-source-documentation">bueno Source Documentation</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="bueno.html">bueno package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="bueno.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.html#module-bueno">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bueno</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="development.html">bueno Development</a> &raquo;</li>
+        
+          <li><a href="bueno.html">bueno package</a> &raquo;</li>
+        
+      <li>bueno.build package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/bueno.build.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bueno-build-package">
+<h1>bueno.build package<a class="headerlink" href="#bueno-build-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bueno.build.builder">
+<span id="bueno-build-builder-module"></span><h2>bueno.build.builder module<a class="headerlink" href="#module-bueno.build.builder" title="Permalink to this headline">¶</a></h2>
+<p>Builders for good.</p>
+<dl class="class">
+<dt id="bueno.build.builder.Base">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.build.builder.</code><code class="sig-name descname">Base</code><span class="sig-paren">(</span><em class="sig-param">**config: Any</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.build.builder.Base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstract base class of all builders.</p>
+<dl class="method">
+<dt id="bueno.build.builder.Base.start">
+<em class="property">abstract </em><code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.build.builder.Base.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the builder. Akin to a builder main().</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.build.builder.Factory">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.build.builder.</code><code class="sig-name descname">Factory</code><a class="headerlink" href="#bueno.build.builder.Factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The builder factory.</p>
+<dl class="attribute">
+<dt id="bueno.build.builder.Factory.avail">
+<code class="sig-name descname">avail</code><em class="property"> = ['charliecloud']</em><a class="headerlink" href="#bueno.build.builder.Factory.avail" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.build.builder.Factory.available">
+<em class="property">static </em><code class="sig-name descname">available</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.build.builder.Factory.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of available builders.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.build.builder.Factory.build">
+<em class="property">static </em><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">**config: Any</em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#bueno.build.builder.Factory.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports and returns an instance of requested builder module.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.build.builder.Factory.known">
+<em class="property">static </em><code class="sig-name descname">known</code><span class="sig-paren">(</span><em class="sig-param">sname: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.build.builder.Factory.known" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a boolean indicating whether or not the provided name is a known
+builder.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.build.charliecloud">
+<span id="bueno-build-charliecloud-module"></span><h2>bueno.build.charliecloud module<a class="headerlink" href="#module-bueno.build.charliecloud" title="Permalink to this headline">¶</a></h2>
+<p>The CharlieCloud container builder.</p>
+<dl class="class">
+<dt id="bueno.build.charliecloud.impl">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.build.charliecloud.</code><code class="sig-name descname">impl</code><span class="sig-paren">(</span><em class="sig-param">**config: Any</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.build.charliecloud.impl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.build.builder.Base" title="bueno.build.builder.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.build.builder.Base</span></code></a></p>
+<p>Implements the CharlieCloud container builder.</p>
+<dl class="method">
+<dt id="bueno.build.charliecloud.impl.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.build.charliecloud.impl.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the builder. Akin to a builder main().</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.build.service">
+<span id="bueno-build-service-module"></span><h2>bueno.build.service module<a class="headerlink" href="#module-bueno.build.service" title="Permalink to this headline">¶</a></h2>
+<p>The build service module.</p>
+<dl class="class">
+<dt id="bueno.build.service.impl">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.build.service.</code><code class="sig-name descname">impl</code><span class="sig-paren">(</span><em class="sig-param">argv: List[str]</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.build.service.impl" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="bueno.core.html#bueno.core.service.Base" title="bueno.core.service.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.core.service.Base</span></code></a></p>
+<p>Implements the build service.</p>
+<dl class="method">
+<dt id="bueno.build.service.impl.start">
+<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.build.service.impl.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the service. Akin to a service main().</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.build">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bueno.build" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bueno.core.html" class="btn btn-neutral float-right" title="bueno.core package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bueno.html" class="btn btn-neutral float-left" title="bueno package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Triad National Security, LLC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,449 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bueno.core package &mdash; bueno 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="bueno.run package" href="bueno.run.html" />
+    <link rel="prev" title="bueno.build package" href="bueno.build.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #333131" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> bueno
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bueno-run-getting-started.html">bueno Run Scripts: Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="development.html">bueno Development</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="development.html#building-rpms">Building RPMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#mypy">MyPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#building-the-documentation">Building the Documentation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="development.html#bueno-source-documentation">bueno Source Documentation</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="bueno.html">bueno package</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="bueno.html#subpackages">Subpackages</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.html#module-bueno">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bueno</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="development.html">bueno Development</a> &raquo;</li>
+        
+          <li><a href="bueno.html">bueno package</a> &raquo;</li>
+        
+      <li>bueno.core package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/bueno.core.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bueno-core-package">
+<h1>bueno.core package<a class="headerlink" href="#bueno-core-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-bueno.core.bueno">
+<span id="bueno-core-bueno-module"></span><h2>bueno.core.bueno module<a class="headerlink" href="#module-bueno.core.bueno" title="Permalink to this headline">¶</a></h2>
+<p>The good stuff typically called by __main__.</p>
+<dl class="class">
+<dt id="bueno.core.bueno.ArgumentParser">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.bueno.</code><code class="sig-name descname">ArgumentParser</code><a class="headerlink" href="#bueno.core.bueno.ArgumentParser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>bueno’s argument parser.</p>
+<dl class="class">
+<dt id="bueno.core.bueno.ArgumentParser.CommandAction">
+<em class="property">class </em><code class="sig-name descname">CommandAction</code><span class="sig-paren">(</span><em class="sig-param">option_strings</em>, <em class="sig-param">dest</em>, <em class="sig-param">nargs</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.core.bueno.ArgumentParser.CommandAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></p>
+<p>Custom action class used for ‘command’ argument structure verification.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.bueno.ArgumentParser.parse">
+<code class="sig-name descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; argparse.Namespace<a class="headerlink" href="#bueno.core.bueno.ArgumentParser.parse" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.core.bueno.Bueno">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.bueno.</code><code class="sig-name descname">Bueno</code><span class="sig-paren">(</span><em class="sig-param">pargs: argparse.Namespace</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.core.bueno.Bueno" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Implements the bueno service dispatch system.</p>
+<dl class="method">
+<dt id="bueno.core.bueno.Bueno.main">
+<em class="property">static </em><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">pargs: argparse.Namespace</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#bueno.core.bueno.Bueno.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.core.bueno.main">
+<code class="sig-prename descclassname">bueno.core.bueno.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#bueno.core.bueno.main" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="module-bueno.core.cntrimg">
+<span id="bueno-core-cntrimg-module"></span><h2>bueno.core.cntrimg module<a class="headerlink" href="#module-bueno.core.cntrimg" title="Permalink to this headline">¶</a></h2>
+<p>Core container image infrastructure.</p>
+<dl class="class">
+<dt id="bueno.core.cntrimg.Activator">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.cntrimg.</code><code class="sig-name descname">Activator</code><span class="sig-paren">(</span><em class="sig-param">imgactvtr: Optional[bueno.core.cntrimg.BaseImageActivator] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.core.cntrimg.Activator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Image activator singleton.</p>
+<dl class="method">
+<dt id="bueno.core.cntrimg.Activator.impl">
+<em class="property">property </em><code class="sig-name descname">impl</code><a class="headerlink" href="#bueno.core.cntrimg.Activator.impl" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.core.cntrimg.BaseImageActivator">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.cntrimg.</code><code class="sig-name descname">BaseImageActivator</code><span class="sig-paren">(</span><em class="sig-param">imgp: Optional[str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.core.cntrimg.BaseImageActivator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstract base class for container image activators.</p>
+<dl class="method">
+<dt id="bueno.core.cntrimg.BaseImageActivator.has_metadata">
+<em class="property">abstract </em><code class="sig-name descname">has_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.cntrimg.BaseImageActivator.has_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the image activator instance has metadata.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.cntrimg.BaseImageActivator.run">
+<em class="property">abstract </em><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">capture: bool = False</em>, <em class="sig-param">verbose: bool = True</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.core.cntrimg.BaseImageActivator.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the specified command in a container. By default the executed
+command is emitted echoed before its execution.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.core.cntrimg.CharlieCloudImageActivator">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.cntrimg.</code><code class="sig-name descname">CharlieCloudImageActivator</code><span class="sig-paren">(</span><em class="sig-param">imgp: str</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.core.cntrimg.CharlieCloudImageActivator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.core.cntrimg.BaseImageActivator" title="bueno.core.cntrimg.BaseImageActivator"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.core.cntrimg.BaseImageActivator</span></code></a></p>
+<p>The CharlieCloud image activator.</p>
+<dl class="method">
+<dt id="bueno.core.cntrimg.CharlieCloudImageActivator.has_metadata">
+<code class="sig-name descname">has_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.cntrimg.CharlieCloudImageActivator.has_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the image activator instance has metadata.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.cntrimg.CharlieCloudImageActivator.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">capture: bool = False</em>, <em class="sig-param">verbose: bool = True</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.core.cntrimg.CharlieCloudImageActivator.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the specified command in a container. By default the executed
+command is emitted echoed before its execution.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.core.cntrimg.ImageActivatorFactory">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.cntrimg.</code><code class="sig-name descname">ImageActivatorFactory</code><a class="headerlink" href="#bueno.core.cntrimg.ImageActivatorFactory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The container image activator factory.</p>
+<dl class="method">
+<dt id="bueno.core.cntrimg.ImageActivatorFactory.available">
+<em class="property">static </em><code class="sig-name descname">available</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.core.cntrimg.ImageActivatorFactory.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of available container names.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.cntrimg.ImageActivatorFactory.build">
+<em class="property">static </em><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">activator_name: str</em>, <em class="sig-param">imgp: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.core.cntrimg.ImageActivatorFactory.build" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="bueno.core.cntrimg.ImageActivatorFactory.items">
+<code class="sig-name descname">items</code><em class="property"> = [('charliecloud', &lt;function ImageActivatorFactory.&lt;lambda&gt;&gt;), ('none', &lt;function ImageActivatorFactory.&lt;lambda&gt;&gt;)]</em><a class="headerlink" href="#bueno.core.cntrimg.ImageActivatorFactory.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.cntrimg.ImageActivatorFactory.known">
+<em class="property">static </em><code class="sig-name descname">known</code><span class="sig-paren">(</span><em class="sig-param">sname: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.cntrimg.ImageActivatorFactory.known" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a boolean indicating whether or not the provided container name
+is known (i.e., recognized) by bueno.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.core.cntrimg.NoneImageActivator">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.cntrimg.</code><code class="sig-name descname">NoneImageActivator</code><a class="headerlink" href="#bueno.core.cntrimg.NoneImageActivator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.core.cntrimg.BaseImageActivator" title="bueno.core.cntrimg.BaseImageActivator"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.core.cntrimg.BaseImageActivator</span></code></a></p>
+<p>The non-image-activator activator. Just a passthrough to the host’s shell.</p>
+<dl class="method">
+<dt id="bueno.core.cntrimg.NoneImageActivator.has_metadata">
+<code class="sig-name descname">has_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.cntrimg.NoneImageActivator.has_metadata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the image activator instance has metadata.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.cntrimg.NoneImageActivator.run">
+<code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">capture: bool = False</em>, <em class="sig-param">verbose: bool = True</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.core.cntrimg.NoneImageActivator.run" title="Permalink to this definition">¶</a></dt>
+<dd><p>Runs the specified command in a container. By default the executed
+command is emitted echoed before its execution.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.core.constants">
+<span id="bueno-core-constants-module"></span><h2>bueno.core.constants module<a class="headerlink" href="#module-bueno.core.constants" title="Permalink to this headline">¶</a></h2>
+<p>Core constants.</p>
+</div>
+<div class="section" id="module-bueno.core.metacls">
+<span id="bueno-core-metacls-module"></span><h2>bueno.core.metacls module<a class="headerlink" href="#module-bueno.core.metacls" title="Permalink to this headline">¶</a></h2>
+<p>Convenience metaclasses.</p>
+<dl class="class">
+<dt id="bueno.core.metacls.Singleton">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.metacls.</code><code class="sig-name descname">Singleton</code><a class="headerlink" href="#bueno.core.metacls.Singleton" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
+<p>Metaclass for singletons.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.core.service">
+<span id="bueno-core-service-module"></span><h2>bueno.core.service module<a class="headerlink" href="#module-bueno.core.service" title="Permalink to this headline">¶</a></h2>
+<p>Core service infrastructure used by all bueno services.</p>
+<dl class="class">
+<dt id="bueno.core.service.Base">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.service.</code><code class="sig-name descname">Base</code><span class="sig-paren">(</span><em class="sig-param">desc: str, argv: List[str]</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.core.service.Base" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstract base class of all bueno services.</p>
+<dl class="method">
+<dt id="bueno.core.service.Base.start">
+<em class="property">abstract </em><code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.core.service.Base.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the service. Akin to a service main().</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.core.service.Factory">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.service.</code><code class="sig-name descname">Factory</code><a class="headerlink" href="#bueno.core.service.Factory" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>The service factory.</p>
+<dl class="method">
+<dt id="bueno.core.service.Factory.available">
+<em class="property">static </em><code class="sig-name descname">available</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.core.service.Factory.available" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns list of available service names.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.service.Factory.build">
+<em class="property">static </em><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">sargv: List[str]</em><span class="sig-paren">)</span> &#x2192; Any<a class="headerlink" href="#bueno.core.service.Factory.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Imports and returns an instance of requested service module.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.service.Factory.known">
+<em class="property">static </em><code class="sig-name descname">known</code><span class="sig-paren">(</span><em class="sig-param">sname: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.service.Factory.known" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a boolean indicating whether or not the provided services name
+is known (i.e., recognized) by bueno.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="bueno.core.service.Factory.services">
+<code class="sig-name descname">services</code><em class="property"> = ['build', 'run']</em><a class="headerlink" href="#bueno.core.service.Factory.services" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.core.utils">
+<span id="bueno-core-utils-module"></span><h2>bueno.core.utils module<a class="headerlink" href="#module-bueno.core.utils" title="Permalink to this headline">¶</a></h2>
+<p>Core utility module.</p>
+<dl class="function">
+<dt id="bueno.core.utils.privileged_user">
+<code class="sig-prename descclassname">bueno.core.utils.</code><code class="sig-name descname">privileged_user</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.utils.privileged_user" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the user is a privileged user.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.core">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-bueno.core" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bueno.run.html" class="btn btn-neutral float-right" title="bueno.run package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bueno.build.html" class="btn btn-neutral float-left" title="bueno.build package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Triad National Security, LLC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

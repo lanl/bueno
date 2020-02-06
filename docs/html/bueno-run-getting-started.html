@@ -1,0 +1,311 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bueno Run Scripts: Getting Started &mdash; bueno 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="bueno.public package" href="bueno.public.html" />
+    <link rel="prev" title="Installing bueno" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #333131" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> bueno
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">bueno Run Scripts: Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#hello-world">Hello World!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#public-module-reference">Public Module Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bueno.public.html">bueno.public package</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#more-bueno-run-help">More bueno run Help</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">bueno Development</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bueno</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>bueno Run Scripts: Getting Started</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/bueno-run-getting-started.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bueno-run-scripts-getting-started">
+<h1>bueno Run Scripts: Getting Started<a class="headerlink" href="#bueno-run-scripts-getting-started" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">bueno</span> <span class="pre">run</span></code> coordinates container image activation and the execution of bueno
+run scripts—a programmatic description of the steps required to conduct a
+benchmarking activity. Currently, there are two image activators implemented in
+bueno: <code class="docutils literal notranslate"><span class="pre">charliecloud</span></code> and <code class="docutils literal notranslate"><span class="pre">none</span></code>. The former uses <a class="reference external" href="https://hpc.github.io/charliecloud/">Charliecloud</a> to activate a given container image and
+the latter is a pass-through to the host.</p>
+<div class="section" id="hello-world">
+<h2>Hello World!<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h2>
+<p>Below is the source code of the simplest bueno run script named <code class="docutils literal notranslate"><span class="pre">hello.py</span></code>.
+Please note that the source code contains helpful comments that aid in
+understanding fundamental bueno run script structure.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># bueno provides a collection of public modules containing helpful utilities. At</span>
+<span class="c1"># a minimum, the experiment module contained within the bueno.public package</span>
+<span class="c1"># must be imported by a bueno run script.</span>
+<span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">experiment</span>
+<span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="c1"># All bueno experiments must be named. This particular experiment is named</span>
+<span class="c1"># hello-world.</span>
+<span class="n">experiment</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="s1">&#39;hello-world&#39;</span><span class="p">)</span>
+
+
+<span class="c1"># main() is the entry point for all bueno run scripts. argv is a list of</span>
+<span class="c1"># argument strings passed to this program by the bueno run service.</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">):</span>
+    <span class="c1"># The logger emits strings to the console. Additionally, the output</span>
+    <span class="c1"># produced by logging actions is recorded and stored in experiment metadata</span>
+    <span class="c1"># written (by default) after experiment termination.</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;hello world&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>In the following example, we execute <code class="docutils literal notranslate"><span class="pre">hello.py</span></code> using the <code class="docutils literal notranslate"><span class="pre">none</span></code> (i.e.,
+<em>host pass-through</em>) image activator.  To execute the script, run the following
+command (assumes <code class="docutils literal notranslate"><span class="pre">hello.py</span></code> is stored in your current working directory):</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> bueno run -a none -p hello.py
+</pre></div>
+</div>
+<p>This program invocation should produce console output similar to the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
+<span class="c1"># Starting run at 2020-01-22 10:46:16</span>
+<span class="c1">#</span>
+
+<span class="c1"># $ /home/samuel/.local/bin/bueno run -a none -p hello.py</span>
+
+<span class="c1"># Begin run Configuration (YAML)</span>
+<span class="n">Configuration</span><span class="p">:</span>
+ <span class="n">image</span><span class="p">:</span> <span class="n">null</span>
+ <span class="n">image_activator</span><span class="p">:</span> <span class="n">none</span>
+ <span class="n">output_path</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">samuel</span>
+<span class="n">Host</span><span class="p">:</span>
+ <span class="n">hostname</span><span class="p">:</span> <span class="n">localhost</span><span class="o">.</span><span class="n">localdomain</span>
+ <span class="n">kernel</span><span class="p">:</span> <span class="n">Linux</span>
+ <span class="n">kernel_release</span><span class="p">:</span> <span class="mf">5.3</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="mf">200.</span><span class="n">fc30</span><span class="o">.</span><span class="n">x86_64</span>
+ <span class="n">os_release</span><span class="p">:</span> <span class="n">Fedora</span> <span class="mi">30</span> <span class="p">(</span><span class="n">Workstation</span> <span class="n">Edition</span><span class="p">)</span>
+ <span class="n">whoami</span><span class="p">:</span> <span class="n">samuel</span>
+<span class="c1"># End run Configuration (YAML)</span>
+
+<span class="c1">#</span>
+<span class="c1"># Begin Program Output (hello.py)</span>
+<span class="c1">#</span>
+
+<span class="n">hello</span> <span class="n">world</span>
+
+<span class="c1">#</span>
+<span class="c1"># End Program Output</span>
+<span class="c1">#</span>
+
+<span class="c1"># run Time 0:00:00.095917</span>
+<span class="c1"># run Done 2020-01-22 10:46:16</span>
+<span class="c1"># run Output Target: /home/samuel/hello-world-2020-01-22-10:46:16</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="public-module-reference">
+<h2>Public Module Reference<a class="headerlink" href="#public-module-reference" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bueno.public.html">bueno.public package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bueno.public.html#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bueno.public.html#module-bueno.public.container">bueno.public.container module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bueno.public.html#module-bueno.public.experiment">bueno.public.experiment module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bueno.public.html#module-bueno.public.host">bueno.public.host module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bueno.public.html#module-bueno.public.logger">bueno.public.logger module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bueno.public.html#module-bueno.public.metadata">bueno.public.metadata module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bueno.public.html#module-bueno.public.shell">bueno.public.shell module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bueno.public.html#module-bueno.public.utils">bueno.public.utils module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="bueno.public.html#module-bueno.public">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="more-bueno-run-help">
+<h2>More bueno run Help<a class="headerlink" href="#more-bueno-run-help" title="Permalink to this headline">¶</a></h2>
+<p>Additional run service information is provided by the output of <code class="docutils literal notranslate"><span class="pre">bueno</span> <span class="pre">run</span>
+<span class="pre">--help</span></code>.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bueno.public.html" class="btn btn-neutral float-right" title="bueno.public package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installing bueno" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Triad National Security, LLC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

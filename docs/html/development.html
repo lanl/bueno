@@ -1,0 +1,293 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bueno Development &mdash; bueno 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="bueno package" href="bueno.html" />
+    <link rel="prev" title="Cookbook" href="cookbook.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #333131" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> bueno
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bueno-run-getting-started.html">bueno Run Scripts: Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">bueno Development</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#building-rpms">Building RPMs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#mypy">MyPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#building-the-documentation">Building the Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bueno-source-documentation">bueno Source Documentation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bueno.html">bueno package</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bueno</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>bueno Development</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/development.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bueno-development">
+<h1>bueno Development<a class="headerlink" href="#bueno-development" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="building-rpms">
+<h2>Building RPMs<a class="headerlink" href="#building-rpms" title="Permalink to this headline">¶</a></h2>
+<p>Prerequisites: <code class="docutils literal notranslate"><span class="pre">rpm-build</span></code></p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 setup.py bdist_rpm
+</pre></div>
+</div>
+</div>
+<div class="section" id="mypy">
+<h2>MyPy<a class="headerlink" href="#mypy" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 -m mypy --strict .
+</pre></div>
+</div>
+</div>
+<div class="section" id="building-the-documentation">
+<h2>Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline">¶</a></h2>
+<p>Install Sphinx and the RTD theme.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 -m pip install --user sphinx
+<span class="gp">$</span> python3 -m pip install --user sphinx_rtd_theme
+</pre></div>
+</div>
+<p>Build the documentation.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> docs
+<span class="gp">$</span> make html
+</pre></div>
+</div>
+</div>
+<div class="section" id="bueno-source-documentation">
+<h2>bueno Source Documentation<a class="headerlink" href="#bueno-source-documentation" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="bueno.html">bueno package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="bueno.html#subpackages">Subpackages</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="bueno.build.html">bueno.build package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bueno.build.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.build.html#module-bueno.build.builder">bueno.build.builder module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.build.html#module-bueno.build.charliecloud">bueno.build.charliecloud module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.build.html#module-bueno.build.service">bueno.build.service module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.build.html#module-bueno.build">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bueno.core.html">bueno.core package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bueno.core.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.core.html#module-bueno.core.bueno">bueno.core.bueno module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.core.html#module-bueno.core.cntrimg">bueno.core.cntrimg module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.core.html#module-bueno.core.constants">bueno.core.constants module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.core.html#module-bueno.core.metacls">bueno.core.metacls module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.core.html#module-bueno.core.service">bueno.core.service module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.core.html#module-bueno.core.utils">bueno.core.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.core.html#module-bueno.core">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bueno.public.html">bueno.public package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bueno.public.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.container">bueno.public.container module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.experiment">bueno.public.experiment module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.host">bueno.public.host module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.logger">bueno.public.logger module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.metadata">bueno.public.metadata module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.shell">bueno.public.shell module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.utils">bueno.public.utils module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public">Module contents</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="bueno.run.html">bueno.run package</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="bueno.run.html#submodules">Submodules</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.run.html#module-bueno.run.service">bueno.run.service module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="bueno.run.html#module-bueno.run">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="bueno.html#module-bueno">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="bueno.html" class="btn btn-neutral float-right" title="bueno package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="cookbook.html" class="btn btn-neutral float-left" title="Cookbook" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Triad National Security, LLC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
