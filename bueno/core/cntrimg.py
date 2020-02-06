@@ -58,9 +58,7 @@ class BaseImageActivator(ABC):
         '''
         Returns whether or not the image activator instance has metadata.
         '''
-        # By defualt assume the image activator has metadata.
-        return True
-
+        pass
 
 
 class Activator(metaclass=metacls.Singleton):
