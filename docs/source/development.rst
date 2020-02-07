@@ -34,6 +34,15 @@ Build the documentation.
    $ cd docs
    $ make html
 
+If the project's code structure has changed in a meaningful way (e.g., the
+addition of a package or module), it may be necessary to re-run the following
+before executing ``make html``.
+
+.. code-block:: console
+
+   $ cd docs
+   $ sphinx-apidoc -f -o source/ ../bueno
+
 bueno Source Documentation
 --------------------------
 .. toctree::

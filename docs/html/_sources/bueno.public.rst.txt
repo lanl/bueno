@@ -44,14 +44,6 @@ bueno.public.metadata module
    :undoc-members:
    :show-inheritance:
 
-bueno.public.shell module
--------------------------
-
-.. automodule:: bueno.public.shell
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 bueno.public.utils module
 -------------------------
 

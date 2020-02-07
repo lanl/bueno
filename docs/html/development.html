@@ -187,6 +187,13 @@
 <span class="gp">$</span> make html
 </pre></div>
 </div>
+<p>If the project’s code structure has changed in a meaningful way (e.g., the
+addition of a package or module), it may be necessary to re-run the following
+before executing <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code>.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> docs
+<span class="gp">$</span> sphinx-apidoc -f -o source/ ../bueno
+</pre></div>
+</div>
 </div>
 <div class="section" id="bueno-source-documentation">
 <h2>bueno Source Documentation<a class="headerlink" href="#bueno-source-documentation" title="Permalink to this headline">¶</a></h2>
@@ -220,7 +227,6 @@
 <li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.host">bueno.public.host module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.logger">bueno.public.logger module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.metadata">bueno.public.metadata module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.shell">bueno.public.shell module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public.utils">bueno.public.utils module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="bueno.public.html#module-bueno.public">Module contents</a></li>
 </ul>
