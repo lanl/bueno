@@ -10,8 +10,9 @@
 Host utilities.
 '''
 
+from bueno.core import constants
+
 from bueno.public import logger
-from bueno.public import shell
 from bueno.public import utils
 
 from typing import (
@@ -122,7 +123,7 @@ def run(
     '''
     def getrealcmd(cmd: str, verbatim: bool) -> str:
         if not verbatim:
-            return F'{shell.bashmagic} {cmd}'
+            return F'{constants.BASH_MAGIC} {cmd}'
         return cmd
 
     realcmd = getrealcmd(cmd, verbatim)
@@ -132,7 +133,7 @@ def run(
         # No need to let the user know that we are using magic here.
         if not verbatim:
             # +1 to account for the space added after magic.
-            logcmd = realcmd[len(shell.bashmagic) + 1:]
+            logcmd = realcmd[len(constants.BASH_MAGIC) + 1:]
         logger.log(F'# $ {logcmd}')
 
     # Output list of strings used to (optionally) capture command output.

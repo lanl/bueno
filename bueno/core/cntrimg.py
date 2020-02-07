@@ -10,10 +10,10 @@
 Core container image infrastructure.
 '''
 
+from bueno.core import constants
 from bueno.core import metacls
 
 from bueno.public import host
-from bueno.public import shell
 
 from abc import ABC, abstractmethod
 from typing import (
@@ -132,7 +132,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
         capture: bool = False,
         verbose: bool = True
     ) -> List[str]:
-        cmds = F'{self.runcmd} {self.imgp} -- {shell.bashmagic} {cmd}'
+        cmds = F'{self.runcmd} {self.imgp} -- {constants.BASH_MAGIC} {cmd}'
         runargs = {
             'verbatim': True,
             'echo': echo,
@@ -162,7 +162,7 @@ class NoneImageActivator(BaseImageActivator):
         # Note that we use this strategy instead of just running the
         # provided command so that quoting and escape requirements are
         # consistent across activators.
-        cmds = F'{shell.bashmagic} {cmd}'
+        cmds = F'{constants.BASH_MAGIC} {cmd}'
         runargs = {
             'verbatim': True,
             'echo': echo,

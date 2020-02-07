@@ -7,7 +7,7 @@
 #
 
 '''
-Core constants.
+Constants used across packages and modules.
 '''
 
 # The name of the directory used to store metadata.
@@ -15,3 +15,8 @@ METADATA_DIR: str = 'bueno'
 
 # The name used to store service logs.
 SERVICE_LOG_NAME: str = 'log.txt'
+
+# The magic from https://stackoverflow.com/questions/1711970 makes cmd
+# quoting a non-issue. Pretty slick... Notice that this is a slightly
+# modified version to meet our needs.
+BASH_MAGIC: str = 'bash -c \'${0} ${1+$@}\''
