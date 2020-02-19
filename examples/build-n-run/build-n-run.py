@@ -13,10 +13,9 @@ from bueno.public import utils
 
 import time
 
-experiment.name('nbody')
-
 
 def main(argv):
+    experiment.name('nbody')
     logger.log('# Experiment: {}'.format(experiment.name()))
 
     prun = 'mpiexec'

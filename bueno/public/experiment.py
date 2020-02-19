@@ -32,10 +32,10 @@ import shlex
 
 class _TheExperiment(metaclass=metacls.Singleton):
     '''
-    The experiment singleton TODO(skg) add a nice description.
+    The experiment singleton that encapsulates experiment information.
     '''
     def __init__(self) -> None:
-        self._name = str()
+        self._name = 'unnamed-experiment'
 
     @property
     def name(self) -> str:
@@ -49,15 +49,7 @@ class _TheExperiment(metaclass=metacls.Singleton):
         self._name = name.strip()
 
     def sanity(self) -> None:
-        fixs = 'Please set it via experiment.{0}(VALUE).\n' \
-               'For example:\n' \
-               'from bueno.public import experiment\n' \
-               'experiment.{0}(\'aname\')\n'
-
-        if utils.emptystr(self.name):
-            es = 'Experiment name is not set. '
-            es += fixs.format('name')
-            raise RuntimeError(es)
+        pass
 
 
 class CLIConfiguration:

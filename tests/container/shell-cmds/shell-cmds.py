@@ -16,10 +16,11 @@ from bueno.public import host
 from bueno.public import logger
 from bueno.public import metadata
 
-experiment.name('test-shellcmds')
-
 
 def main(argv):
+    # Name the experiment.
+    experiment.name('test-shellcmds')
+
     fname = 'afile.txt'
     logger.log('# Testing globbing...')
     shargs = {

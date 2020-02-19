@@ -14,9 +14,8 @@ from bueno.public import container
 from bueno.public import experiment
 from bueno.public import host
 
-experiment.name('hello-container')
-
 
 def main(argv):
+    experiment.name('hello-container')
     container.run('echo "hello from a container!"')
     host.run('echo "hello from the host!"')
