@@ -7,15 +7,49 @@
 #
 
 '''
-Container utilities.
+Public container activation interfaces.
 '''
 
 from bueno.core import cntrimg
 from bueno.public import utils
 
 from typing import (
-    Any
+    Any,
+    List
 )
+
+
+def _runi(
+    cmds: List[str],
+    echo: bool = True,
+    preaction: Any = None,
+    postaction: Any = None
+) -> None:
+    '''
+    Private run dispatch.
+    '''
+    capture = postaction is not None
+
+    cmdstr = ' '.join(cmds)
+
+    if preaction is not None:
+        preargs = {
+            'command': cmdstr
+        }
+        preaction(**preargs)
+
+    stime = utils.now()
+    # TODO(skg) FIXME: I don't like how Activator's __init__ is set up.
+    coutput = cntrimg.Activator().impl.run(cmds, echo=echo, capture=capture)
+    etime = utils.now()
+
+    if postaction is not None:
+        postargs = {
+            'command': cmdstr,
+            'exectime': etime - stime,
+            'output': coutput
+        }
+        postaction(**postargs)
 
 
 def run(
@@ -28,23 +62,36 @@ def run(
     Runs the given command string from within a container.  Optionally calls
     pre- or post-actions if provided.
     '''
-    capture = postaction is not None
+    args = {
+        'cmds': [cmd],
+        'echo': echo,
+        'preaction': preaction,
+        'postaction': postaction
+    }
+    _runi(**args)
 
-    if preaction is not None:
-        preargs = {
-            'command': cmd
-        }
-        preaction(**preargs)
 
-    stime = utils.now()
-    # TODO(skg) FIXME: I don't like how Activator's __init__ is set up.
-    coutput = cntrimg.Activator().impl.run(cmd, echo=echo, capture=capture)
-    etime = utils.now()
+def prun(
+    pexec: str,
+    cmd: str,
+    echo: bool = True,
+    preaction: Any = None,
+    postaction: Any = None
+) -> None:
+    '''
+    Executes the given parallel run command string from within a container.
+    Optionally calls pre- or post-actions if provided.
 
-    if postaction is not None:
-        postargs = {
-            'command': cmd,
-            'exectime': etime - stime,
-            'output': coutput
-        }
-        postaction(**postargs)
+    The primary reason we have a separate command for running serial and
+    parallel workloads is because we need to position image activator commands
+    between the string containing the pexec string (e.g., mpiexec -n 3 -N 1 -mca
+    foo bar) and the cmd string (e.g., nbody --decomp 221). Parsing these
+    strings in a general, reliable way is challenging. This way is much easier.
+    '''
+    args = {
+        'cmds': [pexec, cmd],
+        'echo': echo,
+        'preaction': preaction,
+        'postaction': postaction
+    }
+    _runi(**args)

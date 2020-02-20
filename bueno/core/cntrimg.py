@@ -42,7 +42,7 @@ class BaseImageActivator(ABC):
     @abstractmethod
     def run(
         self,
-        cmd: str,
+        cmds: List[str],
         echo: bool = True,
         capture: bool = False,
         verbose: bool = True
@@ -66,6 +66,9 @@ class Activator(metaclass=metacls.Singleton):
     Image activator singleton.
     '''
     def __init__(self, imgactvtr: Optional[BaseImageActivator] = None) -> None:
+        # XXX(skg): I know this is silly, but this form makes the type checker
+        # happy. Perhaps we should rethink and refactor this and surrounding
+        # code.
         if imgactvtr is not None:
             self.imgactvtr = imgactvtr
 
@@ -127,19 +130,31 @@ class CharlieCloudImageActivator(BaseImageActivator):
 
     def run(
         self,
-        cmd: str,
+        cmds: List[str],
         echo: bool = True,
         capture: bool = False,
         verbose: bool = True
     ) -> List[str]:
-        cmds = F'{self.runcmd} {self.imgp} -- {constants.BASH_MAGIC} {cmd}'
+        # Charliecloud activation command string.
+        cc = F'{self.runcmd} {self.imgp}'
+        bm = F'{constants.BASH_MAGIC}'
+        # First command.
+        cmdf = cmds[0]
+        # The rest of the commands.
+        cmdr = ' '.join(cmds[1:])
+        # Are multiple command strings provided?
+        multicmd = len(cmds) > 1
+        # Default command string if a single command is provided.
+        cmdstr = F'{cc} -- {bm} {cmdf}'
+        if multicmd:
+            cmdstr = F'{cmdf} {cc} --join -- {bm} {cmdr}'
         runargs = {
             'verbatim': True,
             'echo': echo,
             'capture': capture,
             'verbose': verbose
         }
-        return host.run(cmds, **runargs)
+        return host.run(cmdstr, **runargs)
 
     def has_metadata(self) -> bool:
         return True
@@ -154,7 +169,7 @@ class NoneImageActivator(BaseImageActivator):
 
     def run(
         self,
-        cmd: str,
+        cmds: List[str],
         echo: bool = True,
         capture: bool = False,
         verbose: bool = True
@@ -162,14 +177,14 @@ class NoneImageActivator(BaseImageActivator):
         # Note that we use this strategy instead of just running the
         # provided command so that quoting and escape requirements are
         # consistent across activators.
-        cmds = F'{constants.BASH_MAGIC} {cmd}'
+        cmdstr = F"{constants.BASH_MAGIC} {' '.join(cmds)}"
         runargs = {
             'verbatim': True,
             'echo': echo,
             'capture': capture,
             'verbose': verbose
         }
-        return host.run(cmds, **runargs)
+        return host.run(cmdstr, **runargs)
 
     def has_metadata(self) -> bool:
         # This activator does not have metadata.

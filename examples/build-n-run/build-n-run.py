@@ -25,14 +25,15 @@ def main(argv):
     # with arguments (the {}) and then generate strings with values passed to -n
     # from the output of range() (the {{}}).
     runcmds = experiment.generate(
-        '{} -n {{}} {}'.format(prun, app),
+        '{} -n {{}}'.format(prun),
         range(2, 5)
     )
 
     etimes = list()
     for r in runcmds:
         stime = utils.now()
-        container.run(r)
+        # TODO(skg) FIXME
+        container.prun(r, app)
         etime = utils.now()
 
         telapsed = etime - stime
