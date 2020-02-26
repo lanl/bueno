@@ -177,10 +177,10 @@ main(int argc, char* argv[])
         double f_max = -Infinity;
 
         /* Show current iteration number */
-        if(processor == 1) {
-        fprintf(stdout, "Iteration %d of %d...\n",
-            iteration + 1, NumIterations);
-        fflush(stdout);
+        if(processor == 0) {
+            fprintf(stdout, "Iteration %d of %d...\n",
+                    iteration + 1, NumIterations);
+            fflush(stdout);
         }
 
         /* Zero the total force for each particle */
