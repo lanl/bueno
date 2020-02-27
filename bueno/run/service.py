@@ -256,8 +256,8 @@ class impl(service.Base):
             path = os.path.join(basedir, utils.dates(), str(subd))
             if not os.path.isdir(path):
                 return path
-        errs = F'Cannot find usable metadata directory after {maxt} tries.\n'
-        errs += F'Base directory searched was: {basedir}'
+        errs = F'Cannot find usable metadata directory after {maxt} tries.\n' \
+               F'Base output directory searched was: {basedir}'
         raise RuntimeError(errs)
 
     def _write_metadata(self) -> None:
