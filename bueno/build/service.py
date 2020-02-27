@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -111,17 +111,17 @@ class impl(service.Base):
         logger.emlog('# Starting {} at {}'.format(self.prog, utils.nows()))
         logger.log('# $ {}\n'.format(' '.join(sys.argv)))
 
-        stime = utils.now()
         try:
+            stime = utils.now()
             self._emit_config()
             self._do_build()
+            etime = utils.now()
+
+            logger.log('# {} Time {}'.format(self.prog, etime - stime))
+            logger.log('# {} Done {}'.format(self.prog, utils.nows()))
         except Exception as e:
             estr = utils.ehorf()
             estr += 'What: {} error encountered.\n' \
                     'Why:  {}'.format(self.prog, e)
             estr += utils.ehorf()
             raise type(e)(estr)
-        etime = utils.now()
-
-        logger.log('# {} Time {}'.format(self.prog, etime - stime))
-        logger.log('# {} Done {}'.format(self.prog, utils.nows()))

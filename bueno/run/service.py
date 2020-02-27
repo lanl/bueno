@@ -248,14 +248,21 @@ class impl(service.Base):
         _Runner.run(self.args.program)
         logger.emlog('# End Program Output')
 
-    def _getmetasubd(self) -> str:
-        expn = experiment.name()
-        return F"{expn}-{utils.nows().replace(' ', '-')}"
+    def _getmetasubd(self, basedir: str) -> str:
+        # TODO(skg) The stat load may be huge using this approach. Fix at some
+        # point. Perhaps have a top-level log that gives us the next available?
+        maxt = 1024*2048
+        for subd in range(0, maxt):
+            path = os.path.join(basedir, str(subd))
+            if not os.path.isdir(path):
+                return path
+        errs = F'Cannot find usable metadata directory after {maxt} tries.\n'
+        errs += F'Base directory searched was: {basedir}'
+        raise RuntimeError(errs)
 
     def _write_metadata(self) -> None:
-        base = self.args.output_path
-        subd = self._getmetasubd()
-        outp = os.path.join(base, subd)
+        base = os.path.join(self.args.output_path, experiment.name())
+        outp = self._getmetasubd(base)
         # Do this here so the output log has the output directory in it.
         logger.log(F'# {self.prog} Output Target: {outp}')
         metadata.write(outp)
@@ -265,21 +272,21 @@ class impl(service.Base):
         logger.emlog(F'# Starting {self.prog} at {utils.nows()}')
         logger.log(F"# $ {' '.join(sys.argv)}\n")
 
-        stime = utils.now()
         try:
+            stime = utils.now()
             self._build_image_activator()
             self._add_container_metadata()
             self._emit_config()
             self._run()
+            etime = utils.now()
+
+            logger.log(F'# {self.prog} Time {etime - stime}')
+            logger.log(F'# {self.prog} Done {utils.nows()}')
+
+            self._write_metadata()
         except Exception as e:
             estr = utils.ehorf()
             estr += F'What: {self.prog} error encountered.\n' \
                     F'Why:  {e}'
             estr += utils.ehorf()
             raise type(e)(estr)
-        etime = utils.now()
-
-        logger.log(F'# {self.prog} Time {etime - stime}')
-        logger.log(F'# {self.prog} Done {utils.nows()}')
-
-        self._write_metadata()
