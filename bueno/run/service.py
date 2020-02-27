@@ -253,7 +253,7 @@ class impl(service.Base):
         # point. Perhaps have a top-level log that gives us the next available?
         maxt = 1024*2048
         for subd in range(0, maxt):
-            path = os.path.join(basedir, str(subd))
+            path = os.path.join(basedir, utils.dates(), str(subd))
             if not os.path.isdir(path):
                 return path
         errs = F'Cannot find usable metadata directory after {maxt} tries.\n'
@@ -261,7 +261,7 @@ class impl(service.Base):
         raise RuntimeError(errs)
 
     def _write_metadata(self) -> None:
-        base = os.path.join(self.args.output_path, experiment.name())
+        base = os.path.join(self.args.output_path, str(experiment.name()))
         outp = self._getmetasubd(base)
         # Do this here so the output log has the output directory in it.
         logger.log(F'# {self.prog} Output Target: {outp}')

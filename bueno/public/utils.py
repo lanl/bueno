@@ -62,6 +62,13 @@ def nows() -> str:
     return now().strftime('%Y-%m-%d %H:%M:%S')
 
 
+def dates() -> str:
+    '''
+    Returns a string representation of the current date.
+    '''
+    return now().strftime('%Y-%m-%d')
+
+
 def chomp(s: str) -> str:
     '''
     Returns a string without trailing newline characters.
