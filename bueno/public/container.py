@@ -23,7 +23,8 @@ def _runi(
     cmds: List[str],
     echo: bool = True,
     preaction: Any = None,
-    postaction: Any = None
+    postaction: Any = None,
+    user_data: Any = None
 ) -> None:
     '''
     Private run dispatch.
@@ -34,7 +35,8 @@ def _runi(
 
     if preaction is not None:
         preargs = {
-            'command': cmdstr
+            'command': cmdstr,
+            'user_data': user_data
         }
         preaction(**preargs)
 
@@ -47,7 +49,8 @@ def _runi(
         postargs = {
             'command': cmdstr,
             'exectime': etime - stime,
-            'output': coutput
+            'output': coutput,
+            'user_data': user_data
         }
         postaction(**postargs)
 
@@ -56,7 +59,8 @@ def run(
     cmd: str,
     echo: bool = True,
     preaction: Any = None,
-    postaction: Any = None
+    postaction: Any = None,
+    user_data: Any = None
 ) -> None:
     '''
     Runs the given command string from within a container.  Optionally calls
@@ -66,7 +70,8 @@ def run(
         'cmds': [cmd],
         'echo': echo,
         'preaction': preaction,
-        'postaction': postaction
+        'postaction': postaction,
+        'user_data': user_data
     }
     _runi(**args)
 
@@ -76,7 +81,8 @@ def prun(
     cmd: str,
     echo: bool = True,
     preaction: Any = None,
-    postaction: Any = None
+    postaction: Any = None,
+    user_data: Any = None
 ) -> None:
     '''
     Executes the given parallel run command string from within a container.
@@ -92,6 +98,7 @@ def prun(
         'cmds': [pexec, cmd],
         'echo': echo,
         'preaction': preaction,
-        'postaction': postaction
+        'postaction': postaction,
+        'user_data': user_data
     }
     _runi(**args)
