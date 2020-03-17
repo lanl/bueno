@@ -26,6 +26,7 @@ from typing import (
 )
 
 import copy
+import io
 import os
 import shutil
 
@@ -63,6 +64,37 @@ class FileAsset(BaseAsset):
             os.makedirs(realbasep, 0o755)
         opath = os.path.join(realbasep, self._get_fname())
         shutil.copy2(self.srcf, opath)
+
+
+class StringIOAsset(BaseAsset):
+    '''
+    StringIO asset.
+    '''
+    def __init__(
+            self,
+            srcios: io.StringIO,
+            fname: str,
+            subd: Union[str, None] = None
+    ):
+        super().__init__()
+        # XXX(skg): Are there any file-descriptor-like structures that cannot
+        # be safely copied here? The print() in write() should make a copy of
+        # the data, so maybe that's enough?
+        # The StringIO instance of which we are storing its contents.
+        self.srcios = copy.deepcopy(srcios)
+        # The name used to store the contents of the provided StringIO instance.
+        self.fname = fname
+        # Optional subdirectory to store the specified data.
+        self.subd = subd
+
+    def write(self, basep: str) -> None:
+        realbasep = basep
+        if self.subd:
+            realbasep = os.path.join(basep, self.subd)
+            os.makedirs(realbasep, 0o755)
+        opath = os.path.join(realbasep, self.fname)
+        with open(opath, mode='w') as f:
+            print(self.srcios.getvalue(), file=f)
 
 
 class YAMLDictAsset(BaseAsset):
