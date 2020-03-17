@@ -61,7 +61,7 @@ class FileAsset(BaseAsset):
         realbasep = basep
         if self.subd:
             realbasep = os.path.join(basep, self.subd)
-            os.makedirs(realbasep, 0o755)
+            os.makedirs(realbasep, 0o755, exist_ok=True)
         opath = os.path.join(realbasep, self._get_fname())
         shutil.copy2(self.srcf, opath)
 
@@ -91,7 +91,7 @@ class StringIOAsset(BaseAsset):
         realbasep = basep
         if self.subd:
             realbasep = os.path.join(basep, self.subd)
-            os.makedirs(realbasep, 0o755)
+            os.makedirs(realbasep, 0o755, exist_ok=True)
         opath = os.path.join(realbasep, self.fname)
         with open(opath, mode='w') as f:
             print(self.srcios.getvalue(), file=f, end='')
@@ -142,7 +142,7 @@ class _MetaData:
     def __init__(self, basep: str) -> None:
         # The base path where all metadata are stored.
         self._basep = basep
-        os.makedirs(self.basep, 0o755)
+        os.makedirs(self.basep, 0o755, exist_ok=True)
 
     def write(self) -> None:
         self._add_default_assets()
