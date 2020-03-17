@@ -94,7 +94,7 @@ class StringIOAsset(BaseAsset):
             os.makedirs(realbasep, 0o755)
         opath = os.path.join(realbasep, self.fname)
         with open(opath, mode='w') as f:
-            print(self.srcios.getvalue(), file=f)
+            print(self.srcios.getvalue(), file=f, end='')
 
 
 class YAMLDictAsset(BaseAsset):
