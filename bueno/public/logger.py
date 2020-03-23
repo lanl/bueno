@@ -77,3 +77,5 @@ class _TheLogger(metaclass=metacls.Singleton):
         # Always seek to end when done.
         finally:
             self.logsio.seek(os.SEEK_END)
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

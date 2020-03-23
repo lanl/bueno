@@ -125,3 +125,5 @@ class impl(service.Base):
                     'Why:  {}'.format(self.prog, e)
             estr += utils.ehorf()
             raise type(e)(estr)
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

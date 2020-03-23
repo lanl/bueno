@@ -18,3 +18,5 @@ import sys
 
 if __name__ == '__main__':
     sys.exit(bueno.main())
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

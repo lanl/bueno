@@ -166,3 +166,5 @@ class impl(builder.Base):
         self._build()
         self._add_metadata()
         self._flatten()
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

@@ -200,3 +200,5 @@ def add_asset(asset: BaseAsset) -> None:
     Adds a metadata asset to the collection of assets to be written.
     '''
     _Assets().add(asset)
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

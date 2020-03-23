@@ -139,3 +139,5 @@ def main():
 
 if __name__ == '__main__':
     sys.exit(main())
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

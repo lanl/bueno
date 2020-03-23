@@ -113,3 +113,5 @@ class Factory:
         service = importlib.import_module(imod)
         # Return the service instance.
         return service.impl(sargv)  # type: ignore
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

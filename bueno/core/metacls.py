@@ -27,3 +27,5 @@ class Singleton(type):
         if cls not in cls._insts:
             cls._insts[cls] = super(Singleton, cls).__call__(*args, **kwargs)
         return cls._insts[cls]
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

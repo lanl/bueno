@@ -110,3 +110,5 @@ def main() -> int:
         sys.exit(ers)
 
     return Bueno.main(ArgumentParser().parse())
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

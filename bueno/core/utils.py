@@ -18,3 +18,5 @@ def privileged_user() -> bool:
     Returns whether or not the user is a privileged user.
     '''
     return os.getuid() == 0
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

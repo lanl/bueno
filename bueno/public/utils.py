@@ -151,3 +151,5 @@ class Table:
         rf = Table.RowFormatter(self.maxcollens)
         for r in self.rows:
             logger.log(rf.format(r))
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

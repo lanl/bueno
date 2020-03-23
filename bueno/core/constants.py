@@ -20,3 +20,5 @@ SERVICE_LOG_NAME: str = 'log.txt'
 # quoting a non-issue. Pretty slick... Notice that this is a slightly
 # modified version to meet our needs.
 BASH_MAGIC: str = 'bash -c \'${0} ${1+$@}\''
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

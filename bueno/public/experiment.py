@@ -208,3 +208,5 @@ def parsedargs(
     auxap.set_defaults(**nonedefs)
     # Parse and return the arguments present in argv.
     return auxap.parse_args(argv)
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

@@ -189,3 +189,5 @@ class NoneImageActivator(BaseImageActivator):
     def has_metadata(self) -> bool:
         # This activator does not have metadata.
         return False
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab

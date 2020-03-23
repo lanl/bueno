@@ -75,3 +75,5 @@ class Factory:
         builder = importlib.import_module(imod)
         # Return the builder instance.
         return builder.impl(**config)
+
+# vim: ft=python ts=4 sts=4 sw=4 expandtab
