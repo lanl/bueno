@@ -18,7 +18,7 @@ python3 -m pip install --user .
 ```
 Add bueno's installation prefix to `PATH`.
 ```
-export PY_USER_BIN=$(python -c 'import site; print(site.USER_BASE + "/bin")')
+export PY_USER_BIN=$(python3 -c 'import site; print(site.USER_BASE + "/bin")')
 export PATH=$PY_USER_BIN:$PATH
 ```
 Now, the `bueno` command should be available for use.
