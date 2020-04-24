@@ -178,10 +178,22 @@
 </div>
 <div class="section" id="module-bueno.public.container">
 <span id="bueno-public-container-module"></span><h2>bueno.public.container module<a class="headerlink" href="#module-bueno.public.container" title="Permalink to this headline">¶</a></h2>
-<p>Container utilities.</p>
+<p>Public container activation interfaces.</p>
+<dl class="function">
+<dt id="bueno.public.container.prun">
+<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">prun</code><span class="sig-paren">(</span><em class="sig-param">pexec: str</em>, <em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">preaction: Any = None</em>, <em class="sig-param">postaction: Any = None</em>, <em class="sig-param">user_data: Any = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.container.prun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the given parallel run command string from within a container.
+Optionally calls pre- or post-actions if provided.</p>
+<p>The primary reason we have a separate command for running serial and
+parallel workloads is because we need to position image activator commands
+between the string containing the pexec string (e.g., mpiexec -n 3 -N 1 -mca
+foo bar) and the cmd string (e.g., nbody –decomp 221). Parsing these
+strings in a general, reliable way is challenging. This way is much easier.</p>
+</dd></dl>
+
 <dl class="function">
 <dt id="bueno.public.container.run">
-<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">preaction: Any = None</em>, <em class="sig-param">postaction: Any = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.container.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">preaction: Any = None</em>, <em class="sig-param">postaction: Any = None</em>, <em class="sig-param">user_data: Any = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.container.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the given command string from within a container.  Optionally calls
 pre- or post-actions if provided.</p>
 </dd></dl>
@@ -398,6 +410,18 @@ command found by which() is returned.</p>
 </dd></dl>
 
 <dl class="class">
+<dt id="bueno.public.metadata.StringIOAsset">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.public.metadata.</code><code class="sig-name descname">StringIOAsset</code><span class="sig-paren">(</span><em class="sig-param">srcios: _io.StringIO</em>, <em class="sig-param">fname: str</em>, <em class="sig-param">subd: Optional[str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.metadata.StringIOAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.BaseAsset" title="bueno.public.metadata.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.BaseAsset</span></code></a></p>
+<p>StringIO asset.</p>
+<dl class="method">
+<dt id="bueno.public.metadata.StringIOAsset.write">
+<code class="sig-name descname">write</code><span class="sig-paren">(</span><em class="sig-param">basep: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.metadata.StringIOAsset.write" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="bueno.public.metadata.YAMLDictAsset">
 <em class="property">class </em><code class="sig-prename descclassname">bueno.public.metadata.</code><code class="sig-name descname">YAMLDictAsset</code><span class="sig-paren">(</span><em class="sig-param">ydict: Dict[Any, Any], fname: str</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.metadata.YAMLDictAsset" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.BaseAsset" title="bueno.public.metadata.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.BaseAsset</span></code></a></p>
@@ -483,6 +507,12 @@ file.</p>
 <dt id="bueno.public.utils.chomp">
 <code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">chomp</code><span class="sig-paren">(</span><em class="sig-param">s: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.utils.chomp" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a string without trailing newline characters.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.utils.dates">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">dates</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.utils.dates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a string representation of the current date.</p>
 </dd></dl>
 
 <dl class="function">

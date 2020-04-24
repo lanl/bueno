@@ -177,14 +177,13 @@ understanding fundamental bueno run script structure.</p>
 <span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">experiment</span>
 <span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">logger</span>
 
-<span class="c1"># All bueno experiments must be named. This particular experiment is named</span>
-<span class="c1"># hello-world.</span>
-<span class="n">experiment</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="s1">&#39;hello-world&#39;</span><span class="p">)</span>
-
 
 <span class="c1"># main() is the entry point for all bueno run scripts. argv is a list of</span>
 <span class="c1"># argument strings passed to this program by the bueno run service.</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">):</span>
+    <span class="c1"># Set the experiment&#39;s name. This particular experiment is named</span>
+    <span class="c1"># hello-world.</span>
+    <span class="n">experiment</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="s1">&#39;hello-world&#39;</span><span class="p">)</span>
     <span class="c1"># The logger emits strings to the console. Additionally, the output</span>
     <span class="c1"># produced by logging actions is recorded and stored in experiment metadata</span>
     <span class="c1"># written (by default) after experiment termination.</span>
@@ -199,22 +198,29 @@ command (assumes <code class="docutils literal notranslate"><span class="pre">he
 </div>
 <p>This program invocation should produce console output similar to the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">#</span>
-<span class="c1"># Starting run at 2020-01-22 10:46:16</span>
+<span class="c1"># Starting run at 2020-04-24 08:42:05</span>
 <span class="c1">#</span>
 
 <span class="c1"># $ /home/samuel/.local/bin/bueno run -a none -p hello.py</span>
 
+
+<span class="c1">#</span>
+<span class="c1"># Looking for container metadata...</span>
+<span class="c1">#</span>
+
+<span class="c1"># Note: the none activator has no metadata</span>
+
 <span class="c1"># Begin run Configuration (YAML)</span>
 <span class="n">Configuration</span><span class="p">:</span>
- <span class="n">image</span><span class="p">:</span> <span class="n">null</span>
- <span class="n">image_activator</span><span class="p">:</span> <span class="n">none</span>
- <span class="n">output_path</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">samuel</span>
+  <span class="n">image</span><span class="p">:</span> <span class="n">null</span>
+  <span class="n">image_activator</span><span class="p">:</span> <span class="n">none</span>
+  <span class="n">output_path</span><span class="p">:</span> <span class="o">/</span><span class="n">home</span><span class="o">/</span><span class="n">samuel</span><span class="o">/</span><span class="n">devel</span><span class="o">/</span><span class="n">bueno</span><span class="o">/</span><span class="n">examples</span><span class="o">/</span><span class="n">hello</span>
 <span class="n">Host</span><span class="p">:</span>
- <span class="n">hostname</span><span class="p">:</span> <span class="n">localhost</span><span class="o">.</span><span class="n">localdomain</span>
- <span class="n">kernel</span><span class="p">:</span> <span class="n">Linux</span>
- <span class="n">kernel_release</span><span class="p">:</span> <span class="mf">5.3</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="mf">200.</span><span class="n">fc30</span><span class="o">.</span><span class="n">x86_64</span>
- <span class="n">os_release</span><span class="p">:</span> <span class="n">Fedora</span> <span class="mi">30</span> <span class="p">(</span><span class="n">Workstation</span> <span class="n">Edition</span><span class="p">)</span>
- <span class="n">whoami</span><span class="p">:</span> <span class="n">samuel</span>
+  <span class="n">hostname</span><span class="p">:</span> <span class="n">localhost</span><span class="o">.</span><span class="n">localdomain</span>
+  <span class="n">kernel</span><span class="p">:</span> <span class="n">Linux</span>
+  <span class="n">kernel_release</span><span class="p">:</span> <span class="mf">5.3</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="mf">200.</span><span class="n">fc30</span><span class="o">.</span><span class="n">x86_64</span>
+  <span class="n">os_release</span><span class="p">:</span> <span class="n">Fedora</span> <span class="mi">30</span> <span class="p">(</span><span class="n">Workstation</span> <span class="n">Edition</span><span class="p">)</span>
+  <span class="n">whoami</span><span class="p">:</span> <span class="n">samuel</span>
 <span class="c1"># End run Configuration (YAML)</span>
 
 <span class="c1">#</span>
@@ -227,9 +233,11 @@ command (assumes <code class="docutils literal notranslate"><span class="pre">he
 <span class="c1"># End Program Output</span>
 <span class="c1">#</span>
 
-<span class="c1"># run Time 0:00:00.095917</span>
-<span class="c1"># run Done 2020-01-22 10:46:16</span>
-<span class="c1"># run Output Target: /home/samuel/hello-world-2020-01-22-10:46:16</span>
+<span class="c1"># run Time 0:00:00.101665</span>
+<span class="c1"># run Done 2020-04-24 08:42:05</span>
+<span class="c1"># run Output Target: /home/samuel/devel/bueno/examples/hello/hello-world/2020-04-24/0</span>
+<span class="c1"># Writing Metadata Assets at 2020-04-24 08:42:05</span>
+<span class="c1"># run Output Written to: /home/samuel/devel/bueno/examples/hello/hello-world/2020-04-24/0</span>
 </pre></div>
 </div>
 </div>

@@ -165,7 +165,7 @@
 </pre></div>
 </div>
 <p>Add bueno’s installation prefix to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">PY_USER_BIN</span><span class="o">=</span><span class="k">$(</span>python -c <span class="s1">&#39;import site; print(site.USER_BASE + &quot;/bin&quot;)&#39;</span><span class="k">)</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">PY_USER_BIN</span><span class="o">=</span><span class="k">$(</span>python3 -c <span class="s1">&#39;import site; print(site.USER_BASE + &quot;/bin&quot;)&#39;</span><span class="k">)</span>
 <span class="gp">$</span> <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PY_USER_BIN</span>:<span class="nv">$PATH</span>
 </pre></div>
 </div>

@@ -1,20 +1,27 @@
 #
-# Starting run at 2020-01-22 10:46:16
+# Starting run at 2020-04-24 08:42:05
 #
 
 # $ /home/samuel/.local/bin/bueno run -a none -p hello.py
 
+
+#
+# Looking for container metadata...
+#
+
+# Note: the none activator has no metadata
+
 # Begin run Configuration (YAML)
 Configuration:
- image: null
- image_activator: none
- output_path: /home/samuel
+  image: null
+  image_activator: none
+  output_path: /home/samuel/devel/bueno/examples/hello
 Host:
- hostname: localhost.localdomain
- kernel: Linux
- kernel_release: 5.3.7-200.fc30.x86_64
- os_release: Fedora 30 (Workstation Edition)
- whoami: samuel
+  hostname: localhost.localdomain
+  kernel: Linux
+  kernel_release: 5.3.7-200.fc30.x86_64
+  os_release: Fedora 30 (Workstation Edition)
+  whoami: samuel
 # End run Configuration (YAML)
 
 #
@@ -27,6 +34,8 @@ hello world
 # End Program Output
 #
 
-# run Time 0:00:00.095917
-# run Done 2020-01-22 10:46:16
-# run Output Target: /home/samuel/hello-world-2020-01-22-10:46:16
+# run Time 0:00:00.101665
+# run Done 2020-04-24 08:42:05
+# run Output Target: /home/samuel/devel/bueno/examples/hello/hello-world/2020-04-24/0
+# Writing Metadata Assets at 2020-04-24 08:42:05
+# run Output Written to: /home/samuel/devel/bueno/examples/hello/hello-world/2020-04-24/0
