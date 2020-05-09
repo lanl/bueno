@@ -11,12 +11,21 @@ Public container activation interfaces.
 '''
 
 from bueno.core import cntrimg
+from bueno.core import metacls
+
+from bueno.public import host
 from bueno.public import utils
 
 from typing import (
     Any,
+    Callable,
     List
 )
+
+import os
+
+# Type alias.
+StagingHookCb = Callable[[], str]
 
 
 def _runi(
@@ -102,5 +111,53 @@ def prun(
         'user_data': user_data
     }
     _runi(**args)
+
+
+class ImageStager(metaclass=metacls.Singleton):
+    '''
+    Public container image stager singleton meant to provide some
+    programmability to the container image staging process.
+    '''
+    def __init__(self) -> None:
+        self._staging_cmd_hook: StagingHookCb
+        self.install_default_staging_cmd_hook()
+
+    @property
+    def staging_cmd_hook(self) -> StagingHookCb:
+        '''
+        Returns the staging command hook if one is installed. Returns None
+        otherwise.
+        '''
+        return self._staging_cmd_hook
+
+    @staging_cmd_hook.setter
+    def staging_cmd_hook(self, callback_fn: StagingHookCb) -> None:
+        '''
+        Sets the staging command hook to a user-provided callback function.
+        '''
+        self._staging_cmd_hook = callback_fn
+
+    def install_default_staging_cmd_hook(self) -> None:
+        '''
+        Installs the default staging command hook.
+        '''
+        self.staging_cmd_hook = ImageStager._srun_staging_cmd_hook
+
+    @staticmethod
+    def _srun_staging_cmd_hook() -> str:
+        cmd = 'srun'
+        if host.which(cmd) is None:
+            helps = 'A custom image stager can be set via ' \
+                    'ImageStager.staging_cmd_hook.'
+            raise RuntimeError(F'{cmd} not found.\n{helps}')
+        envvars = ['SLURM_JOB_NUM_NODES', 'SLURM_NNODES']
+        varvals = list(
+            filter(lambda x: x is not None, [os.getenv(x) for x in envvars])
+        )
+        if not varvals:
+            errs = 'Cannot determine the number of nodes in your job.'
+            raise RuntimeError(errs)
+        nnodes = varvals[0]
+        return F'{cmd} -n {nnodes} -N {nnodes}'
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

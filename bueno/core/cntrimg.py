@@ -28,16 +28,24 @@ class BaseImageActivator(ABC):
     '''
     Abstract base class for container image activators.
     '''
-    def __init__(self, imgp: Optional[str] = None) -> None:
+    def __init__(self) -> None:
         super().__init__()
         # Optional image path.
-        self.imgp = imgp
+        self._imgp: str = ''
 
-        if self.imgp is None:
-            return
-        if not os.path.isdir(self.imgp):
-            ers = 'Invalid container image path provided: {}'
-            raise RuntimeError(ers.format(self.imgp))
+    def get_img_path(self) -> str:
+        '''
+        Returns the image path used for container image activation.
+        '''
+        return self._imgp
+
+    @abstractmethod
+    def set_img_path(self, img_path: str) -> None:
+        '''
+        Sets the image path used for container image activation. RuntimeError is
+        raised if an invalid path is provided.
+        '''
+        pass
 
     @abstractmethod
     def run(
@@ -54,9 +62,18 @@ class BaseImageActivator(ABC):
         pass
 
     @abstractmethod
-    def has_metadata(self) -> bool:
+    def requires_img_activation(self) -> bool:
         '''
-        Returns whether or not the image activator instance has metadata.
+        Returns whether or not the image activator instance requires image
+        activation.
+        '''
+        pass
+
+    @abstractmethod
+    def tar2dirs(self, src: str, dst: str) -> str:
+        '''
+        Returns a command string capable of extracting the contents of the
+        provided source tarball to the provided base destination.
         '''
         pass
 
@@ -83,7 +100,7 @@ class ImageActivatorFactory:
     '''
     # Modify this list as image activators change.
     items = [
-        ('charliecloud', lambda x: CharlieCloudImageActivator(x)),
+        ('charliecloud', lambda x: CharlieCloudImageActivator()),
         ('none', lambda x: NoneImageActivator())
     ]
 
@@ -103,22 +120,22 @@ class ImageActivatorFactory:
         return sname in ImageActivatorFactory.available()
 
     @staticmethod
-    def build(activator_name: str, imgp: str) -> None:
+    def build(activator_name: str) -> None:
         try:
             aidx = ImageActivatorFactory.available().index(activator_name)
         except Exception:
             ers = 'Unknown container image activator requested: {}'
             raise RuntimeError(ers.format(activator_name))
         # Initialize the activator singleton with the proper implementation.
-        Activator(ImageActivatorFactory.items[aidx][1](imgp))  # type: ignore
+        Activator(ImageActivatorFactory.items[aidx][1](''))  # type: ignore
 
 
 class CharlieCloudImageActivator(BaseImageActivator):
     '''
     The CharlieCloud image activator.
     '''
-    def __init__(self, imgp: str) -> None:
-        super().__init__(imgp)
+    def __init__(self) -> None:
+        super().__init__()
 
         self.runcmd = 'ch-run'
 
@@ -136,7 +153,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
         verbose: bool = True
     ) -> List[str]:
         # Charliecloud activation command string.
-        cc = F'{self.runcmd} {self.imgp}'
+        cc = F'{self.runcmd} {self.get_img_path()}'
         bm = F'{constants.BASH_MAGIC}'
         # First command.
         cmdf = cmds[0]
@@ -156,8 +173,18 @@ class CharlieCloudImageActivator(BaseImageActivator):
         }
         return host.run(cmdstr, **runargs)
 
-    def has_metadata(self) -> bool:
+    def set_img_path(self, img_path: str) -> None:
+        if not os.path.isdir(img_path):
+            hlp = 'Directory expected.'
+            ers = F'Invalid container image path detected: {img_path}\n{hlp}'
+            raise RuntimeError(ers)
+        self._imgp = img_path
+
+    def requires_img_activation(self) -> bool:
         return True
+
+    def tar2dirs(self, src: str, dst: str) -> str:
+        return F'ch-tar2dir {src} {dst}'
 
 
 class NoneImageActivator(BaseImageActivator):
@@ -186,8 +213,16 @@ class NoneImageActivator(BaseImageActivator):
         }
         return host.run(cmdstr, **runargs)
 
-    def has_metadata(self) -> bool:
-        # This activator does not have metadata.
+    def set_img_path(self, img_path: str) -> None:
+        # Nothing to do.
+        pass
+
+    def requires_img_activation(self) -> bool:
+        # This activator does not require image activation.
         return False
+
+    def tar2dirs(self, src: str, dst: str) -> str:
+        # Nothing to do here.
+        return ''
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

@@ -107,6 +107,16 @@ def whichl(cmds: List[str]) -> Union[str, None]:
     return None
 
 
+def tmpdir() -> str:
+    '''
+    Returns tmpdir.
+    '''
+    tmpdir = os.getenv('TMPDIR')
+    if tmpdir is not None:
+        return tmpdir
+    return '/tmp'
+
+
 def run(
     cmd: str,
     verbatim: bool = False,

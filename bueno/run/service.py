@@ -14,6 +14,7 @@ from bueno.core import cntrimg
 from bueno.core import constants
 from bueno.core import service
 
+from bueno.public import container
 from bueno.public import experiment
 from bueno.public import host
 from bueno.public import logger
@@ -29,6 +30,7 @@ import copy
 import importlib.util
 import os
 import sys
+import tarfile
 import typing
 
 
@@ -64,6 +66,40 @@ class _Runner:
             os.chdir(scwd)
 
 
+class _ImageStager():
+    '''
+    Implements the container image stager.
+    '''
+    def __init__(self) -> None:
+        self.basep = host.tmpdir()
+
+    def _prun_generate(self) -> str:
+        return container.ImageStager().staging_cmd_hook()
+
+    def _get_img_dir_name(self, imgp: str) -> str:
+        # List of common tarball file extensions.
+        tfex = ['.tar.gz', '.tgz']
+        fname = os.path.basename(imgp)
+
+        fex = [x for x in tfex if fname.endswith(x)]
+        if not fex:
+            raise RuntimeError(F'{fname} does not end in any of {tfex}.'
+                               'Cannot determine target destination after '
+                               'container image staging.')
+        # Return the file name without whatever file extension it once had.
+        return fname.rstrip(fex[0])
+
+    def stage(self, imgp: str) -> str:
+        stage_cmd = F'{self._prun_generate()} ' \
+                    F'{cntrimg.Activator().impl.tar2dirs(imgp, self.basep)}'
+        runargs = {
+            'echo': True,
+            'verbose': False
+        }
+        host.run(stage_cmd, **runargs)
+        return os.path.join(self.basep, self._get_img_dir_name(imgp))
+
+
 class impl(service.Base):
     '''
     Implements the run service.
@@ -80,6 +116,8 @@ class impl(service.Base):
         imgactvtr = 'charliecloud'
         # The image path.
         image = None
+        # Whether or not to skip container image staging.
+        do_not_stage = False
 
     class ProgramAction(argparse.Action):
         '''
@@ -95,14 +133,12 @@ class impl(service.Base):
                 help = '{} requires at least one argument (none provided).\n'\
                        'Please provide a path to the program you wish to run, '\
                        'optionally followed by program-specific arguments.'
-
                 parser.error(help.format(option_string))
             # Capture and update values[0] to an absolute path.
             prog = values[0] = os.path.abspath(values[0])
             if not os.path.isfile(prog):
                 es = F'{prog} is not a file. Cannot continue.'
-                parser.error(es.format(prog))
-
+                parser.error(es)
             setattr(namespace, self.dest, values)
 
     class ImageAction(argparse.Action):
@@ -116,6 +152,9 @@ class impl(service.Base):
         @typing.no_type_check
         def __call__(self, parser, namespace, values, option_string=None):
             imgp = os.path.abspath(values)
+            if not os.path.exists(imgp):
+                es = F'Cannot access {imgp}'
+                parser.error(es)
             setattr(namespace, self.dest, imgp)
 
     class ImageActivatorAction(argparse.Action):
@@ -138,6 +177,8 @@ class impl(service.Base):
 
     def __init__(self, argv: List[str]) -> None:
         super().__init__(impl._defaults.desc, argv)
+        # Path to the inflated container image used for activation.
+        self.inflated_cntrimg_path = ''
 
     def _addargs(self) -> None:
         self.argp.add_argument(
@@ -146,16 +187,25 @@ class impl(service.Base):
             help='Specifies the base output directory used for all '
                  'generated files. Default: {}'.format('PWD'),
             default=impl._defaults.output_path,
+            required=False,
+            metavar='PATH'
+        )
+
+        self.argp.add_argument(
+            '--do-not-stage',
+            action='store_true',
+            help='Turns off container image staging when present.',
+            default=impl._defaults.do_not_stage,
             required=False
         )
 
         imgdir_arg = self.argp.add_argument(
             '-i', '--image',
             type=str,
-            help='Specifies the base container image (directory or tarball).',
+            help='Specifies the base container image tarball or directory.',
             required=True,
             default=impl._defaults.image,
-            action=impl.ImageAction
+            action=impl.ImageAction,
         )
 
         self.argp.add_argument(
@@ -182,14 +232,15 @@ class impl(service.Base):
         )
 
     def _populate_service_config(self) -> None:
-        # Remove program from output since it is reduntant and because we don't
+        # Remove program from output since it is redundant and because we don't
         # know how it'll be parsed by the given program.
         tmpargs = copy.deepcopy(vars(self.args))
         tmpargs.pop('program')
         self.confd['Configuration'] = tmpargs
         metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'run'))
 
-    def _populate_sys_config(self) -> None:
+    def _populate_env_config(self) -> None:
+        # Host environment.
         self.confd['Host'] = {
             'whoami': host.whoami(),
             'kernel': host.kernel(),
@@ -197,19 +248,55 @@ class impl(service.Base):
             'hostname': host.hostname(),
             'os_release': host.os_pretty_name()
         }
+        # Do this so the YAML output has the 'Host' heading.
+        hostd = {'Host': self.confd['Host']}
+        metadata.add_asset(metadata.YAMLDictAsset(hostd, 'environment'))
 
     def _populate_config(self) -> None:
         self._populate_service_config()
-        self._populate_sys_config()
+        self._populate_env_config()
 
     # TODO(skg) Add more configuration info.
     def _emit_config(self) -> None:
         # First build up the dictionary containing the configuration used.
         self._populate_config()
-        # Add to metadata assets stored to container image.
-        metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'environment'))
         # Then print it out in YAML format.
         utils.yamlp(self.confd, self.prog)
+
+    def _stage_container_image(self) -> None:
+        '''
+        TODO(skg) Add proper description. Stages container images.
+        '''
+        imgp = self.args.image
+        # The 'we don't need or want to stage paths.'
+        if not cntrimg.Activator().impl.requires_img_activation():
+            return
+        if self.args.do_not_stage:
+            # We know that imgp cannot be None.
+            hlps = 'Unstaged executions require access to ' \
+                   'an image directory path.'
+            if not os.path.isdir(imgp):
+                es = F'{imgp} is not a directory. Cannot continue.\n{hlps}'
+                raise RuntimeError(es)
+            self.inflated_cntrimg_path = imgp
+            logger.log(F'# Image path: {imgp}')
+            cntrimg.Activator().impl.set_img_path(imgp)
+            return
+        # The 'stage' path.
+        logger.emlog(F'# Staging container image...')
+        hlps = 'Staged executions require access to an image tarball path.'
+        try:
+            istf = tarfile.is_tarfile(imgp)
+            if not istf:
+                es = F'{imgp} is not a tarball. Cannot continue.\n{hlps}'
+                raise RuntimeError(es)
+        except Exception as e:
+            es = F'{e}. Cannot continue.\n{hlps}'
+            raise RuntimeError(es)
+        self.inflated_cntrimg_path = _ImageStager().stage(imgp)
+        # Let the user and image activator know about the image's path.
+        logger.log(F'# Staged image path: {self.inflated_cntrimg_path}')
+        cntrimg.Activator().impl.set_img_path(self.inflated_cntrimg_path)
 
     def _add_container_metadata(self) -> None:
         '''
@@ -218,12 +305,12 @@ class impl(service.Base):
         logger.emlog(F'# Looking for container metadata...')
 
         # Skip any image activators that do not have build metadata.
-        if not cntrimg.Activator().impl.has_metadata():
+        if not cntrimg.Activator().impl.requires_img_activation():
             ia = self.args.image_activator
             logger.log(F'# Note: the {ia} activator has no metadata\n')
             return
 
-        imgdir = self.args.image
+        imgdir = self.inflated_cntrimg_path
         # The subdirectory where container metadata will be stored.
         mdatadir = 'container'
         logger.log(F'# Adding metadata from {imgdir}\n')
@@ -239,8 +326,7 @@ class impl(service.Base):
         Builds the image activator instance.
         '''
         actvtr = self.args.image_activator
-        imgdir = self.args.image
-        cntrimg.ImageActivatorFactory().build(actvtr, imgdir)
+        cntrimg.ImageActivatorFactory().build(actvtr)
 
     def _run(self) -> None:
         pname = os.path.basename(self.args.program[0])
@@ -274,9 +360,10 @@ class impl(service.Base):
 
         try:
             stime = utils.now()
-            self._build_image_activator()
-            self._add_container_metadata()
             self._emit_config()
+            self._build_image_activator()
+            self._stage_container_image()
+            self._add_container_metadata()
             self._run()
             etime = utils.now()
 
