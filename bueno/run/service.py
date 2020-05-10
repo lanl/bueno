@@ -285,14 +285,19 @@ class impl(service.Base):
         # The 'stage' path.
         logger.emlog(F'# Staging container image...')
         hlps = 'Staged executions require access to an image tarball path.'
+        istf = False
         try:
             istf = tarfile.is_tarfile(imgp)
-            if not istf:
-                es = F'{imgp} is not a tarball. Cannot continue.\n{hlps}'
-                raise RuntimeError(es)
         except Exception as e:
             es = F'{e}. Cannot continue.\n{hlps}'
             raise RuntimeError(es)
+        # We do this check here so we can raise an exception that isn't caught
+        # above because it produces redundant error messages. is_tarfile() can
+        # raise exceptions, so that what that block is for.
+        if not istf:
+            raise RuntimeError(
+                F'{imgp} is not a tarball. Cannot continue.\n{hlps}'
+            )
         self.inflated_cntrimg_path = _ImageStager().stage(imgp)
         # Let the user and image activator know about the image's path.
         logger.log(F'# Staged image path: {self.inflated_cntrimg_path}')
