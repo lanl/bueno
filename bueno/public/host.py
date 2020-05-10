@@ -46,6 +46,13 @@ def hostname() -> str:
     return capture('hostname')
 
 
+def shostname() -> str:
+    '''
+    Returns the host computer's short name.
+    '''
+    return capture('hostname -s')
+
+
 def whoami() -> str:
     '''
     Akin to whoami(1).

@@ -1,5 +1,4 @@
 # TODO Items
-- Add hostname to output path directory.
 - Add compiler, etc. to build metadata.
 - Fix run-time issue where failures occur if non-container mpiexec is in PATH.
   See: https://hpc.github.io/charliecloud/command-usage.html

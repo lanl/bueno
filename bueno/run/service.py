@@ -343,8 +343,9 @@ class impl(service.Base):
         # TODO(skg) The stat load may be huge using this approach. Fix at some
         # point. Perhaps have a top-level log that gives us the next available?
         maxt = 1024*2048
+        hostn = host.shostname()
         for subd in range(0, maxt):
-            path = os.path.join(basedir, utils.dates(), str(subd))
+            path = os.path.join(basedir, utils.dates(), hostn, str(subd))
             if not os.path.isdir(path):
                 return path
         errs = F'Cannot find usable metadata directory after {maxt} tries.\n' \
