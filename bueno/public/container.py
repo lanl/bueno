@@ -19,20 +19,22 @@ from bueno.public import utils
 from typing import (
     Any,
     Callable,
-    List
+    List,
+    Union
 )
 
 import os
 
 # Type alias.
 StagingHookCb = Callable[[], str]
+ActionCb = Union[Callable[..., None], None]
 
 
 def _runi(
     cmds: List[str],
     echo: bool = True,
-    preaction: Any = None,
-    postaction: Any = None,
+    preaction: ActionCb = None,
+    postaction: ActionCb = None,
     user_data: Any = None
 ) -> None:
     '''
