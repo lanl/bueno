@@ -293,7 +293,7 @@ class impl(service.Base):
             raise RuntimeError(es)
         # We do this check here so we can raise an exception that isn't caught
         # above because it produces redundant error messages. is_tarfile() can
-        # raise exceptions, so that what that block is for.
+        # raise exceptions, so that's what the above try/except block is for.
         if not istf:
             raise RuntimeError(
                 F'{imgp} is not a tarball. Cannot continue.\n{hlps}'

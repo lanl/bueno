@@ -42,7 +42,7 @@ def main(argv):
 
         telapsed = etime - stime
         etimes.append(telapsed)
-        logger.log('# Execution Time: {}\n'.format(telapsed))
+        logger.log(F'# Execution Time: {telapsed}\n')
         # Take a break between runs.
         time.sleep(1)
 
