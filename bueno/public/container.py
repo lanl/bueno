@@ -52,8 +52,7 @@ def _runi(
         preaction(**preargs)
 
     stime = utils.now()
-    # TODO(skg) FIXME: I don't like how Activator's __init__ is set up.
-    coutput = cntrimg.Activator().impl.run(cmds, echo=echo, capture=capture)
+    coutput = cntrimg.activator().run(cmds, echo=echo, capture=capture)
     etime = utils.now()
 
     if postaction is not None:

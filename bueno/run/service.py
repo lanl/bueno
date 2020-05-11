@@ -91,7 +91,7 @@ class _ImageStager():
 
     def stage(self, imgp: str) -> str:
         stage_cmd = F'{self._prun_generate()} ' \
-                    F'{cntrimg.Activator().impl.tar2dirs(imgp, self.basep)}'
+                    F'{cntrimg.activator().tar2dirs(imgp, self.basep)}'
         runargs = {
             'echo': True,
             'verbose': False
@@ -269,7 +269,7 @@ class impl(service.Base):
         '''
         imgp = self.args.image
         # The 'we don't need or want to stage paths.'
-        if not cntrimg.Activator().impl.requires_img_activation():
+        if not cntrimg.activator().requires_img_activation():
             return
         if self.args.do_not_stage:
             # We know that imgp cannot be None.
@@ -280,7 +280,7 @@ class impl(service.Base):
                 raise RuntimeError(es)
             self.inflated_cntrimg_path = imgp
             logger.log(F'# Image path: {imgp}')
-            cntrimg.Activator().impl.set_img_path(imgp)
+            cntrimg.activator().set_img_path(imgp)
             return
         # The 'stage' path.
         logger.emlog(F'# Staging container image...')
@@ -301,7 +301,7 @@ class impl(service.Base):
         self.inflated_cntrimg_path = _ImageStager().stage(imgp)
         # Let the user and image activator know about the image's path.
         logger.log(F'# Staged image path: {self.inflated_cntrimg_path}')
-        cntrimg.Activator().impl.set_img_path(self.inflated_cntrimg_path)
+        cntrimg.activator().set_img_path(self.inflated_cntrimg_path)
 
     def _add_container_metadata(self) -> None:
         '''
@@ -310,13 +310,13 @@ class impl(service.Base):
         logger.emlog(F'# Looking for container metadata...')
 
         # Skip any image activators that do not have build metadata.
-        if not cntrimg.Activator().impl.requires_img_activation():
+        if not cntrimg.activator().requires_img_activation():
             ia = self.args.image_activator
             logger.log(F'# Note: the {ia} activator has no metadata\n')
             return
 
         imgdir = self.inflated_cntrimg_path
-        # The subdirectory where container metadata will be stored.
+        # The subdirectory where container metadata are stored.
         mdatadir = 'container'
         logger.log(F'# Adding metadata from {imgdir}\n')
         buildl = os.path.join(

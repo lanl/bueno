@@ -94,6 +94,13 @@ class Activator(metaclass=metacls.Singleton):
         return self.imgactvtr
 
 
+def activator() -> BaseImageActivator:
+    '''
+    Returns the current container image activator.
+    '''
+    return Activator().impl
+
+
 class ImageActivatorFactory:
     '''
     The container image activator factory.
