@@ -25,7 +25,7 @@ from typing import (
 
 import os
 
-# Type alias.
+# Type aliases.
 StagingHookCb = Callable[[], str]
 ActionCb = Union[Callable[..., None], None]
 

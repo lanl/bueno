@@ -10,6 +10,7 @@
 Experiment utilities for good.
 '''
 
+from bueno.core import mathex
 from bueno.core import metacls
 
 from bueno.public import logger
@@ -27,6 +28,7 @@ from typing import (
 import argparse
 import copy
 import os
+import re
 import shlex
 
 
@@ -208,5 +210,77 @@ def parsedargs(
     auxap.set_defaults(**nonedefs)
     # Parse and return the arguments present in argv.
     return auxap.parse_args(argv)
+
+
+def runcmds(start: int, stop: int, runspec: str, nfun: str) -> List[str]:
+    '''
+    TODO(skg) Add proper description.
+    - start: The start index of nidx.
+    - stop: The termination value for nfun(nidx) for some value nidx.
+    - runspec: The run specification template having the following variables:
+    -   %n: The number of processes to run.
+    '''
+    # XXX(skg) I wish we could use something like __name__ for this...
+    fname = 'runcmds'
+    # Regex string used to find variables in nfun expressions.
+    vidx_res = '''\
+    (         # Start of capture group 1
+    \\b       # Start of whole word search
+    nidx      # Variable literal
+    \\b       # End of whole word search
+    )         # End of capture group 1
+    '''
+
+    def _nargs(line: str, res: str) -> int:
+        nargs = 0
+        for m in re.finditer(res, line, flags=re.X):
+            nargs += 1
+        return nargs
+
+    def _nfun_nvar(s: str, res: str) -> int:
+        nvars = 0
+        for m in re.finditer(res, s, flags=re.X):
+            nvars += 1
+        return nvars
+
+    # Make sure that the provided start and stop values make sense.
+    if start < 0 or stop < 0:
+        es = F'{__name__}.{fname} start and stop must both be positive values.'
+        raise ValueError(es)
+    if start > stop:
+        es = F'{__name__}.{fname} value error: start cannot be less than stop.'
+        raise ValueError(es)
+    # Find all variables in the provided function specification string. Also
+    # enforce that *at least one* variable is provided.
+    nvars = _nfun_nvar(nfun, vidx_res)
+    # We didn't find at least one variable.
+    if nvars == 0:
+        es = F'{__name__}.{fname} syntax error: ' \
+              'At least one variable must be present. ' \
+             F'nidx was not found in the following expression:\n{nfun}'
+        raise SyntaxError(es)
+    # Generate the requisite values.
+    ns = list()
+    nidx = start
+    regex = re.compile(vidx_res, flags=re.X)
+    while(True):
+        n = mathex.evaluate(regex.sub(str(nidx), nfun))
+        if (n > stop):
+            break
+        ns.append(n)
+        nidx += 1
+    # Now generate the run commands.
+    # Regex string used to find %n variables in runspec expressions.
+    n_res = '%n'
+    nargs = _nargs(runspec, n_res)
+    if nargs == 0:
+        ws = F'# WARNING: {n_res} not found in ' \
+             F'the following expression:\n# {runspec}'
+        logger.emlog(ws)
+    regex = re.compile(n_res)
+    cmds = list()
+    for idx in ns:
+        cmds.append(regex.sub(str(idx), runspec))
+    return cmds
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

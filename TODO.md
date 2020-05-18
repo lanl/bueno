@@ -1,4 +1,6 @@
 # TODO Items
+- Add experiment host name setter/getter. Fixes potential back-end node naming
+  problems.
 - Add compiler, etc. to build metadata.
 - Fix run-time issue where failures occur if non-container mpiexec is in PATH.
   See: https://hpc.github.io/charliecloud/command-usage.html
