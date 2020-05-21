@@ -25,7 +25,7 @@ sys.exit("This doesn't work yet. We're working on it...")
 ################################################################################
 ################################################################################
 def get_minimum_python_vers():
-    verline = open('./bueno/_minpyversion.py').read()
+    verline = open('./bueno/_minpyversion.txt').read()
     sr = re.search(
         r"^__bueno_minimum_python_version_str__ = ['\']([^'\']*)['\']",
         verline

@@ -10,11 +10,6 @@
 Host utilities.
 '''
 
-from bueno.core import constants
-
-from bueno.public import logger
-from bueno.public import utils
-
 from typing import (
     List,
     Union
@@ -23,6 +18,11 @@ from typing import (
 import os
 import shutil
 import subprocess
+
+from bueno.core import constants
+
+from bueno.public import logger
+from bueno.public import utils
 
 
 def kernel() -> str:
@@ -70,9 +70,8 @@ def os_pretty_name() -> str:
             for line in osrel:
                 if not line.startswith('PRETTY_NAME='):
                     continue
-                else:
-                    name = utils.chomp(line.split('=')[1]).strip('"')
-                    break
+                name = utils.chomp(line.split('=')[1]).strip('"')
+                break
     except (OSError, IOError):
         pass
 
@@ -118,18 +117,18 @@ def tmpdir() -> str:
     '''
     Returns tmpdir.
     '''
-    tmpdir = os.getenv('TMPDIR')
-    if tmpdir is not None:
-        return tmpdir
+    tdir = os.getenv('TMPDIR')
+    if tdir is not None:
+        return tdir
     return '/tmp'
 
 
 def run(
-    cmd: str,
-    verbatim: bool = False,
-    echo: bool = False,
-    capture: bool = False,
-    verbose: bool = True
+        cmd: str,
+        verbatim: bool = False,
+        echo: bool = False,
+        capture: bool = False,  # pylint: disable=W0621
+        verbose: bool = True
 ) -> List[str]:
     '''
     Executes the provided command.
@@ -155,7 +154,7 @@ def run(
 
     # Output list of strings used to (optionally) capture command output.
     olst: List[str] = list()
-    p = subprocess.Popen(
+    spo = subprocess.Popen(
         realcmd,
         shell=True,
         bufsize=1,
@@ -165,8 +164,8 @@ def run(
         stderr=subprocess.STDOUT
     )
     # Show progress and store output to a string (if requested).
-    while (True):
-        stdout = p.stdout.readline()
+    while True:
+        stdout = spo.stdout.readline()
 
         if not stdout:
             break
@@ -175,13 +174,13 @@ def run(
         if verbose:
             logger.log(utils.chomp(stdout))
 
-    rc = p.wait()
-    if (rc != os.EX_OK):
-        e = ChildProcessError()
-        e.errno = rc
-        es = F"Command '{realcmd}' returned non-zero exit status."
-        e.strerror = es
-        raise e
+    wrc = spo.wait()
+    if wrc != os.EX_OK:
+        cpe = ChildProcessError()
+        cpe.errno = wrc
+        estr = F"Command '{realcmd}' returned non-zero exit status."
+        cpe.strerror = estr
+        raise cpe
 
     return olst
 
