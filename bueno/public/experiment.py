@@ -212,12 +212,12 @@ def parsedargs(
     return auxap.parse_args(argv)
 
 
-def runcmds(start: int, stop: int, runspec: str, nfun: str) -> List[str]:
+def runcmds(start: int, stop: int, spec: str, nfun: str) -> List[str]:
     '''
     TODO(skg) Add proper description.
     - start: The start index of nidx.
     - stop: The termination value for nfun(nidx) for some value nidx.
-    - runspec: The run specification template having the following variables:
+    - spec: The run specification template having the following variables:
     -   %n: The number of processes to run.
     '''
     # XXX(skg) I wish we could use something like __name__ for this...
@@ -270,17 +270,17 @@ def runcmds(start: int, stop: int, runspec: str, nfun: str) -> List[str]:
         ns.append(n)
         nidx += 1
     # Now generate the run commands.
-    # Regex string used to find %n variables in runspec expressions.
+    # Regex string used to find %n variables in spec expressions.
     n_res = '%n'
-    nargs = _nargs(runspec, n_res)
+    nargs = _nargs(spec, n_res)
     if nargs == 0:
         ws = F'# WARNING: {n_res} not found in ' \
-             F'the following expression:\n# {runspec}'
+             F'the following expression:\n# {spec}'
         logger.emlog(ws)
     regex = re.compile(n_res)
     cmds = list()
     for idx in ns:
-        cmds.append(regex.sub(str(idx), runspec))
+        cmds.append(regex.sub(str(idx), spec))
     return cmds
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab
