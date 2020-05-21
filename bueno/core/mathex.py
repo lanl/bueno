@@ -70,9 +70,8 @@ class _TheCalculator(metaclass=metacls.Singleton):
                 raise SyntaxError(self._nice_syntax_error_msg(msg, node))
             return nodeop_op(self._eval(node.left), self._eval(node.right))
         else:
-            ers = 'A syntax error occurred while ' \
-                  'evaluating the following expression:'
-            raise SyntaxError(F'{ers}\n{self.input}')
+            msg = 'An error occurred while evaluating the following expression'
+            raise SyntaxError(self._nice_syntax_error_msg(msg, node))
 
     def evaluate(self, s: str) -> int:
         self.input = s
