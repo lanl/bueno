@@ -37,7 +37,8 @@ def main(argv):
         '2**(3**4)',
         '(2**3)**4',
         '2**3**4',
-        '-1**2**-3**4 * 5'
+        '-1**2**-3**4 * 5',
+        '1+1+-1+3'
     ]
 
     for i in exprs:
@@ -47,5 +48,6 @@ def main(argv):
         logger.log(F'# Python says the answer is {pa}')
         logger.log(F'# Mathex says the answer is {me}')
         # Our goal is consistency with Python.
-        assert(pa == me)
+        if (pa != me):
+            raise ValueError(F'{pa} != {me}')
         logger.log('')

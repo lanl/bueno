@@ -1,5 +1,4 @@
 # TODO Items
-- Consider use of ast instead of using ply.
 - Add experiment host name setter/getter. Fixes potential back-end node naming
   problems.
 - Add compiler, etc. to build metadata.

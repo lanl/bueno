@@ -12,143 +12,77 @@ Mathematical expression evaluation module.
 
 from bueno.core import metacls
 
-from bueno.core.ply import lex
-from bueno.core.ply import yacc
-
+import ast
+import operator
 import typing
 
 
-# A significant amount of code below was taken from the PLY classcalc example
-# contributed by David McNab. Modifications made by the bueno developers.
-# Some nice documentation is found here:
-# https://ply.readthedocs.io/en/latest/ply.html
-#
-# *** We disable type checking here because of complications silencing the lex
-# *** and yacc mypy errors. FIXME(skg) someday.
 class _TheCalculator(metaclass=metacls.Singleton):
-    tokens = (
-        'NUMBER',
-        'PLUS', 'MINUS', 'EXP', 'TIMES', 'DIVIDE', 'MOD',
-        'LPAREN', 'RPAREN'
-    )
-
-    # Tokens
-    t_PLUS = r'\+'
-    t_MINUS = r'-'
-    t_EXP = r'\*\*'
-    t_TIMES = r'\*'
-    t_DIVIDE = r'/'
-    t_MOD = r'%'
-    t_LPAREN = r'\('
-    t_RPAREN = r'\)'
-    t_ignore = ' \t'
-
-    # Parsing rules
-    precedence = (  # Ordered from lowest to highest precedence
-        ('left', 'PLUS', 'MINUS'),
-        ('left', 'TIMES', 'DIVIDE', 'MOD'),
-        ('right', 'UMINUS'),
-        ('right', 'EXP')
-    )
-
+    '''
+    Private class that is responsible for all the heavy lifting behind
+    evaluate().
+    '''
     def __init__(self) -> None:
+        # The current input string.
         self.input = ''
-        # Build the lexer and parser.
-        self.lexer = lex.lex(module=self)  # type: ignore
-        self.parser = yacc.yacc(module=self)  # type: ignore
+        # Supported unary operators.
+        self.uni_ops = {
+            ast.USub: operator.neg
+        }
+        # Supported binary operators.
+        self.bin_ops = {
+            ast.Add: operator.add,
+            ast.Sub: operator.sub,
+            ast.Mult: operator.mul,
+            ast.Div: operator.truediv,
+            ast.Mod: operator.mod,
+            ast.Pow: operator.pow
+        }
 
     @typing.no_type_check
-    def t_NUMBER(self, t):
-        r'\d+'
-        try:
-            t.value = int(t.value)
-        except ValueError as e:
-            emsg = F'{__name__}: {e} (erroneous value is {t.value}).'
-            emsg += F'\nInput was: {self.input}'
-            raise(ValueError(emsg))
-        return t
-
-    @typing.no_type_check
-    def t_error(self, t):
-        emsg = F"{__name__}: Illegal character detected: '{t.value[0]}'."
-        emsg += F'\nInput was: {self.input}'
-        raise SyntaxError(emsg)
-
-    @typing.no_type_check
-    def p_statement_expr(self, p):
-        'statement : expression'
-        p[0] = p[1]
-
-    @typing.no_type_check
-    def p_expression_binop(self, p):
-        '''
-        expression : expression PLUS expression
-                   | expression MINUS expression
-                   | expression TIMES expression
-                   | expression DIVIDE expression
-                   | expression MOD expression
-                   | expression EXP expression
-        '''
-        if p[2] == '+':
-            p[0] = p[1] + p[3]
-        elif p[2] == '-':
-            p[0] = p[1] - p[3]
-        elif p[2] == '*':
-            p[0] = p[1] * p[3]
-        elif p[2] == '/':
-            p[0] = p[1] / p[3]
-        elif p[2] == '%':
-            p[0] = p[1] % p[3]
-        elif p[2] == '**':
-            p[0] = p[1] ** p[3]
-
-    @typing.no_type_check
-    def p_expression_uminus(self, p):
-        'expression : MINUS expression %prec UMINUS'
-        p[0] = -p[2]
-
-    @typing.no_type_check
-    def p_expression_group(self, p):
-        'expression : LPAREN expression RPAREN'
-        p[0] = p[2]
-
-    @typing.no_type_check
-    def p_expression_number(self, p):
-        'expression : NUMBER'
-        p[0] = p[1]
-
-    @typing.no_type_check
-    def p_error(self, p):
-        emsg = self._nice_syntax_error_msg(p)
-        raise SyntaxError(emsg)
-
-    @typing.no_type_check
-    def _nice_syntax_error_msg(self, p=None):
+    def _nice_syntax_error_msg(self, msg: str, node=None) -> str:
         pos = len(self.input)
-        if p is not None:
-            pos = p.lexpos
-        emsg = F"{__name__}: Syntax error at index {pos}."
+        if node is not None:
+            pos = node.col_offset
+        emsg = F'{__name__}: Syntax error at index {pos} ({msg}).'
         offset = '~' * pos
         mark = offset + '^'
         return F'{emsg}\n{self.input}\n{mark}'
 
+    @typing.no_type_check
+    def _eval(self, node):
+        if isinstance(node, ast.Expression):
+            return self._eval(node.body)
+        elif isinstance(node, ast.Num):
+            return node.n
+        elif isinstance(node, ast.UnaryOp):
+            nodeop_type = type(node.op)
+            nodeop_op = self.uni_ops.get(nodeop_type, None)
+            if nodeop_op is None:
+                msg = 'Unexpected operator'
+                raise SyntaxError(self._nice_syntax_error_msg(msg, node))
+            return nodeop_op(self._eval(node.operand))
+        elif isinstance(node, ast.BinOp):
+            nodeop_type = type(node.op)
+            nodeop_op = self.bin_ops.get(nodeop_type, None)
+            if nodeop_op is None:
+                msg = 'Unexpected operator'
+                raise SyntaxError(self._nice_syntax_error_msg(msg, node))
+            return nodeop_op(self._eval(node.left), self._eval(node.right))
+        else:
+            ers = 'A syntax error occurred while ' \
+                  'evaluating the following expression:'
+            raise SyntaxError(F'{ers}\n{self.input}')
+
     def evaluate(self, s: str) -> int:
-        # Keep a copy around at class scope for nicer error reporting.
         self.input = s
-        resstr = self.parser.parse(self.input, self.lexer)
-        result = 0
-        try:
-            result = int(resstr)
-        except ValueError:
-            e = 'An error occurred while attempting to evaluate the following:'
-            pab = 'This is probably a bug, so please file a report.'
-            raise ValueError(F'{e}\n{s}\n{pab}')
-        return result
+        node = ast.parse(s, mode='eval')
+        return int(self._eval(node))
 
 
 def evaluate(expr: str) -> int:
     '''
-    Evaluates the given string using integer arithmetic and returns its result.
+    Evaluates the given string arithmetic and returns its result cast to an int.
     If the provided expression is malformed, then an exception is raised.
     '''
     return _TheCalculator().evaluate(expr)
