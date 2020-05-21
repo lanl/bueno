@@ -10,15 +10,15 @@
 Logging utilities for good.
 '''
 
-from bueno.core import metacls
+import logging
+import os
+import shutil
+import sys
 
 from io import StringIO
 from typing import Any
 
-import shutil
-import logging
-import sys
-import os
+from bueno.core import metacls
 
 
 def emlog(msg: str, *args: Any, **kwargs: Any) -> None:
@@ -36,11 +36,11 @@ def log(msg: str, *args: Any, **kwargs: Any) -> None:
     _TheLogger().log(msg, *args, **kwargs)
 
 
-def write(to: str) -> None:
+def write(topath: str) -> None:
     '''
     Writes the current contents of the log to the path provided.
     '''
-    _TheLogger().write(to)
+    _TheLogger().write(topath)
 
 
 class _TheLogger(metaclass=metacls.Singleton):
@@ -66,14 +66,20 @@ class _TheLogger(metaclass=metacls.Singleton):
         self.logger.setLevel(self.loglvl)
 
     def log(self, msg: str, *args: Any, **kwargs: Any) -> None:
+        '''
+        A thin wrapper around internal logger's interface.
+        '''
         self.logger.info(msg, *args, **kwargs)
 
-    def write(self, to: str) -> None:
+    def write(self, topath: str) -> None:
+        '''
+        Writes the contents of the log to the specified path.
+        '''
         # Start from the beginning.
         self.logsio.seek(0)
         try:
-            with open(to, 'w+') as f:
-                shutil.copyfileobj(self.logsio, f)
+            with open(topath, 'w+') as file:
+                shutil.copyfileobj(self.logsio, file)
         # Always seek to end when done.
         finally:
             self.logsio.seek(os.SEEK_END)

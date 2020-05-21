@@ -7,14 +7,14 @@
 #
 
 '''
-Experiment utilities for good.
+Public experiment utilities for good.
 '''
 
-from bueno.core import mathex
-from bueno.core import metacls
-
-from bueno.public import logger
-from bueno.public import utils
+import argparse
+import copy
+import os
+import re
+import shlex
 
 from abc import abstractmethod
 
@@ -25,11 +25,11 @@ from typing import (
     Optional
 )
 
-import argparse
-import copy
-import os
-import re
-import shlex
+from bueno.core import mathex
+from bueno.core import metacls
+
+from bueno.public import logger
+from bueno.public import utils
 
 
 class _TheExperiment(metaclass=metacls.Singleton):
@@ -41,17 +41,20 @@ class _TheExperiment(metaclass=metacls.Singleton):
 
     @property
     def name(self) -> str:
+        '''
+        Returns the experiment's name.
+        '''
         return self._name
 
     @name.setter
-    def name(self, name: str) -> None:
+    def name(self, name: str) -> None:  # pylint: disable=W0621
+        '''
+        Sets the experiment's name.
+        '''
         if utils.emptystr(name):
-            es = 'Experiment name cannot be empty.'
-            raise RuntimeError(es)
+            estr = 'Experiment name cannot be empty.'
+            raise RuntimeError(estr)
         self._name = name.strip()
-
-    def sanity(self) -> None:
-        pass
 
 
 class CLIConfiguration:
@@ -126,12 +129,11 @@ def name(n: Optional[str] = None) -> Optional[str]:
     '''
     if n is None:
         return _TheExperiment().name
-    elif not isinstance(n, str):
+    if not isinstance(n, str):
         es = F'{__name__}.name() expects a string.'
-        raise RuntimeError(es)
-    else:
-        _TheExperiment().name = n
-        return None
+        raise ValueError(es)
+    _TheExperiment().name = n
+    return None
 
 
 def generate(spec: str, *args: Any) -> List[str]:
@@ -194,8 +196,8 @@ def readgs(gs: str, config: Optional[CLIConfiguration] = None) -> str:
 
 
 def parsedargs(
-    argprsr: argparse.ArgumentParser,
-    argv: List[str]
+        argprsr: argparse.ArgumentParser,
+        argv: List[str]
 ) -> argparse.Namespace:
     '''
     TODO(skg) add a proper description.
@@ -255,17 +257,17 @@ def runcmds(start: int, stop: int, spec: str, nfun: str) -> List[str]:
     nvars = _nfun_nvar(nfun, vidx_res)
     # We didn't find at least one variable.
     if nvars == 0:
-        es = F'{__name__}.{fname} syntax error: ' \
-              'At least one variable must be present. ' \
-             F'nidx was not found in the following expression:\n{nfun}'
-        raise SyntaxError(es)
+        estr = F'{__name__}.{fname} syntax error: ' \
+               'At least one variable must be present. ' \
+               F'nidx was not found in the following expression:\n{nfun}'
+        raise SyntaxError(estr)
     # Generate the requisite values.
     ns = list()
     nidx = start
     regex = re.compile(vidx_res, flags=re.X)
-    while(True):
+    while True:
         n = mathex.evaluate(regex.sub(str(nidx), nfun))
-        if (n > stop):
+        if n > stop:
             break
         ns.append(n)
         nidx += 1
