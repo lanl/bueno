@@ -10,6 +10,13 @@
 The build service module.
 '''
 
+from typing import (
+    List
+)
+
+import os
+import sys
+
 from bueno.core import service
 
 from bueno.build import builder
@@ -19,19 +26,12 @@ from bueno.public import logger
 from bueno.public import metadata
 from bueno.public import utils
 
-from typing import (
-    List
-)
 
-import os
-import sys
-
-
-class impl(service.Base):
+class impl(service.Base):  # pylint: disable=C0103,R0903
     '''
     Implements the build service.
     '''
-    class _defaults:
+    class _defaults:  # pylint: disable=R0903
         '''
         Convenience container for build service defaults.
         '''
@@ -43,6 +43,20 @@ class impl(service.Base):
 
     def __init__(self, argv: List[str]) -> None:
         super().__init__(impl._defaults.desc, argv)
+
+    @property
+    def ibuilder(self) -> builder.Base:
+        '''
+        Returns image builder.
+        '''
+        return self._ibuilder
+
+    @ibuilder.setter
+    def ibuilder(self, bldr: 'builder.Base') -> None:
+        '''
+        Sets image builder.
+        '''
+        self._ibuilder = bldr
 
     def _addargs(self) -> None:
         self.argp.add_argument(
@@ -94,7 +108,7 @@ class impl(service.Base):
         self._populate_service_config()
         self._populate_sys_config()
 
-    # TODO(skg) Add more configuration info.
+    # TODO(skg) Add more configuration info. pylint: disable=W0511
     def _emit_config(self) -> None:
         # First build up the dictionary containing the configuration used.
         self._populate_config()
@@ -104,8 +118,8 @@ class impl(service.Base):
         utils.yamlp(self.confd, self.prog)
 
     def _do_build(self) -> None:
-        self.builder = builder.Factory.build(**vars(self.args))
-        self.builder.start()
+        self.ibuilder = builder.Factory.build(**vars(self.args))
+        self.ibuilder.start()
 
     def start(self) -> None:
         logger.emlog('# Starting {} at {}'.format(self.prog, utils.nows()))
@@ -119,11 +133,11 @@ class impl(service.Base):
 
             logger.log('# {} Time {}'.format(self.prog, etime - stime))
             logger.log('# {} Done {}'.format(self.prog, utils.nows()))
-        except Exception as e:
+        except Exception as exception:
             estr = utils.ehorf()
             estr += 'What: {} error encountered.\n' \
-                    'Why:  {}'.format(self.prog, e)
+                'Why:  {}'.format(self.prog, exception)
             estr += utils.ehorf()
-            raise type(e)(estr)
+            raise type(exception)(estr)
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

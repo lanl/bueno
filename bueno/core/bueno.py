@@ -81,8 +81,10 @@ class ArgumentParser:  # pylint: disable=R0903
             setattr(namespace, self.dest, values)
 
     def parse(self) -> argparse.Namespace:
+        '''
+        Parses and returns an argparse.Namespace.
+        '''
         self._addargs()
-
         return self.argp.parse_args()
 
 
@@ -95,10 +97,13 @@ class Bueno:  # pylint: disable=R0903
 
     @staticmethod
     def main(pargs: argparse.Namespace) -> int:
+        '''
+        Instantiates and runs a bueno service.
+        '''
         try:
             Bueno(pargs)
-        except Exception as e:
-            print(e)
+        except Exception as exptn:  # pylint: disable=W0703
+            print(exptn)
             if pargs.traceback:
                 traceback.print_exc()
             return os.EX_SOFTWARE
@@ -106,6 +111,9 @@ class Bueno:  # pylint: disable=R0903
 
 
 def main() -> int:
+    '''
+    bueno's main().
+    '''
     if utils.privileged_user():
         ers = '\nRunning this program as root is a bad idea... Exiting now.\n'
         sys.exit(ers)
