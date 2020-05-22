@@ -116,8 +116,8 @@ class impl(builder.Base):  # pylint: disable=R0903,C0103
         # value will be used in later file operations (let them fail).
         basep = lst[0]
         # Now build up the entire image path. The convention appears to be:
-        # basep/img/tag:latest
-        specn = '{}:latest'.format(self.config['tag'])
+        # basep/img/tag
+        specn = '{}'.format(self.config['tag'])
         return os.path.join(basep, 'img', specn)
 
     def _add_metadata(self) -> None:
