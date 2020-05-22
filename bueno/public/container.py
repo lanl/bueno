@@ -10,11 +10,7 @@
 Public container activation interfaces.
 '''
 
-from bueno.core import cntrimg
-from bueno.core import metacls
-
-from bueno.public import host
-from bueno.public import utils
+import os
 
 from typing import (
     Any,
@@ -23,7 +19,11 @@ from typing import (
     Union
 )
 
-import os
+from bueno.core import cntrimg
+from bueno.core import metacls
+
+from bueno.public import host
+from bueno.public import utils
 
 # Type aliases.
 StagingHookCb = Callable[[], str]
@@ -31,11 +31,11 @@ ActionCb = Union[Callable[..., None], None]
 
 
 def _runi(
-    cmds: List[str],
-    echo: bool = True,
-    preaction: ActionCb = None,
-    postaction: ActionCb = None,
-    user_data: Any = None
+        cmds: List[str],
+        echo: bool = True,
+        preaction: ActionCb = None,
+        postaction: ActionCb = None,
+        user_data: Any = None
 ) -> None:
     '''
     Private run dispatch.
@@ -66,11 +66,11 @@ def _runi(
 
 
 def run(
-    cmd: str,
-    echo: bool = True,
-    preaction: Any = None,
-    postaction: Any = None,
-    user_data: Any = None
+        cmd: str,
+        echo: bool = True,
+        preaction: Any = None,
+        postaction: Any = None,
+        user_data: Any = None
 ) -> None:
     '''
     Runs the given command string from within a container.  Optionally calls
@@ -86,13 +86,13 @@ def run(
     _runi(**args)
 
 
-def prun(
-    pexec: str,
-    cmd: str,
-    echo: bool = True,
-    preaction: Any = None,
-    postaction: Any = None,
-    user_data: Any = None
+def prun(   # pylint: disable=R0913
+        pexec: str,
+        cmd: str,
+        echo: bool = True,
+        preaction: Any = None,
+        postaction: Any = None,
+        user_data: Any = None
 ) -> None:
     '''
     Executes the given parallel run command string from within a container.

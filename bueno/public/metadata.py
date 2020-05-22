@@ -10,11 +10,10 @@
 Core metadata types.
 '''
 
-from bueno.core import constants
-from bueno.core import metacls
-
-from bueno.public import logger
-from bueno.public import utils
+import copy
+import io
+import os
+import shutil
 
 from abc import ABC, abstractmethod
 
@@ -25,25 +24,26 @@ from typing import (
     Union
 )
 
-import copy
-import io
-import os
-import shutil
+from bueno.core import constants
+from bueno.core import metacls
+
+from bueno.public import logger
+from bueno.public import utils
 
 
-class BaseAsset(ABC):
+class BaseAsset(ABC):  # pylint: disable=R0903
     '''
     Abstract base metadata asset class.
     '''
-    def __init__(self) -> None:
-        super().__init__()
-
     @abstractmethod
     def write(self, basep: str) -> None:
-        pass
+        '''
+        Abstract method used to write the contents of a derived class to a
+        location rooted at the specified base path.
+        '''
 
 
-class FileAsset(BaseAsset):
+class FileAsset(BaseAsset):  # pylint: disable=R0903
     '''
     File asset.
     '''
@@ -66,7 +66,7 @@ class FileAsset(BaseAsset):
         shutil.copy2(self.srcf, opath)
 
 
-class StringIOAsset(BaseAsset):
+class StringIOAsset(BaseAsset):  # pylint: disable=R0903
     '''
     StringIO asset.
     '''
@@ -77,9 +77,9 @@ class StringIOAsset(BaseAsset):
             subd: Union[str, None] = None
     ):
         super().__init__()
-        # XXX(skg): Are there any file-descriptor-like structures that cannot
-        # be safely copied here? The print() in write() should make a copy of
-        # the data, so maybe that's enough?
+        # XXX(skg): Are there any file-descriptor-like pylint: disable=W0511
+        # structures that cannot be safely copied here? The print() in write()
+        # should make a copy of the data, so maybe that's enough?
         # The StringIO instance of which we are storing its contents.
         self.srcios = copy.deepcopy(srcios)
         # The name used to store the contents of the provided StringIO instance.
@@ -93,8 +93,8 @@ class StringIOAsset(BaseAsset):
             realbasep = os.path.join(basep, self.subd)
             os.makedirs(realbasep, 0o755, exist_ok=True)
         opath = os.path.join(realbasep, self.fname)
-        with open(opath, mode='w') as f:
-            print(self.srcios.getvalue(), file=f, end='')
+        with open(opath, mode='w') as file:
+            print(self.srcios.getvalue(), file=file, end='')
 
 
 class YAMLDictAsset(BaseAsset):
@@ -110,10 +110,16 @@ class YAMLDictAsset(BaseAsset):
 
     @property
     def fname(self) -> str:
+        '''
+        Returns the output file name.
+        '''
         return self._fname
 
     @fname.setter
     def fname(self, name: str) -> None:
+        '''
+        Sets the output file name.
+        '''
         yamlex = '.yaml'
         if not name.endswith(yamlex):
             self._fname = name + yamlex
@@ -121,12 +127,16 @@ class YAMLDictAsset(BaseAsset):
             self._fname = name
 
     def write(self, basep: str) -> None:
+        '''
+        Writes the contents of the YAMLDictAsset to a file rooted at the
+        specified path.
+        '''
         target = os.path.join(basep, self._fname)
         with open(target, 'w+') as file:
             file.write(utils.yamls(self.ydict))
 
 
-class LoggerAsset(BaseAsset):
+class LoggerAsset(BaseAsset):  # pylint: disable=R0903
     '''
     bueno logger asset.
     '''
@@ -140,23 +150,36 @@ class LoggerAsset(BaseAsset):
 
 class _MetaData:
     def __init__(self, basep: str) -> None:
-        # The base path where all metadata are stored.
+        # The base path where metadata are stored.
         self._basep = basep
         os.makedirs(self.basep, 0o755, exist_ok=True)
 
     def write(self) -> None:
-        self._add_default_assets()
+        '''
+        Writes out all the metadata assets.
+        '''
+        _MetaData._add_default_assets()
         _Assets().write(self.basep)
 
-    def _add_default_assets(self) -> None:
+    @staticmethod
+    def _add_default_assets() -> None:
+        '''
+        Adds default metadata assets to _Assets collection.
+        '''
         _Assets().add(LoggerAsset())
 
     @property
     def basep(self) -> str:
+        '''
+        Returns the base path where metadata are stored.
+        '''
         return self._basep
 
     @basep.setter
     def basep(self, basep: str) -> None:
+        '''
+        Sets the base path where metadata are stored.
+        '''
         self._basep = basep
 
 
@@ -184,8 +207,8 @@ class _Assets(metaclass=metacls.Singleton):
         Writes metadata contained in assets.
         '''
         logger.log(F'# Writing Metadata Assets at {utils.nows()}')
-        for a in self.assets:
-            a.write(basep)
+        for asset in self.assets:
+            asset.write(basep)
 
 
 def write(basep: str) -> None:

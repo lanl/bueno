@@ -10,29 +10,30 @@
 The good stuff typically called by __main__.
 '''
 
-from bueno import _version
-
-from bueno.core import service
-from bueno.core import utils
-
 import argparse
 import os
 import sys
 import traceback
 import typing
 
+from bueno import _version
 
-class ArgumentParser:
+from bueno.core import service
+from bueno.core import utils
+
+
+class ArgumentParser:  # pylint: disable=R0903
     '''
     bueno's argument parser.
     '''
     def __init__(self) -> None:
         self.argp = argparse.ArgumentParser(
-            description=self._desc(),
+            description=ArgumentParser._desc(),
             allow_abbrev=False
         )
 
-    def _desc(self) -> str:
+    @staticmethod
+    def _desc() -> str:
         '''
         Returns the description string for bueno.
         '''
@@ -63,7 +64,7 @@ class ArgumentParser:
             action=ArgumentParser.CommandAction
         )
 
-    class CommandAction(argparse.Action):
+    class CommandAction(argparse.Action):  # pylint: disable=R0903
         '''
         Custom action class used for 'command' argument structure verification.
         '''
@@ -74,9 +75,9 @@ class ArgumentParser:
         @typing.no_type_check
         def __call__(self, parser, namespace, values, option_string=None):
             if len(values) == 0:
-                help = '{} requires one positional argument (none provided).'
+                helps = '{} requires one positional argument (none provided).'
                 parser.print_help()
-                parser.error(help.format('bueno'))
+                parser.error(helps.format('bueno'))
             setattr(namespace, self.dest, values)
 
     def parse(self) -> argparse.Namespace:
@@ -85,7 +86,7 @@ class ArgumentParser:
         return self.argp.parse_args()
 
 
-class Bueno:
+class Bueno:  # pylint: disable=R0903
     '''
     Implements the bueno service dispatch system.
     '''

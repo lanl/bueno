@@ -10,11 +10,6 @@
 Core container image infrastructure.
 '''
 
-from bueno.core import constants
-from bueno.core import metacls
-
-from bueno.public import host
-
 from abc import ABC, abstractmethod
 from typing import (
     List,
@@ -22,6 +17,11 @@ from typing import (
 )
 
 import os
+
+from bueno.core import constants
+from bueno.core import metacls
+
+from bueno.public import host
 
 
 class BaseImageActivator(ABC):
@@ -45,21 +45,19 @@ class BaseImageActivator(ABC):
         Sets the image path used for container image activation. RuntimeError is
         raised if an invalid path is provided.
         '''
-        pass
 
     @abstractmethod
     def run(
-        self,
-        cmds: List[str],
-        echo: bool = True,
-        capture: bool = False,
-        verbose: bool = True
+            self,
+            cmds: List[str],
+            echo: bool = True,
+            capture: bool = False,
+            verbose: bool = True
     ) -> List[str]:
         '''
         Runs the specified command in a container. By default the executed
         command is emitted echoed before its execution.
         '''
-        pass
 
     @abstractmethod
     def requires_img_activation(self) -> bool:
@@ -67,7 +65,6 @@ class BaseImageActivator(ABC):
         Returns whether or not the image activator instance requires image
         activation.
         '''
-        pass
 
     @abstractmethod
     def tar2dirs(self, src: str, dst: str) -> str:
@@ -75,22 +72,24 @@ class BaseImageActivator(ABC):
         Returns a command string capable of extracting the contents of the
         provided source tarball to the provided base destination.
         '''
-        pass
 
 
-class Activator(metaclass=metacls.Singleton):
+class Activator(metaclass=metacls.Singleton):  # pylint: disable=R0903
     '''
     Image activator singleton.
     '''
     def __init__(self, imgactvtr: Optional[BaseImageActivator] = None) -> None:
-        # XXX(skg): I know this is silly, but this form makes the type checker
-        # happy. Perhaps we should rethink and refactor this and surrounding
-        # code.
+        # XXX(skg): I know this is silly, but this form # pylint: disable=W0511
+        # makes the type checker happy. Perhaps we should rethink and refactor
+        # this and surrounding code.
         if imgactvtr is not None:
             self.imgactvtr = imgactvtr
 
     @property
     def impl(self) -> BaseImageActivator:
+        '''
+        Returns the image activator implementation (instance).
+        '''
         return self.imgactvtr
 
 
@@ -128,6 +127,10 @@ class ImageActivatorFactory:
 
     @staticmethod
     def build(activator_name: str) -> None:
+        '''
+        Builds an image activator based on the provided activator name. If an
+        unrecognized name is provided, a RuntimeError is raised.
+        '''
         try:
             aidx = ImageActivatorFactory.available().index(activator_name)
         except Exception:
@@ -153,15 +156,15 @@ class CharlieCloudImageActivator(BaseImageActivator):
             raise RuntimeError(errs)
 
     def run(
-        self,
-        cmds: List[str],
-        echo: bool = True,
-        capture: bool = False,
-        verbose: bool = True
+            self,
+            cmds: List[str],
+            echo: bool = True,
+            capture: bool = False,
+            verbose: bool = True
     ) -> List[str]:
         # Charliecloud activation command string.
-        cc = F'{self.runcmd} {self.get_img_path()}'
-        bm = F'{constants.BASH_MAGIC}'
+        ccrc = F'{self.runcmd} {self.get_img_path()}'
+        bmgc = F'{constants.BASH_MAGIC}'
         # First command.
         cmdf = cmds[0]
         # The rest of the commands.
@@ -169,9 +172,9 @@ class CharlieCloudImageActivator(BaseImageActivator):
         # Are multiple command strings provided?
         multicmd = len(cmds) > 1
         # Default command string if a single command is provided.
-        cmdstr = F'{cc} -- {bm} {cmdf}'
+        cmdstr = F'{ccrc} -- {bmgc} {cmdf}'
         if multicmd:
-            cmdstr = F'{cmdf} {cc} --join -- {bm} {cmdr}'
+            cmdstr = F'{cmdf} {ccrc} --join -- {bmgc} {cmdr}'
         runargs = {
             'verbatim': True,
             'echo': echo,
@@ -198,15 +201,12 @@ class NoneImageActivator(BaseImageActivator):
     '''
     The non-image-activator activator. Just a passthrough to the host's shell.
     '''
-    def __init__(self) -> None:
-        super().__init__()
-
     def run(
-        self,
-        cmds: List[str],
-        echo: bool = True,
-        capture: bool = False,
-        verbose: bool = True
+            self,
+            cmds: List[str],
+            echo: bool = True,
+            capture: bool = False,
+            verbose: bool = True
     ) -> List[str]:
         # Note that we use this strategy instead of just running the
         # provided command so that quoting and escape requirements are

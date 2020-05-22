@@ -10,6 +10,18 @@
 The run service module.
 '''
 
+import argparse
+import copy
+import importlib.util
+import os
+import sys
+import tarfile
+import typing
+
+from typing import (
+    List
+)
+
 from bueno.core import cntrimg
 from bueno.core import constants
 from bueno.core import service
@@ -20,18 +32,6 @@ from bueno.public import host
 from bueno.public import logger
 from bueno.public import metadata
 from bueno.public import utils
-
-from typing import (
-    List
-)
-
-import argparse
-import copy
-import importlib.util
-import os
-import sys
-import tarfile
-import typing
 
 
 class _Runner:

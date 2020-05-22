@@ -10,14 +10,14 @@
 Mathematical expression evaluation module.
 '''
 
-from bueno.core import metacls
-
 import ast
 import operator
 import typing
 
+from bueno.core import metacls
 
-class _TheCalculator(metaclass=metacls.Singleton):
+
+class _TheCalculator(metaclass=metacls.Singleton):  # pylint: disable=R0903
     '''
     Private class that is responsible for all the heavy lifting behind
     evaluate().
@@ -53,36 +53,41 @@ class _TheCalculator(metaclass=metacls.Singleton):
     def _eval(self, node):
         if isinstance(node, ast.Expression):
             return self._eval(node.body)
-        elif isinstance(node, ast.Num):
+        if isinstance(node, ast.Num):
             return node.n
-        elif isinstance(node, ast.UnaryOp):
+        if isinstance(node, ast.UnaryOp):
             nodeop_type = type(node.op)
             nodeop_op = self.uni_ops.get(nodeop_type, None)
             if nodeop_op is None:
                 msg = 'Unexpected operator'
                 raise SyntaxError(self._nice_syntax_error_msg(msg, node))
             return nodeop_op(self._eval(node.operand))
-        elif isinstance(node, ast.BinOp):
+        if isinstance(node, ast.BinOp):
             nodeop_type = type(node.op)
             nodeop_op = self.bin_ops.get(nodeop_type, None)
             if nodeop_op is None:
                 msg = 'Unexpected operator'
                 raise SyntaxError(self._nice_syntax_error_msg(msg, node))
             return nodeop_op(self._eval(node.left), self._eval(node.right))
-        else:
-            msg = 'An error occurred while evaluating the following expression'
-            raise SyntaxError(self._nice_syntax_error_msg(msg, node))
+        msg = 'An error occurred while evaluating the following expression'
+        raise SyntaxError(self._nice_syntax_error_msg(msg, node))
 
-    def evaluate(self, s: str) -> int:
-        self.input = s
-        node = ast.parse(s, mode='eval')
+    def evaluate(self, estr: str) -> int:
+        '''
+        Attempts to evaluate the provided expression. Returns the value yielded
+        by the provided arithmetic expression cast to an integer.  If the
+        provided expression is malformed, then an exception is raised.
+        '''
+        self.input = estr
+        node = ast.parse(estr, mode='eval')
         return int(self._eval(node))
 
 
 def evaluate(expr: str) -> int:
     '''
-    Evaluates the given string arithmetic and returns its result cast to an int.
-    If the provided expression is malformed, then an exception is raised.
+    Evaluates the given arithmetic expression and returns its result cast to an
+    integer.  If the provided expression is malformed, then an exception is
+    raised.
     '''
     return _TheCalculator().evaluate(expr)
 

@@ -25,7 +25,7 @@ import argparse
 import importlib
 
 
-class Base(ABC):
+class Base(ABC):  # pylint: disable=R0903
     '''
     Abstract base class of all bueno services.
     '''
@@ -42,7 +42,7 @@ class Base(ABC):
                         prog=self.prog,
                         description=self.desc,
                         allow_abbrev=False
-                    )
+                        )
         # The arguments obtained after _parseargs().
         self.args: argparse.Namespace
         # Dictionary used to hold service configuration.
@@ -56,14 +56,12 @@ class Base(ABC):
         '''
         Hook that allows concrete instances to add service-specific arguments.
         '''
-        pass
 
     @abstractmethod
     def start(self) -> None:
         '''
         Starts the service. Akin to a service main().
         '''
-        pass
 
     def _parseargs(self) -> None:
         '''

@@ -20,7 +20,7 @@ from typing import (
 import importlib
 
 
-class Base(ABC):
+class Base(ABC):  # pylint: disable=R0903
     '''
     Abstract base class of all builders.
     '''
@@ -34,7 +34,6 @@ class Base(ABC):
         '''
         Starts the builder. Akin to a builder main().
         '''
-        pass
 
 
 class Factory:

@@ -32,7 +32,7 @@ from bueno.public import logger
 from bueno.public import utils
 
 
-class _TheExperiment(metaclass=metacls.Singleton):
+class _TheExperiment(metaclass=metacls.Singleton):  # pylint: disable=R0903
     '''
     The experiment singleton that encapsulates experiment information.
     '''
@@ -245,7 +245,8 @@ def runcmds(start: int, stop: int, spec: str, nfun: str) -> List[str]:
     - spec: The run specification template having the following variables:
     -   %n: The number of processes to run.
     '''
-    # XXX(skg) I wish we could use something like __name__ for this...
+    # XXX(skg) I wish we could use something like pylint: disable=W0511
+    # __name__ for this...
     fname = 'runcmds'
     # Regex string used to find variables in nfun expressions.
     vidx_res = '''\

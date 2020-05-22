@@ -10,9 +10,8 @@
 Utilities for good.
 '''
 
-from bueno.public import logger
-
 from datetime import datetime
+
 from typing import (
     Any,
     List,
@@ -21,8 +20,10 @@ from typing import (
 
 import yaml
 
+from bueno.public import logger
 
-def cat(file: str) -> List[str]:
+
+def cat(filep: str) -> List[str]:
     '''
     Akin to cat(1), but returns a list of strings containing the contents of the
     provided file.
@@ -31,7 +32,7 @@ def cat(file: str) -> List[str]:
     '''
     lines: List[str] = list()
 
-    with open(file, 'r') as file:  # type: ignore
+    with open(filep, 'r') as file:
         for line in file:
             lines.append(line)
 
@@ -69,28 +70,28 @@ def dates() -> str:
     return now().strftime('%Y-%m-%d')
 
 
-def chomp(s: str) -> str:
+def chomp(istr: str) -> str:
     '''
     Returns a string without trailing newline characters.
     '''
-    return s.rstrip()
+    return istr.rstrip()
 
 
-def yamls(d: Any) -> str:
+def yamls(idict: Any) -> str:
     '''
     Returns YAML string from the provided dictionary.
     '''
-    return chomp(yaml.dump(d, default_flow_style=False))
+    return chomp(yaml.dump(idict, default_flow_style=False))
 
 
-def yamlp(d: Any, label: Union[None, str] = None) -> None:
+def yamlp(idict: Any, label: Union[None, str] = None) -> None:
     '''
     Emits YAML output from the provided dictionary.
     '''
     if not emptystr(label):
         logger.log(F'# Begin {label} Configuration (YAML)')
 
-    logger.log(yamls(d))
+    logger.log(yamls(idict))
 
     if not emptystr(label):
         logger.log(F'# End {label} Configuration (YAML)')
@@ -103,32 +104,44 @@ def ehorf() -> str:
     return '\n>>!<<\n'
 
 
-def emptystr(s: Union[str, None]) -> bool:
+def emptystr(istr: Union[str, None]) -> bool:
     '''
     Returns True if the provided string is not empty; False otherwise.
     '''
-    return not (s and s.strip())
+    return not (istr and istr.strip())
 
 
 class Table:
-    class Row():
+    '''
+    A straightforward class to display formatted tabular data.
+    '''
+    class Row():  # pylint: disable=R0903
+        '''
+        Creates a row for use in a table.
+        '''
         def __init__(self, data: List[Any], withrule: bool = False) -> None:
             self.data = data
             self.withrule = withrule
 
-    class RowFormatter():
+    class _RowFormatter():  # pylint: disable=R0903
+        '''
+        Private class used for row formatting.
+        '''
         def __init__(self, mcls: List[int]) -> None:
             self.colpad = 2
             self.mcls = list(map(lambda x: x + self.colpad, mcls))
             self.fmts = str()
             # Generate format string based on max column lengths.
-            for l in self.mcls:
-                self.fmts += F'{{:<{l}s}}'
+            for mcl in self.mcls:
+                self.fmts += F'{{:<{mcl}s}}'
 
         def format(self, row: 'Table.Row') -> str:
+            '''
+            Formats the contents of a given row into a nice output string.
+            '''
             res = str()
             res += self.fmts.format(*row.data)
-            if (row.withrule):
+            if row.withrule:
                 res += '\n' + ('-' * (sum(self.mcls) - self.colpad))
             return res
 
@@ -137,7 +150,10 @@ class Table:
         self.maxcollens: List[Any] = list()
 
     def addrow(self, row: List[Any], withrule: bool = False) -> None:
-        if (len(self.rows) == 0):
+        '''
+        Adds the contents of row to a table, optionally with a rule.
+        '''
+        if len(self.rows) == 0:
             ncols = len(row)
             self.maxcollens = [0] * ncols
 
@@ -148,8 +164,11 @@ class Table:
         self.rows.append(Table.Row(srow, withrule))
 
     def emit(self) -> None:
-        rf = Table.RowFormatter(self.maxcollens)
-        for r in self.rows:
-            logger.log(rf.format(r))
+        '''
+        Emits the contents of the table using logger.log().
+        '''
+        rowf = Table._RowFormatter(self.maxcollens)
+        for row in self.rows:
+            logger.log(rowf.format(row))
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

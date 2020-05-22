@@ -10,6 +10,12 @@
 The CharlieCloud container builder.
 '''
 
+from typing import (
+    Any
+)
+
+import os
+
 from bueno.build import builder
 
 from bueno.core import constants
@@ -19,14 +25,8 @@ from bueno.public import logger
 from bueno.public import metadata
 from bueno.public import utils
 
-from typing import (
-    Any
-)
 
-import os
-
-
-class impl(builder.Base):
+class impl(builder.Base):  # pylint: disable=R0903,C0103
     '''
     Implements the CharlieCloud container builder.
     '''
@@ -46,7 +46,7 @@ class impl(builder.Base):
         # /home/user/Dockerfile.custom.
         ospec = self.config['spec']
 
-        if (not os.path.isfile(ospec)):
+        if not os.path.isfile(ospec):
             emsg = F'Invalid build specification file provided: {ospec}'
             raise ValueError(emsg)
 
