@@ -84,7 +84,7 @@ class _ImageStager():
                                'Cannot determine target destination after '
                                'container image staging.')
         # Return the file name without whatever file extension it once had.
-        return fname.rstrip(fex[0])
+        return fname[:-len(fex[0])]
 
     def stage(self, imgp: str) -> str:
         stage_cmd = F'{self._prun_generate()} ' \
