@@ -76,29 +76,52 @@ class CLIConfiguration:
 
     @property
     def description(self) -> str:
+        '''
+        Returns the desription used to initialize the encapsulated
+        ArgumentParser.
+        '''
         return self._desc
 
     @property
     def argv(self) -> List[str]:
+        '''
+        Returns the argument list used during instance initialization.
+        '''
         return self._argv
 
     @property
     def program(self) -> str:
+        '''
+        Returns the basename of argv[0], i.e., the program name.
+        '''
         return self._prog
 
     @property
     def argparser(self) -> argparse.ArgumentParser:
+        '''
+        Returns the internal ArgumentParser instance.
+        '''
         return self._argprsr
 
     @property
     def args(self) -> argparse.Namespace:
+        '''
+        Returns the ArgumentParser Namespace acquired after argument parsing.
+        '''
         return self._args
 
     @abstractmethod
     def addargs(self) -> None:
-        pass
+        '''
+        Abstract method that shall be used by derived classes to add a custom
+        collection of arguments via self.argparser.add_argument(), for example.
+        CLIConfiguration will call this function at the appropriate time.
+        '''
 
     def parseargs(self) -> argparse.Namespace:
+        '''
+        Thin abstraction around argparser.parse_args().
+        '''
         return self.argparser.parse_args(self.argv[1:])
 
     def update(self, confns: argparse.Namespace) -> None:
@@ -115,24 +138,24 @@ class CLIConfiguration:
         # - pcags will overwrite any. This allows the setting of values
         # through a configuration file, while also allowing the ability to
         # overwrite those at run-time through parameters passed to the cli.
-        for k, v in argsd.items():
-            if confd[k] is not None:
-                argsd[k] = confd[k]
-            if pcags[k] is not None:
-                argsd[k] = pcags[k]
+        for key, _ in argsd.items():
+            if confd[key] is not None:
+                argsd[key] = confd[key]
+            if pcags[key] is not None:
+                argsd[key] = pcags[key]
 
 
-def name(n: Optional[str] = None) -> Optional[str]:
+def name(ename: Optional[str] = None) -> Optional[str]:
     '''
     Experiment name getter/setter. If a name string is provided, then it acts as
     a setter, acting as a getter otherwise.
     '''
-    if n is None:
+    if ename is None:
         return _TheExperiment().name
-    if not isinstance(n, str):
-        es = F'{__name__}.name() expects a string.'
-        raise ValueError(es)
-    _TheExperiment().name = n
+    if not isinstance(ename, str):
+        estr = F'{__name__}.name() expects a string.'
+        raise ValueError(estr)
+    _TheExperiment().name = ename
     return None
 
 
@@ -143,15 +166,15 @@ def generate(spec: str, *args: Any) -> List[str]:
     generated from the provided specification and corresponding inputs.
     '''
     if not isinstance(spec, str):
-        es = F'{__name__}.generate() expects a string specification.'
-        raise ValueError(es)
+        estr = F'{__name__}.generate() expects a string specification.'
+        raise ValueError(estr)
 
     argg = zip(* args)
 
     return [spec.format(*a) for a in argg]
 
 
-def readgs(gs: str, config: Optional[CLIConfiguration] = None) -> str:
+def readgs(gspath: str, config: Optional[CLIConfiguration] = None) -> str:
     '''
     A convenience routine for reading generate specification files.
 
@@ -161,34 +184,34 @@ def readgs(gs: str, config: Optional[CLIConfiguration] = None) -> str:
     # -a/--aarg [ARG_PARAMS] -b/--bargs [ARG PARAMS]
     # -c/--carg [ARG PARAMS] [positional arguments]
     '''
-    logger.emlog(F'# Reading Generate Specification File: {gs}')
+    logger.emlog(F'# Reading Generate Specification File: {gspath}')
     # Emit contents of gs file.
     logger.log('# Begin Generate Specification')
-    logger.log(utils.chomp(str().join(utils.cat(gs))))
+    logger.log(utils.chomp(str().join(utils.cat(gspath))))
     logger.log('# End Generate Specification\n')
 
     gsstr = str()
-    with open(gs) as f:
+    with open(gspath) as file:
         argv = list()
-        lines = [x.strip() for x in f.readlines()]
-        for l in lines:
+        lines = [x.strip() for x in file.readlines()]
+        for line in lines:
             # Interpret as special comment used to specify run-time arguments.
-            if l.startswith('# -'):
+            if line.startswith('# -'):
                 # Add to argument list.
                 if config is not None:
-                    argv.extend(shlex.split(l.lstrip('# ')))
+                    argv.extend(shlex.split(line.lstrip('# ')))
             # Skip comments.
-            elif l.startswith('#'):
+            elif line.startswith('#'):
                 continue
             # Not a comment; append line to generate specification string.
             else:
-                gsstr += l
+                gsstr += line
         # Parse arguments if provided an argument parser.
         gsargs = None
         if config is not None:
             if not isinstance(config, CLIConfiguration):
-                es = F'{__name__} expects an instance of CLIConfiguration'
-                raise ValueError(es)
+                estr = F'{__name__} expects an instance of CLIConfiguration'
+                raise ValueError(estr)
             gsargs = parsedargs(config.argparser, argv)
             config.update(gsargs)
 
@@ -247,11 +270,13 @@ def runcmds(start: int, stop: int, spec: str, nfun: str) -> List[str]:
 
     # Make sure that the provided start and stop values make sense.
     if start < 0 or stop < 0:
-        es = F'{__name__}.{fname} start and stop must both be positive values.'
-        raise ValueError(es)
+        estr = F'{__name__}.{fname} start and ' \
+               'stop must both be positive values.'
+        raise ValueError(estr)
     if start > stop:
-        es = F'{__name__}.{fname} value error: start cannot be less than stop.'
-        raise ValueError(es)
+        estr = F'{__name__}.{fname} value error: ' \
+               'start cannot be less than stop.'
+        raise ValueError(estr)
     # Find all variables in the provided function specification string. Also
     # enforce that *at least one* variable is provided.
     nvars = _nfun_nvar(nfun, vidx_res)
