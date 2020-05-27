@@ -11,10 +11,12 @@ Public experiment utilities for good.
 '''
 
 import argparse
+import ast
 import copy
 import os
 import re
 import shlex
+import typing
 
 from abc import abstractmethod
 
@@ -237,7 +239,71 @@ def parsedargs(
     return auxap.parse_args(argv)
 
 
-def runcmds(start: int, stop: int, spec: str, nfun: str) -> List[str]:
+class CLIArgsAddActions:
+    class RunCmdsAction(argparse.Action):
+        '''
+        Custom action class used for 'runcmds' argument handling.
+        '''
+        @typing.no_type_check
+        def __init__(self, option_strings, dest, nargs=None, **kwargs):
+            super().__init__(option_strings, dest, **kwargs)
+
+        @typing.no_type_check
+        def __call__(self, parser, namespace, values, option_string=None):
+            optt = ()
+            try:
+                optt = ast.literal_eval(values)
+            except ValueError:
+                help = F'{option_string} malformed input. ' \
+                        'An int, int, str, str tuple is excepted.'
+                parser.error(help)
+            nopts = len(optt)
+            if nopts != 4:
+                help = F'{option_string} requires a 4-tuple of values. ' \
+                       F'{nopts} values provided: {optt}.'
+                parser.error(help)
+            if not isinstance(optt[0], int):
+                help = F'{option_string}: The first value must be an int.'
+                parser.error(help)
+            if not isinstance(optt[1], int):
+                help = F'{option_string}: The second value must be an int.'
+                parser.error(help)
+            if not isinstance(optt[2], str):
+                help = F'{option_string}: The third value must be a string.'
+                parser.error(help)
+            if not isinstance(optt[3], str):
+                help = F'{option_string}: The fourth value must be a string.'
+                parser.error(help)
+            setattr(namespace, self.dest, optt)
+
+
+def cli_args_add_runcmds_options(
+        clic: CLIConfiguration,
+        opt_required: bool = False,
+        opt_default: str = ''
+) -> argparse.Action:
+    '''
+    Adds parser options to the given CLIConfiguration instance for handling
+    runcmds input. Adds --runcmds and a custom action to parse its input.
+    '''
+    return clic.argparser.add_argument(
+        '--runcmds',
+        type=str,
+        metavar='4TUP',
+        help="Specifies the input 4-tuple used to generate run commands. "
+             "For example, \"0, 16, 'srun -n %%n', 'nidx + 1'\"",
+        required=opt_required,
+        default=opt_default,
+        action=CLIArgsAddActions.RunCmdsAction
+    )
+
+
+def runcmds(
+        start: int,
+        stop: int,
+        spec: str,
+        nfun: str
+) -> List[str]:
     '''
     TODO(skg) Add proper description.
     - start: The start index of nidx.
