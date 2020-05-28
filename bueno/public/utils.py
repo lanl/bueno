@@ -115,7 +115,7 @@ class Table:
     '''
     A straightforward class to display formatted tabular data.
     '''
-    class Row():  # pylint: disable=R0903
+    class Row():
         '''
         Creates a row for use in a table.
         '''
@@ -123,7 +123,7 @@ class Table:
             self.data = data
             self.withrule = withrule
 
-    class _RowFormatter():  # pylint: disable=R0903
+    class _RowFormatter():
         '''
         Private class used for row formatting.
         '''

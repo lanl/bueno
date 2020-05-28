@@ -74,7 +74,7 @@ class BaseImageActivator(ABC):
         '''
 
 
-class Activator(metaclass=metacls.Singleton):  # pylint: disable=R0903
+class Activator(metaclass=metacls.Singleton):
     '''
     Image activator singleton.
     '''

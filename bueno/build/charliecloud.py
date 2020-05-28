@@ -26,7 +26,7 @@ from bueno.public import metadata
 from bueno.public import utils
 
 
-class impl(builder.Base):  # pylint: disable=R0903,C0103
+class impl(builder.Base):  # pylint: disable=C0103
     '''
     Implements the CharlieCloud container builder.
     '''

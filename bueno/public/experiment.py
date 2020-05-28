@@ -34,7 +34,7 @@ from bueno.public import logger
 from bueno.public import utils
 
 
-class _TheExperiment(metaclass=metacls.Singleton):  # pylint: disable=R0903
+class _TheExperiment(metaclass=metacls.Singleton):
     '''
     The experiment singleton that encapsulates experiment information.
     '''
@@ -240,6 +240,9 @@ def parsedargs(
 
 
 class CLIArgsAddActions:
+    '''
+    Container class for custom argparse actions.
+    '''
     class RunCmdsAction(argparse.Action):
         '''
         Custom action class used for 'runcmds' argument handling.
@@ -254,26 +257,26 @@ class CLIArgsAddActions:
             try:
                 optt = ast.literal_eval(values)
             except ValueError:
-                help = F'{option_string} malformed input. ' \
+                helps = F'{option_string} malformed input. ' \
                         'An int, int, str, str tuple is excepted.'
-                parser.error(help)
+                parser.error(helps)
             nopts = len(optt)
             if nopts != 4:
-                help = F'{option_string} requires a 4-tuple of values. ' \
+                helps = F'{option_string} requires a 4-tuple of values. ' \
                        F'{nopts} values provided: {optt}.'
-                parser.error(help)
+                parser.error(helps)
             if not isinstance(optt[0], int):
-                help = F'{option_string}: The first value must be an int.'
-                parser.error(help)
+                helps = F'{option_string}: The first value must be an int.'
+                parser.error(helps)
             if not isinstance(optt[1], int):
-                help = F'{option_string}: The second value must be an int.'
-                parser.error(help)
+                helps = F'{option_string}: The second value must be an int.'
+                parser.error(helps)
             if not isinstance(optt[2], str):
-                help = F'{option_string}: The third value must be a string.'
-                parser.error(help)
+                helps = F'{option_string}: The third value must be a string.'
+                parser.error(helps)
             if not isinstance(optt[3], str):
-                help = F'{option_string}: The fourth value must be a string.'
-                parser.error(help)
+                helps = F'{option_string}: The fourth value must be a string.'
+                parser.error(helps)
             setattr(namespace, self.dest, optt)
 
 
@@ -325,13 +328,13 @@ def runcmds(
 
     def _nargs(line: str, res: str) -> int:
         nargs = 0
-        for m in re.finditer(res, line, flags=re.X):
+        for _ in re.finditer(res, line, flags=re.X):
             nargs += 1
         return nargs
 
-    def _nfun_nvar(s: str, res: str) -> int:
+    def _nfun_nvar(istr: str, res: str) -> int:
         nvars = 0
-        for m in re.finditer(res, s, flags=re.X):
+        for _ in re.finditer(res, istr, flags=re.X):
             nvars += 1
         return nvars
 
@@ -354,26 +357,26 @@ def runcmds(
                F'nidx was not found in the following expression:\n{nfun}'
         raise SyntaxError(estr)
     # Generate the requisite values.
-    ns = list()
+    nvals = list()
     nidx = start
     regex = re.compile(vidx_res, flags=re.X)
     while True:
-        n = mathex.evaluate(regex.sub(str(nidx), nfun))
-        if n > stop:
+        nval = mathex.evaluate(regex.sub(str(nidx), nfun))
+        if nval > stop:
             break
-        ns.append(n)
+        nvals.append(nval)
         nidx += 1
     # Now generate the run commands.
     # Regex string used to find %n variables in spec expressions.
     n_res = '%n'
     nargs = _nargs(spec, n_res)
     if nargs == 0:
-        ws = F'# WARNING: {n_res} not found in ' \
-             F'the following expression:\n# {spec}'
-        logger.emlog(ws)
+        wstr = F'# WARNING: {n_res} not found in ' \
+               F'the following expression:\n# {spec}'
+        logger.emlog(wstr)
     regex = re.compile(n_res)
     cmds = list()
-    for idx in ns:
+    for idx in nvals:
         cmds.append(regex.sub(str(idx), spec))
     return cmds
 

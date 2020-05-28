@@ -17,7 +17,7 @@ import typing
 from bueno.core import metacls
 
 
-class _TheCalculator(metaclass=metacls.Singleton):  # pylint: disable=R0903
+class _TheCalculator(metaclass=metacls.Singleton):
     '''
     Private class that is responsible for all the heavy lifting behind
     evaluate().

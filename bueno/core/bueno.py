@@ -22,7 +22,7 @@ from bueno.core import service
 from bueno.core import utils
 
 
-class ArgumentParser:  # pylint: disable=R0903
+class ArgumentParser:
     '''
     bueno's argument parser.
     '''
@@ -64,7 +64,7 @@ class ArgumentParser:  # pylint: disable=R0903
             action=ArgumentParser.CommandAction
         )
 
-    class CommandAction(argparse.Action):  # pylint: disable=R0903
+    class CommandAction(argparse.Action):
         '''
         Custom action class used for 'command' argument structure verification.
         '''
@@ -88,7 +88,7 @@ class ArgumentParser:  # pylint: disable=R0903
         return self.argp.parse_args()
 
 
-class Bueno:  # pylint: disable=R0903
+class Bueno:
     '''
     Implements the bueno service dispatch system.
     '''

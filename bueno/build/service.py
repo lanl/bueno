@@ -27,11 +27,11 @@ from bueno.public import metadata
 from bueno.public import utils
 
 
-class impl(service.Base):  # pylint: disable=C0103,R0903
+class impl(service.Base):  # pylint: disable=C0103
     '''
     Implements the build service.
     '''
-    class _defaults:  # pylint: disable=R0903
+    class _defaults:
         '''
         Convenience container for build service defaults.
         '''

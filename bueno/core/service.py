@@ -25,7 +25,7 @@ import argparse
 import importlib
 
 
-class Base(ABC):  # pylint: disable=R0903
+class Base(ABC):
     '''
     Abstract base class of all bueno services.
     '''
