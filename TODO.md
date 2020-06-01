@@ -1,4 +1,5 @@
 # TODO Items
+- Merge common run script code into an public, importable thing.
 - Add experiment host name setter/getter. Fixes potential back-end node naming
   problems.
 - Add compiler, etc. to build metadata.
