@@ -49,14 +49,14 @@ class _TheExperiment(metaclass=metacls.Singleton):
         return self._name
 
     @name.setter
-    def name(self, name: str) -> None:  # pylint: disable=W0621
+    def name(self, names: str) -> None:
         '''
         Sets the experiment's name.
         '''
-        if utils.emptystr(name):
+        if utils.emptystr(names):
             estr = 'Experiment name cannot be empty.'
             raise RuntimeError(estr)
-        self._name = name.strip()
+        self._name = names.strip()
 
 
 class CLIConfiguration:
@@ -280,7 +280,7 @@ class CLIArgsAddActions:
             setattr(namespace, self.dest, optt)
 
 
-def cli_args_add_runcmds_options(
+def cli_args_add_runcmds_option(
         clic: CLIConfiguration,
         opt_required: bool = False,
         opt_default: str = ''

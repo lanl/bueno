@@ -1,6 +1,7 @@
 # TODO Items
 * Favor use of named tuples.
 * Merge common run script code into an public, importable thing.
+* Automate generation of documentation.
 * Add experiment host name setter/getter. Fixes potential back-end node naming
 * problems.
 * Add compiler, etc. to build metadata.
