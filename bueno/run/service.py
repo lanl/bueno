@@ -70,34 +70,48 @@ class _ImageStager():
     def __init__(self) -> None:
         self.basep = host.tmpdir()
 
-    def _prun_generate(self) -> str:
+    @staticmethod
+    def prun_generate() -> str:
+        '''
+        Returns the command string used for parallel launches.
+        '''
         return container.ImageStager().staging_cmd_hook()
 
-    def _get_img_dir_name(self, imgp: str) -> str:
+    @staticmethod
+    def get_img_dir_name(imgp: str) -> str:
+        '''
+        Returns the expected path for the container image directory given a path
+        to an image tarball. Raises ValueError if an exception occurs.
+        '''
         # List of common tarball file extensions.
         tfex = ['.tar.gz', '.tgz']
         fname = os.path.basename(imgp)
 
         fex = [x for x in tfex if fname.endswith(x)]
         if not fex:
-            raise RuntimeError(F'{fname} does not end in any of {tfex}.'
-                               'Cannot determine target destination after '
-                               'container image staging.')
+            raise ValueError(F'{fname} does not end in any of {tfex}.'
+                             'Cannot determine target destination after '
+                             'container image staging.')
         # Return the file name without whatever file extension it once had.
         return fname[:-len(fex[0])]
 
     def stage(self, imgp: str) -> str:
-        stage_cmd = F'{self._prun_generate()} ' \
+        '''
+        Stages the provided container image to an instance-determined base
+        directory. The staged image path is returned if the staging completed
+        successfully.
+        '''
+        stage_cmd = F'{_ImageStager.prun_generate()} ' \
                     F'{cntrimg.activator().tar2dirs(imgp, self.basep)}'
         runargs = {
             'echo': True,
             'verbose': False
         }
         host.run(stage_cmd, **runargs)
-        return os.path.join(self.basep, self._get_img_dir_name(imgp))
+        return os.path.join(self.basep, _ImageStager.get_img_dir_name(imgp))
 
 
-class impl(service.Base):
+class impl(service.Base):  # pylint: disable=invalid-name
     '''
     Implements the run service.
     '''
@@ -127,15 +141,16 @@ class impl(service.Base):
         @typing.no_type_check
         def __call__(self, parser, namespace, values, option_string=None):
             if len(values) == 0:
-                help = '{} requires at least one argument (none provided).\n'\
-                       'Please provide a path to the program you wish to run, '\
-                       'optionally followed by program-specific arguments.'
-                parser.error(help.format(option_string))
+                helps = F'{option_string} requires at least one ' \
+                        'argument (none provided).\nPlease provide ' \
+                        'a path to the program you wish to run, ' \
+                        'optionally followed by program-specific arguments.'
+                parser.error(helps)
             # Capture and update values[0] to an absolute path.
             prog = values[0] = os.path.abspath(values[0])
             if not os.path.isfile(prog):
-                es = F'{prog} is not a file. Cannot continue.'
-                parser.error(es)
+                estr = F'{prog} is not a file. Cannot continue.'
+                parser.error(estr)
             setattr(namespace, self.dest, values)
 
     class ImageAction(argparse.Action):
@@ -150,8 +165,8 @@ class impl(service.Base):
         def __call__(self, parser, namespace, values, option_string=None):
             imgp = os.path.abspath(values)
             if not os.path.exists(imgp):
-                es = F'Cannot access {imgp}'
-                parser.error(es)
+                estr = F'Cannot access {imgp}'
+                parser.error(estr)
             setattr(namespace, self.dest, imgp)
 
     class ImageActivatorAction(argparse.Action):
@@ -253,7 +268,7 @@ class impl(service.Base):
         self._populate_service_config()
         self._populate_env_config()
 
-    # TODO(skg) Add more configuration info.
+    # TODO(skg) Add more configuration info. pylint: disable=fixme
     def _emit_config(self) -> None:
         # First build up the dictionary containing the configuration used.
         self._populate_config()
@@ -273,21 +288,21 @@ class impl(service.Base):
             hlps = 'Unstaged executions require access to ' \
                    'an image directory path.'
             if not os.path.isdir(imgp):
-                es = F'{imgp} is not a directory. Cannot continue.\n{hlps}'
-                raise RuntimeError(es)
+                estr = F'{imgp} is not a directory. Cannot continue.\n{hlps}'
+                raise RuntimeError(estr)
             self.inflated_cntrimg_path = imgp
             logger.log(F'# Image path: {imgp}')
             cntrimg.activator().set_img_path(imgp)
             return
         # The 'stage' path.
-        logger.emlog(F'# Staging container image...')
+        logger.emlog('# Staging container image...')
         hlps = 'Staged executions require access to an image tarball path.'
         istf = False
         try:
             istf = tarfile.is_tarfile(imgp)
-        except Exception as e:
-            es = F'{e}. Cannot continue.\n{hlps}'
-            raise RuntimeError(es)
+        except Exception as exception:
+            estr = F'{exception}. Cannot continue.\n{hlps}'
+            raise RuntimeError(estr)
         # We do this check here so we can raise an exception that isn't caught
         # above because it produces redundant error messages. is_tarfile() can
         # raise exceptions, so that's what the above try/except block is for.
@@ -304,12 +319,12 @@ class impl(service.Base):
         '''
         Adds container metadata to run metadata assets.
         '''
-        logger.emlog(F'# Looking for container metadata...')
+        logger.emlog('# Looking for container metadata...')
 
         # Skip any image activators that do not have build metadata.
         if not cntrimg.activator().requires_img_activation():
-            ia = self.args.image_activator
-            logger.log(F'# Note: the {ia} activator has no metadata\n')
+            iact = self.args.image_activator
+            logger.log(F'# Note: the {iact} activator has no metadata\n')
             return
 
         imgdir = self.inflated_cntrimg_path
@@ -336,9 +351,14 @@ class impl(service.Base):
         _Runner.run(self.args.program)
         logger.emlog('# End Program Output')
 
-    def _getmetasubd(self, basedir: str) -> str:
-        # TODO(skg) The stat load may be huge using this approach. Fix at some
-        # point. Perhaps have a top-level log that gives us the next available?
+    @staticmethod
+    def getmetasubd(basedir: str) -> str:
+        '''
+        Returns a unique path rooted at the provided directory.
+        '''
+        # TODO(skg) The stat load may be huge using this pylint: disable=fixme
+        # approach.  Fix at some point. Perhaps have a top-level log that gives
+        # us the next available?
         maxt = 1024*2048
         hostn = host.shostname()
         for subd in range(0, maxt):
@@ -351,7 +371,7 @@ class impl(service.Base):
 
     def _write_metadata(self) -> None:
         base = os.path.join(self.args.output_path, str(experiment.name()))
-        outp = self._getmetasubd(base)
+        outp = impl.getmetasubd(base)
         # Do this here so the output log has the output directory in it.
         logger.log(F'# {self.prog} Output Target: {outp}')
         metadata.write(outp)
@@ -374,11 +394,11 @@ class impl(service.Base):
             logger.log(F'# {self.prog} Done {utils.nows()}')
 
             self._write_metadata()
-        except Exception as e:
+        except Exception as exception:
             estr = utils.ehorf()
             estr += F'What: {self.prog} error encountered.\n' \
-                    F'Why:  {e}'
+                    F'Why:  {exception}'
             estr += utils.ehorf()
-            raise type(e)(estr)
+            raise type(exception)(estr)
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab
