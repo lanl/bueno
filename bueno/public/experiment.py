@@ -301,6 +301,17 @@ def cli_args_add_runcmds_option(
     )
 
 
+def _runcmds_nargs(line: str, res: str) -> int:
+    '''
+    Private function that returns the number of arguments found in line given a
+    regular expression.
+    '''
+    nargs = 0
+    for _ in re.finditer(res, line, flags=re.X):
+        nargs += 1
+    return nargs
+
+
 def runcmds(
         start: int,
         stop: int,
@@ -325,19 +336,6 @@ def runcmds(
     \\b       # End of whole word search
     )         # End of capture group 1
     '''
-
-    def _nargs(line: str, res: str) -> int:
-        nargs = 0
-        for _ in re.finditer(res, line, flags=re.X):
-            nargs += 1
-        return nargs
-
-    def _nfun_nvar(istr: str, res: str) -> int:
-        nvars = 0
-        for _ in re.finditer(res, istr, flags=re.X):
-            nvars += 1
-        return nvars
-
     # Make sure that the provided start and stop values make sense.
     if start < 0 or stop < 0:
         estr = F'{__name__}.{fname} start and ' \
@@ -349,12 +347,11 @@ def runcmds(
         raise ValueError(estr)
     # Find all variables in the provided function specification string. Also
     # enforce that *at least one* variable is provided.
-    nvars = _nfun_nvar(nfun, vidx_res)
-    # We didn't find at least one variable.
-    if nvars == 0:
+    if _runcmds_nargs(nfun, vidx_res) == 0:
+        # We didn't find at least one variable.
         estr = F'{__name__}.{fname} syntax error: ' \
                'At least one variable must be present. ' \
-               F'nidx was not found in the following expression:\n{nfun}'
+               F"'nidx' was not found in the following expression:\n{nfun}"
         raise SyntaxError(estr)
     # Generate the requisite values.
     nvals = list()
@@ -369,9 +366,8 @@ def runcmds(
     # Now generate the run commands.
     # Regex string used to find %n variables in spec expressions.
     n_res = '%n'
-    nargs = _nargs(spec, n_res)
-    if nargs == 0:
-        wstr = F'# WARNING: {n_res} not found in ' \
+    if _runcmds_nargs(spec, n_res) == 0:
+        wstr = F"# WARNING: '{n_res}' not found in " \
                F'the following expression:\n# {spec}'
         logger.emlog(wstr)
     regex = re.compile(n_res)
