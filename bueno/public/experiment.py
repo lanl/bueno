@@ -253,18 +253,23 @@ class CLIArgsAddActions:
 
         @typing.no_type_check
         def __call__(self, parser, namespace, values, option_string=None):
-            optt = ()
+            malf_helps = F'{option_string} malformed input. ' \
+                         'An int, int, str, str tuple is excepted.'
+            optt = tuple()
             try:
                 optt = ast.literal_eval(values)
-            except ValueError:
-                helps = F'{option_string} malformed input. ' \
-                        'An int, int, str, str tuple is excepted.'
-                parser.error(helps)
+            except (ValueError, SyntaxError):
+                parser.error(malf_helps)
+            # Make sure that the evaluated type is tuple.
+            if not isinstance(optt, tuple):
+                parser.error(malf_helps)
+            # Make sure we are dealing with a 4-tuple.
             nopts = len(optt)
             if nopts != 4:
                 helps = F'{option_string} requires a 4-tuple of values. ' \
                        F'{nopts} values provided: {optt}.'
                 parser.error(helps)
+            # Check type of each element.
             if not isinstance(optt[0], int):
                 helps = F'{option_string}: The first value must be an int.'
                 parser.error(helps)
