@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -12,9 +12,9 @@
 The main driver for all bueno services.
 '''
 
-from bueno.core import bueno
-
 import sys
+
+from bueno.core import bueno
 
 if __name__ == '__main__':
     sys.exit(bueno.main())
