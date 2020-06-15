@@ -13,7 +13,8 @@ make \
 && \
 rm -rf /var/lib/apt/lists/*
 
-COPY nbody .
+RUN mkdir /nbody
+COPY ./nbody /nbody
 
 WORKDIR /nbody
 RUN make CC=mpicc
