@@ -10,9 +10,6 @@
 * Add environmental push/pop.
 * Document how relative paths work in bueno run scripts. Note
 * that paths are relative to the run script.
-* Document how to use mypy: ```mypy --strict .```
-* Automate the running of mypy for development purposes.
-* Automate the running of flake8 for development purposes.
 * Automate the running of pylint for development purposes.
 * (e.g., ```python3 -m pylint bueno```)
 * Consider the use of bandit and automate its use for development purposes.
