@@ -6,7 +6,8 @@ Installing bueno
 
 User Installation With pip
 --------------------------
-In a terminal perform the following (assumes a bash-like shell).
+After cloning `bueno <https://github.com/lanl/bueno/>`_ perform the following in a terminal
+(assumes a bash-like shell).
 
 .. code-block:: console
 
