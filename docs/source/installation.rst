@@ -10,6 +10,7 @@ In a terminal perform the following (assumes a bash-like shell).
 
 .. code-block:: console
 
+   $ git clone https://github.com/lanl/bueno.git # Pull the repository
    $ cd bueno # The directory in which setup.py is located.
    $ python3 -m pip install --user .
 
