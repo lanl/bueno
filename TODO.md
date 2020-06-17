@@ -1,4 +1,6 @@
 # TODO Items
+
+* Consider the use of client-side git hooks.
 * Favor use of named tuples.
 * Merge common run script code into an public, importable thing.
 * Automate generation of documentation.
@@ -11,6 +13,6 @@
 * Document how relative paths work in bueno run scripts. Note
 * that paths are relative to the run script.
 * Automate the running of pylint for development purposes.
-* (e.g., ```python3 -m pylint bueno```)
+  (e.g., ```python3 -m pylint bueno```)
 * Consider the use of bandit and automate its use for development purposes.
 * Automate bumpversion actions.
