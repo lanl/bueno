@@ -51,7 +51,6 @@ def package_setup(package_name, package_vers):
         packages=find_packages(),
         # Package Requirements
         install_requires=[
-            'lark-parser',
             'pyyaml'
         ],
         scripts=[
