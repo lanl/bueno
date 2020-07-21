@@ -1,5 +1,4 @@
-#
-# Copyright (c) 2019-2020 Triad National Security, LLC
+# # Copyright (c) 2019-2020 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -23,6 +22,7 @@ from abc import abstractmethod
 from typing import (
     Any,
     Dict,
+    Iterable,
     List,
     Optional
 )
@@ -176,11 +176,15 @@ def generate(spec: str, *args: Any) -> List[str]:
     return [spec.format(*a) for a in argg]
 
 
-def readgs(gspath: str, config: Optional[CLIConfiguration] = None) -> str:
+def readgs(
+        gspath: str,
+        config: Optional[CLIConfiguration] = None
+) -> Iterable[str]:
     '''
     A convenience routine for reading generate specification files.
 
-    TODO(skg) Add description of formatting rules, etc.
+    TODO(skg) Add description of formatting rules, semantics, etc. Don't forget
+    about yield!
 
     We accept the following forms:
     # -a/--aarg [ARG_PARAMS] -b/--bargs [ARG PARAMS]
@@ -192,32 +196,31 @@ def readgs(gspath: str, config: Optional[CLIConfiguration] = None) -> str:
     logger.log(utils.chomp(str().join(utils.cat(gspath))))
     logger.log('# End Generate Specification\n')
 
-    gsstr = str()
     with open(gspath) as file:
         argv = list()
-        lines = [x.strip() for x in file.readlines()]
+        lines = [x.strip() for x in utils.read_logical_lines(file)]
         for line in lines:
             # Interpret as special comment used to specify run-time arguments.
             if line.startswith('# -'):
                 # Add to argument list.
                 if config is not None:
                     argv.extend(shlex.split(line.lstrip('# ')))
-            # Skip comments.
-            elif line.startswith('#'):
                 continue
-            # Not a comment; append line to generate specification string.
-            else:
-                gsstr += line
-        # Parse arguments if provided an argument parser.
-        gsargs = None
-        if config is not None:
-            if not isinstance(config, CLIConfiguration):
-                estr = F'{__name__} expects an instance of CLIConfiguration'
-                raise ValueError(estr)
-            gsargs = parsedargs(config.argparser, argv)
-            config.update(gsargs)
-
-    return gsstr
+            # Skip comments and empty lines.
+            if line.startswith('#') or utils.emptystr(line):
+                continue
+            # Parse arguments if provided an argument parser.
+            gsargs = None
+            if config is not None:
+                if not isinstance(config, CLIConfiguration):
+                    estr = F'{__name__} expects an instance of CLIConfiguration'
+                    raise ValueError(estr)
+                gsargs = parsedargs(config.argparser, argv)
+                config.update(gsargs)
+            # Not a comment; yield generate specification string.
+            yield line
+            # Clear out argument list for next round.
+            argv = list()
 
 
 def parsedargs(

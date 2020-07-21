@@ -14,6 +14,8 @@ from datetime import datetime
 
 from typing import (
     Any,
+    IO,
+    Iterable,
     List,
     Union
 )
@@ -109,6 +111,22 @@ def emptystr(istr: Union[str, None]) -> bool:
     Returns True if the provided string is not empty; False otherwise.
     '''
     return not (istr and istr.strip())
+
+
+def read_logical_lines(fileobj: IO[str]) -> Iterable[str]:
+    '''
+    Reads the contents of fileobj and returns its lines, properly handling line
+    continuations.
+    '''
+    logical_line = []
+    for physical_line in fileobj:
+        if physical_line.endswith('\\\n'):
+            logical_line.append(physical_line[:-2])
+        else:
+            yield ''.join(logical_line)+physical_line
+            logical_line = []
+    if logical_line:
+        yield ''.join(logical_line)
 
 
 class Table:
