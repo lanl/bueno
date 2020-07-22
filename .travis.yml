@@ -24,10 +24,16 @@ jobs:
       os: linux
       language: python
       env: TEST_SUITE=mypy
+    - stage: 'code analysis'
+      python: '3.8'
+      os: linux
+      language: python
+      env: TEST_SUITE=pylint
 
 stages:
   - 'style checks'
   - 'type checks'
+  - 'code analysis'
 
 
 ################################################################################

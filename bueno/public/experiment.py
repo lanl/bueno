@@ -24,6 +24,7 @@ from typing import (
     Dict,
     Iterable,
     List,
+    Tuple,
     Optional
 )
 
@@ -291,7 +292,7 @@ class CLIArgsAddActions:
 def cli_args_add_runcmds_option(
         clic: CLIConfiguration,
         opt_required: bool = False,
-        opt_default: str = ''
+        opt_default: Tuple[int, int, str, str] = (0, 0, '', '')
 ) -> argparse.Action:
     '''
     Adds parser options to the given CLIConfiguration instance for handling
@@ -307,6 +308,84 @@ def cli_args_add_runcmds_option(
         default=opt_default,
         action=CLIArgsAddActions.RunCmdsAction
     )
+
+
+class CannedCLIConfiguration(CLIConfiguration):
+    '''
+    A 'canned' set of parser arguments common to many (but not all) bueno run
+    scripts. This CLI configuration is provided as a convenience for those run
+    scripts that can benefit from the options provided.
+    '''
+    class Defaults:
+        '''
+        Default values for CannedCLIConfigurations.
+        '''
+        csv_output = ''
+        description = ''
+        executable = ''
+        input = ''
+        name = ''
+        runcmds = (0, 0, '', '')
+
+    def __init__(
+            self,
+            desc: str,
+            argv: List[str],
+            defaults: CannedCLIConfiguration.Defaults  # noqa: F821
+    ) -> None:
+        self.defaults = defaults
+        super().__init__(desc, argv)
+
+    def addargs(self) -> None:
+        self.argparser.add_argument(
+            '-o', '--csv-output',
+            type=str,
+            metavar='CSV_NAME',
+            help='Names the generated CSV file produced by a run.',
+            required=False,
+            default=self.defaults.csv_output
+        )
+
+        self.argparser.add_argument(
+            '-d', '--description',
+            type=str,
+            metavar='DESC',
+            help='Describes the experiment.',
+            required=False,
+            default=self.defaults.description
+        )
+
+        self.argparser.add_argument(
+            '-e', '--executable',
+            type=str,
+            metavar='EXEC',
+            help="Specifies the executable's path.",
+            required=False,
+            default=self.defaults.executable
+        )
+
+        self.argparser.add_argument(
+            '-i', '--input',
+            type=str,
+            metavar='INP',
+            help='Specifies the path to an experiment input file.',
+            required=False,
+            default=self.defaults.input
+        )
+
+        self.argparser.add_argument(
+            '-n', '--name',
+            type=str,
+            help='Names the experiment.',
+            required=False,
+            default=self.defaults.name
+        )
+        # Add pre-canned options to deal with experiment.runcmds() input.
+        cli_args_add_runcmds_option(
+            self,
+            opt_required=False,
+            opt_default=self.defaults.runcmds
+        )
 
 
 def _runcmds_nargs(line: str, res: str) -> int:

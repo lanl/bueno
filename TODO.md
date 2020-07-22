@@ -1,6 +1,7 @@
 # TODO Items
 
 * Add post-run action hook.
+* Add md5 of images, etc. to output data.
 * Add bueno version (and git hash?) to stored metadata.
 * Consider the use of client-side git hooks.
 * Favor use of named tuples.
