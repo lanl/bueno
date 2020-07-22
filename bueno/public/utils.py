@@ -20,7 +20,7 @@ from typing import (
     Union
 )
 
-import yaml
+import yaml  # pylint: disable=import-error
 
 from bueno.public import logger
 
