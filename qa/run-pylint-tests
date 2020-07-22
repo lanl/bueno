@@ -9,4 +9,9 @@
 
 echo "Running pylint Tests"
 
+echo "Pylint Version:"
+pylint --version
+
+echo "PWD: $(pwd)"
+
 pylint ./bueno
