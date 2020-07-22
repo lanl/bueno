@@ -331,7 +331,7 @@ class CannedCLIConfiguration(CLIConfiguration):
             self,
             desc: str,
             argv: List[str],
-            defaults: CannedCLIConfiguration.Defaults  # noqa: F821
+            defaults: 'CannedCLIConfiguration.Defaults'
     ) -> None:
         self.defaults = defaults
         super().__init__(desc, argv)
