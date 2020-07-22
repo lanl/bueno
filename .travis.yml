@@ -29,11 +29,17 @@ jobs:
       os: linux
       language: python
       env: TEST_SUITE=pylint
+    - stage: 'packaging'
+      python: '3.8'
+      os: linux
+      language: python
+      env: TEST_SUITE=packaging
 
 stages:
   - 'style checks'
   - 'type checks'
   - 'code analysis'
+  - 'packaging'
 
 
 ################################################################################
