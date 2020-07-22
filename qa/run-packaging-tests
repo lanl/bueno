@@ -7,6 +7,6 @@
 # top-level directory of this distribution for more information.
 #
 
-echo "Testing for Type Conformity"
+echo "Testing Packaging"
 
-mypy --strict .
+pip install --user bueno
