@@ -191,7 +191,8 @@
 <dl class="method">
 <dt id="bueno.core.bueno.ArgumentParser.parse">
 <code class="sig-name descname">parse</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; argparse.Namespace<a class="headerlink" href="#bueno.core.bueno.ArgumentParser.parse" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Parses and returns an argparse.Namespace.</p>
+</dd></dl>
 
 </dd></dl>
 
@@ -203,14 +204,16 @@
 <dl class="method">
 <dt id="bueno.core.bueno.Bueno.main">
 <em class="property">static </em><code class="sig-name descname">main</code><span class="sig-paren">(</span><em class="sig-param">pargs: argparse.Namespace</em><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#bueno.core.bueno.Bueno.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Instantiates and runs a bueno service.</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="function">
 <dt id="bueno.core.bueno.main">
 <code class="sig-prename descclassname">bueno.core.bueno.</code><code class="sig-name descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; int<a class="headerlink" href="#bueno.core.bueno.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>bueno’s main().</p>
+</dd></dl>
 
 </div>
 <div class="section" id="module-bueno.core.cntrimg">
@@ -224,19 +227,27 @@
 <dl class="method">
 <dt id="bueno.core.cntrimg.Activator.impl">
 <em class="property">property </em><code class="sig-name descname">impl</code><a class="headerlink" href="#bueno.core.cntrimg.Activator.impl" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Returns the image activator implementation (instance).</p>
+</dd></dl>
 
 </dd></dl>
 
 <dl class="class">
 <dt id="bueno.core.cntrimg.BaseImageActivator">
-<em class="property">class </em><code class="sig-prename descclassname">bueno.core.cntrimg.</code><code class="sig-name descname">BaseImageActivator</code><span class="sig-paren">(</span><em class="sig-param">imgp: Optional[str] = None</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.core.cntrimg.BaseImageActivator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.cntrimg.</code><code class="sig-name descname">BaseImageActivator</code><a class="headerlink" href="#bueno.core.cntrimg.BaseImageActivator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>Abstract base class for container image activators.</p>
 <dl class="method">
-<dt id="bueno.core.cntrimg.BaseImageActivator.has_metadata">
-<em class="property">abstract </em><code class="sig-name descname">has_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.cntrimg.BaseImageActivator.has_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns whether or not the image activator instance has metadata.</p>
+<dt id="bueno.core.cntrimg.BaseImageActivator.get_img_path">
+<code class="sig-name descname">get_img_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.core.cntrimg.BaseImageActivator.get_img_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the image path used for container image activation.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.cntrimg.BaseImageActivator.requires_img_activation">
+<em class="property">abstract </em><code class="sig-name descname">requires_img_activation</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.cntrimg.BaseImageActivator.requires_img_activation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the image activator instance requires image
+activation.</p>
 </dd></dl>
 
 <dl class="method">
@@ -246,17 +257,32 @@
 command is emitted echoed before its execution.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="bueno.core.cntrimg.BaseImageActivator.set_img_path">
+<em class="property">abstract </em><code class="sig-name descname">set_img_path</code><span class="sig-paren">(</span><em class="sig-param">img_path: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.core.cntrimg.BaseImageActivator.set_img_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the image path used for container image activation. RuntimeError is
+raised if an invalid path is provided.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.cntrimg.BaseImageActivator.tar2dirs">
+<em class="property">abstract </em><code class="sig-name descname">tar2dirs</code><span class="sig-paren">(</span><em class="sig-param">src: str</em>, <em class="sig-param">dst: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.core.cntrimg.BaseImageActivator.tar2dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a command string capable of extracting the contents of the
+provided source tarball to the provided base destination.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="class">
 <dt id="bueno.core.cntrimg.CharlieCloudImageActivator">
-<em class="property">class </em><code class="sig-prename descclassname">bueno.core.cntrimg.</code><code class="sig-name descname">CharlieCloudImageActivator</code><span class="sig-paren">(</span><em class="sig-param">imgp: str</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.core.cntrimg.CharlieCloudImageActivator" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="sig-prename descclassname">bueno.core.cntrimg.</code><code class="sig-name descname">CharlieCloudImageActivator</code><a class="headerlink" href="#bueno.core.cntrimg.CharlieCloudImageActivator" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bueno.core.cntrimg.BaseImageActivator" title="bueno.core.cntrimg.BaseImageActivator"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.core.cntrimg.BaseImageActivator</span></code></a></p>
 <p>The CharlieCloud image activator.</p>
 <dl class="method">
-<dt id="bueno.core.cntrimg.CharlieCloudImageActivator.has_metadata">
-<code class="sig-name descname">has_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.cntrimg.CharlieCloudImageActivator.has_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns whether or not the image activator instance has metadata.</p>
+<dt id="bueno.core.cntrimg.CharlieCloudImageActivator.requires_img_activation">
+<code class="sig-name descname">requires_img_activation</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.cntrimg.CharlieCloudImageActivator.requires_img_activation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the image activator instance requires image
+activation.</p>
 </dd></dl>
 
 <dl class="method">
@@ -264,6 +290,20 @@ command is emitted echoed before its execution.</p>
 <code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmds: List[str], echo: bool = True, capture: bool = False, verbose: bool = True</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.core.cntrimg.CharlieCloudImageActivator.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the specified command in a container. By default the executed
 command is emitted echoed before its execution.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.cntrimg.CharlieCloudImageActivator.set_img_path">
+<code class="sig-name descname">set_img_path</code><span class="sig-paren">(</span><em class="sig-param">img_path: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.core.cntrimg.CharlieCloudImageActivator.set_img_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the image path used for container image activation. RuntimeError is
+raised if an invalid path is provided.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.cntrimg.CharlieCloudImageActivator.tar2dirs">
+<code class="sig-name descname">tar2dirs</code><span class="sig-paren">(</span><em class="sig-param">src: str</em>, <em class="sig-param">dst: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.core.cntrimg.CharlieCloudImageActivator.tar2dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a command string capable of extracting the contents of the
+provided source tarball to the provided base destination.</p>
 </dd></dl>
 
 </dd></dl>
@@ -281,8 +321,10 @@ command is emitted echoed before its execution.</p>
 
 <dl class="method">
 <dt id="bueno.core.cntrimg.ImageActivatorFactory.build">
-<em class="property">static </em><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">activator_name: str</em>, <em class="sig-param">imgp: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.core.cntrimg.ImageActivatorFactory.build" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<em class="property">static </em><code class="sig-name descname">build</code><span class="sig-paren">(</span><em class="sig-param">activator_name: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.core.cntrimg.ImageActivatorFactory.build" title="Permalink to this definition">¶</a></dt>
+<dd><p>Builds an image activator based on the provided activator name. If an
+unrecognized name is provided, a RuntimeError is raised.</p>
+</dd></dl>
 
 <dl class="attribute">
 <dt id="bueno.core.cntrimg.ImageActivatorFactory.items">
@@ -304,9 +346,10 @@ is known (i.e., recognized) by bueno.</p>
 <dd><p>Bases: <a class="reference internal" href="#bueno.core.cntrimg.BaseImageActivator" title="bueno.core.cntrimg.BaseImageActivator"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.core.cntrimg.BaseImageActivator</span></code></a></p>
 <p>The non-image-activator activator. Just a passthrough to the host’s shell.</p>
 <dl class="method">
-<dt id="bueno.core.cntrimg.NoneImageActivator.has_metadata">
-<code class="sig-name descname">has_metadata</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.cntrimg.NoneImageActivator.has_metadata" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns whether or not the image activator instance has metadata.</p>
+<dt id="bueno.core.cntrimg.NoneImageActivator.requires_img_activation">
+<code class="sig-name descname">requires_img_activation</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.core.cntrimg.NoneImageActivator.requires_img_activation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the image activator instance requires image
+activation.</p>
 </dd></dl>
 
 <dl class="method">
@@ -316,6 +359,26 @@ is known (i.e., recognized) by bueno.</p>
 command is emitted echoed before its execution.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="bueno.core.cntrimg.NoneImageActivator.set_img_path">
+<code class="sig-name descname">set_img_path</code><span class="sig-paren">(</span><em class="sig-param">img_path: str</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.core.cntrimg.NoneImageActivator.set_img_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the image path used for container image activation. RuntimeError is
+raised if an invalid path is provided.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.core.cntrimg.NoneImageActivator.tar2dirs">
+<code class="sig-name descname">tar2dirs</code><span class="sig-paren">(</span><em class="sig-param">src: str</em>, <em class="sig-param">dst: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.core.cntrimg.NoneImageActivator.tar2dirs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a command string capable of extracting the contents of the
+provided source tarball to the provided base destination.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.core.cntrimg.activator">
+<code class="sig-prename descclassname">bueno.core.cntrimg.</code><code class="sig-name descname">activator</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; bueno.core.cntrimg.BaseImageActivator<a class="headerlink" href="#bueno.core.cntrimg.activator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the current container image activator.</p>
 </dd></dl>
 
 </div>
