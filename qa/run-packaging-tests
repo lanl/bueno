@@ -9,4 +9,4 @@
 
 echo "Testing Packaging"
 
-pip install --user bueno
+pip install .
