@@ -187,6 +187,27 @@ class impl(service.Base):  # pylint: disable=invalid-name
                 self.imgdir_arg.help = argparse.SUPPRESS
             setattr(namespace, self.dest, values)
 
+    class ExtrasAction(argparse.Action):
+        '''
+        Custom action class used for 'extras' argument handling.
+        '''
+        @typing.no_type_check
+        def __init__(self, option_strings, dest, nargs=None, **kwargs):
+            super().__init__(option_strings, dest, **kwargs)
+
+        @typing.no_type_check
+        def __call__(self, parser, namespace, values, option_string=None):
+            paths = values.split(':')
+            for path in paths:
+                modpath = os.path.abspath(path)
+                if not os.path.exists(modpath):
+                    estr = F'Cannot access {modpath}'
+                    parser.error(estr)
+                if not os.path.isdir(modpath):
+                    estr = F'Cannot provide regular files to {self.dest}: {path}'
+                    parser.error(estr)
+                sys.path.append(r'{}'.format(modpath))
+
     def __init__(self, argv: List[str]) -> None:
         super().__init__(impl._defaults.desc, argv)
         # Path to the inflated container image used for activation.
@@ -220,6 +241,8 @@ class impl(service.Base):  # pylint: disable=invalid-name
             action=impl.ImageAction,
         )
 
+        # Must be located after definition of imgdir_arg because we pass it to
+        # ImageActivatorAction
         self.argp.add_argument(
             '-a', '--image-activator',
             type=str,
@@ -241,6 +264,17 @@ class impl(service.Base):  # pylint: disable=invalid-name
                  'followed by program-specific arguments.',
             required=True,
             action=impl.ProgramAction
+        )
+
+        self.argp.add_argument(
+            '-e', '--extras',
+            type=str,
+            help='A colon-delimited list of paths to additional Python '
+                 'packages or modules that bueno will attempt to provide '
+                 '(append to sys.path) and make available to the '
+                 'specified run script.',
+            required=False,
+            action=impl.ExtrasAction
         )
 
     def _populate_service_config(self) -> None:
@@ -326,16 +360,19 @@ class impl(service.Base):  # pylint: disable=invalid-name
             iact = self.args.image_activator
             logger.log(F'# Note: the {iact} activator has no metadata\n')
             return
-
         imgdir = self.inflated_cntrimg_path
         # The subdirectory where container metadata are stored.
-        mdatadir = 'container'
-        logger.log(F'# Adding metadata from {imgdir}\n')
         buildl = os.path.join(
             imgdir,
             constants.METADATA_DIR,
             constants.SERVICE_LOG_NAME
         )
+        # Don't error out if the image doesn't have our metadata.
+        if not os.path.exists(buildl):
+            logger.log(F'# Note: container image provides no metadata\n')
+            return
+        logger.log(F'# Adding metadata from {imgdir}\n')
+        mdatadir = 'container'
         metadata.add_asset(metadata.FileAsset(buildl, mdatadir))
 
     def _build_image_activator(self) -> None:
