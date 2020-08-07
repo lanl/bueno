@@ -370,7 +370,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
         )
         # Don't error out if the image doesn't have our metadata.
         if not os.path.exists(buildl):
-            logger.log(F'# Note: container image provides no metadata\n')
+            logger.log('# Note: container image provides no metadata\n')
             return
         logger.log(F'# Adding metadata from {imgdir}\n')
         mdatadir = 'container'
