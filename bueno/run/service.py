@@ -204,7 +204,8 @@ class impl(service.Base):  # pylint: disable=invalid-name
                     estr = F'Cannot access {modpath}'
                     parser.error(estr)
                 if not os.path.isdir(modpath):
-                    estr = F'Cannot provide regular files to {self.dest}: {path}'
+                    estr = 'Cannot provide regular ' \
+                           F'files to {self.dest}: {path}'
                     parser.error(estr)
                 sys.path.append(r'{}'.format(modpath))
 
