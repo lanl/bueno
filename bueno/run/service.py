@@ -208,6 +208,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
                            F'files to {self.dest}: {path}'
                     parser.error(estr)
                 sys.path.append(r'{}'.format(modpath))
+            setattr(namespace, self.dest, values)
 
     def __init__(self, argv: List[str]) -> None:
         super().__init__(impl._defaults.desc, argv)
