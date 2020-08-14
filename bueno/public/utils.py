@@ -20,9 +20,17 @@ from typing import (
     Union
 )
 
+import sys
 import yaml
 
 from bueno.public import logger
+
+
+def module_imported(modname: str) -> bool:
+    '''
+    Returns whether or not the provided module name has already been imported.
+    '''
+    return modname in sys.modules
 
 
 def cat(filep: str) -> List[str]:
