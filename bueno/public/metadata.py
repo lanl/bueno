@@ -16,6 +16,8 @@ import os
 import shutil
 
 from abc import ABC, abstractmethod
+from pathlib import Path
+from types import ModuleType
 
 from typing import (
     Any,
@@ -49,7 +51,7 @@ class FileAsset(BaseAsset):
     '''
     def __init__(self, srcf: str, subd: Union[str, None] = None):
         super().__init__()
-        # Absolute to source file asset.
+        # Absolute path to source file asset.
         self.srcf = os.path.abspath(srcf)
         # Optional subdirectory to store the provided file.
         self.subd = subd
@@ -64,6 +66,21 @@ class FileAsset(BaseAsset):
             os.makedirs(realbasep, 0o755, exist_ok=True)
         opath = os.path.join(realbasep, self._get_fname())
         shutil.copy2(self.srcf, opath)
+
+
+class PythonModuleAsset(FileAsset):
+    '''
+    Special file asset used for extra imported modules.
+    '''
+    def __init__(self, mod: ModuleType) -> None:
+        if not isinstance(mod, ModuleType):
+            estr = F'{self.__class__} expects a module.'
+            raise ValueError(estr)
+        # Absolute path to source file asset.
+        fpath = Path(os.path.abspath(mod.__file__))
+        # Module's parent directory to store the provided module file.
+        pdir = fpath.parent.parts[-1]
+        super().__init__(str(fpath), str(pdir))
 
 
 class StringIOAsset(BaseAsset):
