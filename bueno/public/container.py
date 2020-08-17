@@ -40,7 +40,7 @@ def _runi(
     '''
     Private run dispatch.
     '''
-    capture = postaction is not None
+    capture_output = postaction is not None
 
     cmdstr = ' '.join(cmds)
 
@@ -52,7 +52,11 @@ def _runi(
         preaction(**preargs)
 
     stime = utils.now()
-    coutput = cntrimg.activator().run(cmds, echo=echo, capture=capture)
+    coutput = cntrimg.activator().run(
+        cmds,
+        echo=echo,
+        capture=capture_output
+    )
     etime = utils.now()
 
     if postaction is not None:
@@ -84,6 +88,22 @@ def run(
         'user_data': user_data
     }
     _runi(**args)
+
+
+def capture(cmd: str) -> str:
+    '''
+    Executes the provided command and returns a string with the command's
+    output.
+
+    See run() for exceptions.
+    '''
+    runo = cntrimg.activator().run(
+        [cmd],
+        echo=False,
+        verbose=False,
+        capture=True
+    )
+    return utils.chomp(str().join(runo))
 
 
 def prun(   # pylint: disable=R0913
