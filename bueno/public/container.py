@@ -20,6 +20,7 @@ from typing import (
 )
 
 from bueno.core import cntrimg
+from bueno.core import constants
 from bueno.core import metacls
 
 from bueno.public import host
@@ -132,6 +133,22 @@ def prun(   # pylint: disable=R0913
         'user_data': user_data
     }
     _runi(**args)
+
+
+def build_information() -> List[str]:
+    '''
+    Returns a list of strings containing captured container and application
+    build information. If build information is not available, an empty list is
+    returned.
+    '''
+    buildl = os.path.join(
+        cntrimg.activator().get_img_path(),
+        constants.METADATA_DIR,
+        constants.SERVICE_LOG_NAME
+    )
+    if not os.path.exists(buildl):
+        return []
+    return utils.cat(buildl)
 
 
 class ImageStager(metaclass=metacls.Singleton):
