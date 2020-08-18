@@ -151,6 +151,16 @@ def build_information() -> List[str]:
     return utils.cat(buildl)
 
 
+def getenv(name: str) -> Union[str, None]:
+    '''
+    Get an environment variable, return None if it does not exist.
+    '''
+    res = capture(F'printenv {name}')
+    if not utils.emptystr(res):
+        return res
+    return None
+
+
 class ImageStager(metaclass=metacls.Singleton):
     '''
     Public container image stager singleton meant to provide some
