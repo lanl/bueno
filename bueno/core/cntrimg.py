@@ -162,8 +162,13 @@ class CharlieCloudImageActivator(BaseImageActivator):
             capture: bool = False,
             verbose: bool = True
     ) -> List[str]:
+        imgp = self.get_img_path()
+        ccargs = [
+            F'--set-env={imgp}/ch/environment',
+            F'{imgp}'
+        ]
         # Charliecloud activation command string.
-        ccrc = F'{self.runcmd} {self.get_img_path()}'
+        ccrc = F'{self.runcmd} {" ".join(ccargs)}'
         bmgc = F'{constants.BASH_MAGIC}'
         # First command.
         cmdf = cmds[0]
