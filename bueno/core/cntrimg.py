@@ -183,7 +183,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
         runargs = {
             'verbatim': True,
             'echo': echo,
-            'capture': capture,
+            'capture_output': capture,
             'verbose': verbose
         }
         return host.run(cmdstr, **runargs)
@@ -220,7 +220,7 @@ class NoneImageActivator(BaseImageActivator):
         runargs = {
             'verbatim': True,
             'echo': echo,
-            'capture': capture,
+            'capture_output': capture,
             'verbose': verbose
         }
         return host.run(cmdstr, **runargs)

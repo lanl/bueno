@@ -85,7 +85,7 @@ def capture(cmd: str) -> str:
 
     See run() for exceptions.
     '''
-    res = run(cmd, capture=True, verbose=False)
+    res = run(cmd, capture_output=True, verbose=False)
     return utils.chomp(str().join(res))
 
 
@@ -127,13 +127,13 @@ def run(
         cmd: str,
         verbatim: bool = False,
         echo: bool = False,
-        capture: bool = False,  # pylint: disable=W0621
+        capture_output: bool = False,
         verbose: bool = True
 ) -> List[str]:
     '''
     Executes the provided command.
 
-    Returns newline-delimited list of output if capture if True.
+    Returns newline-delimited list of output if capture_output if True.
 
     Throws ChildProcessError on error.
     '''
@@ -169,7 +169,7 @@ def run(
 
         if not stdout:
             break
-        if capture:
+        if capture_output:
             olst.append(stdout)
         if verbose:
             logger.log(utils.chomp(stdout))
