@@ -31,9 +31,10 @@ StagingHookCb = Callable[[], str]
 ActionCb = Union[Callable[..., None], None]
 
 
-def _runi(
+def _runi(  # pylint: disable=too-many-arguments
         cmds: List[str],
         echo: bool = True,
+        check_exit_code: bool = True,
         preaction: ActionCb = None,
         postaction: ActionCb = None,
         user_data: Any = None
@@ -56,7 +57,8 @@ def _runi(
     coutput = cntrimg.activator().run(
         cmds,
         echo=echo,
-        capture=capture_output
+        capture=capture_output,
+        check_exit_code=check_exit_code
     )
     etime = utils.now()
 
@@ -70,9 +72,10 @@ def _runi(
         postaction(**postargs)
 
 
-def run(
+def run(  # pylint: disable=too-many-arguments
         cmd: str,
         echo: bool = True,
+        check_exit_code: bool = True,
         preaction: Any = None,
         postaction: Any = None,
         user_data: Any = None
@@ -84,6 +87,7 @@ def run(
     args = {
         'cmds': [cmd],
         'echo': echo,
+        'check_exit_code': check_exit_code,
         'preaction': preaction,
         'postaction': postaction,
         'user_data': user_data
@@ -91,7 +95,10 @@ def run(
     _runi(**args)
 
 
-def capture(cmd: str) -> str:
+def capture(
+        cmd: str,
+        check_exit_code: bool = True
+) -> str:
     '''
     Executes the provided command and returns a string with the command's
     output.
@@ -102,15 +109,17 @@ def capture(cmd: str) -> str:
         [cmd],
         echo=False,
         verbose=False,
-        capture=True
+        capture=True,
+        check_exit_code=check_exit_code
     )
     return utils.chomp(str().join(runo))
 
 
-def prun(   # pylint: disable=R0913
+def prun(  # pylint: disable=too-many-arguments
         pexec: str,
         cmd: str,
         echo: bool = True,
+        check_exit_code: bool = True,
         preaction: Any = None,
         postaction: Any = None,
         user_data: Any = None
@@ -128,6 +137,7 @@ def prun(   # pylint: disable=R0913
     args = {
         'cmds': [pexec, cmd],
         'echo': echo,
+        'check_exit_code': check_exit_code,
         'preaction': preaction,
         'postaction': postaction,
         'user_data': user_data
@@ -155,7 +165,7 @@ def getenv(name: str) -> Union[str, None]:
     '''
     Get an environment variable, return None if it does not exist.
     '''
-    res = capture(F'printenv {name}')
+    res = capture(F'printenv {name}', check_exit_code=False)
     if not utils.emptystr(res):
         return res
     return None
