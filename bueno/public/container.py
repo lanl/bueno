@@ -67,7 +67,7 @@ def _runi(  # pylint: disable=too-many-arguments
             'command': cmdstr,
             'start_time': stime,
             'end_time': etime,
-            'exectime': etime - stime,
+            'exectime': (etime - stime).total_seconds(),
             'output': coutput,
             'user_data': user_data
         }
