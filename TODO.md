@@ -1,6 +1,5 @@
 # TODO Items
 
-* Add FOM abstract class to experiment.
 * Add post-run action hook.
 * Add md5 of images, etc. to output data.
 * Add bueno version (and git hash?) to stored metadata.
