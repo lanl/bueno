@@ -61,6 +61,23 @@ class _TheExperiment(metaclass=metacls.Singleton):
         self._name = names.strip()
 
 
+class FOM:
+    '''
+    Figure of Merit data class.
+    '''
+    def __init__(
+            self,
+            name: str,  # pylint: disable=redefined-outer-name
+            description: str,
+            units: str,
+            value: float
+    ) -> None:
+        self.name = name
+        self.description = description
+        self.units = units
+        self.value = float(value)
+
+
 class CLIAddArgsAction:
     '''
     Base action class used to add additional arguments to a CLIConfiguration
@@ -327,7 +344,7 @@ def cli_args_add_runcmds_option(
         type=str,
         metavar='4TUP',
         help="Specifies the input 4-tuple used to generate run commands. "
-             "For example, \"0, 16, 'srun -n %%n', 'nidx + 1'\"",
+             "E.g., \"0, 8, 'srun -n %%n', 'nidx + 1'\"",
         required=opt_required,
         default=opt_default,
         action=_CLIArgsAddActions.RunCmdsAction
