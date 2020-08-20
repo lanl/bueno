@@ -20,6 +20,7 @@ from typing import (
 )
 
 from bueno.core import cntrimg
+from bueno.core import constants
 from bueno.core import metacls
 
 from bueno.public import host
@@ -30,9 +31,10 @@ StagingHookCb = Callable[[], str]
 ActionCb = Union[Callable[..., None], None]
 
 
-def _runi(
+def _runi(  # pylint: disable=too-many-arguments
         cmds: List[str],
         echo: bool = True,
+        check_exit_code: bool = True,
         preaction: ActionCb = None,
         postaction: ActionCb = None,
         user_data: Any = None
@@ -40,7 +42,7 @@ def _runi(
     '''
     Private run dispatch.
     '''
-    capture = postaction is not None
+    capture_output = postaction is not None
 
     cmdstr = ' '.join(cmds)
 
@@ -52,22 +54,30 @@ def _runi(
         preaction(**preargs)
 
     stime = utils.now()
-    coutput = cntrimg.activator().run(cmds, echo=echo, capture=capture)
+    coutput = cntrimg.activator().run(
+        cmds,
+        echo=echo,
+        capture=capture_output,
+        check_exit_code=check_exit_code
+    )
     etime = utils.now()
 
     if postaction is not None:
         postargs = {
             'command': cmdstr,
-            'exectime': etime - stime,
+            'start_time': stime,
+            'end_time': etime,
+            'exectime': (etime - stime).total_seconds(),
             'output': coutput,
             'user_data': user_data
         }
         postaction(**postargs)
 
 
-def run(
+def run(  # pylint: disable=too-many-arguments
         cmd: str,
         echo: bool = True,
+        check_exit_code: bool = True,
         preaction: Any = None,
         postaction: Any = None,
         user_data: Any = None
@@ -79,6 +89,7 @@ def run(
     args = {
         'cmds': [cmd],
         'echo': echo,
+        'check_exit_code': check_exit_code,
         'preaction': preaction,
         'postaction': postaction,
         'user_data': user_data
@@ -86,10 +97,31 @@ def run(
     _runi(**args)
 
 
-def prun(   # pylint: disable=R0913
+def capture(
+        cmd: str,
+        check_exit_code: bool = True
+) -> str:
+    '''
+    Executes the provided command and returns a string with the command's
+    output.
+
+    See run() for exceptions.
+    '''
+    runo = cntrimg.activator().run(
+        [cmd],
+        echo=False,
+        verbose=False,
+        capture=True,
+        check_exit_code=check_exit_code
+    )
+    return utils.chomp(str().join(runo))
+
+
+def prun(  # pylint: disable=too-many-arguments
         pexec: str,
         cmd: str,
         echo: bool = True,
+        check_exit_code: bool = True,
         preaction: Any = None,
         postaction: Any = None,
         user_data: Any = None
@@ -107,11 +139,38 @@ def prun(   # pylint: disable=R0913
     args = {
         'cmds': [pexec, cmd],
         'echo': echo,
+        'check_exit_code': check_exit_code,
         'preaction': preaction,
         'postaction': postaction,
         'user_data': user_data
     }
     _runi(**args)
+
+
+def build_information() -> List[str]:
+    '''
+    Returns a list of strings containing captured container and application
+    build information. If build information is not available, an empty list is
+    returned.
+    '''
+    buildl = os.path.join(
+        cntrimg.activator().get_img_path(),
+        constants.METADATA_DIR,
+        constants.SERVICE_LOG_NAME
+    )
+    if not os.path.exists(buildl):
+        return []
+    return utils.cat(buildl)
+
+
+def getenv(name: str) -> Union[str, None]:
+    '''
+    Get an environment variable, return None if it does not exist.
+    '''
+    res = capture(F'printenv {name}', check_exit_code=False)
+    if not utils.emptystr(res):
+        return res
+    return None
 
 
 class ImageStager(metaclass=metacls.Singleton):

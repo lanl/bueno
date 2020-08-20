@@ -25,6 +25,7 @@ from typing import (
     Iterable,
     List,
     Tuple,
+    Type,
     Optional
 )
 
@@ -60,6 +61,37 @@ class _TheExperiment(metaclass=metacls.Singleton):
         self._name = names.strip()
 
 
+class FOM:
+    '''
+    Figure of Merit data class.
+    '''
+    def __init__(
+            self,
+            name: str,  # pylint: disable=redefined-outer-name
+            description: str,
+            units: str,
+            value: float
+    ) -> None:
+        self.name = name
+        self.description = description
+        self.units = units
+        self.value = float(value)
+
+
+class CLIAddArgsAction:
+    '''
+    Base action class used to add additional arguments to a CLIConfiguration
+    instance.
+    '''
+    def __call__(self, clic: 'CLIConfiguration') -> None:
+        '''
+        Method that shall be used by derived classes to add a custom collection
+        of arguments to the calling CLIConfiguration instance via addargs().
+        '''
+        ers = F'__call__() not defined by {type(self).__name__} subclass.'
+        raise NotImplementedError(ers)
+
+
 class CLIConfiguration:
     '''
     Command-line interface configuration container and associated utilities.
@@ -74,8 +106,9 @@ class CLIConfiguration:
             description=self._desc,
             allow_abbrev=False
         )
-        self.addargs()
-        self._args = self.parseargs()
+
+        self._addargs()
+        self._args = argparse.Namespace()
 
     @property
     def description(self) -> str:
@@ -114,18 +147,26 @@ class CLIConfiguration:
         return self._args
 
     @abstractmethod
-    def addargs(self) -> None:
+    def _addargs(self) -> None:
         '''
         Abstract method that shall be used by derived classes to add a custom
         collection of arguments via self.argparser.add_argument(), for example.
         CLIConfiguration will call this function at the appropriate time.
         '''
 
-    def parseargs(self) -> argparse.Namespace:
+    def addargs(self, action: Type[CLIAddArgsAction]) -> None:
         '''
-        Thin abstraction around argparser.parse_args().
+        Instantiates and then calls provided action class to add additional
+        arguments to argument parser.
         '''
-        return self.argparser.parse_args(self.argv[1:])
+        action()(self)
+
+    def parseargs(self) -> None:
+        '''
+        Thin abstraction around argparser.parse_args() that parses and populates
+        internal argparse namespace instance.
+        '''
+        self._args = self.argparser.parse_args(self.argv[1:])
 
     def update(self, confns: argparse.Namespace) -> None:
         '''
@@ -243,7 +284,7 @@ def parsedargs(
     return auxap.parse_args(argv)
 
 
-class CLIArgsAddActions:
+class _CLIArgsAddActions:
     '''
     Container class for custom argparse actions.
     '''
@@ -271,7 +312,7 @@ class CLIArgsAddActions:
             nopts = len(optt)
             if nopts != 4:
                 helps = F'{option_string} requires a 4-tuple of values. ' \
-                       F'{nopts} values provided: {optt}.'
+                        F'{nopts} values provided: {optt}.'
                 parser.error(helps)
             # Check type of each element.
             if not isinstance(optt[0], int):
@@ -303,10 +344,10 @@ def cli_args_add_runcmds_option(
         type=str,
         metavar='4TUP',
         help="Specifies the input 4-tuple used to generate run commands. "
-             "For example, \"0, 16, 'srun -n %%n', 'nidx + 1'\"",
+             "E.g., \"0, 8, 'srun -n %%n', 'nidx + 1'\"",
         required=opt_required,
         default=opt_default,
-        action=CLIArgsAddActions.RunCmdsAction
+        action=_CLIArgsAddActions.RunCmdsAction
     )
 
 
@@ -336,7 +377,7 @@ class CannedCLIConfiguration(CLIConfiguration):
         self.defaults = defaults
         super().__init__(desc, argv)
 
-    def addargs(self) -> None:
+    def _addargs(self) -> None:
         self.argparser.add_argument(
             '-o', '--csv-output',
             type=str,

@@ -240,7 +240,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
             help='Specifies the base container image tarball or directory.',
             required=True,
             default=impl._defaults.image,
-            action=impl.ImageAction,
+            action=impl.ImageAction
         )
 
         # Must be located after definition of imgdir_arg because we pass it to

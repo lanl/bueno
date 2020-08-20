@@ -78,14 +78,22 @@ def os_pretty_name() -> str:
     return name
 
 
-def capture(cmd: str) -> str:
+def capture(
+        cmd: str,
+        check_exit_code: bool = True
+) -> str:
     '''
     Executes the provided command and returns a string with the command's
     output.
 
     See run() for exceptions.
     '''
-    res = run(cmd, capture=True, verbose=False)
+    res = run(
+        cmd,
+        capture_output=True,
+        verbose=False,
+        check_exit_code=check_exit_code
+    )
     return utils.chomp(str().join(res))
 
 
@@ -123,17 +131,18 @@ def tmpdir() -> str:
     return '/tmp'
 
 
-def run(
+def run(  # pylint: disable=too-many-arguments
         cmd: str,
         verbatim: bool = False,
         echo: bool = False,
-        capture: bool = False,  # pylint: disable=W0621
-        verbose: bool = True
+        capture_output: bool = False,
+        verbose: bool = True,
+        check_exit_code: bool = True
 ) -> List[str]:
     '''
     Executes the provided command.
 
-    Returns newline-delimited list of output if capture if True.
+    Returns newline-delimited list of output if capture_output if True.
 
     Throws ChildProcessError on error.
     '''
@@ -169,13 +178,13 @@ def run(
 
         if not stdout:
             break
-        if capture:
+        if capture_output:
             olst.append(stdout)
         if verbose:
             logger.log(utils.chomp(stdout))
 
     wrc = spo.wait()
-    if wrc != os.EX_OK:
+    if wrc != os.EX_OK and check_exit_code:
         cpe = ChildProcessError()
         cpe.errno = wrc
         estr = F"Command '{realcmd}' returned non-zero exit status."

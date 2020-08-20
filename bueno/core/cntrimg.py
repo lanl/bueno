@@ -47,12 +47,13 @@ class BaseImageActivator(ABC):
         '''
 
     @abstractmethod
-    def run(
+    def run(  # pylint: disable=too-many-arguments
             self,
             cmds: List[str],
             echo: bool = True,
             capture: bool = False,
-            verbose: bool = True
+            verbose: bool = True,
+            check_exit_code: bool = True
     ) -> List[str]:
         '''
         Runs the specified command in a container. By default the executed
@@ -155,15 +156,21 @@ class CharlieCloudImageActivator(BaseImageActivator):
             errs = notf.format(self.runcmd)
             raise RuntimeError(errs)
 
-    def run(
+    def run(  # pylint: disable=too-many-arguments
             self,
             cmds: List[str],
             echo: bool = True,
             capture: bool = False,
-            verbose: bool = True
+            verbose: bool = True,
+            check_exit_code: bool = True
     ) -> List[str]:
+        imgp = self.get_img_path()
+        ccargs = [
+            F'--set-env={imgp}/ch/environment',
+            F'{imgp}'
+        ]
         # Charliecloud activation command string.
-        ccrc = F'{self.runcmd} {self.get_img_path()}'
+        ccrc = F'{self.runcmd} {" ".join(ccargs)}'
         bmgc = F'{constants.BASH_MAGIC}'
         # First command.
         cmdf = cmds[0]
@@ -178,8 +185,9 @@ class CharlieCloudImageActivator(BaseImageActivator):
         runargs = {
             'verbatim': True,
             'echo': echo,
-            'capture': capture,
-            'verbose': verbose
+            'capture_output': capture,
+            'verbose': verbose,
+            'check_exit_code': check_exit_code
         }
         return host.run(cmdstr, **runargs)
 
@@ -201,12 +209,13 @@ class NoneImageActivator(BaseImageActivator):
     '''
     The non-image-activator activator. Just a passthrough to the host's shell.
     '''
-    def run(
+    def run(  # pylint: disable=too-many-arguments
             self,
             cmds: List[str],
             echo: bool = True,
             capture: bool = False,
-            verbose: bool = True
+            verbose: bool = True,
+            check_exit_code: bool = True
     ) -> List[str]:
         # Note that we use this strategy instead of just running the
         # provided command so that quoting and escape requirements are
@@ -215,8 +224,9 @@ class NoneImageActivator(BaseImageActivator):
         runargs = {
             'verbatim': True,
             'echo': echo,
-            'capture': capture,
-            'verbose': verbose
+            'capture_output': capture,
+            'verbose': verbose,
+            'check_exit_code': check_exit_code
         }
         return host.run(cmdstr, **runargs)
 
