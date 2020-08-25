@@ -21,6 +21,7 @@ from abc import abstractmethod
 
 from typing import (
     Any,
+    cast,
     Dict,
     Iterable,
     List,
@@ -160,6 +161,23 @@ class CLIConfiguration:
         arguments to argument parser.
         '''
         action()(self)
+
+    def rmargs(self, options: List[str]) -> None:
+        '''
+        Removes the provided options from the calling configuration instance.
+        '''
+        # From https://stackoverflow.com/questions/
+        # 32807319/disable-remove-argument-in-argparse
+        for option in options:
+            for action in self.argparser._actions: \
+              # pylint: disable=protected-access
+                if vars(action)['option_strings'][0] == option:
+                    self.argparser._handle_conflict_resolve( \
+                        # pylint: disable=protected-access
+                        cast(argparse.Action, None),
+                        [(option, action)]
+                    )
+                    break
 
     def parseargs(self) -> None:
         '''
