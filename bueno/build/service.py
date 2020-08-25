@@ -138,6 +138,6 @@ class impl(service.Base):  # pylint: disable=C0103
             estr += 'What: {} error encountered.\n' \
                 'Why:  {}'.format(self.prog, exception)
             estr += utils.ehorf()
-            raise type(exception)(estr)
+            raise type(exception)(estr) from exception
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

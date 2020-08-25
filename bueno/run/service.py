@@ -338,7 +338,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
             istf = tarfile.is_tarfile(imgp)
         except Exception as exception:
             estr = F'{exception}. Cannot continue.\n{hlps}'
-            raise RuntimeError(estr)
+            raise RuntimeError(estr) from exception
         # We do this check here so we can raise an exception that isn't caught
         # above because it produces redundant error messages. is_tarfile() can
         # raise exceptions, so that's what the above try/except block is for.
@@ -438,6 +438,6 @@ class impl(service.Base):  # pylint: disable=invalid-name
             estr += F'What: {self.prog} error encountered.\n' \
                     F'Why:  {exception}'
             estr += utils.ehorf()
-            raise type(exception)(estr)
+            raise type(exception)(estr) from exception
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab
