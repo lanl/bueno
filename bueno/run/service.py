@@ -259,16 +259,6 @@ class impl(service.Base):  # pylint: disable=invalid-name
         )
 
         self.argp.add_argument(
-            '-p', '--program',
-            # Consume the remaining arguments for program's use.
-            nargs=argparse.REMAINDER,
-            help='Specifies the program to run, optionally '
-                 'followed by program-specific arguments.',
-            required=True,
-            action=impl.ProgramAction
-        )
-
-        self.argp.add_argument(
             '-e', '--extras',
             type=str,
             help='A colon-delimited list of paths to additional Python '
@@ -277,6 +267,16 @@ class impl(service.Base):  # pylint: disable=invalid-name
                  'specified run script.',
             required=False,
             action=impl.ExtrasAction
+        )
+
+        self.argp.add_argument(
+            '-p', '--program',
+            # Consume the remaining arguments for program's use.
+            nargs=argparse.REMAINDER,
+            help='Specifies the program to run, optionally '
+                 'followed by program-specific arguments.',
+            required=True,
+            action=impl.ProgramAction
         )
 
     def _populate_service_config(self) -> None:
