@@ -26,16 +26,16 @@ def main(argv):
     shargs = {
         'echo': True
     }
-    # Wildcards need to be escaped with a `\' or quoted to protect them from
-    # expansion by the host.
-    container.run('ls \\*')
-    # shell and container interfaces should behave as identically as possible.
-    host.run('ls \\*', **shargs)
+    # Wildcards don't need to be escaped with a `\' or quoted to protect them
+    # from expansion by the host. We take care of that for you.
+    container.run('ls *')
+    # host and container interfaces should behave as identically as possible.
+    host.run('ls *', **shargs)
 
     logger.emlog('# Testing redirection...')
     logger.log(F'# Adding text to {fname}:')
-    container.run(F'echo "Some Text" | tee {fname}')
-    container.run(F'echo "More \'Text\'" >> {fname}')
+    host.run(F'echo "Some Text" | tee {fname}', **shargs)
+    host.run(F'echo "More \'Text\'" >> {fname}', **shargs)
 
     logger.emlog(F'# The contents of {fname} are:')
     host.run(F'cat {fname}', **shargs)
@@ -45,12 +45,12 @@ def main(argv):
 
     logger.emlog('# Testing command chaining...')
     container.run('true && echo true!')
-    container.run('false || echo false... && echo and done!')
+    container.run('false || echo false is good  && echo true is good')
 
     logger.emlog('# Testing variable lifetimes within chained commands...')
     container.run('export FOO="bar" && '
                   'test ! -z $FOO && '
-                  'echo "Loos good!" || '
+                  'echo "Looks good!" || '
                   'exit 1')
 
     metadata.add_asset(metadata.FileAsset(fname))

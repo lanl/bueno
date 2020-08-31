@@ -16,6 +16,7 @@ from typing import (
 )
 
 import os
+import shlex
 import shutil
 import subprocess
 
@@ -144,23 +145,18 @@ def run(  # pylint: disable=too-many-arguments
 
     Returns newline-delimited list of output if capture_output if True.
 
-    Throws ChildProcessError on error.
+    Throws ChildProcessError on error if check_exit_code is True.
     '''
     def getrealcmd(cmd: str, verbatim: bool) -> str:
-        # If the user wants to see the 'real' command.
-        if not verbatim:
-            return F'{constants.BASH_MAGIC} {cmd}'
-        return cmd
+        # The user wants us to run the string exactly as provided.
+        if verbatim:
+            return cmd
+        return F'{constants.BASH_MAGIC} {shlex.quote(cmd)}'
 
     realcmd = getrealcmd(cmd, verbatim)
 
     if echo:
-        logcmd = realcmd
-        # No need to let the user know that we are using magic here.
-        if verbatim:
-            # +1 to account for the space added after magic.
-            logcmd = realcmd[len(constants.BASH_MAGIC) + 1:]
-        logger.log(F'# $ {logcmd}')
+        logger.log(F'# $ {realcmd}')
 
     # Output list of strings used to (optionally) capture command output.
     olst: List[str] = list()

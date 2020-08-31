@@ -17,6 +17,7 @@ from typing import (
 )
 
 import os
+import shlex
 
 from bueno.core import constants
 from bueno.core import metacls
@@ -179,9 +180,9 @@ class CharlieCloudImageActivator(BaseImageActivator):
         # Are multiple command strings provided?
         multicmd = len(cmds) > 1
         # Default command string if a single command is provided.
-        cmdstr = F'{ccrc} -- {bmgc} {cmdf}'
+        cmdstr = F'{ccrc} -- {bmgc} {shlex.quote(cmdf)}'
         if multicmd:
-            cmdstr = F'{cmdf} {ccrc} --join -- {bmgc} {cmdr}'
+            cmdstr = F'{cmdf} {ccrc} --join -- {bmgc} {shlex.quote(cmdr)}'
         runargs = {
             'verbatim': True,
             'echo': echo,
@@ -220,7 +221,7 @@ class NoneImageActivator(BaseImageActivator):
         # Note that we use this strategy instead of just running the
         # provided command so that quoting and escape requirements are
         # consistent across activators.
-        cmdstr = F"{constants.BASH_MAGIC} {' '.join(cmds)}"
+        cmdstr = F"{constants.BASH_MAGIC} {shlex.quote(' '.join(cmds))}"
         runargs = {
             'verbatim': True,
             'echo': echo,

@@ -16,9 +16,8 @@ METADATA_DIR: str = 'bueno'
 # The name used to store service logs.
 SERVICE_LOG_NAME: str = 'log.txt'
 
-# The magic from https://stackoverflow.com/questions/1711970 makes cmd
-# quoting a non-issue. Pretty slick... Notice that this is a slightly
-# modified version to meet our needs.
-BASH_MAGIC: str = 'bash -c \'${0} ${1+$@}\''
+# The bash magic used to execute commands in a sub-shell. No longer that
+# magical, but it once was... in an subtlety broken way.
+BASH_MAGIC: str = 'bash -c'
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab
