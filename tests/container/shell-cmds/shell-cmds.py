@@ -47,4 +47,10 @@ def main(argv):
     container.run('true && echo true!')
     container.run('false || echo false... && echo and done!')
 
+    logger.emlog('# Testing variable lifetimes within chained commands...')
+    container.run('export FOO="bar" && '
+                  'test ! -z $FOO && '
+                  'echo "Loos good!" || '
+                  'exit 1')
+
     metadata.add_asset(metadata.FileAsset(fname))
