@@ -147,6 +147,7 @@ def run(  # pylint: disable=too-many-arguments
     Throws ChildProcessError on error.
     '''
     def getrealcmd(cmd: str, verbatim: bool) -> str:
+        # If the user wants to see the 'real' command.
         if not verbatim:
             return F'{constants.BASH_MAGIC} {cmd}'
         return cmd
@@ -156,7 +157,7 @@ def run(  # pylint: disable=too-many-arguments
     if echo:
         logcmd = realcmd
         # No need to let the user know that we are using magic here.
-        if not verbatim:
+        if verbatim:
             # +1 to account for the space added after magic.
             logcmd = realcmd[len(constants.BASH_MAGIC) + 1:]
         logger.log(F'# $ {logcmd}')

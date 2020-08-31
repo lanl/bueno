@@ -1,5 +1,6 @@
 # TODO Items
 
+* Add a quick start guide to README.
 * Restructure bueno build argument processing to handle forwarding of
   builder-specific arguments.
 * Add post-run action hook.
