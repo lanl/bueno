@@ -32,9 +32,9 @@ python3 -m pip uninstall bueno
 ```
 
 ## Quick Start
-After installation, here are some quick examples for getting started. 
-The following is the "hello world" equivalent of a bueno run script. 
-This is a simplified version of the example described in more detail 
+After installation, here are some quick examples for getting started.
+The following is the *hello world* equivalent of a bueno run script.
+This is a simplified version of the example described in more detail
 [here](https://lanl.github.io/bueno/html/bueno-run-getting-started.html).
 ```
 # hello.py
@@ -50,8 +50,8 @@ Which is executed by:
 $ bueno run -a none -p hello.py
 ```
 
-Now, this script can be directly expanded to include more important actions,
-or with just a few lines, bueno can call an existing program file.
+Now, this script can be directly expanded to include other actions,
+or with just a few lines, bueno can execute an existing program.
 ```
 # hello.py
 from bueno.public import experiment
@@ -60,13 +60,10 @@ from bueno.public import host
 def main(argv):
     experiment.name('call-bye')
     # call the other file by passing a terminal command
-    host.run('python3 goodbye.py')
+    host.run('python goodbye.py')
 ```
-Where goodbye.py is another python script in the same directory as hello.py
+Where `goodbye.py` is another Python script in the same directory as `hello.py`,
 and again executed the same way.
-
-There are additional parameters that can be passed for greater detail when 
-debugging outlined at the implementation of bueno.public.host.run
 
 ### Los Alamos National Laboratory Code Release
 C19133 bueno
