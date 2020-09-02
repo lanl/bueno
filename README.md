@@ -65,5 +65,13 @@ def main(argv):
 Where `goodbye.py` is another Python script in the same directory as `hello.py`,
 and again executed the same way.
 
+## Examples:
+* [hello](./examples/hello)
+* [hello-container](./examples/hello-container)
+* [custom-actions](./examples/custom-actions)
+* [metadata](./examples/metadata)
+* [extras](./examples/extras)
+* [build-n-run](./examples/build-n-run)
+
 ### Los Alamos National Laboratory Code Release
 C19133 bueno

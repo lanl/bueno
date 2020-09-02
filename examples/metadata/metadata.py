@@ -12,9 +12,12 @@ def main(argv):
 
     logger.log('adding a yaml dict asset...')
     adict = dict()
+
+    # collect metadata
     adict['Application'] = {'argv': argv}
     adict['System'] = {
         'whoami': host.whoami(),
         'hostname': host.hostname()
     }
+    # save metadata to file
     metadata.add_asset(metadata.YAMLDictAsset(adict, 'yaml-metadata'))
