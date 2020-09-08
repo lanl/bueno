@@ -8,6 +8,7 @@ experiment.name('metadata')
 
 def main(argv):
     logger.log('adding a file asset...')
+    # adds an arbitrary metadata file
     metadata.add_asset(metadata.FileAsset('some-metadata.txt'))
 
     logger.log('adding a yaml dict asset...')
