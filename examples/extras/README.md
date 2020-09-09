@@ -4,7 +4,7 @@ run script as well as how some of bueno's utils can test the validity of
 import statements and give meaningful warnings instead of simply erroring out.
 
 Try to run this the same way you did the other examples. That is to say, use:
-```
+```shell
 bueno run -a none -p extras.py
 ```
 
@@ -27,6 +27,6 @@ statements from the properly included library. Examining the contents of the
 run-example file you'll find that it's a modified version of the bueno run call
 that we've been using for the last few examples with the --extras tag followed
 by the relative name of the needed directory.
-```
+```shell
 bueno run -a none --extras .:./mypackage -p ./extras.py
 ```

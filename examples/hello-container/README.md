@@ -16,6 +16,6 @@ def main(argv):
 ```
 
 Again, this script can be executed with
-```
+```shell
 bueno run -a none -p hello-container.py
 ```

@@ -15,19 +15,19 @@ compilation, program execution, data storage, and analysis. More on this later.
 
 ### User Installation With pip
 In a terminal perform the following (assumes a bash-like shell).
-```
+```shell
 cd bueno # The directory in which setup.py is located.
 python3 -m pip install --user .
 ```
 Add bueno's installation prefix to `PATH`.
-```
+```shell
 export PY_USER_BIN=$(python3 -c 'import site; print(site.USER_BASE + "/bin")')
 export PATH=$PY_USER_BIN:$PATH
 ```
 Now, the `bueno` command should be available for use.
 
 ### User Uninstallation with pip
-```
+```shell
 python3 -m pip uninstall bueno
 ```
 
@@ -46,7 +46,7 @@ def main(argv):
     logger.log('hello world')
 ```
 Which is executed by:
-```
+```shell
 $ bueno run -a none -p hello.py
 ```
 

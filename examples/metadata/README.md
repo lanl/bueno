@@ -9,9 +9,8 @@ information before lastly being written to a file.
 You'll find the following lines in the example runscript that setup two
 additional metadata assets. The first of which is called ```some-metadata.txt```
 as there is no information assigned to this asset, it will simply generate an
-empty file. However, it will be saved in a "sub-sub-directory":
-```/subdir-a/subdir-b```; illustrating that the depth of the subdirectory is
-also arbitrary.
+empty file. However, it will be saved in a "sub-sub-directory"; illustrating
+that the depth of the subdirectory is also arbitrary.
 
 However, the second asset is based around a populated dictionary variable and
 will contain information acquired about the user executing the script and the
@@ -36,7 +35,7 @@ metadata.add_asset(metadata.YAMLDictAsset(adict, 'yaml-metadata'))
 
 ## Trying it out:
 To illustrate this for yourself, execute the runscript with the ususal
-```
+```shell
 bueno run -a none -p metadata.py
 ```
 
@@ -44,7 +43,7 @@ In the terminal you'll find notes about the kind of information gathered
 and where it was saved. Several files are generated each time the run script is
 executed. Information about the host environment can be found in
 environment.yaml,
-```
+```yaml
 Host:
   hostname: localhost.localdomain
   kernel: Linux
@@ -53,7 +52,7 @@ Host:
   whoami: user
 ```
 the run configuration is stored in run.yaml,
-```
+```yaml
 Configuration:
   do_not_stage: false
   extras: null
@@ -66,8 +65,9 @@ and you'll find that the second asset defined in the run script created a file
 with a similar format to the others. Additionally there is a record of the
 runscript that was executed and the output sent to the terminal at runtime.
 
-The arbitrary ```some-metadata.txt``` asset is also present, although it is
-empty. That said, it illustrates how bueno supports the creation of any number
-of metadata assets as well as quite a few formats. Check
+The arbitrary ```some-metadata.txt``` asset is also present two levels down in
+a subdirectory, although it is empty. That said, it illustrates how bueno
+supports the creation of any number of metadata assets as well as quite a few
+formats. Check
 [here](https://github.com/lanl/bueno/blob/master/bueno/public/metadata.py).
 for a full list.
