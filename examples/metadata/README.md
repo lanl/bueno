@@ -9,7 +9,7 @@ information before lastly being written to a file.
 You'll find the following lines in the example runscript that setup two
 additional metadata assets. The first of which is called ```some-metadata.txt```
 as there is no information assigned to this asset, it will simply generate an
-empty file. However, it will be saved in the subdirectory ```/custom```.
+empty file. However, it will be saved in a subdirectory; ```/custom```.
 
 However, the second asset is based around a populated dictionary variable and
 will contain information acquired about the user executing the script and the
@@ -17,7 +17,7 @@ host script.
 ```
 logger.log('adding a file asset...')
 # adds an arbitrary metadata file to a subfolder: custom
-metadata.add_asset(metadata.FileAsset('some-metadata.txt'))
+metadata.add_asset(metadata.FileAsset('some-metadata.txt', 'custom'))
 
 logger.log('adding a yaml dict asset...')
 adict = dict()
