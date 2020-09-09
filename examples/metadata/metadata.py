@@ -8,13 +8,17 @@ experiment.name('metadata')
 
 def main(argv):
     logger.log('adding a file asset...')
-    metadata.add_asset(metadata.FileAsset('some-metadata.txt'))
+    # adds an arbitrary metadata file to a subfolder: custom
+    metadata.add_asset(metadata.FileAsset('some-metadata.txt', 'subdir-a/subdir-b'))
 
     logger.log('adding a yaml dict asset...')
     adict = dict()
+
+    # collect metadata
     adict['Application'] = {'argv': argv}
     adict['System'] = {
         'whoami': host.whoami(),
         'hostname': host.hostname()
     }
+    # save metadata to file
     metadata.add_asset(metadata.YAMLDictAsset(adict, 'yaml-metadata'))

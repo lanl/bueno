@@ -15,19 +15,19 @@ compilation, program execution, data storage, and analysis. More on this later.
 
 ### User Installation With pip
 In a terminal perform the following (assumes a bash-like shell).
-```
+```shell
 cd bueno # The directory in which setup.py is located.
 python3 -m pip install --user .
 ```
 Add bueno's installation prefix to `PATH`.
-```
+```shell
 export PY_USER_BIN=$(python3 -c 'import site; print(site.USER_BASE + "/bin")')
 export PATH=$PY_USER_BIN:$PATH
 ```
 Now, the `bueno` command should be available for use.
 
 ### User Uninstallation with pip
-```
+```shell
 python3 -m pip uninstall bueno
 ```
 
@@ -36,7 +36,7 @@ After installation, here are some quick examples for getting started.
 The following is the *hello world* equivalent of a bueno run script.
 This is a simplified version of the example described in more detail
 [here](https://lanl.github.io/bueno/html/bueno-run-getting-started.html).
-```
+```python
 # hello.py
 from bueno.public import experiment
 from bueno.public import logger
@@ -46,13 +46,13 @@ def main(argv):
     logger.log('hello world')
 ```
 Which is executed by:
-```
+```shell
 $ bueno run -a none -p hello.py
 ```
 
 Now, this script can be directly expanded to include other actions,
 or with just a few lines, bueno can execute an existing program.
-```
+```python
 # hello.py
 from bueno.public import experiment
 from bueno.public import host
@@ -64,6 +64,14 @@ def main(argv):
 ```
 Where `goodbye.py` is another Python script in the same directory as `hello.py`,
 and again executed the same way.
+
+## Examples:
+* [hello](./examples/hello)
+* [hello-container](./examples/hello-container)
+* [custom-actions](./examples/custom-actions)
+* [metadata](./examples/metadata)
+* [extras](./examples/extras)
+* [build-n-run](./examples/build-n-run)
 
 ### Los Alamos National Laboratory Code Release
 C19133 bueno
