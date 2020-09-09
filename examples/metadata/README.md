@@ -9,15 +9,17 @@ information before lastly being written to a file.
 You'll find the following lines in the example runscript that setup two
 additional metadata assets. The first of which is called ```some-metadata.txt```
 as there is no information assigned to this asset, it will simply generate an
-empty file. However, it will be saved in a subdirectory; ```/custom```.
+empty file. However, it will be saved in a "sub-sub-directory":
+```/subdir-a/subdir-b```; illustrating that the depth of the subdirectory is
+also arbitrary.
 
 However, the second asset is based around a populated dictionary variable and
 will contain information acquired about the user executing the script and the
 host script.
-```
+```python
 logger.log('adding a file asset...')
-# adds an arbitrary metadata file to a subfolder: custom
-metadata.add_asset(metadata.FileAsset('some-metadata.txt', 'custom'))
+# adds an arbitrary metadata file to a subfolder
+metadata.add_asset(metadata.FileAsset('some-metadata.txt', 'subdir-a/subdir-b'))
 
 logger.log('adding a yaml dict asset...')
 adict = dict()

@@ -12,7 +12,7 @@ being: command (cmd), pre-action method (preaction) and, post-action method.
 In the definition for out postaction callback function you'll find that the
 variable number of arguments passed in kwargs is broken down into specific,
 meaningful values.
-```
+```python
 cmd = kwargs.pop('command')  # command sent to terminal
 out = kwargs.pop('output')  # output from example-app
 stm = kwargs.pop('start_time')  # timing values
