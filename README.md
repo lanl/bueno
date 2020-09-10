@@ -71,7 +71,7 @@ and again executed the same way.
 * [custom-actions](./examples/custom-actions)
 * [metadata](./examples/metadata)
 * [extras](./examples/extras)
-* [build-n-run](./examples/build-n-run)
+* [build-and-run](./examples/build-and-run)
 
 ### Los Alamos National Laboratory Code Release
 C19133 bueno
