@@ -43,7 +43,7 @@ class ArgumentParser:
         self.argp.add_argument(
             '-t', '--traceback',
             help='Provides detailed exception information '
-                 'useful for bug reporting and run script debugging.',
+                 'useful for bug reporting and script debugging.',
             action='store_true',
             default=False,
             required=False
