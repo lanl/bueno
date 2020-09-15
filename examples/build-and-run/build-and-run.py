@@ -9,7 +9,7 @@ import time
 
 
 def main(argv):
-    experiment.name('nbody')
+    experiment.name('nbody-mpi')
     logger.log('# Experiment: {}'.format(experiment.name()))
 
     prun = host.whichl(['srun', 'mpiexec'])
