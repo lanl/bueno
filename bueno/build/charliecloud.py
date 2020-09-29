@@ -96,28 +96,11 @@ class impl(builder.Base):  # pylint: disable=C0103
         logger.log('# End Spec Output')
 
     def _get_path_to_storage(self) -> str:
-        cmd = '{} -b {} -t {} --print-storage {}'.format(
-            self.buildc,
-            self.builder,
-            self.config['tag'],
-            self.config['spec']
-        )
-        cmdo = utils.chomp(host.capture(cmd))
-        # Now do some filtering because the output emits more than just the
-        # storage path.
-        lst = list(filter(lambda x: 'building with' not in x, cmdo.split('\n')))
-        if len(lst) < 1:
-            msg = 'Could not determine storage ' \
-                  'path from the following output:\n{}'
-            raise RuntimeError(msg.format(cmdo))
-        # Hope for the best because of the rudimentary filtering used (i.e.,
-        # hope lst[0] is a valid path). If this ever becomes problematic,
-        # implement something nicer. Also, not a huge deal because the returned
-        # value will be used in later file operations (let them fail).
-        basep = lst[0]
+        cmd = F'{self.builder} storage-path'
+        basep = utils.chomp(host.capture(cmd))
         # Now build up the entire image path. The convention appears to be:
         # basep/img/tag
-        specn = '{}'.format(self.config['tag'])
+        specn = self.config['tag']
         return os.path.join(basep, 'img', specn)
 
     def _add_metadata(self) -> None:
