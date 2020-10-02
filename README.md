@@ -1,4 +1,5 @@
-![logo](docs/img/bueno_gray.png)
+![logo](docs/img/quo-logo.png)
+
 # bueno: Automated, Reproducible Benchmarking and Analysis
 
 [![Build Status](https://travis-ci.com/lanl/bueno.svg?branch=master)
