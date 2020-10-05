@@ -8,20 +8,12 @@ for nbody, our example application.
 bueno build -s Dockerfile.mpich -t nbody
 ```
 Once completed, there will be a new tarball in the acting directory. We'll use
-<<<<<<< HEAD
-this when executing the bueno run script.
-=======
 this when executing the bueno runscript.
->>>>>>> c26a6a224e02ebd1914befe20014fa2d2a828bca
 
 ---
 
 ## Run
-<<<<<<< HEAD
-Instead of simply ordering bueno to execute our run script as we have in the
-=======
-Instead of simply ordering bueno to execute our ruscript as we have in the
->>>>>>> c26a6a224e02ebd1914befe20014fa2d2a828bca
+Instead of simply ordering bueno to execute our runscript as we have in the
 past, we'll be providing bueno with a container to work with.
 ```
 bueno run -i nbody.tar.gz -p build-and-run.py
@@ -33,11 +25,7 @@ outlined in the following tip.
 
 
 > ### Tip
-<<<<<<< HEAD
 > If you encountered an error similar to this:
-=======
-> If, like me, you encountered an error similar to this:
->>>>>>> c26a6a224e02ebd1914befe20014fa2d2a828bca
 > ```
 > What: run error encountered.
 > Why:  Cannot determine the number of nodes in your job.
