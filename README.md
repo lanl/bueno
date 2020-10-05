@@ -1,4 +1,5 @@
 <img src="docs/img/bueno_gray.png" alt="bueno logo" width="210"/>
+
 # bueno: Automated, Reproducible Benchmarking and Analysis
 
 [![Build Status](https://travis-ci.com/lanl/bueno.svg?branch=master)
