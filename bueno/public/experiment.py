@@ -522,6 +522,7 @@ def runcmds(
         cmds.append(regex.sub(str(idx), spec))
     return cmds
 
+
 class _Factor:
     '''
     Provide tools for prime factor combination and
