@@ -1,8 +1,9 @@
-![logo](docs/img/bueno_gray.png)
-# bueno: Automated, Reproducible Benchmarking and Analysis
+<img src="docs/img/bueno_gray.png" alt="bueno logo" width="210"/>
 
 [![Build Status](https://travis-ci.com/lanl/bueno.svg?branch=master)
 ](https://travis-ci.com/lanl/bueno)
+
+# bueno: Automated, Reproducible Benchmarking and Analysis
 
 System benchmarking provides a means to compare or assess the performance of
 hardware or software against a point of reference. Because of the multitude of
