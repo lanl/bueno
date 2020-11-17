@@ -601,7 +601,7 @@ class _Factor:
         length = len(temp_list)
 
         while length > self.dimensions:
-            logger.log(temp_list)
+            logger.log(F'{temp_list}')
 
             # Case 1: List is 1 item too long
             # Combine the first 2 items
@@ -657,7 +657,7 @@ class _Factor:
         return  # Done
 
 
-def evaluate_factors(num: int, dim: int) -> list:
+def evaluate_factors(num: int, dim: int) -> typing.List[int]:
     '''
     Perform factor calculations
     '''
