@@ -12,7 +12,7 @@ import argparse
 import typing
 
 
-def parse_args():
+def parse_args() -> argparse.Namespace:
     '''
     Process program arguments
     '''
@@ -173,7 +173,7 @@ class Factor:
         return  # Done
 
 
-def evaluate(num: int, dim: int) -> list:
+def evaluate(num: int, dim: int) -> typing.List[int]:
     '''
     Perform factor calculations
     '''
@@ -198,7 +198,7 @@ def evaluate(num: int, dim: int) -> list:
     return breakdown.factor_list
 
 
-def main():
+def main() -> None:
     '''
     Main program
     '''

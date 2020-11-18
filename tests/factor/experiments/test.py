@@ -12,7 +12,7 @@ import subprocess
 import csv
 
 
-def parse_args():
+def parse_args() -> argparse.Namespace:
     '''
     Process program arguments
     '''
@@ -92,7 +92,7 @@ class Experiment:
                 csv_writer.writerow(row)
 
 
-def main():
+def main() -> None:
     '''
     Main program
     '''
