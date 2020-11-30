@@ -606,7 +606,7 @@ class _Factor:
             # Case 1: List is 1 item too long
             # Combine the first 2 items
             if length == (self.dimensions + 1):
-                logger.log('Case 1 -> ', end='')
+                print('Case 1 -> ', end='')
 
                 alyx = temp_list[0] * temp_list[1]
                 temp_list = temp_list[2:]
@@ -626,7 +626,7 @@ class _Factor:
             # Case 2: List contains a large value
             # Combine first and second largest
             if contains_large:
-                logger.log('Case 2 -> ', end='')
+                print('Case 2 -> ', end='')
 
                 breen = temp_list[0] * temp_list[length - 2]
                 temp_list = temp_list[1:-2]
@@ -638,7 +638,7 @@ class _Factor:
             # Case 3: List is mostly even distribution
             # Combine first and last items
             else:
-                logger.log('Case 3 -> ', end='')
+                print('Case 3 -> ', end='')
 
                 calhoun = temp_list[0] * temp_list[length - 1]
                 temp_list = temp_list[1:-1]
