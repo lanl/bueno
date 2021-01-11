@@ -551,8 +551,6 @@ class _Factor:
         '''
         Fill factor_list with prime factors
         '''
-        logger.log(F'{number} -> {self.factor_list}')
-
         if number in self.prime_list:
             self.factor_list.append(number)
             return  # Is prime; done.
@@ -578,12 +576,7 @@ class _Factor:
         # append unlisted prime if missing
         if self.number != product:
             remainder = int(self.number/product)
-            logger.log(F'{self.number} != {product}')
-            logger.log(F'Appending {remainder}')
             self.factor_list.append(remainder)
-
-        else:
-            print(F'{self.number} == {product}\nValid!')
 
     @staticmethod
     def get_root(degree: int, number: int) -> float:
@@ -601,13 +594,9 @@ class _Factor:
         length = len(temp_list)
 
         while length > self.dimensions:
-            logger.log(F'{temp_list}')
-
             # Case 1: List is 1 item too long
             # Combine the first 2 items
             if length == (self.dimensions + 1):
-                print('Case 1 -> ', end='')
-
                 alyx = temp_list[0] * temp_list[1]
                 temp_list = temp_list[2:]
                 temp_list.insert(0, alyx)
@@ -626,8 +615,6 @@ class _Factor:
             # Case 2: List contains a large value
             # Combine first and second largest
             if contains_large:
-                print('Case 2 -> ', end='')
-
                 breen = temp_list[0] * temp_list[length - 2]
                 temp_list = temp_list[1:-2]
                 temp_list.append(breen)
@@ -638,8 +625,6 @@ class _Factor:
             # Case 3: List is mostly even distribution
             # Combine first and last items
             else:
-                print('Case 3 -> ', end='')
-
                 calhoun = temp_list[0] * temp_list[length - 1]
                 temp_list = temp_list[1:-1]
                 temp_list.append(calhoun)
@@ -667,17 +652,11 @@ def evaluate_factors(num: int, dim: int) -> typing.List[int]:
     # Sort factor list (Greatest-Least)
 
     breakdown = _Factor(num, dim)
-    logger.log('\nFactoring...')
+
     breakdown.get_prime(num)
-
-    logger.log('\nValidating prime factors...')
     breakdown.validate_list()
-
-    logger.log('\nCondensing factor list...')
     breakdown.condense_list()
-
     breakdown.factor_list.sort(reverse=True)
-    logger.log(F'\nFinal: {breakdown.factor_list}')
 
     return breakdown.factor_list
 
