@@ -642,7 +642,7 @@ class _Factor:
         return  # Done
 
 
-def evaluate_factors(num: int, dim: int) -> typing.List[int]:
+def factorize(num: int, dim: int) -> typing.List[int]:
     '''
     Perform factor calculations
     '''

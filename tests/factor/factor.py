@@ -45,7 +45,7 @@ def main() -> None:
     Main program
     '''
     param = parse_args()
-    result = experiment.evaluate_factors(param.num, param.dim)
+    result = experiment.factorize(param.num, param.dim)
     print(result)
 
 
