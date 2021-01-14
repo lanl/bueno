@@ -1,4 +1,4 @@
-<img src="docs/img/bueno.png" alt="bueno logo" width="210"/>
+<img src="docs/img/bueno_gray.png" alt="bueno logo" width="210"/>
 
 [![Build Status](https://travis-ci.com/lanl/bueno.svg?branch=master)
 ](https://travis-ci.com/lanl/bueno)
