@@ -24,8 +24,7 @@ application. If however, you encountered some errors, try following the fix
 outlined in the following tip.
 
 
-> ### Tip
-> If you encountered an error similar to this:
+> Tip: If you encountered an error similar to this:
 > ```
 > What: run error encountered.
 > Why:  Cannot determine the number of nodes in your job.
