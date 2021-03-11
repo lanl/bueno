@@ -1,0 +1,440 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>bueno Run Scripts: Extended Examples &mdash; bueno 0.0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Cookbook" href="cookbook.html" />
+    <link rel="prev" title="bueno.public package" href="bueno.public.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #333131" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> bueno
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
+<li class="toctree-l1"><a class="reference internal" href="bueno-run-getting-started.html">bueno Run Scripts: Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">bueno Run Scripts: Extended Examples</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#bueno-hello-container-example">bueno: Hello Container Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bueno-custom-actions-example">bueno: Custom Actions Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#gathering-information">Gathering information</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setting-up">Setting up</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bueno-metadata-example">bueno: Metadata Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#exploring-the-code">Exploring the code:</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#trying-it-out">Trying it out:</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#bueno-extras-example">Bueno: Extras Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#bueno-build-and-run-example">bueno: Build And Run Example</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#build">Build</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#run">Run</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">bueno Development</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">bueno</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>bueno Run Scripts: Extended Examples</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="bueno-run-scripts-extended-examples">
+<h1>bueno Run Scripts: Extended Examples<a class="headerlink" href="#bueno-run-scripts-extended-examples" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="bueno-hello-container-example">
+<h2>bueno: Hello Container Example<a class="headerlink" href="#bueno-hello-container-example" title="Permalink to this headline">¶</a></h2>
+<p>There are several spaces in which commands can be executed when creating
+bueno run scripts. The following is a basic example of how simple it is
+to execute commands in both the container and the host terminal environment.</p>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">container</span>
+<span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">experiment</span>
+<span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">host</span>
+
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">):</span>
+    <span class="n">experiment</span><span class="o">.</span><span class="n">name</span><span class="p">(</span><span class="s1">&#39;hello-container&#39;</span><span class="p">)</span>
+    <span class="n">container</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;echo &quot;hello from a container!&quot;&#39;</span><span class="p">)</span>
+    <span class="n">host</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s1">&#39;echo &quot;hello from the host!&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Again, this script can be executed with</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bueno run -a none -p hello-container.py
+</pre></div>
+</div>
+<p><span class="raw-html"><br/></span></p>
+</div>
+<div class="section" id="bueno-custom-actions-example">
+<h2>bueno: Custom Actions Example<a class="headerlink" href="#bueno-custom-actions-example" title="Permalink to this headline">¶</a></h2>
+<p>This code demonstrates a simple bueno run script with pre and post experiment
+actions. These custom actions are defined as separate methods and passed as
+callback functions when running the application container.</p>
+<p>There are several other parameters that can be given when running the
+applicaiton container, but we’ll be focusing on three for this example. Those
+being: command (cmd), pre-action method (preaction) and, post-action method.
+(postaction)</p>
+<div class="section" id="gathering-information">
+<h3>Gathering information<a class="headerlink" href="#gathering-information" title="Permalink to this headline">¶</a></h3>
+<p>In the definition for out postaction callback function you’ll find that the
+variable number of arguments passed in kwargs is broken down into specific,
+meaningful values.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">cmd</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;command&#39;</span><span class="p">)</span>  <span class="c1"># command sent to terminal</span>
+<span class="n">out</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;output&#39;</span><span class="p">)</span>  <span class="c1"># output from example-app</span>
+<span class="n">stm</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;start_time&#39;</span><span class="p">)</span>  <span class="c1"># timing values</span>
+<span class="n">etm</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;end_time&#39;</span><span class="p">)</span>
+<span class="n">tet</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;exectime&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>cmd is the original command that was issued to the terminal to run our little
+bash script. out is a list containing everything that was output from bash in
+print statements. The last three variable pertain to the timing of the app’s
+execution.</p>
+<p>As you can see, all of these values can be used within the post test namespace;
+providing ample records with which to perform post action analysis.</p>
+</div>
+<div class="section" id="setting-up">
+<h3>Setting up<a class="headerlink" href="#setting-up" title="Permalink to this headline">¶</a></h3>
+<p>As the name implies, preaction occurs before the application is executed. It’s
+an opporunity to perform any necessary setup needed to run the application or
+perhaps gather user input.</p>
+<p><span class="raw-html"><br/></span></p>
+</div>
+</div>
+<div class="section" id="bueno-metadata-example">
+<h2>bueno: Metadata Example<a class="headerlink" href="#bueno-metadata-example" title="Permalink to this headline">¶</a></h2>
+<p>This is an overview of the metadata aquisition and recording tools provided by
+bueno. This example will record the application being executed by the run script
+and some information about the system it’s being run on. In the metadata.py
+runscript, you’ll find that a dictionary is created and populated with
+information before lastly being written to a file.</p>
+<div class="section" id="exploring-the-code">
+<h3>Exploring the code:<a class="headerlink" href="#exploring-the-code" title="Permalink to this headline">¶</a></h3>
+<p>You’ll find the following lines in the example runscript that setup two
+additional metadata assets. The first of which is called <code class="docutils literal notranslate"><span class="pre">some-metadata.txt</span></code>
+as there is no information assigned to this asset, it will simply generate an
+empty file. However, it will be saved in a “sub-sub-directory”; illustrating
+that the depth of the subdirectory is also arbitrary.</p>
+<p>However, the second asset is based around a populated dictionary variable and
+will contain information acquired about the user executing the script and the
+host script.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;adding a file asset...&#39;</span><span class="p">)</span>
+<span class="c1"># adds an arbitrary metadata file to a subfolder</span>
+<span class="n">metadata</span><span class="o">.</span><span class="n">add_asset</span><span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">FileAsset</span><span class="p">(</span><span class="s1">&#39;some-metadata.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;subdir-a/subdir-b&#39;</span><span class="p">))</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;adding a yaml dict asset...&#39;</span><span class="p">)</span>
+<span class="n">adict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
+
+<span class="c1"># collect metadata</span>
+<span class="n">adict</span><span class="p">[</span><span class="s1">&#39;Application&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;argv&#39;</span><span class="p">:</span> <span class="n">argv</span><span class="p">}</span>
+<span class="n">adict</span><span class="p">[</span><span class="s1">&#39;System&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s1">&#39;whoami&#39;</span><span class="p">:</span> <span class="n">host</span><span class="o">.</span><span class="n">whoami</span><span class="p">(),</span>
+    <span class="s1">&#39;hostname&#39;</span><span class="p">:</span> <span class="n">host</span><span class="o">.</span><span class="n">hostname</span><span class="p">()</span>
+<span class="p">}</span>
+<span class="c1"># save metadata to file</span>
+<span class="n">metadata</span><span class="o">.</span><span class="n">add_asset</span><span class="p">(</span><span class="n">metadata</span><span class="o">.</span><span class="n">YAMLDictAsset</span><span class="p">(</span><span class="n">adict</span><span class="p">,</span> <span class="s1">&#39;yaml-metadata&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="trying-it-out">
+<h3>Trying it out:<a class="headerlink" href="#trying-it-out" title="Permalink to this headline">¶</a></h3>
+<p>To illustrate this for yourself, execute the runscript with the ususal</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bueno run -a none -p metadata.py
+</pre></div>
+</div>
+<p>In the terminal you’ll find notes about the kind of information gathered
+and where it was saved. Several files are generated each time the run script is
+executed. Information about the host environment can be found in
+environment.yaml,</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Host</span><span class="p">:</span>
+  <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost.localdomain</span>
+  <span class="nt">kernel</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Linux</span>
+  <span class="nt">kernel_release</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5.6.6-300.fc32.x86_64</span>
+  <span class="nt">os_release</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Fedora 32 (Workstation Edition)</span>
+  <span class="nt">whoami</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">user</span>
+</pre></div>
+</div>
+<p>the run configuration is stored in run.yaml,</p>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Configuration</span><span class="p">:</span>
+  <span class="nt">do_not_stage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
+  <span class="nt">extras</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+  <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
+  <span class="nt">image_activator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">none</span>
+  <span class="nt">output_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/user/bueno/examples/metadata</span>
+</pre></div>
+</div>
+<p>and you’ll find that the second asset defined in the run script created a file
+with a similar format to the others. Additionally there is a record of the
+runscript that was executed and the output sent to the terminal at runtime.</p>
+<p>The arbitrary <code class="docutils literal notranslate"><span class="pre">some-metadata.txt</span></code> asset is also present two levels down in
+a subdirectory, although it is empty. That said, it illustrates how bueno
+supports the creation of any number of metadata assets as well as quite a few
+formats. Check
+<a class="reference external" href="https://github.com/lanl/bueno/blob/master/bueno/public/metadata.py">here</a>.
+for a full list.</p>
+<p><span class="raw-html"><br/></span></p>
+</div>
+</div>
+<div class="section" id="bueno-extras-example">
+<h2>Bueno: Extras Example<a class="headerlink" href="#bueno-extras-example" title="Permalink to this headline">¶</a></h2>
+<p>This example demonstrates how to use the –extras tag when executing a bueno
+run script as well as how some of bueno’s utils can test the validity of
+import statements and give meaningful warnings instead of simply erroring out.</p>
+<p>Try to run this the same way you did the other examples. That is to say, use:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bueno run -a none -p extras.py
+</pre></div>
+</div>
+<p>If you review the information you’ll find there are some warnings/notes left in
+the program output.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">***</span> <span class="n">Note</span><span class="p">:</span> <span class="n">mymod</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">imported</span> <span class="o">***</span>
+<span class="o">***</span> <span class="n">Note</span><span class="p">:</span> <span class="n">mypackmod</span> <span class="ow">not</span> <span class="n">imported</span> <span class="o">***</span>
+</pre></div>
+</div>
+<p>This shows that without using the –extra tag when calling bueno we’ve not
+correctly imported necessary libraries. Now try executing the run-example
+bashfile instead.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">run</span><span class="o">-</span><span class="n">example</span>
+</pre></div>
+</div>
+<p>Notice that the warning notes that we saw earlier have been replaced with hello
+statements from the properly included library. Examining the contents of the
+run-example file you’ll find that it’s a modified version of the bueno run call
+that we’ve been using for the last few examples with the –extras tag followed
+by the relative name of the needed directory.</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bueno run -a none --extras .:./mypackage -p ./extras.py
+</pre></div>
+</div>
+<p><span class="raw-html"><br/></span></p>
+</div>
+<div class="section" id="bueno-build-and-run-example">
+<h2>bueno: Build And Run Example<a class="headerlink" href="#bueno-build-and-run-example" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="build">
+<h3>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h3>
+<p>Previous examples only used the run feature of bueno, however, this example
+explores bueno’s build command. We’ll start by building a container application
+for nbody, our example application.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bueno</span> <span class="n">build</span> <span class="o">-</span><span class="n">s</span> <span class="n">Dockerfile</span><span class="o">.</span><span class="n">mpich</span> <span class="o">-</span><span class="n">t</span> <span class="n">nbody</span>
+</pre></div>
+</div>
+<p>Once completed, there will be a new tarball in the acting directory. We’ll use
+this when executing the bueno run script.</p>
+</div>
+<hr class="docutils" />
+<div class="section" id="run">
+<h3>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h3>
+<p>Instead of simply ordering bueno to execute our run script as we have in the
+past, we’ll be providing bueno with a container to work with.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bueno</span> <span class="n">run</span> <span class="o">-</span><span class="n">i</span> <span class="n">nbody</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">-</span><span class="n">p</span> <span class="n">build</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">run</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<p>If successful, the terminal will fill with output from the containerized
+application. If however, you encountered some errors, try following the fix
+outlined in the following tip.</p>
+<blockquote>
+<div><p>Tip: If you encountered an error similar to this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">What</span><span class="p">:</span> <span class="n">run</span> <span class="n">error</span> <span class="n">encountered</span><span class="o">.</span>
+<span class="n">Why</span><span class="p">:</span>  <span class="n">Cannot</span> <span class="n">determine</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">your</span> <span class="n">job</span><span class="o">.</span>
+</pre></div>
+</div>
+<p>There is likely a problem with your Slurm installation. However, there’s a
+fairly simple work around we can use to bypass this. First, to get an idea of
+what variables aren’t being set properly, visit the
+<a class="reference external" href="https://slurm.schedmd.com/configurator.html">slurm configuration tool</a> and
+fill it out.</p>
+<p>You can find some answers specific to you your setup with</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>slurmd -C
+</pre></div>
+</div>
+<p>Once you’re done filling out and submitting the form, you’ll have a list of
+slurm variables. Now it’s just a matter of finding the relevant variable from
+the list and creating an environment variable to fulfill the demand. For
+example:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">SLURM_CPUS_ON_NODE</span><span class="o">=</span><span class="mi">2</span>
+</pre></div>
+</div>
+<p>will solve the error message described above.</p>
+</div></blockquote>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cookbook.html" class="btn btn-neutral float-right" title="Cookbook" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="bueno.public.html" class="btn btn-neutral float-left" title="bueno.public package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, Triad National Security, LLC
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

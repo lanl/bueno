@@ -35,7 +35,7 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Cookbook" href="cookbook.html" />
+    <link rel="next" title="bueno Run Scripts: Extended Examples" href="examples.html" />
     <link rel="prev" title="bueno Run Scripts: Getting Started" href="bueno-run-getting-started.html" /> 
 </head>
 
@@ -103,6 +103,7 @@
 <li class="toctree-l2"><a class="reference internal" href="bueno-run-getting-started.html#more-bueno-run-help">More bueno run Help</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">bueno Run Scripts: Extended Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">bueno Development</a></li>
 </ul>
@@ -201,8 +202,30 @@ otherwise.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="bueno.public.container.build_information">
+<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">build_information</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.public.container.build_information" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a list of strings containing captured container and application
+build information. If build information is not available, an empty list is
+returned.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.container.capture">
+<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">capture</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">check_exit_code: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.container.capture" title="Permalink to this definition">¶</a></dt>
+<dd><p>Executes the provided command and returns a string with the command’s
+output.</p>
+<p>See run() for exceptions.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.container.getenv">
+<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">getenv</code><span class="sig-paren">(</span><em class="sig-param">name: str</em><span class="sig-paren">)</span> &#x2192; Optional[str]<a class="headerlink" href="#bueno.public.container.getenv" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an environment variable, return None if it does not exist.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="bueno.public.container.prun">
-<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">prun</code><span class="sig-paren">(</span><em class="sig-param">pexec: str</em>, <em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">preaction: Any = None</em>, <em class="sig-param">postaction: Any = None</em>, <em class="sig-param">user_data: Any = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.container.prun" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">prun</code><span class="sig-paren">(</span><em class="sig-param">pexec: str</em>, <em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">check_exit_code: bool = True</em>, <em class="sig-param">preaction: Any = None</em>, <em class="sig-param">postaction: Any = None</em>, <em class="sig-param">user_data: Any = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.container.prun" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the given parallel run command string from within a container.
 Optionally calls pre- or post-actions if provided.</p>
 <p>The primary reason we have a separate command for running serial and
@@ -214,7 +237,7 @@ strings in a general, reliable way is challenging. This way is much easier.</p>
 
 <dl class="function">
 <dt id="bueno.public.container.run">
-<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">preaction: Any = None</em>, <em class="sig-param">postaction: Any = None</em>, <em class="sig-param">user_data: Any = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.container.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">bueno.public.container.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">echo: bool = True</em>, <em class="sig-param">check_exit_code: bool = True</em>, <em class="sig-param">preaction: Any = None</em>, <em class="sig-param">postaction: Any = None</em>, <em class="sig-param">user_data: Any = None</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.container.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Runs the given command string from within a container.  Optionally calls
 pre- or post-actions if provided.</p>
 </dd></dl>
@@ -224,17 +247,11 @@ pre- or post-actions if provided.</p>
 <span id="bueno-public-experiment-module"></span><h2>bueno.public.experiment module<a class="headerlink" href="#module-bueno.public.experiment" title="Permalink to this headline">¶</a></h2>
 <p>Public experiment utilities for good.</p>
 <dl class="class">
-<dt id="bueno.public.experiment.CLIArgsAddActions">
-<em class="property">class </em><code class="sig-prename descclassname">bueno.public.experiment.</code><code class="sig-name descname">CLIArgsAddActions</code><a class="headerlink" href="#bueno.public.experiment.CLIArgsAddActions" title="Permalink to this definition">¶</a></dt>
+<dt id="bueno.public.experiment.CLIAddArgsAction">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.public.experiment.</code><code class="sig-name descname">CLIAddArgsAction</code><a class="headerlink" href="#bueno.public.experiment.CLIAddArgsAction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Container class for custom argparse actions.</p>
-<dl class="class">
-<dt id="bueno.public.experiment.CLIArgsAddActions.RunCmdsAction">
-<em class="property">class </em><code class="sig-name descname">RunCmdsAction</code><span class="sig-paren">(</span><em class="sig-param">option_strings</em>, <em class="sig-param">dest</em>, <em class="sig-param">nargs=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.experiment.CLIArgsAddActions.RunCmdsAction" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></p>
-<p>Custom action class used for ‘runcmds’ argument handling.</p>
-</dd></dl>
-
+<p>Base action class used to add additional arguments to a CLIConfiguration
+instance.</p>
 </dd></dl>
 
 <dl class="class">
@@ -244,10 +261,9 @@ pre- or post-actions if provided.</p>
 <p>Command-line interface configuration container and associated utilities.</p>
 <dl class="method">
 <dt id="bueno.public.experiment.CLIConfiguration.addargs">
-<em class="property">abstract </em><code class="sig-name descname">addargs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.addargs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract method that shall be used by derived classes to add a custom
-collection of arguments via self.argparser.add_argument(), for example.
-CLIConfiguration will call this function at the appropriate time.</p>
+<code class="sig-name descname">addargs</code><span class="sig-paren">(</span><em class="sig-param">action: Type[bueno.public.experiment.CLIAddArgsAction]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.addargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Instantiates and then calls provided action class to add additional
+arguments to argument parser.</p>
 </dd></dl>
 
 <dl class="method">
@@ -277,14 +293,21 @@ ArgumentParser.</p>
 
 <dl class="method">
 <dt id="bueno.public.experiment.CLIConfiguration.parseargs">
-<code class="sig-name descname">parseargs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; argparse.Namespace<a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.parseargs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Thin abstraction around argparser.parse_args().</p>
+<code class="sig-name descname">parseargs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.parseargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Thin abstraction around argparser.parse_args() that parses and populates
+internal argparse namespace instance.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="bueno.public.experiment.CLIConfiguration.program">
 <em class="property">property </em><code class="sig-name descname">program</code><a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.program" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the basename of argv[0], i.e., the program name.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="bueno.public.experiment.CLIConfiguration.rmargs">
+<code class="sig-name descname">rmargs</code><span class="sig-paren">(</span><em class="sig-param">options: List[str]</em><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.rmargs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes the provided options from the calling configuration instance.</p>
 </dd></dl>
 
 <dl class="method">
@@ -340,14 +363,13 @@ scripts that can benefit from the options provided.</p>
 
 </dd></dl>
 
-<dl class="method">
-<dt id="bueno.public.experiment.CannedCLIConfiguration.addargs">
-<code class="sig-name descname">addargs</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.public.experiment.CannedCLIConfiguration.addargs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract method that shall be used by derived classes to add a custom
-collection of arguments via self.argparser.add_argument(), for example.
-CLIConfiguration will call this function at the appropriate time.</p>
 </dd></dl>
 
+<dl class="class">
+<dt id="bueno.public.experiment.FOM">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.public.experiment.</code><code class="sig-name descname">FOM</code><span class="sig-paren">(</span><em class="sig-param">name: str</em>, <em class="sig-param">description: str</em>, <em class="sig-param">units: str</em>, <em class="sig-param">value: float</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.experiment.FOM" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Figure of Merit data class.</p>
 </dd></dl>
 
 <dl class="function">
@@ -355,6 +377,12 @@ CLIConfiguration will call this function at the appropriate time.</p>
 <code class="sig-prename descclassname">bueno.public.experiment.</code><code class="sig-name descname">cli_args_add_runcmds_option</code><span class="sig-paren">(</span><em class="sig-param">clic: bueno.public.experiment.CLIConfiguration</em>, <em class="sig-param">opt_required: bool = False</em>, <em class="sig-param">opt_default: Tuple[int</em>, <em class="sig-param">int</em>, <em class="sig-param">str</em>, <em class="sig-param">str] = (0</em>, <em class="sig-param">0</em>, <em class="sig-param">''</em>, <em class="sig-param">'')</em><span class="sig-paren">)</span> &#x2192; argparse.Action<a class="headerlink" href="#bueno.public.experiment.cli_args_add_runcmds_option" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adds parser options to the given CLIConfiguration instance for handling
 runcmds input. Adds –runcmds and a custom action to parse its input.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="bueno.public.experiment.factorize">
+<code class="sig-prename descclassname">bueno.public.experiment.</code><code class="sig-name descname">factorize</code><span class="sig-paren">(</span><em class="sig-param">num: int</em>, <em class="sig-param">dim: int</em><span class="sig-paren">)</span> &#x2192; List[int]<a class="headerlink" href="#bueno.public.experiment.factorize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Perform factor calculations</p>
 </dd></dl>
 
 <dl class="function">
@@ -405,7 +433,7 @@ about yield!</p>
 <p>Host utilities.</p>
 <dl class="function">
 <dt id="bueno.public.host.capture">
-<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">capture</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.host.capture" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">capture</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">check_exit_code: bool = True</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.public.host.capture" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the provided command and returns a string with the command’s
 output.</p>
 <p>See run() for exceptions.</p>
@@ -437,10 +465,10 @@ output.</p>
 
 <dl class="function">
 <dt id="bueno.public.host.run">
-<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">verbatim: bool = False</em>, <em class="sig-param">echo: bool = False</em>, <em class="sig-param">capture: bool = False</em>, <em class="sig-param">verbose: bool = True</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.public.host.run" title="Permalink to this definition">¶</a></dt>
+<code class="sig-prename descclassname">bueno.public.host.</code><code class="sig-name descname">run</code><span class="sig-paren">(</span><em class="sig-param">cmd: str</em>, <em class="sig-param">verbatim: bool = False</em>, <em class="sig-param">echo: bool = False</em>, <em class="sig-param">capture_output: bool = False</em>, <em class="sig-param">verbose: bool = True</em>, <em class="sig-param">check_exit_code: bool = True</em><span class="sig-paren">)</span> &#x2192; List[str]<a class="headerlink" href="#bueno.public.host.run" title="Permalink to this definition">¶</a></dt>
 <dd><p>Executes the provided command.</p>
-<p>Returns newline-delimited list of output if capture if True.</p>
-<p>Throws ChildProcessError on error.</p>
+<p>Returns newline-delimited list of output if capture_output if True.</p>
+<p>Throws ChildProcessError on error if check_exit_code is True.</p>
 </dd></dl>
 
 <dl class="function">
@@ -542,6 +570,13 @@ location rooted at the specified base path.</p>
 location rooted at the specified base path.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="class">
+<dt id="bueno.public.metadata.PythonModuleAsset">
+<em class="property">class </em><code class="sig-prename descclassname">bueno.public.metadata.</code><code class="sig-name descname">PythonModuleAsset</code><span class="sig-paren">(</span><em class="sig-param">mod: module</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.metadata.PythonModuleAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.FileAsset" title="bueno.public.metadata.FileAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.FileAsset</span></code></a></p>
+<p>Special file asset used for extra imported modules.</p>
 </dd></dl>
 
 <dl class="class">
@@ -661,6 +696,12 @@ file.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="bueno.public.utils.module_imported">
+<code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">module_imported</code><span class="sig-paren">(</span><em class="sig-param">modname: str</em><span class="sig-paren">)</span> &#x2192; bool<a class="headerlink" href="#bueno.public.utils.module_imported" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns whether or not the provided module name has already been imported.</p>
+</dd></dl>
+
+<dl class="function">
 <dt id="bueno.public.utils.now">
 <code class="sig-prename descclassname">bueno.public.utils.</code><code class="sig-name descname">now</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; datetime.datetime<a class="headerlink" href="#bueno.public.utils.now" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the current date and time.</p>
@@ -705,7 +746,7 @@ continuations.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="cookbook.html" class="btn btn-neutral float-right" title="Cookbook" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="bueno Run Scripts: Extended Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="bueno-run-getting-started.html" class="btn btn-neutral float-left" title="bueno Run Scripts: Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>

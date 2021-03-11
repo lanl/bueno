@@ -84,6 +84,7 @@
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bueno-run-getting-started.html">bueno Run Scripts: Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">bueno Run Scripts: Extended Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="development.html">bueno Development</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="development.html#building-rpms">Building RPMs</a></li>
@@ -180,6 +181,13 @@
 <em class="property">class </em><code class="sig-prename descclassname">bueno.run.service.</code><code class="sig-name descname">impl</code><span class="sig-paren">(</span><em class="sig-param">argv: List[str]</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="bueno.core.html#bueno.core.service.Base" title="bueno.core.service.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.core.service.Base</span></code></a></p>
 <p>Implements the run service.</p>
+<dl class="class">
+<dt id="bueno.run.service.impl.ExtrasAction">
+<em class="property">class </em><code class="sig-name descname">ExtrasAction</code><span class="sig-paren">(</span><em class="sig-param">option_strings</em>, <em class="sig-param">dest</em>, <em class="sig-param">nargs=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl.ExtrasAction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></p>
+<p>Custom action class used for ‘extras’ argument handling.</p>
+</dd></dl>
+
 <dl class="class">
 <dt id="bueno.run.service.impl.ImageAction">
 <em class="property">class </em><code class="sig-name descname">ImageAction</code><span class="sig-paren">(</span><em class="sig-param">option_strings</em>, <em class="sig-param">dest</em>, <em class="sig-param">nargs=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl.ImageAction" title="Permalink to this definition">¶</a></dt>
