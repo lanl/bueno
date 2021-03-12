@@ -1,12 +1,14 @@
 #!/bin/bash
 #
-# Copyright (c)      2020 Triad National Security, LLC
+# Copyright (c) 2020-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
 # top-level directory of this distribution for more information.
 #
 
+# TODO(skg) Add --user option so QA suite and travis will both be happy.
+
 echo "Testing Packaging"
 
-pip install .
+python3 -m pip install .
