@@ -10,7 +10,7 @@
 
 ./qa/run-flake8-tests && \
 ./qa/run-mypy-tests && \
-./qa/run-pylint-tests && \
-./qa/run-packaging-tests
+./qa/run-pylint-tests
+# ./qa/run-packaging-tests
 
 # vim: ts=4 sts=4 sw=4 expandtab
