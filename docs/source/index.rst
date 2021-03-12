@@ -17,10 +17,3 @@ benchmarking and analysis.
    examples
    api-reference
    development
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
