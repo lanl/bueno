@@ -28,14 +28,6 @@ This program invocation should produce console output similar to the following:
 
 .. literalinclude:: ./includes/hello-output.txt
 
-
-Public Module Reference
------------------------
-.. toctree::
-   :maxdepth: 2
-
-   bueno.public
-
 More bueno run Help
 -------------------
 Additional run service information is provided by the output of ``bueno run

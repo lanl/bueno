@@ -1,10 +1,11 @@
-.. Copyright (c) 2019-2020, Triad National Security, LLC
+.. Copyright (c) 2019-2021, Triad National Security, LLC
                             All rights reserved.
 
 bueno
-=====
+#####
 
-bueno is a software framework for automated, reproducible benchmarking and analysis.
+bueno is an open-source software framework for automated, reproducible
+benchmarking and analysis.
 
 .. toctree::
    :maxdepth: 2
@@ -14,7 +15,7 @@ bueno is a software framework for automated, reproducible benchmarking and analy
    installation
    bueno-run-getting-started
    examples
-   cookbook
+   api-reference
    development
 
 Indices and tables

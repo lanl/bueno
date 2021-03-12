@@ -1,5 +1,5 @@
-bueno Run Scripts: Extended Examples
-####################################
+bueno Run Scripts: More Examples
+################################
 
 .. role:: raw-html(raw)
     :format: html
