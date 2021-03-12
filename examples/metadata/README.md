@@ -1,4 +1,4 @@
-# bueno: Metadata Example
+# Metadata
 
 This is an overview of some of the metadata acquisition and recording tools
 provided by bueno. This example will record the executed application's output

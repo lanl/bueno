@@ -1,4 +1,4 @@
-# bueno: Custom Actions Example
+# Custom Actions
 
 In this example, we consider a straightforward bueno run script with both pre-
 and post-experiment actions. These custom actions are implemented as separate,

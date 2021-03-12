@@ -1,4 +1,4 @@
-# bueno: Hello World
+# Hello World
 
 A **hello world** example using bueno. This example shows the basics of naming
 the experiment and how the internal bueno output logger behaves.

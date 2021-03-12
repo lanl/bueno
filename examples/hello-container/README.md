@@ -1,4 +1,4 @@
-# bueno: Hello Container Example
+# Hello Container
 
 There are different ways to execute commands in bueno run scripts. The following
 illustrates the most straightforward way to execute commands targeting both the

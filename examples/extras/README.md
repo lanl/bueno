@@ -1,4 +1,4 @@
-# Bueno: Extras Example
+# Extras
 
 This example demonstrates how to use bueno's `--extras` feature when executing a
 bueno run script. Additionally, it demonstrates how bueno utilities can test the

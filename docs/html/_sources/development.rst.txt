@@ -1,22 +1,19 @@
-.. Copyright (c) 2019-2020, Triad National Security, LLC
+.. Copyright (c) 2019-2021, Triad National Security, LLC
                             All rights reserved.
 
 bueno Development
 =================
+This section is meant for bueno developers. Here we document how to accomplish
+activities common to bueno development, testing, and documentation.
 
-Building RPMs
--------------
-Prerequisites: ``rpm-build``
+Automated Testing
+-----------------
+Before pushing code, run bueno's automated test suite locally and make certain
+all tests pass.
 
 .. code-block:: console
 
-   $ python3 setup.py bdist_rpm
-
-MyPy
-----
-.. code-block:: console
-
-   $ python3 -m mypy --strict .
+   $ ./qa/run-qa-suite.sh
 
 Building the Documentation
 --------------------------
@@ -42,6 +39,14 @@ before executing ``make html``.
 
    $ cd docs
    $ sphinx-apidoc -f -o source/ ../bueno
+
+Building RPMs
+-------------
+Prerequisites: ``rpm-build``
+
+.. code-block:: console
+
+   $ python3 setup.py bdist_rpm
 
 bueno Source Documentation
 --------------------------

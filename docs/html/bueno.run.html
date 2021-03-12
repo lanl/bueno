@@ -1,38 +1,41 @@
 
 
 <!DOCTYPE html>
-<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8">
+  <meta charset="utf-8" />
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
   <title>bueno.run package &mdash; bueno 0.0.1 documentation</title>
   
 
   
-  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+
   
   
 
   
-  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
     
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="prev" title="bueno.core package" href="bueno.core.html" /> 
@@ -49,15 +52,15 @@
           
 
           
-            <a href="index.html" class="icon icon-home"> bueno
+            <a href="index.html">
           
 
+          
+            
+            <img src="_static/bueno_gray.png" class="logo" alt="Logo"/>
           
           </a>
 
-          
-            
-            
           
 
           
@@ -72,6 +75,7 @@
           
         </div>
 
+        
         <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
           
             
@@ -84,12 +88,12 @@
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bueno-run-getting-started.html">bueno Run Scripts: Getting Started</a></li>
-<li class="toctree-l1"><a class="reference internal" href="examples.html">bueno Run Scripts: Extended Examples</a></li>
-<li class="toctree-l1"><a class="reference internal" href="cookbook.html">Cookbook</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">bueno Run Scripts: More Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api-reference.html">Public Module Reference</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="development.html">bueno Development</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="development.html#building-rpms">Building RPMs</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#mypy">MyPy</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#automated-testing">Automated Testing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="development.html#building-the-documentation">Building the Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="development.html#building-rpms">Building RPMs</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="development.html#bueno-source-documentation">bueno Source Documentation</a><ul class="current">
 <li class="toctree-l3 current"><a class="reference internal" href="bueno.html">bueno package</a><ul class="current">
 <li class="toctree-l4 current"><a class="reference internal" href="bueno.html#subpackages">Subpackages</a></li>
@@ -105,6 +109,7 @@
             
           
         </div>
+        
       </div>
     </nav>
 
@@ -139,11 +144,13 @@
 
 
 
+
+
 <div role="navigation" aria-label="breadcrumbs navigation">
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="index.html">Docs</a> &raquo;</li>
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
         
           <li><a href="development.html">bueno Development</a> &raquo;</li>
         
@@ -154,7 +161,7 @@
     
       <li class="wy-breadcrumbs-aside">
         
-            
+          
             <a href="_sources/bueno.run.rst.txt" rel="nofollow"> View page source</a>
           
         
@@ -176,48 +183,48 @@
 <div class="section" id="module-bueno.run.service">
 <span id="bueno-run-service-module"></span><h2>bueno.run.service module<a class="headerlink" href="#module-bueno.run.service" title="Permalink to this headline">¶</a></h2>
 <p>The run service module.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="bueno.run.service.impl">
-<em class="property">class </em><code class="sig-prename descclassname">bueno.run.service.</code><code class="sig-name descname">impl</code><span class="sig-paren">(</span><em class="sig-param">argv: List[str]</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.run.service.</span></code><code class="sig-name descname"><span class="pre">impl</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="bueno.core.html#bueno.core.service.Base" title="bueno.core.service.Base"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.core.service.Base</span></code></a></p>
 <p>Implements the run service.</p>
-<dl class="class">
+<dl class="py class">
 <dt id="bueno.run.service.impl.ExtrasAction">
-<em class="property">class </em><code class="sig-name descname">ExtrasAction</code><span class="sig-paren">(</span><em class="sig-param">option_strings</em>, <em class="sig-param">dest</em>, <em class="sig-param">nargs=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl.ExtrasAction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ExtrasAction</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_strings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl.ExtrasAction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></p>
 <p>Custom action class used for ‘extras’ argument handling.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="bueno.run.service.impl.ImageAction">
-<em class="property">class </em><code class="sig-name descname">ImageAction</code><span class="sig-paren">(</span><em class="sig-param">option_strings</em>, <em class="sig-param">dest</em>, <em class="sig-param">nargs=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl.ImageAction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ImageAction</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_strings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl.ImageAction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></p>
 <p>Custom action class used for ‘image’ argument handling.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="bueno.run.service.impl.ImageActivatorAction">
-<em class="property">class </em><code class="sig-name descname">ImageActivatorAction</code><span class="sig-paren">(</span><em class="sig-param">option_strings</em>, <em class="sig-param">dest</em>, <em class="sig-param">nargs=None</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl.ImageActivatorAction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ImageActivatorAction</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_strings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nargs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl.ImageActivatorAction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></p>
 <p>Custom action class used for ‘image-activator’ argument handling.</p>
 </dd></dl>
 
-<dl class="class">
+<dl class="py class">
 <dt id="bueno.run.service.impl.ProgramAction">
-<em class="property">class </em><code class="sig-name descname">ProgramAction</code><span class="sig-paren">(</span><em class="sig-param">option_strings</em>, <em class="sig-param">dest</em>, <em class="sig-param">nargs</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl.ProgramAction" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">ProgramAction</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">option_strings</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dest</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nargs</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.run.service.impl.ProgramAction" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">argparse.Action</span></code></p>
 <p>Custom action class used for ‘program’ argument structure verification.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bueno.run.service.impl.getmetasubd">
-<em class="property">static </em><code class="sig-name descname">getmetasubd</code><span class="sig-paren">(</span><em class="sig-param">basedir: str</em><span class="sig-paren">)</span> &#x2192; str<a class="headerlink" href="#bueno.run.service.impl.getmetasubd" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><code class="sig-name descname"><span class="pre">getmetasubd</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basedir</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#bueno.run.service.impl.getmetasubd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a unique path rooted at the provided directory.</p>
 </dd></dl>
 
-<dl class="method">
+<dl class="py method">
 <dt id="bueno.run.service.impl.start">
-<code class="sig-name descname">start</code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; None<a class="headerlink" href="#bueno.run.service.impl.start" title="Permalink to this definition">¶</a></dt>
+<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.run.service.impl.start" title="Permalink to this definition">¶</a></dt>
 <dd><p>Starts the service. Akin to a service main().</p>
 </dd></dl>
 
@@ -234,27 +241,28 @@
            
           </div>
           <footer>
-  
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-      
-      
-        <a href="bueno.core.html" class="btn btn-neutral float-left" title="bueno.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
-      
+        <a href="bueno.core.html" class="btn btn-neutral float-left" title="bueno.core package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
-  
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2020, Triad National Security, LLC
+        &#169; Copyright 2021, Triad National Security, LLC.
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
-
         </div>
       </div>
 
@@ -262,7 +270,6 @@
 
   </div>
   
-
 
   <script type="text/javascript">
       jQuery(function () {

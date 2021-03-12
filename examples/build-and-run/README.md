@@ -1,4 +1,4 @@
-# bueno: Build And Run Example
+# Build And Run
 
 ## Build
 Previous examples used only the bueno's `run` feature. This example, however,
