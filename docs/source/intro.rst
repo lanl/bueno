@@ -1,4 +1,4 @@
-.. Copyright (c) 2019-2020, Triad National Security, LLC
+.. Copyright (c) 2019-2021, Triad National Security, LLC
                             All rights reserved.
 
 Introduction
@@ -31,9 +31,9 @@ Charliecloud). This service acts as an abstraction layer that hides the steps
 required to build a container image given a particular backend and specification
 (e.g., a Dockerfile). Additionally, the build service annotates the generated
 container images with embedded metadata detailing their build specification,
-environment, and process. We posit that enough metadata are stored within the
+environment, and process. We believe that sufficient data are stored within the
 generated images to perform operations critical to reproducibility and
-post-mortem analysis.
+post-mortem analysis, but are open to suggestions.
 
 The *run* service coordinates container image activation and the execution of
 bueno run scripts---a programmatic description of the steps required to conduct a

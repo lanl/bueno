@@ -1,7 +1,8 @@
 # bueno: Hello Container Example
-There are several spaces in which commands can be executed when creating 
-bueno run scripts. The following is a basic example of how simple it is
-to execute commands in both the container and the host terminal environment.
+
+There are different ways to execute commands in bueno run scripts. The following
+illustrates the most straightforward way to execute commands targeting both the
+container and the host shell (bash-like) environment.
 
 ```Python
 from bueno.public import container
@@ -15,7 +16,13 @@ def main(argv):
     host.run('echo "hello from the host!"')
 ```
 
-Again, this script can be executed with
+This script can be executed as follows:
 ```shell
 bueno run -a none -p hello-container.py
 ```
+
+For simplicity, this particular invocation uses the `none` image activator.
+Please note that the underlying *container target* in this example is no
+more than a pass-through to the host and therefore equivalent to the direct
+`host.run()` invocation. We will detail how to change this behavior in an
+upcoming example.

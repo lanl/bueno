@@ -1,7 +1,7 @@
-# bueno: Hello Example
+# bueno: Hello World
 
-A "hello world" esc example of bueno. Showing off the basics of naming
-the created experiment and how logger behaves.
+A **hello world** example using bueno. This example shows the basics of naming
+the experiment and how the internal bueno output logger behaves.
 
 Execute with:
 ```shell

@@ -1,32 +1,33 @@
 # Bueno: Extras Example
-This example demonstrates how to use the --extras tag when executing a bueno
-run script as well as how some of bueno's utils can test the validity of
-import statements and give meaningful warnings instead of simply erroring out.
 
-Try to run this the same way you did the other examples. That is to say, use:
+This example demonstrates how to use bueno's `--extras` feature when executing a
+bueno run script. Additionally, it demonstrates how bueno utilities can test the
+validity of import statements to give meaningful warnings instead of simply
+terminating with a run-time error.
+
+Try to run this example, execute the following:
 ```shell
 bueno run -a none -p extras.py
 ```
 
-If you review the information you'll find there are some warnings/notes left in 
-the program output.
+When reviewing the output, you will find there are warnings emitted during its
+execution:
 ```
 *** Note: mymod is not imported ***
 *** Note: mypackmod not imported ***
 ```
 
-This shows that without using the --extra tag when calling bueno we've not
-correctly imported necessary libraries. Now try executing the run-example
-bashfile instead.
+This shows that without using the `--extras` feature in this
+particular case we have not correctly imported necessary libraries. Now, try
+executing the `run-example` script instead:
 ```
 ./run-example
 ```
 
-Notice that the warning notes that we saw earlier have been replaced with hello
-statements from the properly included library. Examining the contents of the
-run-example file you'll find that it's a modified version of the bueno run call
-that we've been using for the last few examples with the --extras tag followed
-by the relative name of the needed directory.
+Please notice that the prior warnings have been replaced with hello statements
+from the newly imported library. Examining the contents of the `run-example`
+script, you will find that it is a modified version of the `bueno run` command
+that we have been using for the last few examples:
 ```shell
 bueno run -a none --extras .:./mypackage -p ./extras.py
 ```

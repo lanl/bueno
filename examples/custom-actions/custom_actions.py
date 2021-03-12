@@ -1,32 +1,26 @@
 '''
-An exaple run script utilizing pre and post actions
+An example run script using custom pre- and post-actions.
 '''
 from bueno.public import container
 from bueno.public import experiment
 from bueno.public import logger
 
-# Pre/Post test actions are outlined in a method to be
-# used as a callback function when running the container
-
-
 def pre_action(**kwargs):
     '''
-    Actions to be performed before running the application
-    (setup)
+    Actions performed before running the experiment (setup).
     '''
     logger.emlog('# Entering pre_action')
 
 
 def post_action(**kwargs):
     '''
-    Actions to be performed after running the application
-    (analysis)
+    Actions performed after running the experiment (analysis).
     '''
     logger.emlog('# Entering post_action')
 
-    cmd = kwargs.pop('command')  # command sent to terminal
-    out = kwargs.pop('output')  # output from example-app
-    stm = kwargs.pop('start_time')  # timing values
+    cmd = kwargs.pop('command')     # Command string
+    out = kwargs.pop('output')      # Output gathered from example-app
+    stm = kwargs.pop('start_time')  # Timing values
     etm = kwargs.pop('end_time')
     tet = kwargs.pop('exectime')
 
@@ -35,22 +29,19 @@ def post_action(**kwargs):
     logger.log(F'End time: {etm}')
     logger.log(F'Total Execution Time (s): {tet}\n')
 
-    # it is possible to process the many outputs of the
-    # example application
+    # It is possible to process the many outputs of the example application.
     lines = [x.rstrip() for x in out]
     for i, line in enumerate(lines):
-
-        # screen app output for "Data" tagmy
+        # Scan application output for "Data" tag.
         if line.startswith('Data'):
             data = line.split(': ')[1]
             logger.log(F' >> Data {i} is {data}')
             continue
 
-
 def main(argv):
     experiment.name('custom-actions')
     container.run(
-        './example-application.sh',  # terminal command/app name
-        preaction=pre_action,  # set callback functions
-        postaction=post_action
+        './example-application.sh', # Application invocation.
+        preaction=pre_action,       # Set pre-action callback function.
+        postaction=post_action      # Set post-action callback function.
     )

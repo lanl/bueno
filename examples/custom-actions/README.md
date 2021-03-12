@@ -1,34 +1,31 @@
 # bueno: Custom Actions Example
-This code demonstrates a simple bueno run script with pre and post experiment
-actions. These custom actions are defined as separate methods and passed as
-callback functions when running the application container.
 
-There are several other parameters that can be given when running the
-applicaiton container, but we'll be focusing on three for this example. Those
-being: command (cmd), pre-action method (preaction) and, post-action method.
-(postaction)
+In this example, we consider a straightforward bueno run script with both pre-
+and post-experiment actions. These custom actions are implemented as separate,
+user-defined methods provided as callback functions to bueno that are
+automatically invoked at appropriate times before and after experiment
+execution, respectively.
+
+## Setup
+As the name implies, a `pre-action` occurs before the application is executed.
+This action provides an opportunity to perform any setup needed to run the
+application.
 
 ## Gathering information
-In the definition for out postaction callback function you'll find that the
-variable number of arguments passed in kwargs is broken down into specific,
-meaningful values.
+In the definition for our post-action callback function, you will find that the
+variable number of arguments passed in `kwargs` is broken down into specific,
+meaningful values. They are:
 ```python
-cmd = kwargs.pop('command')  # command sent to terminal
-out = kwargs.pop('output')  # output from example-app
-stm = kwargs.pop('start_time')  # timing values
-etm = kwargs.pop('end_time')
-tet = kwargs.pop('exectime')
+cmd = kwargs.pop('command')    # The command used to execute the experiment.
+out = kwargs.pop('output')     # The captured output (new-line delimited).
+stm = kwargs.pop('start_time') # The start time of the provided command.
+etm = kwargs.pop('end_time')   # The end time of the provided command.
+tet = kwargs.pop('exectime')   # The execution time (in seconds) of the command.
 ```
 
-cmd is the original command that was issued to the terminal to run our little
-bash script. out is a list containing everything that was output from bash in
-print statements. The last three variable pertain to the timing of the app's
-execution.
-
-As you can see, all of these values can be used within the post test namespace;
-providing ample records with which to perform post action analysis.
-
-## Setting up
-As the name implies, preaction occurs before the application is executed. It's
-an opporunity to perform any necessary setup needed to run the application or
-perhaps gather user input.
+In this example, `cmd` is the command string that was issued to the terminal
+emulator to run our bash script. `out` is a new-line delimited list containing
+`stdout` and `stderr` text emitted from our script. The last three variables
+contain timing information gathered from the execution of our test application.
+All of these values are used within the `post_action` scope to record
+experiment-specific data.
