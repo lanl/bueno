@@ -74,5 +74,5 @@ run script executed and the output sent to the terminal at run-time.
 The empty `some-metadata.txt` asset is also present two levels down in a
 subdirectory. This illustrates how bueno supports the creation of any
 number of metadata assets as well as quite a few formats. Please consult
-[this](https://github.com/lanl/bueno/blob/master/bueno/public/metadata.py).  for
+[this](https://github.com/lanl/bueno/blob/master/bueno/public/metadata.py) for
 a full list.

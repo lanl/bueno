@@ -14,7 +14,7 @@ use this image when executing the bueno run script.
 
 ## Run
 Instead of simply instructing bueno to execute our run script as we have in the
-past, we will be providing bueno with a container to work with.
+past, we will be providing bueno with a container image to work with.
 ```
 bueno run -i nbody.tar.gz -p build-and-run.py
 ```
