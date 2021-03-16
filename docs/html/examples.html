@@ -184,7 +184,7 @@
 <h2>Hello Container<a class="headerlink" href="#hello-container" title="Permalink to this headline">¶</a></h2>
 <p>There are different ways to execute commands in bueno run scripts. The following
 illustrates the most straightforward way to execute commands targeting both the
-container and the host shell (bash-like) environment.</p>
+container and the host shell (bash-like) emulator.</p>
 <div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">container</span>
 <span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">experiment</span>
 <span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">host</span>
@@ -312,7 +312,7 @@ run script executed and the output sent to the terminal at run-time.</p>
 <p>The empty <code class="docutils literal notranslate"><span class="pre">some-metadata.txt</span></code> asset is also present two levels down in a
 subdirectory. This illustrates how bueno supports the creation of any
 number of metadata assets as well as quite a few formats. Please consult
-<a class="reference external" href="https://github.com/lanl/bueno/blob/master/bueno/public/metadata.py">this</a>.  for
+<a class="reference external" href="https://github.com/lanl/bueno/blob/master/bueno/public/metadata.py">this</a> for
 a full list.</p>
 <p><span class="raw-html"><br/></span></p>
 </div>
@@ -365,7 +365,7 @@ use this image when executing the bueno run script.</p>
 <div class="section" id="run">
 <h3>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h3>
 <p>Instead of simply instructing bueno to execute our run script as we have in the
-past, we will be providing bueno with a container to work with.</p>
+past, we will be providing bueno with a container image to work with.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bueno</span> <span class="n">run</span> <span class="o">-</span><span class="n">i</span> <span class="n">nbody</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">-</span><span class="n">p</span> <span class="n">build</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">run</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
