@@ -70,7 +70,7 @@ main() {
         backup_html
     fi
     cddocs
-    echo "Building Documentation in $PWD";
+    echo "Building Documentation in $PWD"
     git rm -rf --ignore-unmatch html
     make html
     mv build/html .
