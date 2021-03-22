@@ -1,12 +1,23 @@
 #!/bin/bash
 
 #
-# Copyright (c)      2020 Triad National Security, LLC
+# Copyright (c) 2020-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
 # top-level directory of this distribution for more information.
 #
+
+usage() {
+cat << EOF
+
+Usage:
+    build-docs.sh [OPTION]
+Options:
+    -h|--help      Show this message and exit
+    -n|--no-backup Do not create a documentation backup
+EOF
+}
 
 cddocs() {
     tdir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -25,38 +36,40 @@ verify_prereqs() {
     done
 }
 
-################################################################################
 backup_html() {
-    # Remove and replace existing html-bkp dir
-    echo "Backing up html to html-bkp"
-    rm -rf html-bkp
-    mv html html-bkp
+    echo "Backing up html to html-backup"
+    rm -rf html-backup
+    [ -d html ] && cp -r html html-backup
 }
 
-################################################################################
 main() {
-    for i in "$1"
-    do
+    local do_backup="yes"
+
+    for i in "$@"; do
         case "$1" in
             -h|--help)
-                echo "options:"
-                echo "-h, --help    show brief help"
-                echo "-b, --backup  backup html directory"
-                echo ""
+                usage
                 exit 0;
                 ;;
-            -b|--backup)
-                backup_html
+            -n|--no-backup)
+                do_backup="no"
                 shift
+                ;;
+            *)
+                echo
+                echo "Unrecognized option: $i"
+                echo
+                usage
+                exit 1;
                 ;;
         esac
     done
 
-    set -e
-
     verify_prereqs
+    if [[ "$do_backup" == "yes" ]]; then
+        backup_html
+    fi
     cddocs
-
     echo "Building Documentation in $PWD";
     git rm -rf --ignore-unmatch html
     make html
@@ -65,7 +78,7 @@ main() {
     echo "All done!"
 }
 
-
-main $*
+set -e
+main "${@:1}"
 
 # vim: ts=4 sts=4 sw=4 expandtab
