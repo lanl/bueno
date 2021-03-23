@@ -5,6 +5,7 @@ from bueno.public import container
 from bueno.public import experiment
 from bueno.public import logger
 
+
 def pre_action(**kwargs):
     '''
     Actions performed before running the experiment (setup).
@@ -38,10 +39,11 @@ def post_action(**kwargs):
             logger.log(F' >> Data {i} is {data}')
             continue
 
+
 def main(argv):
     experiment.name('custom-actions')
     container.run(
-        './example-application.sh', # Application invocation.
-        preaction=pre_action,       # Set pre-action callback function.
-        postaction=post_action      # Set post-action callback function.
+        './example-application.sh',  # Application invocation.
+        preaction=pre_action,        # Set pre-action callback function.
+        postaction=post_action       # Set post-action callback function.
     )
