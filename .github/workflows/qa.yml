@@ -17,7 +17,7 @@ jobs:
       max-parallel: 2
       fail-fast: true
       matrix:
-        python-version: [3.6, 3.7, 3.8, 3.9]
+        python-version: [3.6, 3.7, 3.8]
 
     steps:
     - uses: actions/checkout@v2
