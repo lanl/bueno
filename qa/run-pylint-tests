@@ -13,3 +13,5 @@ echo "Pylint Version:"
 pylint --version
 
 pylint ./bueno
+
+exit $?
