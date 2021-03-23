@@ -1,7 +1,7 @@
 <img src="docs/img/bueno_gray.png" alt="bueno logo" width="210"/>
 
-[![Build Status](https://travis-ci.com/lanl/bueno.svg?branch=master)
-](https://travis-ci.com/lanl/bueno)
+[![QA](https://github.com/lanl/bueno/actions/workflows/qa.yml/badge.svg)
+](https://github.com/lanl/bueno/actions/workflows/qa.yml)
 
 # bueno: Automated, Reproducible Benchmarking and Analysis
 
