@@ -45,9 +45,9 @@ jobs:
     - name: Code Analysis
       run: |
         qa/run-pylint-tests
-    - name: Packaging
-      run: |
-        qa/run-packaging-tests
     - name: Security
       run: |
         qa/run-bandit-tests
+    - name: Packaging
+      run: |
+        qa/run-packaging-tests

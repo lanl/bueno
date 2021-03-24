@@ -9,8 +9,6 @@
 
 echo "Reporting on Security Standing"
 
-# pip install bandit
-
 bandit --version
 
 bandit ./bueno -r

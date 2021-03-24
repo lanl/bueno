@@ -7,8 +7,6 @@
 # top-level directory of this distribution for more information.
 #
 
-# TODO(skg) Add --user option so QA suite and travis will both be happy.
-
 echo "Testing Packaging"
 
 python3 -m pip install --user .

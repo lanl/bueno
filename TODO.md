@@ -1,6 +1,5 @@
 # TODO Items
 
-* Add a quick start guide to README.
 * Restructure bueno build argument processing to handle forwarding of
   builder-specific arguments.
 * Add post-run action hook.
@@ -16,5 +15,4 @@
 * Add environmental push/pop.
 * Document how relative paths work in bueno run scripts. Note
   that paths are relative to the run script.
-* Consider the use of bandit and automate its use for development purposes.
 * Automate bumpversion actions.
