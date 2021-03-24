@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2020 Triad National Security, LLC
+# Copyright (c) 2019-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -18,7 +18,7 @@ from typing import (
 import os
 import shlex
 import shutil
-import subprocess
+import subprocess  # nosec
 
 from bueno.core import constants
 
@@ -129,7 +129,7 @@ def tmpdir() -> str:
     tdir = os.getenv('TMPDIR')
     if tdir is not None:
         return tdir
-    return '/tmp'
+    return '/tmp'  # nosec
 
 
 def run(  # pylint: disable=too-many-arguments
@@ -162,7 +162,7 @@ def run(  # pylint: disable=too-many-arguments
     olst: List[str] = list()
     spo = subprocess.Popen(
         realcmd,
-        shell=True,
+        shell=True,  # nosec
         bufsize=1,
         # Enables text mode, making write() et al. happy.
         universal_newlines=True,

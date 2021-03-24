@@ -12,3 +12,4 @@
 echo "Testing Packaging"
 
 python3 -m pip install --user .
+
