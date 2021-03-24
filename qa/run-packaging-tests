@@ -12,3 +12,5 @@
 echo "Testing Packaging"
 
 python3 -m pip install --user .
+
+python3 -m pip install bandit --user .
