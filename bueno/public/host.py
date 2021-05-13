@@ -160,7 +160,7 @@ def run(  # pylint: disable=too-many-arguments
 
     # Output list of strings used to (optionally) capture command output.
     olst: List[str] = list()
-    spo = subprocess.Popen(
+    with subprocess.Popen(
         realcmd,
         shell=True,  # nosec
         bufsize=1,
@@ -168,25 +168,25 @@ def run(  # pylint: disable=too-many-arguments
         universal_newlines=True,
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT
-    )
-    # Show progress and store output to a string (if requested).
-    while True:
-        stdout = spo.stdout.readline()
+    ) as spo:
+        # Show progress and store output to a string (if requested).
+        while True:
+            stdout = spo.stdout.readline()
 
-        if not stdout:
-            break
-        if capture_output:
-            olst.append(stdout)
-        if verbose:
-            logger.log(utils.chomp(stdout))
+            if not stdout:
+                break
+            if capture_output:
+                olst.append(stdout)
+            if verbose:
+                logger.log(utils.chomp(stdout))
 
-    wrc = spo.wait()
-    if wrc != os.EX_OK and check_exit_code:
-        cpe = ChildProcessError()
-        cpe.errno = wrc
-        estr = F"Command '{realcmd}' returned non-zero exit status."
-        cpe.strerror = estr
-        raise cpe
+        wrc = spo.wait()
+        if wrc != os.EX_OK and check_exit_code:
+            cpe = ChildProcessError()
+            cpe.errno = wrc
+            estr = F"Command '{realcmd}' returned non-zero exit status."
+            cpe.strerror = estr
+            raise cpe
 
     return olst
 
