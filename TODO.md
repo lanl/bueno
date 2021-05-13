@@ -1,5 +1,7 @@
 # TODO Items
 
+* Automate testing of user API usage and exported APIs:
+  For example, do type checking across bueno and bueno-run-proxies.
 * Restructure bueno build argument processing to handle forwarding of
   builder-specific arguments.
 * Add post-run action hook.
