@@ -55,17 +55,20 @@ $ bueno run -a none -p hello.py
 Now, this script can be directly expanded to include other actions,
 or with just a few lines, bueno can execute an existing program.
 ```python
-# hello.py
+# callbye.py
 from bueno.public import experiment
 from bueno.public import host
 
 def main(argv):
     experiment.name('call-bye')
-    # call the other file by passing a terminal command
+    # Execute an existing program via bueno's sh-like shell emulator.
     host.run('python goodbye.py')
 ```
-Where `goodbye.py` is another Python script in the same directory as `hello.py`,
-and again executed the same way.
+Where `goodbye.py` is another Python program in the same directory as `callbye.py`.
+This example is executed by:
+```shell
+$ bueno run -a none -p callbye.py
+```
 
 ## Examples:
 * [hello](./examples/hello)
