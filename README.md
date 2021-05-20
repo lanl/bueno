@@ -16,15 +16,20 @@ compilation, program execution, data storage, and analysis. More on this later.
 ## Installation
 
 ### User Installation With pip
-In a terminal perform the following (assumes a bash-like shell).
+In a terminal perform the following.
 ```shell
 cd bueno # The directory in which setup.py is located.
 python3 -m pip install --user .
 ```
 Add bueno's installation prefix to `PATH`.
 ```shell
+# Bash
 export PY_USER_BIN=$(python3 -c 'import site; print(site.USER_BASE + "/bin")')
 export PATH=$PY_USER_BIN:$PATH
+
+# Tcsh
+setenv PY_USER_BIN `python3 -c 'import site; print(site.USER_BASE + "/bin")'`
+set path=($PY_USER_BIN $path); rehash
 ```
 Now, the `bueno` command should be available for use.
 
