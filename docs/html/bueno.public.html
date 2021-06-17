@@ -23,9 +23,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -322,45 +319,45 @@ confns, a namespace.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt id="bueno.public.experiment.CannedCLIConfiguration">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.experiment.</span></code><code class="sig-name descname"><span class="pre">CannedCLIConfiguration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#bueno.public.experiment.CannedCLIConfiguration.Defaults" title="bueno.public.experiment.CannedCLIConfiguration.Defaults"><span class="pre">bueno.public.experiment.CannedCLIConfiguration.Defaults</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.experiment.CannedCLIConfiguration" title="Permalink to this definition">¶</a></dt>
+<dt id="bueno.public.experiment.DefaultCLIConfiguration">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.experiment.</span></code><code class="sig-name descname"><span class="pre">DefaultCLIConfiguration</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">desc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">argv</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">defaults</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#bueno.public.experiment.DefaultCLIConfiguration.Defaults" title="bueno.public.experiment.DefaultCLIConfiguration.Defaults"><span class="pre">bueno.public.experiment.DefaultCLIConfiguration.Defaults</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.experiment.DefaultCLIConfiguration" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bueno.public.experiment.CLIConfiguration" title="bueno.public.experiment.CLIConfiguration"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.experiment.CLIConfiguration</span></code></a></p>
 <p>A ‘canned’ set of parser arguments common to many (but not all) bueno run
 scripts. This CLI configuration is provided as a convenience for those run
 scripts that can benefit from the options provided.</p>
 <dl class="py class">
-<dt id="bueno.public.experiment.CannedCLIConfiguration.Defaults">
-<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Defaults</span></code><a class="headerlink" href="#bueno.public.experiment.CannedCLIConfiguration.Defaults" title="Permalink to this definition">¶</a></dt>
+<dt id="bueno.public.experiment.DefaultCLIConfiguration.Defaults">
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Defaults</span></code><a class="headerlink" href="#bueno.public.experiment.DefaultCLIConfiguration.Defaults" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Default values for CannedCLIConfigurations.</p>
+<p>Default values for DefaultCLIConfigurations.</p>
 <dl class="py attribute">
-<dt id="bueno.public.experiment.CannedCLIConfiguration.Defaults.csv_output">
-<code class="sig-name descname"><span class="pre">csv_output</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#bueno.public.experiment.CannedCLIConfiguration.Defaults.csv_output" title="Permalink to this definition">¶</a></dt>
+<dt id="bueno.public.experiment.DefaultCLIConfiguration.Defaults.csv_output">
+<code class="sig-name descname"><span class="pre">csv_output</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#bueno.public.experiment.DefaultCLIConfiguration.Defaults.csv_output" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="bueno.public.experiment.CannedCLIConfiguration.Defaults.description">
-<code class="sig-name descname"><span class="pre">description</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#bueno.public.experiment.CannedCLIConfiguration.Defaults.description" title="Permalink to this definition">¶</a></dt>
+<dt id="bueno.public.experiment.DefaultCLIConfiguration.Defaults.description">
+<code class="sig-name descname"><span class="pre">description</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#bueno.public.experiment.DefaultCLIConfiguration.Defaults.description" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="bueno.public.experiment.CannedCLIConfiguration.Defaults.executable">
-<code class="sig-name descname"><span class="pre">executable</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#bueno.public.experiment.CannedCLIConfiguration.Defaults.executable" title="Permalink to this definition">¶</a></dt>
+<dt id="bueno.public.experiment.DefaultCLIConfiguration.Defaults.executable">
+<code class="sig-name descname"><span class="pre">executable</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#bueno.public.experiment.DefaultCLIConfiguration.Defaults.executable" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="bueno.public.experiment.CannedCLIConfiguration.Defaults.input">
-<code class="sig-name descname"><span class="pre">input</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#bueno.public.experiment.CannedCLIConfiguration.Defaults.input" title="Permalink to this definition">¶</a></dt>
+<dt id="bueno.public.experiment.DefaultCLIConfiguration.Defaults.input">
+<code class="sig-name descname"><span class="pre">input</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#bueno.public.experiment.DefaultCLIConfiguration.Defaults.input" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="bueno.public.experiment.CannedCLIConfiguration.Defaults.name">
-<code class="sig-name descname"><span class="pre">name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#bueno.public.experiment.CannedCLIConfiguration.Defaults.name" title="Permalink to this definition">¶</a></dt>
+<dt id="bueno.public.experiment.DefaultCLIConfiguration.Defaults.name">
+<code class="sig-name descname"><span class="pre">name</span></code><em class="property"> <span class="pre">=</span> <span class="pre">''</span></em><a class="headerlink" href="#bueno.public.experiment.DefaultCLIConfiguration.Defaults.name" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt id="bueno.public.experiment.CannedCLIConfiguration.Defaults.runcmds">
-<code class="sig-name descname"><span class="pre">runcmds</span></code><em class="property"> <span class="pre">=</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">'',</span> <span class="pre">'')</span></em><a class="headerlink" href="#bueno.public.experiment.CannedCLIConfiguration.Defaults.runcmds" title="Permalink to this definition">¶</a></dt>
+<dt id="bueno.public.experiment.DefaultCLIConfiguration.Defaults.runcmds">
+<code class="sig-name descname"><span class="pre">runcmds</span></code><em class="property"> <span class="pre">=</span> <span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">'',</span> <span class="pre">'')</span></em><a class="headerlink" href="#bueno.public.experiment.DefaultCLIConfiguration.Defaults.runcmds" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>

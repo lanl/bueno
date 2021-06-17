@@ -1,5 +1,5 @@
-# # Copyright (c) 2019-2020 Triad National Security, LLC
-#                         All rights reserved.
+# # Copyright (c) 2019-2021 Triad National Security, LLC
+#                           All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
 # top-level directory of this distribution for more information.
@@ -369,7 +369,7 @@ def cli_args_add_runcmds_option(
     )
 
 
-class CannedCLIConfiguration(CLIConfiguration):
+class DefaultCLIConfiguration(CLIConfiguration):
     '''
     A 'canned' set of parser arguments common to many (but not all) bueno run
     scripts. This CLI configuration is provided as a convenience for those run
@@ -377,7 +377,7 @@ class CannedCLIConfiguration(CLIConfiguration):
     '''
     class Defaults:
         '''
-        Default values for CannedCLIConfigurations.
+        Default values for DefaultCLIConfigurations.
         '''
         csv_output = ''
         description = ''
@@ -390,7 +390,7 @@ class CannedCLIConfiguration(CLIConfiguration):
             self,
             desc: str,
             argv: List[str],
-            defaults: 'CannedCLIConfiguration.Defaults'
+            defaults: 'DefaultCLIConfiguration.Defaults'
     ) -> None:
         self.defaults = defaults
         super().__init__(desc, argv)

@@ -23,9 +23,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -172,21 +169,21 @@
 <div class="section" id="user-installation-with-pip">
 <h2>User Installation With pip<a class="headerlink" href="#user-installation-with-pip" title="Permalink to this headline">¶</a></h2>
 <p>In a terminal perform the following (assumes a bash-like shell).</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>git clone git@github.com:lanl/bueno.git
-<span class="gp">$ </span><span class="nb">cd</span> bueno <span class="c1"># The directory in which setup.py is located.</span>
-<span class="gp">$ </span>python3 -m pip install --user .
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> git clone git@github.com:lanl/bueno.git
+<span class="gp">$</span> <span class="nb">cd</span> bueno <span class="c1"># The directory in which setup.py is located.</span>
+<span class="gp">$</span> python3 -m pip install --user .
 </pre></div>
 </div>
 <p>Add bueno’s installation prefix to your <code class="docutils literal notranslate"><span class="pre">PATH</span></code>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">export</span> <span class="nv">PY_USER_BIN</span><span class="o">=</span><span class="k">$(</span>python3 -c <span class="s1">&#39;import site; print(site.USER_BASE + &quot;/bin&quot;)&#39;</span><span class="k">)</span>
-<span class="gp">$ </span><span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PY_USER_BIN</span>:<span class="nv">$PATH</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">export</span> <span class="nv">PY_USER_BIN</span><span class="o">=</span><span class="k">$(</span>python3 -c <span class="s1">&#39;import site; print(site.USER_BASE + &quot;/bin&quot;)&#39;</span><span class="k">)</span>
+<span class="gp">$</span> <span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PY_USER_BIN</span>:<span class="nv">$PATH</span>
 </pre></div>
 </div>
 <p>Now, the <code class="docutils literal notranslate"><span class="pre">bueno</span></code> command should be available for use.</p>
 </div>
 <div class="section" id="user-uninstallation-with-pip">
 <h2>User Uninstallation with pip<a class="headerlink" href="#user-uninstallation-with-pip" title="Permalink to this headline">¶</a></h2>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3 -m pip uninstall bueno
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 -m pip uninstall bueno
 </pre></div>
 </div>
 </div>
@@ -200,10 +197,10 @@ building and activation through <a class="reference external" href="https://gith
 Charliecloud must be installed. Once you have obtained a recent release of
 Charliecloud from <a class="reference external" href="https://github.com/hpc/charliecloud/releases">here</a>,
 execute the following commands.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./configure
-<span class="gp">$ </span>make
-<span class="gp">$ </span><span class="nb">cd</span> bin
-<span class="gp">$ </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PWD</span>:<span class="nv">$PATH</span>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./configure
+<span class="gp">$</span> make
+<span class="gp">$</span> <span class="nb">cd</span> bin
+<span class="gp">$</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PWD</span>:<span class="nv">$PATH</span>
 </pre></div>
 </div>
 </div>

@@ -23,9 +23,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -176,34 +173,34 @@ activities common to bueno development, testing, and documentation.</p>
 <h2>Automated Testing<a class="headerlink" href="#automated-testing" title="Permalink to this headline">¶</a></h2>
 <p>Before pushing code, run bueno’s automated test suite locally and make certain
 all tests pass.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./qa/run-qa-suite.sh
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./qa/run-qa-suite.sh
 </pre></div>
 </div>
 </div>
 <div class="section" id="building-the-documentation">
 <h2>Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline">¶</a></h2>
 <p>Install Sphinx and the RTD theme.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3 -m pip install --user sphinx
-<span class="gp">$ </span>python3 -m pip install --user sphinx_rtd_theme
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 -m pip install --user sphinx
+<span class="gp">$</span> python3 -m pip install --user sphinx_rtd_theme
 </pre></div>
 </div>
 <p>Build the documentation.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> docs
-<span class="gp">$ </span>make html
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> docs
+<span class="gp">$</span> make html
 </pre></div>
 </div>
 <p>If the project’s code structure has changed in a meaningful way (e.g., the
 addition of a package or module), it may be necessary to re-run the following
 before executing <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> docs
-<span class="gp">$ </span>sphinx-apidoc -f -o source/ ../bueno
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> docs
+<span class="gp">$</span> sphinx-apidoc -f -o source/ ../bueno
 </pre></div>
 </div>
 </div>
 <div class="section" id="building-rpms">
 <h2>Building RPMs<a class="headerlink" href="#building-rpms" title="Permalink to this headline">¶</a></h2>
 <p>Prerequisites: <code class="docutils literal notranslate"><span class="pre">rpm-build</span></code></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3 setup.py bdist_rpm
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 setup.py bdist_rpm
 </pre></div>
 </div>
 </div>

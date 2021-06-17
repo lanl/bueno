@@ -23,9 +23,6 @@
   
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -181,6 +178,7 @@ understanding fundamental bueno run script structure.</p>
 <span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">experiment</span>
 <span class="kn">from</span> <span class="nn">bueno.public</span> <span class="kn">import</span> <span class="n">logger</span>
 
+
 <span class="c1"># main() is the entry point for all bueno run scripts. argv is a list of</span>
 <span class="c1"># argument strings passed to this program by the bueno run service.</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span><span class="p">):</span>
@@ -196,7 +194,7 @@ understanding fundamental bueno run script structure.</p>
 <p>In the following example, we execute <code class="docutils literal notranslate"><span class="pre">hello.py</span></code> using the <code class="docutils literal notranslate"><span class="pre">none</span></code> (i.e.,
 <em>host pass-through</em>) image activator.  To execute the script, run the following
 command (assumes <code class="docutils literal notranslate"><span class="pre">hello.py</span></code> is stored in your current working directory):</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>bueno run -a none -p hello.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> bueno run -a none -p hello.py
 </pre></div>
 </div>
 <p>This program invocation should produce console output similar to the following:</p>
