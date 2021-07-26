@@ -77,7 +77,6 @@ class Factory:
     # List of supported service names.
     # Modify this list as services change.
     services = [
-        'build',
         'run'
     ]
 
