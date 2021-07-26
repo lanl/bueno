@@ -1,14 +1,16 @@
 # Build And Run
 
 ## Build
-Previous examples used only the bueno's `run` feature. This example, however,
-explores bueno's `build` command. We will start by building a container image
-for `nbody`, our example MPI application.
+Previous examples used only bueno's `none` image activator. This example,
+however, explores using bueno's `charliecloud` image activator. We will start by
+building a container image using Charliecloud for `nbody`, our example MPI
+application.
 ```
-bueno build -s Dockerfile.mpich -t nbody
+ch-build2dir --force -t nbody-img -f ./Dockerfile.mpich . .
 ```
-Once completed, there will be a new tarball in the working directory. We will
-use this image when executing the bueno run script.
+Once completed, there will be a new directory named `nbody-img` in the working
+directory. We will use the contents of this directory when executing the bueno
+run script.
 
 ---
 
@@ -16,7 +18,7 @@ use this image when executing the bueno run script.
 Instead of simply instructing bueno to execute our run script as we have in the
 past, we will be providing bueno with a container image to work with.
 ```
-bueno run -i nbody.tar.gz -p build-and-run.py
+bueno run --do-not-stage -i nbody-img -p build-and-run.py
 ```
 
 If successful, the terminal will fill with output from the containerized
@@ -28,9 +30,13 @@ workaround outlined in the following tip.
 > What: run error encountered.
 > Why:  Cannot determine the number of nodes in your job.
 > ```
-> There is likely a problem with your SLURM environment. There is a
-> fairly simple workaround we can use to bypass this.
 >
+> or this:
+> ```
+> ch-run[251876]: join: no valid peer group size found (ch-run.c:382)
+>
+> ```
+> Try the following:
 > ```
 > export SLURM_CPUS_ON_NODE=2
 > ```

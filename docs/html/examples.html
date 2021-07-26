@@ -349,21 +349,23 @@ that we have been using for the last few examples:</p>
 <h2>Build And Run<a class="headerlink" href="#build-and-run" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="build">
 <h3>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h3>
-<p>Previous examples used only the bueno’s <code class="docutils literal notranslate"><span class="pre">run</span></code> feature. This example, however,
-explores bueno’s <code class="docutils literal notranslate"><span class="pre">build</span></code> command. We will start by building a container image
-for <code class="docutils literal notranslate"><span class="pre">nbody</span></code>, our example MPI application.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bueno</span> <span class="n">build</span> <span class="o">-</span><span class="n">s</span> <span class="n">Dockerfile</span><span class="o">.</span><span class="n">mpich</span> <span class="o">-</span><span class="n">t</span> <span class="n">nbody</span>
+<p>Previous examples used only bueno’s <code class="docutils literal notranslate"><span class="pre">none</span></code> image activator. This example,
+however, explores using bueno’s <code class="docutils literal notranslate"><span class="pre">charliecloud</span></code> image activator. We will start by
+building a container image using Charliecloud for <code class="docutils literal notranslate"><span class="pre">nbody</span></code>, our example MPI
+application.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ch</span><span class="o">-</span><span class="n">build2dir</span> <span class="o">--</span><span class="n">force</span> <span class="o">-</span><span class="n">t</span> <span class="n">nbody</span><span class="o">-</span><span class="n">img</span> <span class="o">-</span><span class="n">f</span> <span class="o">./</span><span class="n">Dockerfile</span><span class="o">.</span><span class="n">mpich</span> <span class="o">.</span> <span class="o">.</span>
 </pre></div>
 </div>
-<p>Once completed, there will be a new tarball in the working directory. We will
-use this image when executing the bueno run script.</p>
+<p>Once completed, there will be a new directory named <code class="docutils literal notranslate"><span class="pre">nbody-img</span></code> in the working
+directory. We will use the contents of this directory when executing the bueno
+run script.</p>
 </div>
 <hr class="docutils" />
 <div class="section" id="run">
 <h3>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h3>
 <p>Instead of simply instructing bueno to execute our run script as we have in the
 past, we will be providing bueno with a container image to work with.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bueno</span> <span class="n">run</span> <span class="o">-</span><span class="n">i</span> <span class="n">nbody</span><span class="o">.</span><span class="n">tar</span><span class="o">.</span><span class="n">gz</span> <span class="o">-</span><span class="n">p</span> <span class="n">build</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">run</span><span class="o">.</span><span class="n">py</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bueno</span> <span class="n">run</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="ow">not</span><span class="o">-</span><span class="n">stage</span> <span class="o">-</span><span class="n">i</span> <span class="n">nbody</span><span class="o">-</span><span class="n">img</span> <span class="o">-</span><span class="n">p</span> <span class="n">build</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">run</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>If successful, the terminal will fill with output from the containerized
@@ -375,8 +377,11 @@ workaround outlined in the following tip.</p>
 <span class="n">Why</span><span class="p">:</span>  <span class="n">Cannot</span> <span class="n">determine</span> <span class="n">the</span> <span class="n">number</span> <span class="n">of</span> <span class="n">nodes</span> <span class="ow">in</span> <span class="n">your</span> <span class="n">job</span><span class="o">.</span>
 </pre></div>
 </div>
-<p>There is likely a problem with your SLURM environment. There is a
-fairly simple workaround we can use to bypass this.</p>
+<p>or this:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ch</span><span class="o">-</span><span class="n">run</span><span class="p">[</span><span class="mi">251876</span><span class="p">]:</span> <span class="n">join</span><span class="p">:</span> <span class="n">no</span> <span class="n">valid</span> <span class="n">peer</span> <span class="n">group</span> <span class="n">size</span> <span class="n">found</span> <span class="p">(</span><span class="n">ch</span><span class="o">-</span><span class="n">run</span><span class="o">.</span><span class="n">c</span><span class="p">:</span><span class="mi">382</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Try the following:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">SLURM_CPUS_ON_NODE</span><span class="o">=</span><span class="mi">2</span>
 </pre></div>
 </div>

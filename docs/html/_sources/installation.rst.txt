@@ -36,11 +36,11 @@ Charliecloud: User-Defined Software Stacks for HPC
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Container technology is used to improve the likelihood of experimental
 reproducibility in bueno. Currently, bueno supports unprivileged container
-building and activation through `Charliecloud
-<https://github.com/hpc/charliecloud>`_. To enable this capability in bueno,
-Charliecloud must be installed. Once you have obtained a recent release of
-Charliecloud from `here <https://github.com/hpc/charliecloud/releases>`_,
-execute the following commands.
+activation through `Charliecloud <https://github.com/hpc/charliecloud>`_. To
+enable this capability in bueno, Charliecloud must be installed. Once you have
+obtained a recent release of Charliecloud from `here
+<https://github.com/hpc/charliecloud/releases>`_, execute the following
+commands.
 
 .. code-block:: console
 

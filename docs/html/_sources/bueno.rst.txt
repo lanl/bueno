@@ -6,7 +6,6 @@ Subpackages
 
 .. toctree::
 
-   bueno.build
    bueno.core
    bueno.public
    bueno.run

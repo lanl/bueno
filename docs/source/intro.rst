@@ -24,16 +24,7 @@ services provided by bueno.
 
 Command Line Services
 ---------------------
-Two CLI services are currently available through bueno: ``build`` and ``run``.
-
-The *build* service is a front-end to container builder backends (e.g., Docker,
-Charliecloud). This service acts as an abstraction layer that hides the steps
-required to build a container image given a particular backend and specification
-(e.g., a Dockerfile). Additionally, the build service annotates the generated
-container images with embedded metadata detailing their build specification,
-environment, and process. We believe that sufficient data are stored within the
-generated images to perform operations critical to reproducibility and
-post-mortem analysis, but are open to suggestions.
+CLI services are currently available through ``bueno run``.
 
 The *run* service coordinates container image activation and the execution of
 bueno run scripts---a programmatic description of the steps required to conduct a
