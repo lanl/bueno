@@ -1,29 +1,24 @@
 # Factor.py
-<br/>
 
 ## Basic Outline
 
-The purpose of this program is to essentially determine the dimensions of a
-given volume. This sounds quite simple at first, the caviot is that the value
-of each axis dimension needs to be as close to an even distribution as
-possible. This esentially means that when we visualise it as a three
-dimensional shape. We're doing our best to find the vectors that most closely
-make a cube.
+The purpose of this program is to determine the dimensions of a given volume.
+This sounds quite simple at first, the caveat is that the value of each axis
+dimension needs to be as close to an even distribution as possible. This
+essentially means that when we visualise it as a three dimensional shape. We're
+doing our best to find the vectors that most closely make a cube.
 
-At first glance this would seem to be quite simple as the cube root of any
-given number would provide the optimal length of each edge. However, given
-the context of process allocation, it quickly becomes more complicated;
-a fraction of a process can not be allocated to a CPU. This intruduces the
-final criteria of this program; all the dimensions must be clean integers.
+At first glance this would seem to be quite simple as the cube root of any given
+number would provide the optimal length of each edge. However, given the context
+of process allocation, it quickly becomes more complicated; a fraction of a
+process can not be allocated to a CPU. This introduces the final criterion of
+this program: all the dimensions must be integers.
 
-As I am not much of a mathematician myself, I took a more logical approach
-to the problem. First, the tail factors of the original number are calculated
-and collectedin a list. This list is pre-sorted from least to greatest which
-will be helpful in the next phase when we try to intellegently recombine items
-until only 2-3 remain (Or however many are specified in the dimension
-parameter).
-
-<br/>
+As I am not much of a mathematician, I took a more logical approach to the
+problem. First, the tail factors of the original number are calculated and
+collected in a list. This list is pre-sorted from least to greatest which will
+be helpful in the next phase when we try to intelligently recombine items until
+only 2-3 remain (Or however many are specified in the dimension parameter).
 
 ## Prime Factorization Method
 
@@ -44,29 +39,27 @@ def get_prime(self, number):
         break
 ```
 
-The product of the list of factors is then compared to the initial volume.
-This catches any large prime numbers not found on the existing list of primes
-needed to reach the correct value. Once the list is validated, it's time for it
-to be recombined until the desired number dimensions is reached
-(In our example so far we've been using three dimensions).
-
-<br/>
+The product of the list of factors is then compared to the initial volume.  This
+catches any large prime numbers not found on the existing list of primes needed
+to reach the correct value. Once the list is validated, it's time for it to be
+recombined until the desired number dimensions is reached (In our example so far
+we've been using three dimensions).
 
 ## Factor Recombination Method
 
-In an attempt to immitate the logic of an actual person recombining the
-condensing the list of prime factors, I arrived at the following psuedocode
-implimentation. In which the smallest and largest items in the list are
-combined until an overflow point is reached. This overflow point is the actual
-cube root of the initial number.
+In an attempt to imitate the logic of an actual person recombining the
+condensing the list of prime factors, I arrived at the following pseudocode
+implementation. In which the smallest and largest items in the list are combined
+until an overflow point is reached. This overflow point is the actual cube root
+of the initial number.
 
 > NOTE:
-> In examples where the number of desired dimensions is more or less than
-> three, the algorithm will adapt to fill the specification; setting the
-> overflow to be the nth root. The same holds true for any other areas
-> dependent on the number of dimensions.
+> In examples where the number of desired dimensions is more or less than three,
+> the algorithm will adapt to fill the specification; setting the overflow to be
+> the nth root. The same holds true for any other areas dependent on the number
+> of dimensions.
 
-Once the overflow is reached, the smallest and second largest numbers are 
+Once the overflow is reached, the smallest and second largest numbers are
 combined. This is done until there are only four elements in the list
 remaining. At which point the two smallest entries are combined and the
 final distribution is achieved and sorted. Should the list of prime factors
@@ -102,8 +95,6 @@ def condense_list(self):
     # Done
 ```
 
-<br/>
-
 ## Flowchart Representation:
 <br/>
 <img src="docs/img/flow.png"/>
@@ -114,20 +105,10 @@ def condense_list(self):
 
 In the local directory experiments, there is a test script for the factorize
 function. With it, any number can be factorized to three or a user-specified
-value. For instance if you wanted to factorize 500 four ways, that is
-achieved with and results in:
+value. For instance if you wanted to factorize 500 four ways, that is achieved
+with and results in:
 
 ```Shell
 $ python3 test.py 500 --dim 4
 [5, 5, 5, 4]
 ```
-
-<br/>
-
-### Los Alamos National Laboratory Code Release
-C19133 [bueno](https://github.com/lanl/bueno)
-
-<br/>
-
--------------------------------------------------------------------------------
-Last Updated - 11/17/2020
