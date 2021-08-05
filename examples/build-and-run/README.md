@@ -22,8 +22,8 @@ bueno run --do-not-stage -i nbody-img -p build-and-run.py
 ```
 
 If successful, the terminal will fill with output from the containerized
-application. If you encountered some errors, try following the workarounds
-outlined in the following tip.
+application. If you encountered some errors, try the workarounds outlined in the
+following tip:
 
 > Tip: If you encountered an error similar to this:
 > ```
@@ -38,5 +38,5 @@ outlined in the following tip.
 > ```
 > Try the following:
 > ```
-> export SLURM_CPUS_ON_NODE=2
+> export SLURM_CPUS_ON_NODE=2 # Or another number to match system resources.
 > ```
