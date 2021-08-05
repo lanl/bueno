@@ -8,7 +8,7 @@ application.
 ```
 ch-build2dir --force -t nbody-img -f ./Dockerfile.mpich . .
 ```
-Once completed, there will be a new directory named `nbody-img` in the working
+Once completed, there will be a new directory named `nbody-img` in your working
 directory. We will use the contents of this directory when executing the bueno
 run script.
 
@@ -16,14 +16,14 @@ run script.
 
 ## Run
 Instead of simply instructing bueno to execute our run script as we have in the
-past, we will be providing bueno with a container image to work with.
+past, we will provide bueno with a container image to work with.
 ```
 bueno run --do-not-stage -i nbody-img -p build-and-run.py
 ```
 
 If successful, the terminal will fill with output from the containerized
-application. If however, you encountered some errors, try following the
-workaround outlined in the following tip.
+application. If you encountered some errors, try following the workarounds
+outlined in the following tip.
 
 > Tip: If you encountered an error similar to this:
 > ```
