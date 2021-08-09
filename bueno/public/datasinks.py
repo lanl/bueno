@@ -24,6 +24,8 @@ import time
 
 from bueno.public import utils
 
+MaybePopen = Optional[subprocess.Popen[bytes]]
+
 
 class TelegrafClientAgent:
     '''
@@ -38,7 +40,7 @@ class TelegrafClientAgent:
 
         self.exe = exe
         self.config = config
-        self.tele_process: Optional[subprocess.Popen[bytes]] = None
+        self.tele_process: MaybePopen = None  # pylint: disable=E1136
 
     def __del__(self) -> None:
         self.stop()
