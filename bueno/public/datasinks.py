@@ -52,7 +52,7 @@ class TelegrafClientAgent:
         cmd = [self.exe, '--config', self.config]
         self.tele_process = subprocess.Popen(cmd)  # nosec
         # Hack to give the subprocess a little time to startup.
-        time.sleep(10)
+        time.sleep(5)
 
     def stop(self) -> None:
         '''
@@ -118,7 +118,7 @@ class InfluxDBMeasurement(Measurement):
         '''
         Returns measurement data as string following InfluxDB line protocol.
         '''
-        return '{}{}{}{}'.format(
+        return '{}{} {} {}'.format(
             self.measurement,
             ',' + self._tags() if self.tags else '',
             self._values(),
