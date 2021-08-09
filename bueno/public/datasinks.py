@@ -25,10 +25,10 @@ import time
 
 from bueno.public import utils
 
-if sys.version_info < (3, 9):
+if sys.version_info < (3, 8):
     MaybePopen = Optional[subprocess.Popen]
 else:
-    MaybePopen = Optional[subprocess.Popen[bytes]]
+    MaybePopen = Optional[subprocess.Popen[bytes]]  # pylint: disable=E1136
 
 
 class TelegrafClientAgent:
