@@ -169,6 +169,8 @@ def run(  # pylint: disable=too-many-arguments
         stdout=subprocess.PIPE,
         stderr=subprocess.STDOUT
     ) as spo:
+        # To silence mypy warnings.
+        assert spo.stdout is not None  # nosec
         # Show progress and store output to a string (if requested).
         while True:
             stdout = spo.stdout.readline()
