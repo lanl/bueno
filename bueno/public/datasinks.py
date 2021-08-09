@@ -18,13 +18,17 @@ from typing import (
 
 import os
 import socket
+import sys
 import ssl
 import subprocess  # nosec
 import time
 
 from bueno.public import utils
 
-MaybePopen = Optional[subprocess.Popen[bytes]]  # pylint: disable=E1136
+if sys.version_info < (3, 9):
+    MaybePopen = Optional[subprocess.Popen]
+else:
+    MaybePopen = Optional[subprocess.Popen[bytes]]
 
 
 class TelegrafClientAgent:
