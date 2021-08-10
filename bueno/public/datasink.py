@@ -158,28 +158,29 @@ class InfluxDBMeasurement(Measurement):
         self.tags = tags or {}
 
     @staticmethod
-    def _format_str(istr: str) -> str:
+    def _format_item(item: Any) -> str:
         '''
-        Formats a string for the line protocol.
+        Formats an item for the line protocol.
         '''
-        istr = istr.replace(',', '\,')  # noqa: W605 pylint: disable=W1401
-        istr = istr.replace(' ', '\ ')  # noqa: W605 pylint: disable=W1401
-        istr = istr.replace('=', '\=')  # noqa: W605 pylint: disable=W1401
+        if isinstance(item, str):
+            item = item.replace(',', '\,')  # noqa: W605 pylint: disable=W1401
+            item = item.replace(' ', '\ ')  # noqa: W605 pylint: disable=W1401
+            item = item.replace('=', '\=')  # noqa: W605 pylint: disable=W1401
 
-        return istr
+        return str(item)
 
     def _values(self) -> str:
         '''
         Returns values in line protocol format.
         '''
-        fmt = InfluxDBMeasurement._format_str
+        fmt = InfluxDBMeasurement._format_item
         return ','.join(F'{fmt(k)}={fmt(v)}' for k, v in self.values.items())
 
     def _tags(self) -> str:
         '''
         Returns tags in line protocol format.
         '''
-        fmt = InfluxDBMeasurement._format_str
+        fmt = InfluxDBMeasurement._format_item
         return ','.join(F'{fmt(k)}={fmt(v)}' for k, v in self.tags.items())
 
     def data(self) -> str:
