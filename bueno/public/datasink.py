@@ -12,7 +12,9 @@ Convenience data sinks.
 
 from abc import ABC, abstractmethod
 from typing import (
+    Any,
     Dict,
+    List,
     Optional
 )
 
@@ -23,12 +25,74 @@ import ssl
 import subprocess  # nosec
 import time
 
+from bueno.public import logger
 from bueno.public import utils
 
 if sys.version_info < (3, 8):
     MaybePopen = Optional[subprocess.Popen]
 else:
     MaybePopen = Optional[subprocess.Popen[bytes]]  # pylint: disable=E1136
+
+
+class Table:
+    '''
+    A straightforward class to display formatted tabular data.
+    '''
+    class Row():
+        '''
+        Creates a row for use in a table.
+        '''
+        def __init__(self, data: List[Any], withrule: bool = False) -> None:
+            self.data = data
+            self.withrule = withrule
+
+    class _RowFormatter():
+        '''
+        Private class used for row formatting.
+        '''
+        def __init__(self, mcls: List[int]) -> None:
+            self.colpad = 2
+            self.mcls = list(map(lambda x: x + self.colpad, mcls))
+            self.fmts = str()
+            # Generate format string based on max column lengths.
+            for mcl in self.mcls:
+                self.fmts += F'{{:<{mcl}s}}'
+
+        def format(self, row: 'Table.Row') -> str:
+            '''
+            Formats the contents of a given row into a nice output string.
+            '''
+            res = str()
+            res += self.fmts.format(*row.data)
+            if row.withrule:
+                res += '\n' + ('-' * (sum(self.mcls) - self.colpad))
+            return res
+
+    def __init__(self) -> None:
+        self.rows: List[Any] = list()
+        self.maxcollens: List[Any] = list()
+
+    def addrow(self, row: List[Any], withrule: bool = False) -> None:
+        '''
+        Adds the contents of row to a table, optionally with a rule.
+        '''
+        if len(self.rows) == 0:
+            ncols = len(row)
+            self.maxcollens = [0] * ncols
+
+        srow = list(map(str, row))
+        maxlens = map(len, srow)
+
+        self.maxcollens = list(map(max, zip(self.maxcollens, maxlens)))
+        self.rows.append(Table.Row(srow, withrule))
+
+    def emit(self) -> None:
+        '''
+        Emits the contents of the table using logger.log().
+        '''
+        rowf = Table._RowFormatter(self.maxcollens)
+        for row in self.rows:
+            logger.log(rowf.format(row))
 
 
 class TelegrafClientAgent:
