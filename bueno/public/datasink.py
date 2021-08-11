@@ -100,16 +100,16 @@ class TelegrafClientAgent:
     A thin wrapper for telegraf client agent management.
     '''
     def __init__(self, exe: str, config: str, verbose: bool = False) -> None:
+        self.verbose = verbose
+        self.exe = exe
+        self.config = config
+        self.tele_process: MaybePopen = None
+
         fnf = '{} does not exist'
         if not os.path.exists(exe):
             raise RuntimeError(fnf.format(exe))
         if not os.path.exists(config):
             raise RuntimeError(fnf.format(config))
-
-        self.verbose = verbose
-        self.exe = exe
-        self.config = config
-        self.tele_process: MaybePopen = None
 
     def __del__(self) -> None:
         self.stop()
