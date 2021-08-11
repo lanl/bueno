@@ -121,8 +121,9 @@ class TelegrafClientAgent:
         cmd = [self.exe, '--config', self.config]
         self.tele_process = subprocess.Popen(  # nosec
             cmd,
-            shell=True,
-            stdout=subprocess.STDOUT if self.verbose else subprocess.DEVNULL
+            shell=False,
+            stdout=None if self.verbose else subprocess.DEVNULL,
+            stderr=None if self.verbose else subprocess.DEVNULL
         )
         # Hack to give the subprocess a little time to startup.
         time.sleep(5)
