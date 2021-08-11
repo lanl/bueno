@@ -245,14 +245,17 @@ class TelegrafClient:
             ers = 'Cannot connect to Telegraf client agent'
             raise RuntimeError(ers) from exception
 
-    def send(self, measurement: Measurement) -> None:
+    def send(self, measurement: Measurement, verbose: bool = False) -> None:
         '''
         Sends the contexts of measurement to the Telegraf client agent.
         '''
         try:
             # To silence mypy warnings
             assert self.ssock is not None  # nosec
-            self.ssock.write(measurement.data().encode('utf-8'))
+            mdata = measurement.data()
+            if verbose:
+                logger.log(F'{type(self).__name__}:send({mdata})')
+            self.ssock.write(mdata.encode('utf-8'))
         except Exception as exception:
             ers = 'Sending data to Telegraf client agent failed'
             raise RuntimeError(ers) from exception
