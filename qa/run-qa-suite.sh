@@ -10,11 +10,15 @@
 
 set -e
 
+echo "Running QA suite........................................................."
+
 ./qa/run-flake8-tests
 ./qa/run-mypy-tests
 ./qa/run-pylint-tests
 ./qa/run-bandit-tests
 # Always last
 ./qa/run-packaging-tests
+
+echo "QA suite completed successfully.................................."
 
 # vim: ts=4 sts=4 sw=4 expandtab

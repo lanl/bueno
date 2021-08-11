@@ -99,13 +99,14 @@ class TelegrafClientAgent:
     '''
     A thin wrapper for telegraf client agent management.
     '''
-    def __init__(self, exe: str, config: str) -> None:
+    def __init__(self, exe: str, config: str, verbose: bool = False) -> None:
         fnf = '{} does not exist'
         if not os.path.exists(exe):
             raise RuntimeError(fnf.format(exe))
         if not os.path.exists(config):
             raise RuntimeError(fnf.format(config))
 
+        self.verbose = verbose
         self.exe = exe
         self.config = config
         self.tele_process: MaybePopen = None
@@ -118,7 +119,11 @@ class TelegrafClientAgent:
         Starts the Telegraf client agent. Raises a RuntimeError on failure.
         '''
         cmd = [self.exe, '--config', self.config]
-        self.tele_process = subprocess.Popen(cmd)  # nosec
+        self.tele_process = subprocess.Popen(  # nosec
+            cmd,
+            shell=True,
+            stdout=subprocess.STDOUT if self.verbose else subprocess.DEVNULL
+        )
         # Hack to give the subprocess a little time to startup.
         time.sleep(5)
 
