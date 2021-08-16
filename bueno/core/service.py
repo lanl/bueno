@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -42,7 +42,7 @@ class Base(ABC):
                         prog=self.prog,
                         description=self.desc,
                         allow_abbrev=False
-                        )
+                    )
         # The arguments obtained after _parseargs().
         self.args: argparse.Namespace
         # Dictionary used to hold service configuration.
