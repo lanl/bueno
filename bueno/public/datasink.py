@@ -15,7 +15,8 @@ from typing import (
     Any,
     Dict,
     List,
-    Optional
+    Optional,
+    Union
 )
 
 import os
@@ -155,7 +156,7 @@ class InfluxDBMeasurement(Measurement):
     def __init__(
         self,
         measurement: str,
-        values: Dict[str, str],
+        values: Dict[str, Union[str, int, float, bool]],
         tags: Optional[Dict[str, str]] = None
     ) -> None:
         self.time = str(int(time.time()) * 1000000000)
