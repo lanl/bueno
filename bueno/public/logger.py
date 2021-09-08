@@ -78,7 +78,7 @@ class _TheLogger(metaclass=metacls.Singleton):
         # Start from the beginning.
         self.logsio.seek(0)
         try:
-            with open(topath, 'w+') as file:
+            with open(topath, 'w+', encoding='utf8') as file:
                 shutil.copyfileobj(self.logsio, file)
         # Always seek to end when done.
         finally:
