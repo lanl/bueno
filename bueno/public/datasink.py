@@ -194,7 +194,7 @@ class InfluxDBMeasurement(Measurement):
         '''
         Returns measurement data as string following InfluxDB line protocol.
         '''
-        return '{}{} {} {}'.format(
+        return '{}{} {} {}\n'.format(
             self.measurement,
             ',' + self._tags() if self.tags else '',
             self._values(),
