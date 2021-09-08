@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -110,7 +110,7 @@ class StringIOAsset(BaseAsset):
             realbasep = os.path.join(basep, self.subd)
             os.makedirs(realbasep, 0o755, exist_ok=True)
         opath = os.path.join(realbasep, self.fname)
-        with open(opath, mode='w') as file:
+        with open(opath, mode='w', encoding='utf8') as file:
             print(self.srcios.getvalue(), file=file, end='')
 
 
@@ -149,7 +149,7 @@ class YAMLDictAsset(BaseAsset):
         specified path.
         '''
         target = os.path.join(basep, self._fname)
-        with open(target, 'w+') as file:
+        with open(target, 'w+', encoding='utf8') as file:
             file.write(utils.yamls(self.ydict))
 
 
@@ -205,7 +205,7 @@ class _Assets(metaclass=metacls.Singleton):
     Metadata asset collection.
     '''
     def __init__(self) -> None:
-        self.assets: List[BaseAsset] = list()
+        self.assets: List[BaseAsset] = []
 
     def add(self, asset: BaseAsset) -> None:
         '''
@@ -217,7 +217,7 @@ class _Assets(metaclass=metacls.Singleton):
         '''
         Removes all assets from collection.
         '''
-        self.assets = list()
+        self.assets = []
 
     def write(self, basep: str) -> None:
         '''

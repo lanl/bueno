@@ -46,7 +46,7 @@ class Base(ABC):
         # The arguments obtained after _parseargs().
         self.args: argparse.Namespace
         # Dictionary used to hold service configuration.
-        self.confd: Dict[str, Any] = dict()
+        self.confd: Dict[str, Any] = {}
         # Add and parse arguments.
         self._addargs()
         self._parseargs()

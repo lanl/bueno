@@ -256,8 +256,8 @@ def readgs(
     logger.log(utils.chomp(str().join(utils.cat(gspath))))
     logger.log('# End Generate Specification\n')
 
-    with open(gspath) as file:
-        argv = list()
+    with open(gspath, encoding='utf8') as file:
+        argv = []
         lines = [x.strip() for x in utils.read_logical_lines(file)]
         for line in lines:
             # Interpret as special comment used to specify run-time arguments.
@@ -280,7 +280,7 @@ def readgs(
             # Not a comment; yield generate specification string.
             yield line
             # Clear out argument list for next round.
-            argv = list()
+            argv = []
 
 
 def parsedargs(
@@ -294,7 +294,7 @@ def parsedargs(
     auxap = copy.deepcopy(argprsr)
     aargs = auxap.parse_args(argv)
     # Set defaults to None so we can detect setting of arguments.
-    nonedefs: Dict[Any, None] = dict()
+    nonedefs: Dict[Any, None] = {}
     for key in vars(aargs):
         nonedefs[key] = None
     auxap.set_defaults(**nonedefs)
@@ -500,7 +500,7 @@ def runcmds(
                F"'nidx' was not found in the following expression:\n{nfun}"
         raise SyntaxError(estr)
     # Generate the requisite values.
-    nvals = list()
+    nvals = []
     nidx = start
     regex = re.compile(vidx_res, flags=re.X)
     while True:
@@ -517,7 +517,7 @@ def runcmds(
                F'the following expression:\n# {spec}'
         logger.emlog(wstr)
     regex = re.compile(n_res)
-    cmds = list()
+    cmds = []
     for idx in nvals:
         cmds.append(regex.sub(str(idx), spec))
     return cmds

@@ -70,8 +70,8 @@ class Table:
             return res
 
     def __init__(self) -> None:
-        self.rows: List[Any] = list()
-        self.maxcollens: List[Any] = list()
+        self.rows: List[Any] = []
+        self.maxcollens: List[Any] = []
 
     def addrow(self, row: List[Any], withrule: bool = False) -> None:
         '''

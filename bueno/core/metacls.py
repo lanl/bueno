@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -21,7 +21,7 @@ class Singleton(type):
     Metaclass for singletons.
     '''
     # Instance storage.
-    _insts: Dict[Any, Any] = dict()
+    _insts: Dict[Any, Any] = {}
 
     def __call__(cls: Any, *args: Any, **kwargs: Any) -> Any:
         if cls not in cls._insts:

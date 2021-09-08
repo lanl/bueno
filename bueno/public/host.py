@@ -67,7 +67,7 @@ def os_pretty_name() -> str:
     '''
     name = 'Unknown'
     try:
-        with open('/etc/os-release') as osrel:
+        with open('/etc/os-release', encoding='utf8') as osrel:
             for line in osrel:
                 if not line.startswith('PRETTY_NAME='):
                     continue
@@ -159,7 +159,7 @@ def run(  # pylint: disable=too-many-arguments
         logger.log(F'# $ {realcmd}')
 
     # Output list of strings used to (optionally) capture command output.
-    olst: List[str] = list()
+    olst: List[str] = []
     with subprocess.Popen(
         realcmd,
         shell=True,  # nosec

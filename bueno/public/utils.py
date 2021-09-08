@@ -40,9 +40,9 @@ def cat(filep: str) -> List[str]:
 
     Raises OSError or IOError on error.
     '''
-    lines: List[str] = list()
+    lines: List[str] = []
 
-    with open(filep, 'r') as file:
+    with open(filep, 'r', encoding='utf8') as file:
         for line in file:
             lines.append(line)
 
