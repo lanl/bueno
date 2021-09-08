@@ -255,7 +255,7 @@ class TelegrafClient:
             assert self.ssock is not None  # nosec
             mdata = measurement.data()
             if verbose:
-                logger.log(F'{type(self).__name__}:send({mdata})')
+                logger.log(F'{type(self).__name__}:send({mdata.rstrip()})')
             self.ssock.write(mdata.encode('utf-8'))
         except Exception as exception:
             ers = 'Sending data to Telegraf client agent failed'
