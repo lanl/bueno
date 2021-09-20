@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -13,7 +13,6 @@ The good stuff typically called by __main__.
 import argparse
 import os
 import sys
-import traceback
 import typing
 
 from bueno import _version
@@ -40,14 +39,6 @@ class ArgumentParser:
         return 'Utilities for automating reproducible benchmarking.'
 
     def _addargs(self) -> None:
-        self.argp.add_argument(
-            '-t', '--traceback',
-            help='Provides detailed exception information '
-                 'useful for bug reporting and script debugging.',
-            action='store_true',
-            default=False,
-            required=False
-        )
         self.argp.add_argument(
             '-v', '--version',
             help='Displays version information.',
@@ -104,8 +95,6 @@ class Bueno:
             Bueno(pargs)
         except Exception as exptn:  # pylint: disable=W0703
             print(exptn)
-            if pargs.traceback:
-                traceback.print_exc()
             return os.EX_SOFTWARE
         return os.EX_OK
 
