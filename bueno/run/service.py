@@ -207,7 +207,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
                     estr = 'Cannot provide regular ' \
                            F'files to {self.dest}: {path}'
                     parser.error(estr)
-                sys.path.append(r'{}'.format(modpath))
+                sys.path.append(rF'{modpath}')
             setattr(namespace, self.dest, values)
 
     def __init__(self, argv: List[str]) -> None:
@@ -220,7 +220,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
             '-o', '--output-path',
             type=str,
             help='Specifies the base output directory used for all '
-                 'generated files. Default: {}'.format('PWD'),
+                 'generated files. Default: PWD',
             default=impl._defaults.output_path,
             required=False,
             metavar='PATH'

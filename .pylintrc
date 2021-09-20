@@ -141,7 +141,9 @@ disable=too-few-public-methods,
         exception-escape,
         comprehension-escape,
         duplicate-code,
-        bad-continuation
+        consider-using-with,
+        bad-continuation,
+        consider-using-f-string
 
 # Enable the message, report, category or checker with the given id(s). You can
 # either give multiple identifier separated by comma (,) or put this option
