@@ -13,6 +13,7 @@ The good stuff typically called by __main__.
 import argparse
 import os
 import sys
+import traceback
 import typing
 
 from bueno import _version
@@ -95,6 +96,7 @@ class Bueno:
             Bueno(pargs)
         except Exception as exptn:  # pylint: disable=W0703
             print(exptn)
+            traceback.print_exc()
             return os.EX_SOFTWARE
         return os.EX_OK
 

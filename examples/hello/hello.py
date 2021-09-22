@@ -15,3 +15,4 @@ def main(argv):
     # produced by logging actions is recorded and stored in experiment metadata
     # written (by default) after experiment termination.
     logger.log('hello world')
+    asdf
