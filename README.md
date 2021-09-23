@@ -49,7 +49,7 @@ from bueno.public import experiment
 from bueno.public import logger
 
 def main(argv):
-    experiment.name('hello-word')
+    experiment.name('hello-world')
     logger.log('hello world')
 ```
 Which is executed by:
