@@ -21,7 +21,6 @@ from typing import (
 
 import os
 import socket
-import sys
 import ssl
 import subprocess  # nosec
 import time
@@ -29,10 +28,7 @@ import time
 from bueno.public import logger
 from bueno.public import utils
 
-if sys.version_info < (3, 8):
-    MaybePopen = Optional[subprocess.Popen]
-else:
-    MaybePopen = Optional[subprocess.Popen[bytes]]  # pylint: disable=E1136
+MaybePopen = Optional[subprocess.Popen]
 
 
 class Table:

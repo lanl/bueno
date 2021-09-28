@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2020 Triad National Security, LLC
+# Copyright (c) 2019-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -434,10 +434,6 @@ class impl(service.Base):  # pylint: disable=invalid-name
 
             self._write_metadata()
         except Exception as exception:
-            estr = utils.ehorf()
-            estr += F'What: {self.prog} error encountered.\n' \
-                    F'Why:  {exception}'
-            estr += utils.ehorf()
-            raise type(exception)(estr) from exception
+            raise exception
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab
