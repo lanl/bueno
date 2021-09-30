@@ -16,8 +16,9 @@ echo "Running QA suite........................................................."
 ./qa/run-mypy-tests
 ./qa/run-pylint-tests
 ./qa/run-bandit-tests
-# Always last
+# Always second to last
 ./qa/run-packaging-tests
+./qa/run-bueno-tests
 
 echo "QA suite completed successfully.................................."
 

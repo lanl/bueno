@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2020 Triad National Security, LLC
+# Copyright (c) 2019-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -19,7 +19,7 @@ from bueno.public import metadata
 
 def main(argv):
     # Name the experiment.
-    experiment.name('test-shellcmds')
+    experiment.name('shellcmds-test')
 
     fname = 'afile.txt'
     logger.log('# Testing globbing...')

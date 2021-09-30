@@ -51,3 +51,6 @@ jobs:
     - name: Packaging
       run: |
         qa/run-packaging-tests
+    - name: Regression
+      run: |
+        qa/run-bueno-tests

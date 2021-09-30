@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2020 Triad National Security, LLC
+# Copyright (c) 2020-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -16,9 +16,12 @@ from bueno.public import experiment
 from bueno.public import logger
 
 
-def main(argv):
+def main(_):
+    '''
+    main()
+    '''
     # Name the experiment.
-    experiment.name('ooo')
+    experiment.name('ooo-test')
 
     exprs = [
         '4 / 3 * 2 - 1 + 0',
@@ -43,11 +46,11 @@ def main(argv):
 
     for i in exprs:
         logger.log(F'# Testing {i}')
-        pa = int(eval(i))
-        me = mathex.evaluate(i)
-        logger.log(F'# Python says the answer is {pa}')
-        logger.log(F'# Mathex says the answer is {me}')
+        pyans = int(eval(i))
+        means = mathex.evaluate(i)
+        logger.log(F'# Python says the answer is {pyans}')
+        logger.log(F'# Mathex says the answer is {means}')
         # Our goal is consistency with Python.
-        if (pa != me):
-            raise ValueError(F'{pa} != {me}')
+        if pyans != means:
+            raise ValueError(F'{pyans} != {means}')
         logger.log('')
