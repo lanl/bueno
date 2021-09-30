@@ -15,13 +15,7 @@ source common.sh
 
 test_start
 
-bueno run --help
-
-bueno run -a none -o output -p ./run-scripts/hello.py
-bueno run -a none -o output -p ./run-scripts/shell-cmds.py
-bueno run -a none -o output -p ./run-scripts/ooo.py
-bueno run -a none -o output -p ./run-scripts/runcmds.py
-bueno run -a none -o output -p ./run-scripts/datasink.py
+bueno run -a none -o output --extras ./run-scripts -p ./run-scripts/extras.py
 
 test_end
 

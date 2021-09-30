@@ -16,6 +16,7 @@ pushd "$test_dir" || exit 1
 
 ./test.bueno
 ./test.bueno.run
+./test.bueno.extras
 
 popd || exit 1
 
