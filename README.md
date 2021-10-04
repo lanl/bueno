@@ -22,7 +22,7 @@ the components shown in the figure below. Here, we define an experiment as the
 Cartesian product of a given software stack and its configuration. The elements
 shown in the figure below are described as follows:
 
-<img src="docs/img/system-experiment.pdf" alt="The high-level makeup of a
+<img src="docs/img/system-experiment.png" alt="The high-level makeup of a
 computer system benchmarking experiment."/>
 
 * **System Software**: the OS, compilers, middleware,
