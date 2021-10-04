@@ -51,6 +51,11 @@ computer system benchmarking experiment."/>
     component used during a computer system benchmark.  Examples include
     application inputs and environmental controls.
 
+In summary, contemporary computing environments are complex. Experiments may
+have complicated software dependencies with non-trivial interactions, so
+capturing relevant experimental characteristics is burdensome without
+automation.
+
 ## Installation
 
 ### User Installation With pip
