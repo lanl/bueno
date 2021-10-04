@@ -12,6 +12,45 @@ convenient access to mechanisms that aid in the automated generation,
 collection, and dissemination of data relevant for experimental reproducibility
 in computer system benchmarking.
 
+## Motivation
+Experimental reproducibility is a crucial component of the scientific process.
+Capturing the relevant features that define a sufficiently precise experiment is
+a difficult task. This difficulty is mostly due to the diversity and non-trivial
+interplay among computer platforms, system software, and programs of interest.
+To illustrate this claim, consider the interconnected relationships formed among
+the components shown in the figure below. Here, we define an experiment as the
+Cartesian product of a given software stack and its configuration. The elements
+shown in the figure below are described as follows:
+
+<img src="docs/img/system-experiment.pdf" alt="The high-level makeup of a
+computer system benchmarking experiment."/>
+
+* **System Software**: the OS, compilers, middleware,
+    runtimes, and services used by an application or its software dependencies.
+    Examples include Linux, the GCC, MPI libraries, and OpenMP.
+
+* **Application Dependencies**: the software used by the application
+    driver program, including linked software libraries and stand-alone
+    executables. Examples include mathematical libraries, data analysis tools,
+    and their respective software dependencies.
+
+* **Application**: the driver program used to conduct a computer system
+    benchmark, including sequential and parallel programs with and without
+    external software dependencies. Examples include micro-benchmarks, proxy
+    applications, and full applications.
+
+* **Build-Time Configuration**: the collection of parameters used to
+    build an application and its dependencies. This includes preprocessor,
+    compile, and link directives that have an appreciable effect on the
+    generated object files and resulting executables. Examples include whole
+    program optimization (WPO) and link-time optimization (LTO) levels, which
+    may vary across components in the software stack.
+
+* **Run-Time Configuration**: the collection of parameters used at
+    run-time that have an appreciable effect on the behavior of any software
+    component used during a computer system benchmark.  Examples include
+    application inputs and environmental controls.
+
 ## Installation
 
 ### User Installation With pip
