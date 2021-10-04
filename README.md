@@ -3,7 +3,7 @@
 [![QA](https://github.com/lanl/bueno/actions/workflows/qa.yml/badge.svg)
 ](https://github.com/lanl/bueno/actions/workflows/qa.yml)
 
-# bueno: Automated, Reproducible Benchmarking and Analysis
+# bueno: Well-Provenanced Benchmarking
 
 *bueno* is a Python framework enabled by container technology that supports
 gradations of reproducibility for *well-provenanced* benchmarking of sequential
