@@ -128,7 +128,7 @@ $ bueno run -a none -p callbye.py
 
 ## Further Reading:
 * [Toward Well-Provenanced Computer System Benchmarking: An Update](
-  docs/reports/bueno-report-2021.pdf) [bib1](docs/reports/bueno-report-2021.bib)
+  docs/reports/bueno-report-2021.pdf) ([bib](docs/reports/bueno-report-2021.bib))
 
 ### Los Alamos National Laboratory Code Release
 C19133 bueno
