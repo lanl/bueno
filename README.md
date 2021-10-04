@@ -127,7 +127,8 @@ $ bueno run -a none -p callbye.py
 * [build-and-run](./examples/build-and-run)
 
 ## Further Reading:
-* [Toward Well-Provenanced Computer System Benchmarking: An Update](docs/reports/bueno-report-2021.pdf)
+* [Toward Well-Provenanced Computer System Benchmarking: An Update](
+  docs/reports/bueno-report-2021.pdf) [bib1](docs/reports/bueno-report-2021.bib)
 
 ### Los Alamos National Laboratory Code Release
 C19133 bueno
