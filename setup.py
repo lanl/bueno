@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 #
-# Copyright (c) 2019-2020 Triad National Security, LLC
+# Copyright (c) 2019-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -14,25 +14,16 @@ The setup script for the bueno project.
 '''
 
 import os
-import re
 import sys
 
 from setuptools import setup, find_packages
 
+__min_py_version__ = (3, 7)
 
-def get_minimum_python_vers():
-    '''
-    Returns the minimum Python version required for this package. Raises a
-    RuntimeError if the version cannot be determined.
-    '''
-    verline = open('./bueno/_minpyversion.txt').read()
-    resr = re.search(
-        r"^__bueno_minimum_python_version_str__ = ['\']([^'\']*)['\']",
-        verline
-    )
-    if resr:
-        return resr.group(1)
-    raise RuntimeError('Cannot determine minimum Python version.')
+# Before we perform the package setup, we need to check the minimum Python
+# version manually because some versions of pip don't respect python_requires.
+if sys.version_info < __min_py_version__:
+    sys.exit('!!! bueno Requires Python >= {} !!!'.format(__min_py_version__))
 
 
 def package_setup(package_name, package_vers):
@@ -46,7 +37,6 @@ def package_setup(package_name, package_vers):
         author='Samuel K. Gutierrez',
         author_email='samuel@lanl.gov',
         license='BSD 3-Clause',
-        python_requires='>={}'.format(get_minimum_python_vers()),
         include_package_data=True,
         packages=find_packages(),
         # Package Requirements
