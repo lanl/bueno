@@ -126,6 +126,9 @@ $ bueno run -a none -p callbye.py
 * [extras](./examples/extras)
 * [build-and-run](./examples/build-and-run)
 
+## Example Application Run Scripts:
+* [Proxy Applications](https://github.com/lanl/bueno-run-proxies)
+
 ## Further Reading:
 * [Toward Well-Provenanced Computer System Benchmarking: An Update](
   docs/reports/bueno-report-2021.pdf) ([BibTeX](docs/reports/bueno-report-2021.bib))
