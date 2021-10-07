@@ -108,9 +108,20 @@ class TelegrafClientAgent:
         if not os.path.exists(config):
             raise RuntimeError(fnf.format(config))
 
+    @staticmethod
+    def _sleep(seconds: int) -> None:
+        '''
+        Sleeps while yielding a little, too.
+        '''
+        for _ in range(seconds):
+            time.sleep(0.5)
+            os.sched_yield()
+            time.sleep(0.5)
+            os.sched_yield()
+
     def __del__(self) -> None:
         # Hack to give the subprocess a little time to ingest outstanding data.
-        time.sleep(5)
+        TelegrafClientAgent._sleep(5)
         self.stop()
 
     def start(self) -> None:
@@ -125,7 +136,7 @@ class TelegrafClientAgent:
             stderr=None if self.verbose else subprocess.DEVNULL
         )
         # Hack to give the subprocess a little time to startup.
-        time.sleep(5)
+        TelegrafClientAgent._sleep(5)
 
     def stop(self) -> None:
         '''
