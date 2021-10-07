@@ -161,9 +161,9 @@ class InfluxDBMeasurement(Measurement):
         self.tags = tags or {}
 
     @staticmethod
-    def _format_item(item: Any) -> str:
+    def _format_key(item: Any) -> str:
         '''
-        Formats an item for the line protocol.
+        Formats a key for the line protocol.
         '''
         if isinstance(item, str):
             item = item.replace(',', '\,')  # noqa: W605 pylint: disable=W1401
@@ -172,19 +172,30 @@ class InfluxDBMeasurement(Measurement):
 
         return str(item)
 
+    @staticmethod
+    def _format_value_value(item: Any) -> str:
+        '''
+        Formats a value's value for the line protocol.
+        '''
+        if isinstance(item, str):
+            item = F'"{item}"'
+
+        return str(item)
+
     def _values(self) -> str:
         '''
         Returns values in line protocol format.
         '''
-        fmt = InfluxDBMeasurement._format_item
-        return ','.join(F'{fmt(k)}={v}' for k, v in self.values.items())
+        kfmt = InfluxDBMeasurement._format_key
+        vfmt = InfluxDBMeasurement._format_value_value
+        return ','.join(F'{kfmt(k)}={vfmt(v)}' for k, v in self.values.items())
 
     def _tags(self) -> str:
         '''
         Returns tags in line protocol format.
         '''
-        fmt = InfluxDBMeasurement._format_item
-        return ','.join(F'{fmt(k)}={v}' for k, v in self.tags.items())
+        kfmt = InfluxDBMeasurement._format_key
+        return ','.join(F'{kfmt(k)}={v}' for k, v in self.tags.items())
 
     def data(self) -> str:
         '''
