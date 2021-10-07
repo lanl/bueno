@@ -119,12 +119,12 @@ $ bueno run -a none -p callbye.py
 ```
 
 ## Examples:
-* [hello](./examples/hello)
-* [hello-container](./examples/hello-container)
-* [custom-actions](./examples/custom-actions)
-* [metadata](./examples/metadata)
-* [extras](./examples/extras)
-* [build-and-run](./examples/build-and-run)
+* [Hello, World!](./examples/hello)
+* [Hello, Container!](./examples/hello-container)
+* [Custom Actions](./examples/custom-actions)
+* [Custom Metadata](./examples/metadata)
+* [Importing Extra Functionality at Run-Time](./examples/extras)
+* [Building and Running a Container](./examples/build-and-run)
 
 ## Example Application Run Scripts:
 * [Proxy Applications](https://github.com/lanl/bueno-run-proxies)
