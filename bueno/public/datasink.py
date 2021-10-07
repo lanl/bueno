@@ -177,14 +177,14 @@ class InfluxDBMeasurement(Measurement):
         Returns values in line protocol format.
         '''
         fmt = InfluxDBMeasurement._format_item
-        return ','.join(F'{fmt(k)}={fmt(v)}' for k, v in self.values.items())
+        return ','.join(F'{fmt(k)}={v}' for k, v in self.values.items())
 
     def _tags(self) -> str:
         '''
         Returns tags in line protocol format.
         '''
         fmt = InfluxDBMeasurement._format_item
-        return ','.join(F'{fmt(k)}={fmt(v)}' for k, v in self.tags.items())
+        return ','.join(F'{fmt(k)}={v}' for k, v in self.tags.items())
 
     def data(self) -> str:
         '''
