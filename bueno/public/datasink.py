@@ -109,6 +109,8 @@ class TelegrafClientAgent:
             raise RuntimeError(fnf.format(config))
 
     def __del__(self) -> None:
+        # Hack to give the subprocess a little time to ingest outstanding data.
+        time.sleep(5)
         self.stop()
 
     def start(self) -> None:
