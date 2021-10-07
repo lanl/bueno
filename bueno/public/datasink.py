@@ -182,6 +182,15 @@ class InfluxDBMeasurement(Measurement):
 
         return str(item)
 
+    @staticmethod
+    def _format_tag_value(item: Any) -> str:
+        '''
+        Formats a tag's value for the line protocol.
+        '''
+        istr = str(item)
+        istr.replace(' ', '_')
+        return istr
+
     def _values(self) -> str:
         '''
         Returns values in line protocol format.
@@ -195,7 +204,8 @@ class InfluxDBMeasurement(Measurement):
         Returns tags in line protocol format.
         '''
         kfmt = InfluxDBMeasurement._format_key
-        return ','.join(F'{kfmt(k)}={v}' for k, v in self.tags.items())
+        vfmt = InfluxDBMeasurement._format_tag_value
+        return ','.join(F'{kfmt(k)}={vfmt(v)}' for k, v in self.tags.items())
 
     def data(self) -> str:
         '''
