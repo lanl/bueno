@@ -188,7 +188,7 @@ class InfluxDBMeasurement(Measurement):
         Formats a tag's value for the line protocol.
         '''
         istr = str(item)
-        istr.replace(' ', '_')
+        istr = istr.replace(' ', '_')
         return istr
 
     def _values(self) -> str:
