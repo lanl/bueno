@@ -17,3 +17,14 @@ bueno Run Scripts: More Examples
 :raw-html:`<br/>`
 
 .. mdinclude:: ../../examples/build-and-run/README.md
+
+Real-World Examples
+###################
+For more information on bueno's use in practice, including source code and
+online documentation, please consult the information linked below:
+
+* **bueno Source Code**: https://github.com/lanl/bueno
+
+* **Example Application Run Scripts**:
+
+  - `Proxy Applications <https://github.com/lanl/bueno-run-proxies>`_

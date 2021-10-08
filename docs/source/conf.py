@@ -41,7 +41,8 @@ release = '0.0.1'
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.githubpages',
-    'm2r2'
+    'm2r2',
+    'sphinx.ext.autosectionlabel'
 ]
 
 # source_suffix = '.rst'

@@ -106,6 +106,7 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#real-world-examples">Real-World Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-reference.html">Public Module Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="development.html">bueno Development</a></li>
 </ul>
@@ -356,7 +357,7 @@ application.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">ch</span><span class="o">-</span><span class="n">build2dir</span> <span class="o">--</span><span class="n">force</span> <span class="o">-</span><span class="n">t</span> <span class="n">nbody</span><span class="o">-</span><span class="n">img</span> <span class="o">-</span><span class="n">f</span> <span class="o">./</span><span class="n">Dockerfile</span><span class="o">.</span><span class="n">mpich</span> <span class="o">.</span> <span class="o">.</span>
 </pre></div>
 </div>
-<p>Once completed, there will be a new directory named <code class="docutils literal notranslate"><span class="pre">nbody-img</span></code> in the working
+<p>Once completed, there will be a new directory named <code class="docutils literal notranslate"><span class="pre">nbody-img</span></code> in your working
 directory. We will use the contents of this directory when executing the bueno
 run script.</p>
 </div>
@@ -364,13 +365,13 @@ run script.</p>
 <div class="section" id="run">
 <h3>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h3>
 <p>Instead of simply instructing bueno to execute our run script as we have in the
-past, we will be providing bueno with a container image to work with.</p>
+past, we will provide bueno with a container image to work with.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bueno</span> <span class="n">run</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="ow">not</span><span class="o">-</span><span class="n">stage</span> <span class="o">-</span><span class="n">i</span> <span class="n">nbody</span><span class="o">-</span><span class="n">img</span> <span class="o">-</span><span class="n">p</span> <span class="n">build</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">run</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
 <p>If successful, the terminal will fill with output from the containerized
-application. If however, you encountered some errors, try following the
-workaround outlined in the following tip.</p>
+application. If you encountered some errors, try the workarounds outlined in the
+following tip:</p>
 <blockquote>
 <div><p>Tip: If you encountered an error similar to this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">What</span><span class="p">:</span> <span class="n">run</span> <span class="n">error</span> <span class="n">encountered</span><span class="o">.</span>
@@ -382,12 +383,25 @@ workaround outlined in the following tip.</p>
 </pre></div>
 </div>
 <p>Try the following:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">SLURM_CPUS_ON_NODE</span><span class="o">=</span><span class="mi">2</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">export</span> <span class="n">SLURM_CPUS_ON_NODE</span><span class="o">=</span><span class="mi">2</span> <span class="c1"># Or another number to match system resources.</span>
 </pre></div>
 </div>
 </div></blockquote>
 </div>
 </div>
+</div>
+<div class="section" id="real-world-examples">
+<h1>Real-World Examples<a class="headerlink" href="#real-world-examples" title="Permalink to this headline">¶</a></h1>
+<p>For more information on bueno’s use in practice, including source code and
+online documentation, please consult the information linked below:</p>
+<ul class="simple">
+<li><p><strong>bueno Source Code</strong>: <a class="reference external" href="https://github.com/lanl/bueno">https://github.com/lanl/bueno</a></p></li>
+<li><p><strong>Example Application Run Scripts</strong>:</p>
+<ul>
+<li><p><a class="reference external" href="https://github.com/lanl/bueno-run-proxies">Proxy Applications</a></p></li>
+</ul>
+</li>
+</ul>
 </div>
 
 

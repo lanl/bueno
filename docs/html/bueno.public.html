@@ -87,6 +87,7 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bueno-run-getting-started.html">bueno Run Scripts: Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">bueno Run Scripts: More Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html#real-world-examples">Real-World Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-reference.html">Public Module Reference</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="development.html">bueno Development</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="development.html#automated-testing">Automated Testing</a></li>
@@ -628,32 +629,6 @@ specified path.</p>
 <div class="section" id="module-bueno.public.utils">
 <span id="bueno-public-utils-module"></span><h2>bueno.public.utils module<a class="headerlink" href="#module-bueno.public.utils" title="Permalink to this headline">¶</a></h2>
 <p>Utilities for good.</p>
-<dl class="py class">
-<dt id="bueno.public.utils.Table">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.utils.</span></code><code class="sig-name descname"><span class="pre">Table</span></code><a class="headerlink" href="#bueno.public.utils.Table" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A straightforward class to display formatted tabular data.</p>
-<dl class="py class">
-<dt id="bueno.public.utils.Table.Row">
-<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Row</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">withrule</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.utils.Table.Row" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Creates a row for use in a table.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="bueno.public.utils.Table.addrow">
-<code class="sig-name descname"><span class="pre">addrow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">withrule</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.utils.Table.addrow" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the contents of row to a table, optionally with a rule.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="bueno.public.utils.Table.emit">
-<code class="sig-name descname"><span class="pre">emit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.utils.Table.emit" title="Permalink to this definition">¶</a></dt>
-<dd><p>Emits the contents of the table using logger.log().</p>
-</dd></dl>
-
-</dd></dl>
-
 <dl class="py function">
 <dt id="bueno.public.utils.cat">
 <code class="sig-prename descclassname"><span class="pre">bueno.public.utils.</span></code><code class="sig-name descname"><span class="pre">cat</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#bueno.public.utils.cat" title="Permalink to this definition">¶</a></dt>
