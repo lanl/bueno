@@ -1,5 +1,5 @@
-bueno Run Scripts: More Examples
-################################
+Run Scripts: More Examples
+##########################
 
 .. role:: raw-html(raw)
     :format: html
@@ -18,8 +18,8 @@ bueno Run Scripts: More Examples
 
 .. mdinclude:: ../../examples/build-and-run/README.md
 
-Real-World Examples
-###################
+Run Scripts: Real-World Examples
+################################
 For more information on bueno's use in practice, including source code and
 online documentation, please consult the information linked below:
 

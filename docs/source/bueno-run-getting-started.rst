@@ -1,5 +1,5 @@
-bueno Run Scripts: Getting Started
-##################################
+Run Scripts: Getting Started
+############################
 
 ``bueno run`` coordinates container image activation and the execution of bueno
 run scripts---a programmatic description of the steps required to conduct a
