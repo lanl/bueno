@@ -118,7 +118,7 @@ This example is executed by:
 $ bueno run -a none -p callbye.py
 ```
 
-## Examples:
+## Examples
 * [Hello, World!](./examples/hello)
 * [Hello, Container!](./examples/hello-container)
 * [Custom Actions](./examples/custom-actions)
@@ -126,10 +126,10 @@ $ bueno run -a none -p callbye.py
 * [Importing Extra Functionality at Run-Time](./examples/extras)
 * [Building and Running a Container](./examples/build-and-run)
 
-## Example Application Run Scripts:
+## Example Application Run Scripts
 * [Proxy Applications](https://github.com/lanl/bueno-run-proxies)
 
-## Further Reading:
+## Further Reading
 * [Toward Well-Provenanced Computer System Benchmarking: An Update](
   docs/reports/bueno-report-2021.pdf) ([BibTeX](docs/reports/bueno-report-2021.bib))
 
