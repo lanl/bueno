@@ -29,7 +29,7 @@ Build the documentation.
 .. code-block:: console
 
    $ cd docs
-   $ make html
+   $ ./build-docs.sh
 
 If the project's code structure has changed in a meaningful way (e.g., the
 addition of a package or module), it may be necessary to re-run the following
