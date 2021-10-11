@@ -537,7 +537,7 @@ class _Factor:
         '''
         self.number = number
         self.dimensions = dimensions
-        self.factor_list: typing.List[int] = []
+        self.factor_list: List[int] = []
         self.prime_list = [
             2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59,
             61, 67, 71, 73, 79, 83, 89, 97, 101, 103, 107, 109, 113, 127, 131,
@@ -644,7 +644,7 @@ class _Factor:
         return  # Done
 
 
-def factorize(num: int, dim: int) -> typing.List[int]:
+def factorize(num: int, dim: int) -> List[int]:
     '''
     Perform factor calculations
     '''
