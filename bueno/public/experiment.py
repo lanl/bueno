@@ -482,8 +482,8 @@ def runcmds(
     \\b       # End of whole word search
     )         # End of capture group 1
     '''
-    # Make sure that the provided start and stop values make sense.
-    if start < 0 or stop < 0:
+    # Make sure that the provided stop value make sense.
+    if stop < 0:
         estr = F'{__name__}.{fname} start and ' \
                'stop must both be positive values.'
         raise ValueError(estr)

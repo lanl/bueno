@@ -7,6 +7,8 @@
 # top-level directory of this distribution for more information.
 #
 
+set -e
+
 echo "Running bueno test suite"
 
 test_dir=$(cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd)
