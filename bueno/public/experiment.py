@@ -500,9 +500,8 @@ def runcmds(
                F"'nidx' was not found in the following expression:\n{nfun}"
         raise SyntaxError(estr)
     # Generate the requisite values.
-    nvals = []
-    # Include the start value.
-    nvals.append(start)
+    # Notice we include the start value.
+    nvals = [start]
     nidx = start
     regex = re.compile(vidx_res, flags=re.X)
     while True:
