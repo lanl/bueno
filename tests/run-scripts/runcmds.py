@@ -29,7 +29,7 @@ def main(_):
     for cmd in cmds:
         logger.log(F'# Command: {cmd[0]}')
         nfun = 'nidx + 1'
-        rcmds = experiment.runcmds(-1, 4, cmd[0], nfun)
+        rcmds = experiment.runcmds(0, 4, cmd[0], nfun)
         for idx, rcmd in enumerate(rcmds):
             exp = cmd[1].replace('#', str(idx))
             logger.log(F'# Expecting {exp}')

@@ -466,7 +466,7 @@ def runcmds(
 ) -> List[str]:
     '''
     TODO(skg) Add proper description.
-    - start: The start value of nidx.
+    - start: The start value.
     - stop: The termination value for nfun(nidx) for some value nidx.
     - spec: The run specification template having the following variables:
     -   %n: The number of processes to run.
@@ -501,6 +501,8 @@ def runcmds(
         raise SyntaxError(estr)
     # Generate the requisite values.
     nvals = []
+    # Include the start value.
+    nvals.append(start)
     nidx = start
     regex = re.compile(vidx_res, flags=re.X)
     while True:
