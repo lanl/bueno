@@ -466,7 +466,7 @@ def runcmds(
 ) -> List[str]:
     '''
     TODO(skg) Add proper description.
-    - start: The start index of nidx.
+    - start: The start value of nidx.
     - stop: The termination value for nfun(nidx) for some value nidx.
     - spec: The run specification template having the following variables:
     -   %n: The number of processes to run.
@@ -508,7 +508,7 @@ def runcmds(
         if nval > stop:
             break
         nvals.append(nval)
-        nidx += 1
+        nidx = nval
     # Now generate the run commands.
     # Regex string used to find %n variables in spec expressions.
     n_res = '%n'
