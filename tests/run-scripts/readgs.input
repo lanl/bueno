@@ -1,0 +1,28 @@
+# This is an example input file accepted by experiment.readgs(). The format of
+# the files accepted by experiment.readgs() is pretty straightforward. Comments
+# can span multiple lines, and empty lines are also ignored.
+
+# Lines with at least one pair of curly brackets delimit experiments. Curly
+# brackets are variable placeholders used ultimately for substitution within a
+# run script. Below is the most straightforward line accepted by
+# experiment.readgs().  An input file must have at least one of these lines,
+# even if the resulting output is ignored.
+{}
+
+# The following is a special comment that sets the script-specific argument
+# values. Changes are 'stateful' in that once they are set, subsequent runs
+# remember their values.
+# --name readgs-test1
+# --description "The changed description."
+# --csv-output data1.csv
+mpirun -n {} {} --app-arg=foo
+
+# And another experiment to illustrate the stateful nature of this setup.
+# --csv-output data2.csv
+# --executable another-path-to-exe
+srun -n {} {} --app-arg=bar
+
+# Command lines can span multiple lines like the following:
+aprun -n {} {} \
+spanning \
+multiple lines
