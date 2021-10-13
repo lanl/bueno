@@ -23,8 +23,7 @@ def main(argv):
     desc = 'Test for experiment.readgs()'
     # Default argument values. Note that one can build up a completely custom
     # collection of run script arguments, but this will setup commonly used
-    # arguments that may be useful for many applications. One can also remove
-    # unneeded arguments, which is shown below using config.rmargs().
+    # arguments that may be useful for many applications.
 
     # These are default values that can be overwritten by either the input file
     # or command-line arguments passed to the run script. Note that command-line
@@ -37,7 +36,6 @@ def main(argv):
     defaults.input = 'readgs.input'
     # Initial configuration
     config = experiment.DefaultCLIConfiguration(desc, argv, defaults)
-    # config.rmargs(['-e'])
     # Parse provided arguments
     config.parseargs()
     for genspec in experiment.readgs(config.args.input, config):
@@ -45,7 +43,6 @@ def main(argv):
         logger.log(F'description: {config.args.description}')
         logger.log(F'input:       {config.args.input}')
         logger.log(F'csv_output:  {config.args.csv_output}')
-        logger.log(F'runcmds:     {config.args.runcmds}')
         # We can perform 'genspec' substitutions as necessary.
         logger.log('')
         logger.log(F'genspec: {genspec}')

@@ -1,5 +1,5 @@
-# # Copyright (c) 2019-2021 Triad National Security, LLC
-#                           All rights reserved.
+# Copyright (c) 2019-2021 Triad National Security, LLC
+#                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
 # top-level directory of this distribution for more information.
@@ -21,7 +21,6 @@ from abc import abstractmethod
 
 from typing import (
     Any,
-    cast,
     Dict,
     Iterable,
     List,
@@ -161,24 +160,6 @@ class CLIConfiguration:
         arguments to argument parser.
         '''
         action()(self)
-
-    def rmargs(self, options: List[str]) -> None:
-        '''
-        Removes the provided options from the calling configuration instance.
-        FIXME
-        '''
-        # From https://stackoverflow.com/questions/
-        # 32807319/disable-remove-argument-in-argparse
-        for option in options:
-            for action in self.argparser._actions: \
-              # pylint: disable=protected-access
-                if vars(action)['option_strings'][0] == option:
-                    self.argparser._handle_conflict_resolve( \
-                        # pylint: disable=protected-access
-                        cast(argparse.Action, None),
-                        [(option, action)]
-                    )
-                    break
 
     def parseargs(self) -> None:
         '''
