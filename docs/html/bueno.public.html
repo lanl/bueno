@@ -305,12 +305,6 @@ internal argparse namespace instance.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="bueno.public.experiment.CLIConfiguration.rmargs">
-<code class="sig-name descname"><span class="pre">rmargs</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">options</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.rmargs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes the provided options from the calling configuration instance.</p>
-</dd></dl>
-
-<dl class="py method">
 <dt id="bueno.public.experiment.CLIConfiguration.update">
 <code class="sig-name descname"><span class="pre">update</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">confns</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">argparse.Namespace</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.experiment.CLIConfiguration.update" title="Permalink to this definition">¶</a></dt>
 <dd><p>Update the current configuration using the parsedargs provided through
@@ -421,7 +415,7 @@ about yield!</p>
 <dt id="bueno.public.experiment.runcmds">
 <code class="sig-prename descclassname"><span class="pre">bueno.public.experiment.</span></code><code class="sig-name descname"><span class="pre">runcmds</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">start</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stop</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">nfun</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#bueno.public.experiment.runcmds" title="Permalink to this definition">¶</a></dt>
 <dd><p>TODO(skg) Add proper description.
-- start: The start index of nidx.
+- start: The start value.
 - stop: The termination value for nfun(nidx) for some value nidx.
 - spec: The run specification template having the following variables:
 -   %n: The number of processes to run.</p>
