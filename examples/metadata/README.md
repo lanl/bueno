@@ -2,9 +2,7 @@
 
 This is an overview of some of the metadata acquisition and recording tools
 provided by bueno. This example will record the executed application's output
-and some additional information about the system on which it was executed.  In
-the `metadata.py` run script, you will find that a dictionary is created and
-populated with information before being written to a file.
+and some additional information about the system on which it was executed.
 
 ## Exploring the code:
 The following lines in the example run script setup two additional metadata
@@ -24,8 +22,8 @@ metadata.add_asset(
     metadata.FileAsset('some-metadata.txt', 'subdir-a/subdir-b')
 )
 
-logger.log('Adding a YAML dict asset...')
-adict = dict()
+logger.log('Adding a YAML dictionary asset...')
+adict = {}
 # Populate the dictionary with relevant metadata.
 adict['Application'] = {'argv': argv}
 adict['System'] = {
