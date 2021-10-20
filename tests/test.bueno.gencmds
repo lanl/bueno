@@ -17,7 +17,8 @@ test_start
 
 bueno run --help
 
-bueno run -a none -o output -p ./run-scripts/readgs.py
+bueno run -a none -o output -p ./run-scripts/readgs.py \
+    --input ./run-scripts/readgs.input
 
 test_end
 

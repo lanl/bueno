@@ -50,17 +50,7 @@ class _Runner:
         spec = importlib.util.spec_from_file_location(argz, argz)
         mod = importlib.util.module_from_spec(spec)
         spec.loader.exec_module(mod)
-        # Save cwd so we can restore it after program execution.
-        scwd = os.getcwd()
-        try:
-            # What's the specified program's cwd?
-            pbase = os.path.dirname(argz)
-            # cddir to base of given program so relative operations work
-            # properly.
-            os.chdir(pbase)
-            mod.main(argv)
-        finally:
-            os.chdir(scwd)
+        mod.main(argv)
 
 
 class _ImageStager():

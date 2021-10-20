@@ -11,6 +11,4 @@
   problems.
 * Fix run-time issue where failures occur if non-container mpiexec is in PATH.
 * Add environmental push/pop.
-* Document how relative paths work in bueno run scripts. Note
-  that paths are relative to the run script.
 * Automate bumpversion actions.
