@@ -568,8 +568,26 @@ runcmds input. Adds –runcmds and a custom action to parse its input.</p>
 
 <dl class="py function">
 <dt id="bueno.public.experiment.flush_data">
-<code class="sig-prename descclassname"><span class="pre">bueno.public.experiment.</span></code><code class="sig-name descname"><span class="pre">flush_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.experiment.flush_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes cached data to disk.</p>
+<code class="sig-prename descclassname"><span class="pre">bueno.public.experiment.</span></code><code class="sig-name descname"><span class="pre">flush_data</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#bueno.public.experiment.flush_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes cached data to disk at specified or default path rooted at the
+output directory determined at run-time. Returns full path of output.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bueno.public.experiment.foutput">
+<code class="sig-prename descclassname"><span class="pre">bueno.public.experiment.</span></code><code class="sig-name descname"><span class="pre">foutput</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fmtstr</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#bueno.public.experiment.foutput" title="Permalink to this definition">¶</a></dt>
+<dd><p>Formatted experiment data string that determines the directory structure
+used to store experimental data. If a name string is provided, then it acts
+as a setter, acting as a getter otherwise.</p>
+<p>Accepts a path-like string and returns a path if the decoding was
+successful.
+Picture Reference:
+%d - Date
+%h - Hostname
+%i - Unique ID
+%n - Experiment Name
+%t - Time
+%u - User</p>
 </dd></dl>
 
 <dl class="py function">
