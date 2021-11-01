@@ -1,6 +1,6 @@
 from bueno.public import experiment
 from bueno.public import logger
-from bueno.public import metadata
+from bueno.public import data
 from bueno.public import utils
 
 try:
@@ -10,9 +10,9 @@ except ImportError:
     pass
 else:
     # Because bueno cannot easily determine what extra stuff was imported at
-    # run-time, add the extras by hand to our run's metadata.
-    metadata.add_asset(metadata.PythonModuleAsset(mymod))
-    metadata.add_asset(metadata.PythonModuleAsset(mypackmod))
+    # run-time, add the extras by hand to our run's data.
+    data.add_asset(data.PythonModuleAsset(mymod))
+    data.add_asset(data.PythonModuleAsset(mypackmod))
 
 
 def main(argv):

@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2019 Triad National Security, LLC
+# Copyright (c) 2019-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -11,7 +11,6 @@ Logging utilities for good.
 '''
 
 import logging
-import os
 import shutil
 import sys
 
@@ -77,11 +76,8 @@ class _TheLogger(metaclass=metacls.Singleton):
         '''
         # Start from the beginning.
         self.logsio.seek(0)
-        try:
-            with open(topath, 'w+', encoding='utf8') as file:
-                shutil.copyfileobj(self.logsio, file)
-        # Always seek to end when done.
-        finally:
-            self.logsio.seek(os.SEEK_END)
+        # Note: will seek to end automatically when done.
+        with open(topath, 'w+', encoding='utf8') as file:
+            shutil.copyfileobj(self.logsio, file)
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

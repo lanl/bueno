@@ -37,5 +37,5 @@ hello world
 # run Time 0:00:00.101665
 # run Done 2020-04-24 08:42:05
 # run Output Target: /home/samuel/devel/bueno/examples/hello/hello-world/2020-04-24/0
-# Writing Metadata Assets at 2020-04-24 08:42:05
+# Writing Data Assets at 2020-04-24 08:42:05
 # run Output Written to: /home/samuel/devel/bueno/examples/hello/hello-world/2020-04-24/0

@@ -10,7 +10,7 @@ Run Scripts: More Examples
 .. mdinclude:: ../../examples/custom-actions/README.md
 :raw-html:`<br/>`
 
-.. mdinclude:: ../../examples/metadata/README.md
+.. mdinclude:: ../../examples/data/README.md
 :raw-html:`<br/>`
 
 .. mdinclude:: ../../examples/extras/README.md

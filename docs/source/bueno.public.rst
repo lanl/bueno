@@ -12,6 +12,22 @@ bueno.public.container module
    :undoc-members:
    :show-inheritance:
 
+bueno.public.data module
+------------------------
+
+.. automodule:: bueno.public.data
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+bueno.public.datasink module
+----------------------------
+
+.. automodule:: bueno.public.datasink
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 bueno.public.experiment module
 ------------------------------
 
@@ -36,14 +52,6 @@ bueno.public.logger module
    :undoc-members:
    :show-inheritance:
 
-bueno.public.metadata module
-----------------------------
-
-.. automodule:: bueno.public.metadata
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 bueno.public.utils module
 -------------------------
 
@@ -51,7 +59,6 @@ bueno.public.utils module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

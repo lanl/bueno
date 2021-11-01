@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2020 Triad National Security, LLC
+# Copyright (c) 2019-2021 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -155,7 +155,7 @@ def build_information() -> List[str]:
     '''
     buildl = os.path.join(
         cntrimg.activator().get_img_path(),
-        constants.METADATA_DIR,
+        constants.DATA_DIR,
         constants.SERVICE_LOG_NAME
     )
     if not os.path.exists(buildl):

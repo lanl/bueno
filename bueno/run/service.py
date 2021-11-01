@@ -30,7 +30,7 @@ from bueno.public import container
 from bueno.public import experiment
 from bueno.public import host
 from bueno.public import logger
-from bueno.public import metadata
+from bueno.public import data
 from bueno.public import utils
 
 
@@ -44,7 +44,7 @@ class _Runner:
         '''
         argz = argv[0]
         # Stash the program.
-        metadata.add_asset(metadata.FileAsset(argz))
+        data.add_asset(data.FileAsset(argz))
         # Import and run the specified program. argz passed twice for nicer
         # error messages when a user specifies a bogus program.
         spec = importlib.util.spec_from_file_location(argz, argz)
@@ -275,7 +275,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
         tmpargs = copy.deepcopy(vars(self.args))
         tmpargs.pop('program')
         self.confd['Configuration'] = tmpargs
-        metadata.add_asset(metadata.YAMLDictAsset(self.confd, 'run'))
+        data.add_asset(data.YAMLDictAsset(self.confd, 'run'))
 
     def _populate_env_config(self) -> None:
         # Host environment.
@@ -288,7 +288,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
         }
         # Do this so the YAML output has the 'Host' heading.
         hostd = {'Host': self.confd['Host']}
-        metadata.add_asset(metadata.YAMLDictAsset(hostd, 'environment'))
+        data.add_asset(data.YAMLDictAsset(hostd, 'environment'))
 
     def _populate_config(self) -> None:
         self._populate_service_config()
@@ -341,31 +341,31 @@ class impl(service.Base):  # pylint: disable=invalid-name
         logger.log(F'# Staged image path: {self.inflated_cntrimg_path}')
         cntrimg.activator().set_img_path(self.inflated_cntrimg_path)
 
-    def _add_container_metadata(self) -> None:
+    def _add_container_data(self) -> None:
         '''
-        Adds container metadata to run metadata assets.
+        Adds container data to run data assets.
         '''
         logger.emlog('# Looking for container metadata...')
 
-        # Skip any image activators that do not have build metadata.
+        # Skip any image activators that do not have build data.
         if not cntrimg.activator().requires_img_activation():
             iact = self.args.image_activator
             logger.log(F'# Note: the {iact} activator has no metadata\n')
             return
         imgdir = self.inflated_cntrimg_path
-        # The subdirectory where container metadata are stored.
+        # The subdirectory where container data are stored.
         buildl = os.path.join(
             imgdir,
-            constants.METADATA_DIR,
+            constants.DATA_DIR,
             constants.SERVICE_LOG_NAME
         )
-        # Don't error out if the image doesn't have our metadata.
+        # Don't error out if the image doesn't have our data.
         if not os.path.exists(buildl):
-            logger.log('# Note: container image provides no metadata\n')
+            logger.log('# Note: container image provides no data\n')
             return
-        logger.log(F'# Adding metadata from {imgdir}\n')
+        logger.log(F'# Adding data from {imgdir}\n')
         mdatadir = 'container'
-        metadata.add_asset(metadata.FileAsset(buildl, mdatadir))
+        data.add_asset(data.FileAsset(buildl, mdatadir))
 
     def _build_image_activator(self) -> None:
         '''
@@ -380,31 +380,12 @@ class impl(service.Base):  # pylint: disable=invalid-name
         _Runner.run(self.args.program)
         logger.emlog('# End Program Output')
 
-    @staticmethod
-    def getmetasubd(basedir: str) -> str:
-        '''
-        Returns a unique path rooted at the provided directory.
-        '''
-        # TODO(skg) The stat load may be huge using this pylint: disable=fixme
-        # approach.  Fix at some point. Perhaps have a top-level log that gives
-        # us the next available?
-        maxt = 1024*2048
-        hostn = host.shostname()
-        for subd in range(0, maxt):
-            path = os.path.join(basedir, utils.dates(), hostn, str(subd))
-            if not os.path.isdir(path):
-                return path
-        errs = F'Cannot find usable metadata directory after {maxt} tries.\n' \
-               F'Base output directory searched was: {basedir}'
-        raise RuntimeError(errs)
+    def _write_data(self) -> None:
+        outp = experiment.flush_data()
+        logger.log(F'# {self.prog} Output Written to {outp}')
 
-    def _write_metadata(self) -> None:
-        base = os.path.join(self.args.output_path, str(experiment.name()))
-        outp = impl.getmetasubd(base)
-        # Do this here so the output log has the output directory in it.
-        logger.log(F'# {self.prog} Output Target: {outp}')
-        metadata.write(outp)
-        logger.log(F'# {self.prog} Output Written to: {outp}')
+    def _experiment_setup(self) -> None:
+        experiment.output_path(self.args.output_path)
 
     def start(self) -> None:
         logger.emlog(F'# Starting {self.prog} at {utils.nows()}')
@@ -412,17 +393,18 @@ class impl(service.Base):  # pylint: disable=invalid-name
 
         try:
             stime = utils.now()
+            self._experiment_setup()
             self._emit_config()
             self._build_image_activator()
             self._stage_container_image()
-            self._add_container_metadata()
+            self._add_container_data()
             self._run()
             etime = utils.now()
 
             logger.log(F'# {self.prog} Time {etime - stime}')
             logger.log(F'# {self.prog} Done {utils.nows()}')
 
-            self._write_metadata()
+            self._write_data()
         except Exception as exception:
             raise exception
 

@@ -7,7 +7,7 @@
 #
 
 '''
-Core metadata types.
+Core data types.
 '''
 
 import copy
@@ -35,7 +35,7 @@ from bueno.public import utils
 
 class BaseAsset(ABC):
     '''
-    Abstract base metadata asset class.
+    Abstract base data asset class.
     '''
     @abstractmethod
     def write(self, basep: str) -> None:
@@ -165,44 +165,44 @@ class LoggerAsset(BaseAsset):
         logger.write(os.path.join(basep, self.buildo))
 
 
-class _MetaData:
+class _Data:
     def __init__(self, basep: str) -> None:
-        # The base path where metadata are stored.
+        # The base path where data are stored.
         self._basep = basep
         os.makedirs(self.basep, 0o755, exist_ok=True)
 
     def write(self) -> None:
         '''
-        Writes out all the metadata assets.
+        Writes out all the data assets.
         '''
-        _MetaData._add_default_assets()
+        _Data._add_default_assets()
         _Assets().write(self.basep)
 
     @staticmethod
     def _add_default_assets() -> None:
         '''
-        Adds default metadata assets to _Assets collection.
+        Adds default data assets to _Assets collection.
         '''
         _Assets().add(LoggerAsset())
 
     @property
     def basep(self) -> str:
         '''
-        Returns the base path where metadata are stored.
+        Returns the base path where data are stored.
         '''
         return self._basep
 
     @basep.setter
     def basep(self, basep: str) -> None:
         '''
-        Sets the base path where metadata are stored.
+        Sets the base path where data are stored.
         '''
         self._basep = basep
 
 
 class _Assets(metaclass=metacls.Singleton):
     '''
-    Metadata asset collection.
+    Data asset collection.
     '''
     def __init__(self) -> None:
         self.assets: List[BaseAsset] = []
@@ -221,23 +221,24 @@ class _Assets(metaclass=metacls.Singleton):
 
     def write(self, basep: str) -> None:
         '''
-        Writes metadata contained in assets.
+        Writes data contained in assets.
         '''
-        logger.log(F'# Writing Metadata Assets at {utils.nows()}')
+        logger.log(F'# Writing Data Assets at {utils.nows()}')
         for asset in self.assets:
             asset.write(basep)
+        self.clear()
 
 
 def write(basep: str) -> None:
     '''
-    Writes build metadata rooted at basep.
+    Writes build data rooted at basep.
     '''
-    _MetaData(basep).write()
+    _Data(basep).write()
 
 
 def add_asset(asset: BaseAsset) -> None:
     '''
-    Adds a metadata asset to the collection of assets to be written.
+    Adds a data asset to the collection of assets to be written.
     '''
     _Assets().add(asset)
 

@@ -12,6 +12,6 @@ def main(argv):
     # hello-world.
     experiment.name('hello-world')
     # The logger emits strings to the console. Additionally, the output
-    # produced by logging actions is recorded and stored in experiment metadata
+    # produced by logging actions is recorded and stored in experiment data
     # written (by default) after experiment termination.
     logger.log('hello world')

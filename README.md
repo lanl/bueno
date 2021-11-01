@@ -122,7 +122,7 @@ $ bueno run -a none -p callbye.py
 * [Hello, World!](./examples/hello)
 * [Hello, Container!](./examples/hello-container)
 * [Custom Actions](./examples/custom-actions)
-* [Custom Metadata](./examples/metadata)
+* [Custom Data](./examples/data)
 * [Importing Extra Functionality at Run-Time](./examples/extras)
 * [Building and Running a Container](./examples/build-and-run)
 

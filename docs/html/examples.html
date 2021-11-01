@@ -93,7 +93,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#gathering-information">Gathering information</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#metadata">Metadata</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#data">Data</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#exploring-the-code">Exploring the code:</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#trying-it-out">Trying it Out</a></li>
 </ul>
@@ -239,17 +239,15 @@ experiment-specific data.</p>
 <p><span class="raw-html"><br/></span></p>
 </div>
 </div>
-<div class="section" id="metadata">
-<h2>Metadata<a class="headerlink" href="#metadata" title="Permalink to this headline">¶</a></h2>
-<p>This is an overview of some of the metadata acquisition and recording tools
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<p>This is an overview of some of the data acquisition and recording tools
 provided by bueno. This example will record the executed application’s output
-and some additional information about the system on which it was executed.  In
-the <code class="docutils literal notranslate"><span class="pre">metadata.py</span></code> run script, you will find that a dictionary is created and
-populated with information before being written to a file.</p>
+and some additional information about the system on which it was executed.</p>
 <div class="section" id="exploring-the-code">
 <h3>Exploring the code:<a class="headerlink" href="#exploring-the-code" title="Permalink to this headline">¶</a></h3>
-<p>The following lines in the example run script setup two additional metadata
-assets. The first is called <code class="docutils literal notranslate"><span class="pre">some-metadata.txt</span></code>. Because there is no information
+<p>The following lines in the example run script setup two additional data
+assets. The first is called <code class="docutils literal notranslate"><span class="pre">some-data.txt</span></code>. Because there is no information
 assigned to this asset, it will simply generate an empty file.  The file will be
 written to a subdirectory, illustrating that the relative location and depth of
 saved data are also user-definable.</p>
@@ -257,22 +255,22 @@ saved data are also user-definable.</p>
 information acquired about the user executing the script and the host on which
 it was run.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Adding a file asset...&#39;</span><span class="p">)</span>
-<span class="c1"># Add an arbitrary metadata file to a subdirectory.</span>
-<span class="n">metadata</span><span class="o">.</span><span class="n">add_asset</span><span class="p">(</span>
-    <span class="n">metadata</span><span class="o">.</span><span class="n">FileAsset</span><span class="p">(</span><span class="s1">&#39;some-metadata.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;subdir-a/subdir-b&#39;</span><span class="p">)</span>
+<span class="c1"># Add an arbitrary data file to a subdirectory.</span>
+<span class="n">data</span><span class="o">.</span><span class="n">add_asset</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">FileAsset</span><span class="p">(</span><span class="s1">&#39;some-data.txt&#39;</span><span class="p">,</span> <span class="s1">&#39;subdir-a/subdir-b&#39;</span><span class="p">)</span>
 <span class="p">)</span>
 
-<span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Adding a YAML dict asset...&#39;</span><span class="p">)</span>
-<span class="n">adict</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">()</span>
-<span class="c1"># Populate the dictionary with relevant metadata.</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="s1">&#39;Adding a YAML dictionary asset...&#39;</span><span class="p">)</span>
+<span class="n">adict</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="c1"># Populate the dictionary with relevant data.</span>
 <span class="n">adict</span><span class="p">[</span><span class="s1">&#39;Application&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;argv&#39;</span><span class="p">:</span> <span class="n">argv</span><span class="p">}</span>
 <span class="n">adict</span><span class="p">[</span><span class="s1">&#39;System&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
     <span class="s1">&#39;whoami&#39;</span><span class="p">:</span> <span class="n">host</span><span class="o">.</span><span class="n">whoami</span><span class="p">(),</span>
     <span class="s1">&#39;hostname&#39;</span><span class="p">:</span> <span class="n">host</span><span class="o">.</span><span class="n">hostname</span><span class="p">()</span>
 <span class="p">}</span>
-<span class="c1"># Save the metadata to a file.</span>
-<span class="n">metadata</span><span class="o">.</span><span class="n">add_asset</span><span class="p">(</span>
-    <span class="n">metadata</span><span class="o">.</span><span class="n">YAMLDictAsset</span><span class="p">(</span><span class="n">adict</span><span class="p">,</span> <span class="s1">&#39;yaml-metadata&#39;</span><span class="p">)</span>
+<span class="c1"># Save the data to a file.</span>
+<span class="n">data</span><span class="o">.</span><span class="n">add_asset</span><span class="p">(</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">YAMLDictAsset</span><span class="p">(</span><span class="n">adict</span><span class="p">,</span> <span class="s1">&#39;yaml-data&#39;</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -280,7 +278,7 @@ it was run.</p>
 <div class="section" id="trying-it-out">
 <h3>Trying it Out<a class="headerlink" href="#trying-it-out" title="Permalink to this headline">¶</a></h3>
 <p>To test this for yourself, execute the following command:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bueno run -a none -p metadata.py
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bueno run -a none -p data.py
 </pre></div>
 </div>
 <p>In the terminal output, you will find notes about the kind of information
@@ -301,16 +299,16 @@ script is executed. Information about the host environment can be found in
   <span class="nt">extras</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
   <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
   <span class="nt">image_activator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">none</span>
-  <span class="nt">output_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/user/bueno/examples/metadata</span>
+  <span class="nt">output_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/user/bueno/examples/data</span>
 </pre></div>
 </div>
 <p>and you will find that the second asset defined in the run script created a file
 with a similar format to the others. Additionally, there is a record of the
 run script executed and the output sent to the terminal at run-time.</p>
-<p>The empty <code class="docutils literal notranslate"><span class="pre">some-metadata.txt</span></code> asset is also present two levels down in a
+<p>The empty <code class="docutils literal notranslate"><span class="pre">some-data.txt</span></code> asset is also present two levels down in a
 subdirectory. This illustrates how bueno supports the creation of any
-number of metadata assets as well as quite a few formats. Please consult
-<a class="reference external" href="https://github.com/lanl/bueno/blob/master/bueno/public/metadata.py">this</a> for
+number of data assets as well as quite a few formats. Please consult
+<a class="reference external" href="https://github.com/lanl/bueno/blob/master/bueno/public/data.py">this</a> for
 a full list.</p>
 <p><span class="raw-html"><br/></span></p>
 </div>

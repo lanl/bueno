@@ -1,12 +1,12 @@
-# Metadata
+# Data
 
-This is an overview of some of the metadata acquisition and recording tools
+This is an overview of some of the data acquisition and recording tools
 provided by bueno. This example will record the executed application's output
 and some additional information about the system on which it was executed.
 
 ## Exploring the code:
-The following lines in the example run script setup two additional metadata
-assets. The first is called `some-metadata.txt`. Because there is no information
+The following lines in the example run script setup two additional data
+assets. The first is called `some-data.txt`. Because there is no information
 assigned to this asset, it will simply generate an empty file.  The file will be
 written to a subdirectory, illustrating that the relative location and depth of
 saved data are also user-definable.
@@ -17,22 +17,22 @@ it was run.
 
 ```python
 logger.log('Adding a file asset...')
-# Add an arbitrary metadata file to a subdirectory.
-metadata.add_asset(
-    metadata.FileAsset('some-metadata.txt', 'subdir-a/subdir-b')
+# Add an arbitrary data file to a subdirectory.
+data.add_asset(
+    data.FileAsset('some-data.txt', 'subdir-a/subdir-b')
 )
 
 logger.log('Adding a YAML dictionary asset...')
 adict = {}
-# Populate the dictionary with relevant metadata.
+# Populate the dictionary with relevant data.
 adict['Application'] = {'argv': argv}
 adict['System'] = {
     'whoami': host.whoami(),
     'hostname': host.hostname()
 }
-# Save the metadata to a file.
-metadata.add_asset(
-    metadata.YAMLDictAsset(adict, 'yaml-metadata')
+# Save the data to a file.
+data.add_asset(
+    data.YAMLDictAsset(adict, 'yaml-data')
 )
 ```
 
@@ -40,7 +40,7 @@ metadata.add_asset(
 To test this for yourself, execute the following command:
 
 ```shell
-bueno run -a none -p metadata.py
+bueno run -a none -p data.py
 ```
 
 In the terminal output, you will find notes about the kind of information
@@ -63,14 +63,14 @@ Configuration:
   extras: null
   image: null
   image_activator: none
-  output_path: /home/user/bueno/examples/metadata
+  output_path: /home/user/bueno/examples/data
 ```
 and you will find that the second asset defined in the run script created a file
 with a similar format to the others. Additionally, there is a record of the
 run script executed and the output sent to the terminal at run-time.
 
-The empty `some-metadata.txt` asset is also present two levels down in a
+The empty `some-data.txt` asset is also present two levels down in a
 subdirectory. This illustrates how bueno supports the creation of any
-number of metadata assets as well as quite a few formats. Please consult
-[this](https://github.com/lanl/bueno/blob/master/bueno/public/metadata.py) for
+number of data assets as well as quite a few formats. Please consult
+[this](https://github.com/lanl/bueno/blob/master/bueno/public/data.py) for
 a full list.

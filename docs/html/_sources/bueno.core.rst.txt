@@ -28,6 +28,14 @@ bueno.core.constants module
    :undoc-members:
    :show-inheritance:
 
+bueno.core.mathex module
+------------------------
+
+.. automodule:: bueno.core.mathex
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 bueno.core.metacls module
 -------------------------
 
@@ -51,7 +59,6 @@ bueno.core.utils module
    :members:
    :undoc-members:
    :show-inheritance:
-
 
 Module contents
 ---------------

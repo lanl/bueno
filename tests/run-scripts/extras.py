@@ -3,7 +3,7 @@ bueno extras test
 '''
 
 from bueno.public import experiment
-from bueno.public import metadata
+from bueno.public import data
 from bueno.public import utils
 
 try:
@@ -13,9 +13,9 @@ except ImportError:
     pass
 else:
     # Because bueno cannot easily determine what extra stuff was imported at
-    # run-time, add the extras by hand to our run's metadata.
-    metadata.add_asset(metadata.PythonModuleAsset(extramod))
-    metadata.add_asset(metadata.PythonModuleAsset(extrapackmod))
+    # run-time, add the extras by hand to our run's data.
+    data.add_asset(data.PythonModuleAsset(extramod))
+    data.add_asset(data.PythonModuleAsset(extrapackmod))
 
 
 def main(_):

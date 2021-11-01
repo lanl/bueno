@@ -136,5 +136,4 @@ def read_logical_lines(fileobj: IO[str]) -> Iterable[str]:
     if logical_line:
         yield ''.join(logical_line)
 
-
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

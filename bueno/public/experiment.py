@@ -32,6 +32,8 @@ from typing import (
 from bueno.core import mathex
 from bueno.core import metacls
 
+from bueno.public import data
+from bueno.public import host
 from bueno.public import logger
 from bueno.public import utils
 
@@ -42,6 +44,8 @@ class _TheExperiment(metaclass=metacls.Singleton):
     '''
     def __init__(self) -> None:
         self._name = 'unnamed-experiment'
+        self._output_path = os.getcwd()
+        self._foutput = '%n/%u/%d/%h/%i'
 
     @property
     def name(self) -> str:
@@ -59,6 +63,98 @@ class _TheExperiment(metaclass=metacls.Singleton):
             estr = 'Experiment name cannot be empty.'
             raise RuntimeError(estr)
         self._name = names.strip()
+
+    @property
+    def output_path(self) -> str:
+        '''
+        Returns the experiment's base data output path.
+        '''
+        return self._output_path
+
+    @output_path.setter
+    def output_path(self, path: str) -> None:
+        '''
+        Sets the experiment's base output data path.
+        '''
+        if utils.emptystr(path):
+            estr = 'Experiment base data output path cannot be empty.'
+            raise RuntimeError(estr)
+        self._output_path = path
+
+    @property
+    def foutput(self) -> str:
+        '''
+        Returns the experiment's formatted data output string.
+        '''
+        return self._foutput
+
+    @foutput.setter
+    def foutput(self, fmt: str) -> None:
+        '''
+        Sets the experiment's formatted data output string.
+        '''
+        if utils.emptystr(fmt):
+            estr = 'Experiment formatted data string cannot be empty.'
+            raise RuntimeError(estr)
+        self._foutput = fmt
+
+
+def _format_path(epath: str) -> str:
+    '''
+    Decodes a path-like string and returns a path if the decoding was
+    successful.
+    Picture Reference:
+    %d - Date
+    %h - Hostname
+    %i - Unique ID
+    %n - Experiment Name
+    %t - Time
+    %u - User
+    '''
+    def _get_id_from_path(basep: str) -> str:
+        # TODO(skg) The stat load may be huge using this pylint: disable=fixme
+        # approach.  Fix at some point. Perhaps have a top-level log that gives
+        # us the next available? Also, potential for races here.
+        maxt = 2048*2048
+        for subd in range(0, maxt):
+            path = os.path.join(basep, str(subd))
+            if not os.path.isdir(path):
+                return str(subd)
+        errs = F'Cannot find usable data directory after {maxt} tries.\n' \
+               F'Base output directory searched was: {basep}'
+        raise RuntimeError(errs)
+    path = epath
+    path = path.replace('%d', utils.dates())
+    path = path.replace('%t', utils.now().strftime('%H:%M:%S'))
+    path = path.replace('%u', host.whoami())
+    path = path.replace('%n', str(name()))
+    path = path.replace('%h', host.hostname())
+    # This needs to be last because we have to stat the base subdirectory to
+    # determine the ultimate ID. Scan from left to right to build up IDs as we
+    # decode the path.
+    idx = path.find('%i')
+    while idx != -1:
+        path = path.replace('%i', _get_id_from_path(path[0:idx]), 1)
+        idx = path.find('%i')
+
+    return path
+
+
+def flush_data(opath: Optional[str] = None) -> str:
+    '''
+     Writes cached data to disk at specified or default path rooted at the
+     output directory determined at run-time. Returns full path of output.
+
+    '''
+    based = str(output_path())
+    # Default output path.
+    real_opath = os.path.join(based, str(foutput()))
+    if opath is not None:
+        real_opath = os.path.join(based, opath)
+    real_opath = os.path.abspath(_format_path(real_opath))
+    logger.log(F'# Flushing Data to {real_opath}')
+    data.write(real_opath)
+    return real_opath
 
 
 class FOM:
@@ -200,6 +296,20 @@ def name(ename: Optional[str] = None) -> Optional[str]:
         estr = F'{__name__}.name() expects a string.'
         raise ValueError(estr)
     _TheExperiment().name = ename
+    return None
+
+
+def output_path(path: Optional[str] = None) -> Optional[str]:
+    '''
+    Experiment data output path getter/setter. If a path is provided, then it
+    acts as a setter, acting as a getter otherwise.
+    '''
+    if path is None:
+        return _TheExperiment().output_path
+    if not isinstance(path, str):
+        estr = F'{__name__}.output_path() expects a string.'
+        raise ValueError(estr)
+    _TheExperiment().output_path = path
     return None
 
 
@@ -643,5 +753,29 @@ def factorize(num: int, dim: int) -> List[int]:
 
     return breakdown.factor_list
 
+
+def foutput(fmtstr: Optional[str] = None) -> Optional[str]:
+    '''
+    Formatted experiment data string that determines the directory structure
+    used to store experimental data. If a name string is provided, then it acts
+    as a setter, acting as a getter otherwise.
+
+    Accepts a path-like string and returns a path if the decoding was
+    successful.
+    Picture Reference:
+    %d - Date
+    %h - Hostname
+    %i - Unique ID
+    %n - Experiment Name
+    %t - Time
+    %u - User
+    '''
+    if fmtstr is None:
+        return _TheExperiment().foutput
+    if not isinstance(fmtstr, str):
+        estr = F'{__name__}.foutput() expects a string.'
+        raise ValueError(estr)
+    _TheExperiment().foutput = fmtstr
+    return None
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

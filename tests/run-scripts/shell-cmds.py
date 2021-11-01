@@ -14,7 +14,7 @@ from bueno.public import container
 from bueno.public import experiment
 from bueno.public import host
 from bueno.public import logger
-from bueno.public import metadata
+from bueno.public import data
 
 
 def main(argv):
@@ -53,4 +53,4 @@ def main(argv):
                   'echo "Looks good!" || '
                   'exit 1')
 
-    metadata.add_asset(metadata.FileAsset(fname))
+    data.add_asset(data.FileAsset(fname))

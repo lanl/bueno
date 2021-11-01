@@ -243,6 +243,193 @@ pre- or post-actions if provided.</p>
 </dd></dl>
 
 </div>
+<div class="section" id="module-bueno.public.data">
+<span id="bueno-public-data-module"></span><h2>bueno.public.data module<a class="headerlink" href="#module-bueno.public.data" title="Permalink to this headline">¶</a></h2>
+<p>Core data types.</p>
+<dl class="py class">
+<dt id="bueno.public.data.BaseAsset">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.data.</span></code><code class="sig-name descname"><span class="pre">BaseAsset</span></code><a class="headerlink" href="#bueno.public.data.BaseAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstract base data asset class.</p>
+<dl class="py method">
+<dt id="bueno.public.data.BaseAsset.write">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.data.BaseAsset.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method used to write the contents of a derived class to a
+location rooted at the specified base path.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.data.FileAsset">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.data.</span></code><code class="sig-name descname"><span class="pre">FileAsset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srcf</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subd</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.data.FileAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.data.BaseAsset" title="bueno.public.data.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.data.BaseAsset</span></code></a></p>
+<p>File asset.</p>
+<dl class="py method">
+<dt id="bueno.public.data.FileAsset.write">
+<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.data.FileAsset.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method used to write the contents of a derived class to a
+location rooted at the specified base path.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.data.LoggerAsset">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.data.</span></code><code class="sig-name descname"><span class="pre">LoggerAsset</span></code><a class="headerlink" href="#bueno.public.data.LoggerAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.data.BaseAsset" title="bueno.public.data.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.data.BaseAsset</span></code></a></p>
+<p>bueno logger asset.</p>
+<dl class="py method">
+<dt id="bueno.public.data.LoggerAsset.write">
+<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.data.LoggerAsset.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method used to write the contents of a derived class to a
+location rooted at the specified base path.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.data.PythonModuleAsset">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.data.</span></code><code class="sig-name descname"><span class="pre">PythonModuleAsset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.data.PythonModuleAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.data.FileAsset" title="bueno.public.data.FileAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.data.FileAsset</span></code></a></p>
+<p>Special file asset used for extra imported modules.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.data.StringIOAsset">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.data.</span></code><code class="sig-name descname"><span class="pre">StringIOAsset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srcios</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">_io.StringIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subd</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.data.StringIOAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.data.BaseAsset" title="bueno.public.data.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.data.BaseAsset</span></code></a></p>
+<p>StringIO asset.</p>
+<dl class="py method">
+<dt id="bueno.public.data.StringIOAsset.write">
+<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.data.StringIOAsset.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Abstract method used to write the contents of a derived class to a
+location rooted at the specified base path.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.data.YAMLDictAsset">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.data.</span></code><code class="sig-name descname"><span class="pre">YAMLDictAsset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ydict</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.data.YAMLDictAsset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.data.BaseAsset" title="bueno.public.data.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.data.BaseAsset</span></code></a></p>
+<p>Convenience YAML (from a dict()) asset.</p>
+<dl class="py method">
+<dt id="bueno.public.data.YAMLDictAsset.fname">
+<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">fname</span></code><a class="headerlink" href="#bueno.public.data.YAMLDictAsset.fname" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the output file name.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bueno.public.data.YAMLDictAsset.write">
+<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.data.YAMLDictAsset.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes the contents of the YAMLDictAsset to a file rooted at the
+specified path.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt id="bueno.public.data.add_asset">
+<code class="sig-prename descclassname"><span class="pre">bueno.public.data.</span></code><code class="sig-name descname"><span class="pre">add_asset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#bueno.public.data.BaseAsset" title="bueno.public.data.BaseAsset"><span class="pre">bueno.public.data.BaseAsset</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.data.add_asset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a data asset to the collection of assets to be written.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bueno.public.data.write">
+<code class="sig-prename descclassname"><span class="pre">bueno.public.data.</span></code><code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.data.write" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes build data rooted at basep.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-bueno.public.datasink">
+<span id="bueno-public-datasink-module"></span><h2>bueno.public.datasink module<a class="headerlink" href="#module-bueno.public.datasink" title="Permalink to this headline">¶</a></h2>
+<p>Convenience data sinks.</p>
+<dl class="py class">
+<dt id="bueno.public.datasink.InfluxDBMeasurement">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">InfluxDBMeasurement</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurement</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.InfluxDBMeasurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#bueno.public.datasink.Measurement" title="bueno.public.datasink.Measurement"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.datasink.Measurement</span></code></a></p>
+<p>InfluxDB measurement type.</p>
+<dl class="py method">
+<dt id="bueno.public.datasink.InfluxDBMeasurement.data">
+<code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#bueno.public.datasink.InfluxDBMeasurement.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns measurement data as string following InfluxDB line protocol.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.datasink.Measurement">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">Measurement</span></code><a class="headerlink" href="#bueno.public.datasink.Measurement" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
+<p>Abstract measurement type.</p>
+<dl class="py method">
+<dt id="bueno.public.datasink.Measurement.data">
+<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#bueno.public.datasink.Measurement.data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns measurement data as string following a given line protocol.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.datasink.Table">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">Table</span></code><a class="headerlink" href="#bueno.public.datasink.Table" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A straightforward class to display formatted tabular data.</p>
+<dl class="py class">
+<dt id="bueno.public.datasink.Table.Row">
+<em class="property"><span class="pre">class</span> </em><code class="sig-name descname"><span class="pre">Row</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">withrule</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.Table.Row" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Creates a row for use in a table.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bueno.public.datasink.Table.addrow">
+<code class="sig-name descname"><span class="pre">addrow</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">row</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">withrule</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.datasink.Table.addrow" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the contents of row to a table, optionally with a rule.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bueno.public.datasink.Table.emit">
+<code class="sig-name descname"><span class="pre">emit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.datasink.Table.emit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Emits the contents of the table using logger.log().</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.datasink.TelegrafClient">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">TelegrafClient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ssl_key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_cert</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5555</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.TelegrafClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A straightforward client interface for interacting with a Telegraf daemon.</p>
+<dl class="py method">
+<dt id="bueno.public.datasink.TelegrafClient.send">
+<code class="sig-name descname"><span class="pre">send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurement</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#bueno.public.datasink.Measurement" title="bueno.public.datasink.Measurement"><span class="pre">bueno.public.datasink.Measurement</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.datasink.TelegrafClient.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends the contexts of measurement to the Telegraf client agent.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.datasink.TelegrafClientAgent">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">TelegrafClientAgent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exe</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.TelegrafClientAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A thin wrapper for telegraf client agent management.</p>
+<dl class="py method">
+<dt id="bueno.public.datasink.TelegrafClientAgent.start">
+<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.datasink.TelegrafClientAgent.start" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts the Telegraf client agent. Raises a RuntimeError on failure.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt id="bueno.public.datasink.TelegrafClientAgent.stop">
+<code class="sig-name descname"><span class="pre">stop</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.datasink.TelegrafClientAgent.stop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stops the Telegraf client agent.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
 <div class="section" id="module-bueno.public.experiment">
 <span id="bueno-public-experiment-module"></span><h2>bueno.public.experiment module<a class="headerlink" href="#module-bueno.public.experiment" title="Permalink to this headline">¶</a></h2>
 <p>Public experiment utilities for good.</p>
@@ -380,6 +567,12 @@ runcmds input. Adds –runcmds and a custom action to parse its input.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="bueno.public.experiment.flush_data">
+<code class="sig-prename descclassname"><span class="pre">bueno.public.experiment.</span></code><code class="sig-name descname"><span class="pre">flush_data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.experiment.flush_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes cached data to disk.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="bueno.public.experiment.generate">
 <code class="sig-prename descclassname"><span class="pre">bueno.public.experiment.</span></code><code class="sig-name descname"><span class="pre">generate</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">spec</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Any</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#bueno.public.experiment.generate" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given a string containing string.format() replacement fields and a variable
@@ -392,6 +585,13 @@ generated from the provided specification and corresponding inputs.</p>
 <code class="sig-prename descclassname"><span class="pre">bueno.public.experiment.</span></code><code class="sig-name descname"><span class="pre">name</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ename</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#bueno.public.experiment.name" title="Permalink to this definition">¶</a></dt>
 <dd><p>Experiment name getter/setter. If a name string is provided, then it acts as
 a setter, acting as a getter otherwise.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="bueno.public.experiment.output_path">
+<code class="sig-prename descclassname"><span class="pre">bueno.public.experiment.</span></code><code class="sig-name descname"><span class="pre">output_path</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><a class="headerlink" href="#bueno.public.experiment.output_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Experiment data output path getter/setter. If a path is provided, then it
+acts as a setter, acting as a getter otherwise.</p>
 </dd></dl>
 
 <dl class="py function">
@@ -518,105 +718,6 @@ command found by which() is returned.</p>
 <dt id="bueno.public.logger.write">
 <code class="sig-prename descclassname"><span class="pre">bueno.public.logger.</span></code><code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">topath</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.logger.write" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes the current contents of the log to the path provided.</p>
-</dd></dl>
-
-</div>
-<div class="section" id="module-bueno.public.metadata">
-<span id="bueno-public-metadata-module"></span><h2>bueno.public.metadata module<a class="headerlink" href="#module-bueno.public.metadata" title="Permalink to this headline">¶</a></h2>
-<p>Core metadata types.</p>
-<dl class="py class">
-<dt id="bueno.public.metadata.BaseAsset">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.metadata.</span></code><code class="sig-name descname"><span class="pre">BaseAsset</span></code><a class="headerlink" href="#bueno.public.metadata.BaseAsset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
-<p>Abstract base metadata asset class.</p>
-<dl class="py method">
-<dt id="bueno.public.metadata.BaseAsset.write">
-<em class="property"><span class="pre">abstract</span> </em><code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.metadata.BaseAsset.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract method used to write the contents of a derived class to a
-location rooted at the specified base path.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="bueno.public.metadata.FileAsset">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.metadata.</span></code><code class="sig-name descname"><span class="pre">FileAsset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srcf</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subd</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.metadata.FileAsset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.BaseAsset" title="bueno.public.metadata.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.BaseAsset</span></code></a></p>
-<p>File asset.</p>
-<dl class="py method">
-<dt id="bueno.public.metadata.FileAsset.write">
-<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.metadata.FileAsset.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract method used to write the contents of a derived class to a
-location rooted at the specified base path.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="bueno.public.metadata.LoggerAsset">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.metadata.</span></code><code class="sig-name descname"><span class="pre">LoggerAsset</span></code><a class="headerlink" href="#bueno.public.metadata.LoggerAsset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.BaseAsset" title="bueno.public.metadata.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.BaseAsset</span></code></a></p>
-<p>bueno logger asset.</p>
-<dl class="py method">
-<dt id="bueno.public.metadata.LoggerAsset.write">
-<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.metadata.LoggerAsset.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract method used to write the contents of a derived class to a
-location rooted at the specified base path.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="bueno.public.metadata.PythonModuleAsset">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.metadata.</span></code><code class="sig-name descname"><span class="pre">PythonModuleAsset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mod</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">module</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.metadata.PythonModuleAsset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.FileAsset" title="bueno.public.metadata.FileAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.FileAsset</span></code></a></p>
-<p>Special file asset used for extra imported modules.</p>
-</dd></dl>
-
-<dl class="py class">
-<dt id="bueno.public.metadata.StringIOAsset">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.metadata.</span></code><code class="sig-name descname"><span class="pre">StringIOAsset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">srcios</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">_io.StringIO</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">subd</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.metadata.StringIOAsset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.BaseAsset" title="bueno.public.metadata.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.BaseAsset</span></code></a></p>
-<p>StringIO asset.</p>
-<dl class="py method">
-<dt id="bueno.public.metadata.StringIOAsset.write">
-<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.metadata.StringIOAsset.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Abstract method used to write the contents of a derived class to a
-location rooted at the specified base path.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="bueno.public.metadata.YAMLDictAsset">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.metadata.</span></code><code class="sig-name descname"><span class="pre">YAMLDictAsset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ydict</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">Any</span><span class="p"><span class="pre">,</span> </span><span class="pre">Any</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fname</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.metadata.YAMLDictAsset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#bueno.public.metadata.BaseAsset" title="bueno.public.metadata.BaseAsset"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.metadata.BaseAsset</span></code></a></p>
-<p>Convenience YAML (from a dict()) asset.</p>
-<dl class="py method">
-<dt id="bueno.public.metadata.YAMLDictAsset.fname">
-<em class="property"><span class="pre">property</span> </em><code class="sig-name descname"><span class="pre">fname</span></code><a class="headerlink" href="#bueno.public.metadata.YAMLDictAsset.fname" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the output file name.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="bueno.public.metadata.YAMLDictAsset.write">
-<code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.metadata.YAMLDictAsset.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes the contents of the YAMLDictAsset to a file rooted at the
-specified path.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py function">
-<dt id="bueno.public.metadata.add_asset">
-<code class="sig-prename descclassname"><span class="pre">bueno.public.metadata.</span></code><code class="sig-name descname"><span class="pre">add_asset</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">asset</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#bueno.public.metadata.BaseAsset" title="bueno.public.metadata.BaseAsset"><span class="pre">bueno.public.metadata.BaseAsset</span></a></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.metadata.add_asset" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a metadata asset to the collection of assets to be written.</p>
-</dd></dl>
-
-<dl class="py function">
-<dt id="bueno.public.metadata.write">
-<code class="sig-prename descclassname"><span class="pre">bueno.public.metadata.</span></code><code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.metadata.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes build metadata rooted at basep.</p>
 </dd></dl>
 
 </div>

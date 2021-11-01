@@ -22,6 +22,7 @@ bueno run -a none -o output -p ./run-scripts/shell-cmds.py
 bueno run -a none -o output -p ./run-scripts/ooo.py
 bueno run -a none -o output -p ./run-scripts/runcmds.py
 bueno run -a none -o output -p ./run-scripts/datasink.py
+bueno run -a none -o output -p ./run-scripts/format_path.py
 
 test_end
 
