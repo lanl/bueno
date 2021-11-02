@@ -69,7 +69,7 @@ and you will find that the second asset defined in the run script created a file
 with a similar format to the others. Additionally, there is a record of the
 run script executed and the output sent to the terminal at run-time.
 
-The empty `some-data.txt` asset is also present two levels down in a
+The `some-data.txt` file asset is also present two levels down in a
 subdirectory. This illustrates how bueno supports the creation of any
 number of data assets as well as quite a few formats. Please consult
 [this](https://github.com/lanl/bueno/blob/master/bueno/public/data.py) for
