@@ -14,13 +14,13 @@ in computer system benchmarking.
 
 ## Motivation
 Experimental reproducibility is a crucial component of the scientific process.
-Capturing the relevant features that define a sufficiently precise experiment is
-a difficult task. This difficulty is mostly due to the diversity and non-trivial
-interplay among computer platforms, system software, and programs of interest.
-To illustrate this claim, consider the interconnected relationships formed among
-the components shown in the figure below. Here, we define an experiment as the
-Cartesian product of a given software stack and its configuration. The elements
-shown in the figure below are described as follows:
+Capturing the relevant features that define a sufficiently precise experiment
+can be a difficult task. This difficulty is mostly due to the diversity and
+non-trivial interplay among computer platforms, system software, and programs of
+interest.  To illustrate this claim, consider the interconnected relationships
+formed among the components shown in the figure below. Here, we define an
+experiment as the Cartesian product of a given software stack and its
+configuration. The elements shown in the figure below are described as follows:
 
 <img src="docs/img/system-experiment.png" alt="The high-level makeup of a
 computer system benchmarking experiment."/>
