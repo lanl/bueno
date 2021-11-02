@@ -38,4 +38,4 @@ def main(argv):
 
     # And you can also change where data is written at the end of program
     # termination.
-    experiment.foutput('%u/%d/%i')
+    experiment.foutput('%u/a-subdir/%d/%i')
