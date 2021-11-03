@@ -14,7 +14,7 @@ def main(argv):
     )
     # Flushes data to default path.
     data_opath = experiment.flush_data()
-    logger.log(F'Flushing Data to {data_opath}')
+    logger.log(F'- Flushing Data to {data_opath}')
 
     experiment.name('data-2')
     logger.log('Adding a YAML dictionary asset...')
@@ -34,7 +34,7 @@ def main(argv):
     # %d - Date
     # %i - Unique ID in subdirectory
     data_opath = experiment.flush_data('%n/%u/%h/%d/%i')
-    logger.log(F'Flushing Data to {data_opath}')
+    logger.log(F'- Flushing Data to {data_opath}')
 
     # And you can also change where data is written at the end of program
     # termination.
