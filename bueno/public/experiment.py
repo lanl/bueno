@@ -179,8 +179,8 @@ def flush_data(opath: Optional[str] = None) -> str:
 
     '''
     based = str(output_path())
-    # Default output path. Should closely match foutput(), but cached. That
-    # way the data are flushed to the same spot by default.
+    # Default output path. Should match foutput(), but cached. That way the data
+    # are flushed to the same spot by default.
     cached_path = ''
     if opath is None:
         cached_path = _TheFOutputCache().path(str(foutput()))
