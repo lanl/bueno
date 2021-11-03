@@ -147,8 +147,10 @@ def flush_data(opath: Optional[str] = None) -> str:
 
     '''
     based = str(output_path())
-    # Default output path.
-    real_opath = os.path.join(based, str(foutput()))
+    # Default output path. Should closely match foutput(), but without %i. That
+    # way the data are flushed to the same spot by default.
+    dop = '%n/%u/%d/%h'
+    real_opath = os.path.join(based, dop)
     if opath is not None:
         real_opath = os.path.join(based, opath)
     real_opath = os.path.abspath(_format_path(real_opath))
