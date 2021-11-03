@@ -181,11 +181,10 @@ def flush_data(opath: Optional[str] = None) -> str:
     based = str(output_path())
     # Default output path. Should match foutput(), but cached. That way the data
     # are flushed to the same spot by default.
-    cached_path = ''
-    if opath is None:
-        cached_path = _TheFOutputCache().path(str(foutput()))
-    else:
-        cached_path = _TheFOutputCache().path(opath)
+    iopath = str(foutput())
+    if opath is not None:
+        iopath = opath
+    cached_path = _TheFOutputCache().path(iopath)
     real_opath = os.path.join(based, cached_path)
     real_opath = os.path.abspath(real_opath)
     logger.log(F'# Flushing Data to {real_opath}')
