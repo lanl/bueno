@@ -5,6 +5,8 @@
 # top-level directory of this distribution for more information.
 #
 
+# pylint: disable=fixme
+
 '''
 Public experiment utilities for good.
 '''
@@ -99,45 +101,75 @@ class _TheExperiment(metaclass=metacls.Singleton):
         self._foutput = fmt
 
 
-def _format_path(epath: str) -> str:
+class _TheFOutputCache(metaclass=metacls.Singleton):
     '''
-    Decodes a path-like string and returns a path if the decoding was
-    successful.
-    Picture Reference:
-    %d - Date
-    %h - Hostname
-    %i - Unique ID
-    %n - Experiment Name
-    %t - Time
-    %u - User
+    The experiment singleton that caches foutput evaluations.
     '''
-    def _get_id_from_path(basep: str) -> str:
-        # TODO(skg) The stat load may be huge using this pylint: disable=fixme
-        # approach.  Fix at some point. Perhaps have a top-level log that gives
-        # us the next available? Also, potential for races here.
-        maxt = 2048*2048
-        for subd in range(0, maxt):
-            path = os.path.join(basep, str(subd))
-            if not os.path.isdir(path):
-                return str(subd)
-        errs = F'Cannot find usable data directory after {maxt} tries.\n' \
-               F'Base output directory searched was: {basep}'
-        raise RuntimeError(errs)
-    path = epath
-    path = path.replace('%d', utils.dates())
-    path = path.replace('%t', utils.now().strftime('%H:%M:%S'))
-    path = path.replace('%u', host.whoami())
-    path = path.replace('%n', str(name()))
-    path = path.replace('%h', host.hostname())
-    # This needs to be last because we have to stat the base subdirectory to
-    # determine the ultimate ID. Scan from left to right to build up IDs as we
-    # decode the path.
-    idx = path.find('%i')
-    while idx != -1:
-        path = path.replace('%i', _get_id_from_path(path[0:idx]), 1)
-        idx = path.find('%i')
+    def __init__(self) -> None:
+        self._fstr = ''
+        self._estr = ''
+        self._ename = str(name())
 
-    return path
+    def _eval_fstring(self, fstring: str) -> None:
+        self._fstr = fstring
+        self._estr = _TheFOutputCache._format_path(fstring)
+
+    def _dirty(self) -> bool:
+        # Current experiment name.
+        cename = str(name())
+        if cename != self._ename:
+            self._ename = cename
+            return True
+        return False
+
+    def path(self, fstring: str) -> str:
+        '''
+        Returns the appropriate path based on the cache state.
+        '''
+        if fstring != self._fstr or self._dirty():
+            self._eval_fstring(fstring)
+        return self._estr
+
+    @staticmethod
+    def _format_path(epath: str) -> str:
+        '''
+        Decodes a path-like string and returns a path if the decoding was
+        successful.
+        Picture Reference:
+        %d - Date
+        %h - Hostname
+        %i - Unique ID
+        %n - Experiment Name
+        %t - Time
+        %u - User
+        '''
+        def _get_id_from_path(basep: str) -> str:
+            # TODO(skg) The stat load may be huge using this approach.  Fix at
+            # some point. Perhaps have a top-level log that gives us the next
+            # available? Also, potential for races here.
+            maxt = 2048*2048
+            for subd in range(0, maxt):
+                path = os.path.join(basep, str(subd))
+                if not os.path.isdir(path):
+                    return str(subd)
+            errs = F'Cannot find usable data directory after {maxt} tries.\n' \
+                   F'Base output directory searched was: {basep}'
+            raise RuntimeError(errs)
+        path = epath
+        path = path.replace('%d', utils.dates())
+        path = path.replace('%t', utils.now().strftime('%H:%M:%S'))
+        path = path.replace('%u', host.whoami())
+        path = path.replace('%n', str(name()))
+        path = path.replace('%h', host.hostname())
+        # This needs to be last because we have to stat the base subdirectory to
+        # determine the ultimate ID. Scan from left to right to build up IDs as
+        # we decode the path.
+        idx = path.find('%i')
+        while idx != -1:
+            path = path.replace('%i', _get_id_from_path(path[0:idx]), 1)
+            idx = path.find('%i')
+
+        return path
 
 
 def flush_data(opath: Optional[str] = None) -> str:
@@ -147,13 +179,15 @@ def flush_data(opath: Optional[str] = None) -> str:
 
     '''
     based = str(output_path())
-    # Default output path. Should closely match foutput(), but without %i. That
+    # Default output path. Should closely match foutput(), but cached. That
     # way the data are flushed to the same spot by default.
-    dop = '%n/%u/%d/%h'
-    real_opath = os.path.join(based, dop)
-    if opath is not None:
-        real_opath = os.path.join(based, opath)
-    real_opath = os.path.abspath(_format_path(real_opath))
+    cached_path = ''
+    if opath is None:
+        cached_path = _TheFOutputCache().path(str(foutput()))
+    else:
+        cached_path = _TheFOutputCache().path(opath)
+    real_opath = os.path.join(based, cached_path)
+    real_opath = os.path.abspath(real_opath)
     logger.log(F'# Flushing Data to {real_opath}')
     data.write(real_opath)
     return real_opath
