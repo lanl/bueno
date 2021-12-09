@@ -31,7 +31,7 @@ def main(argv):
     defaults = experiment.DefaultCLIConfiguration.Defaults
     defaults.csv_output = 'data0.csv'
     defaults.description = desc
-    defaults.name = experiment.name()
+    defaults.name = str(experiment.name())
     defaults.executable = 'path-to-exe'
     defaults.input = 'readgs.input'
     # Initial configuration
@@ -41,6 +41,7 @@ def main(argv):
     for genspec in experiment.readgs(config.args.input, config):
         logger.log(F'name:        {config.args.name}')
         logger.log(F'description: {config.args.description}')
+        logger.log(F'executable:  {config.args.executable}')
         logger.log(F'input:       {config.args.input}')
         logger.log(F'csv_output:  {config.args.csv_output}')
         # We can perform 'genspec' substitutions as necessary.

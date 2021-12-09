@@ -363,6 +363,16 @@ def generate(spec: str, *args: Any) -> List[str]:
     return [spec.format(*a) for a in argg]
 
 
+def _expand_all_shell_vars(instr: str) -> str:
+    # The regular expression string used to find environment variables.
+    res = r'\$\{([^\}]+)\}'
+    matches = re.findall(res, instr)
+    for match in matches:
+        exval = os.getenv(match, default='')
+        instr = instr.replace(F'${{{match}}}', exval)
+    return instr
+
+
 def readgs(
         gspath: str,
         config: Optional[CLIConfiguration] = None
@@ -391,7 +401,8 @@ def readgs(
             if line.startswith('# -'):
                 # Add to argument list.
                 if config is not None:
-                    argv.extend(shlex.split(line.lstrip('# ')))
+                    argline = _expand_all_shell_vars(line.lstrip('# '))
+                    argv.extend(shlex.split(argline))
                 continue
             # Skip comments and empty lines.
             if line.startswith('#') or utils.emptystr(line):
@@ -405,7 +416,7 @@ def readgs(
                 gsargs = parsedargs(config.argparser, argv)
                 config.update(gsargs)
             # Not a comment; yield generate specification string.
-            yield line
+            yield _expand_all_shell_vars(line)
             # Clear out argument list for next round.
             argv = []
 

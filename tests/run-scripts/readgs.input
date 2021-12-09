@@ -26,3 +26,13 @@ srun -n {} {} --app-arg=bar
 aprun -n {} {} \
 spanning \
 multiple lines
+
+# Arguments can have multiple shell variables in them. bueno will expand them
+# for you. If a variable is undefined in your environment, it will be replaced
+# with an empty string.
+# --executable ${HOME}/${USER}/another-path-to-exe.${_NOT_DEF}x
+
+# Command lines can expand shell variables. Variables must be of the form
+# ${VAR_NAME} to avoid ambiguities.
+srun -n {} {} \
+--app-arg=${USER}.arg ${HOME}
