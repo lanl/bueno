@@ -210,7 +210,8 @@ class impl(service.Base):  # pylint: disable=invalid-name
             '-o', '--output-path',
             type=str,
             help='Specifies the base output directory used for all '
-                 'generated files. Default: PWD',
+                 'generated files. To suppress output set to /dev/null. '
+                 'Default: PWD',
             default=impl._defaults.output_path,
             required=False,
             metavar='PATH'

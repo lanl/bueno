@@ -229,9 +229,16 @@ class _Assets(metaclass=metacls.Singleton):
         self.clear()
 
 
+def clear() -> None:
+    '''
+    Clears all cached data.
+    '''
+    _Assets().clear()
+
+
 def write(basep: str) -> None:
     '''
-    Writes build data rooted at basep.
+    Writes data rooted at basep.
     '''
     _Data(basep).write()
 

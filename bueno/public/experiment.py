@@ -40,6 +40,9 @@ from bueno.public import logger
 from bueno.public import utils
 
 
+_DEV_NULL: str = '/dev/null'
+
+
 class _TheExperiment(metaclass=metacls.Singleton):
     '''
     The experiment singleton that encapsulates experiment information.
@@ -188,7 +191,11 @@ def flush_data(opath: Optional[str] = None) -> str:
     real_opath = os.path.join(based, cached_path)
     real_opath = os.path.abspath(real_opath)
     logger.log(F'# Flushing Data to {real_opath}')
-    data.write(real_opath)
+    # Clear all cached data because /dev/null was requested as output path.
+    if based == _DEV_NULL:
+        data.clear()
+    else:
+        data.write(real_opath)
     return real_opath
 
 
