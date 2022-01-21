@@ -11,4 +11,4 @@ set -e
 
 echo "Testing Packaging"
 
-python3 -m pip install --user --force-reinstall .
+python3 -m pip install --user -editable --force-reinstall .
