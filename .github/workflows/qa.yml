@@ -32,7 +32,7 @@ jobs:
         python -m pip install --upgrade wheel
         python -m pip install --upgrade codecov coverage==4.5.4
         python -m pip install --upgrade flake8
-        python -m pip install --upgrade mypy==0.812
+        python -m pip install --upgrade mypy==0.910
         python -m pip install --upgrade pylint
         python -m pip install --upgrade bandit
         # Package dependencies
