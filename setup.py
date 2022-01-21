@@ -40,6 +40,7 @@ def package_setup(package_name, package_vers):
         author='Samuel K. Gutierrez',
         author_email='samuel@lanl.gov',
         license='BSD 3-Clause',
+        package_data={package_name: ['py.typed']},
         include_package_data=True,
         packages=find_packages(),
         # Package Requirements
