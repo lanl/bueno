@@ -36,6 +36,9 @@ jobs:
         python -m pip install --upgrade bandit
         # Package dependencies
         python -m pip install --upgrade pyyaml
+    - name: Packaging
+      run: |
+        qa/run-packaging-tests
     - name: Style Checks
       run: |
         qa/run-flake8-tests
@@ -48,9 +51,6 @@ jobs:
     - name: Security
       run: |
         qa/run-bandit-tests
-    - name: Packaging
-      run: |
-        qa/run-packaging-tests
     - name: Regression
       run: |
         qa/run-bueno-tests
