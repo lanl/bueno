@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2021 Triad National Security, LLC
+# Copyright (c) 2021-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -19,16 +19,15 @@ from typing import (
     Union
 )
 
-import os
-import socket
+import logging
 import ssl
-import subprocess  # nosec
 import time
+
+import pika  # type: ignore
+import lark
 
 from bueno.public import logger
 from bueno.public import utils
-
-MaybePopen = Optional[subprocess.Popen]
 
 
 class Table:
@@ -92,70 +91,107 @@ class Table:
             logger.log(rowf.format(row))
 
 
-class TelegrafClientAgent:
-    '''
-    A thin wrapper for telegraf client agent management.
-    '''
-    def __init__(self, exe: str, config: str, verbose: bool = False) -> None:
-        self.verbose = verbose
-        self.exe = exe
-        self.config = config
-        self.tele_process: MaybePopen = None
-
-        fnf = '{} does not exist'
-        if not os.path.exists(exe):
-            raise RuntimeError(fnf.format(exe))
-        if not os.path.exists(config):
-            raise RuntimeError(fnf.format(config))
-
-    @staticmethod
-    def _sleep(seconds: int) -> None:
-        '''
-        Sleeps while yielding a little, too.
-        '''
-        for _ in range(seconds):
-            time.sleep(0.5)
-            os.sched_yield()
-            time.sleep(0.5)
-            os.sched_yield()
-
-    def __del__(self) -> None:
-        # Hack to give the subprocess a little time to ingest outstanding data.
-        TelegrafClientAgent._sleep(5)
-        self.stop()
-
-    def start(self) -> None:
-        '''
-        Starts the Telegraf client agent. Raises a RuntimeError on failure.
-        '''
-        cmd = [self.exe, '--config', self.config]
-        self.tele_process = subprocess.Popen(  # nosec
-            cmd,
-            shell=False,
-            stdout=None if self.verbose else subprocess.DEVNULL,
-            stderr=None if self.verbose else subprocess.DEVNULL
-        )
-        # Hack to give the subprocess a little time to startup.
-        TelegrafClientAgent._sleep(5)
-
-    def stop(self) -> None:
-        '''
-        Stops the Telegraf client agent.
-        '''
-        if self.tele_process is not None:
-            self.tele_process.terminate()
-            self.tele_process = None
-
-
 class Measurement(ABC):
     '''
-   Abstract measurement type.
+    Abstract measurement type.
     '''
+    def __init__(self, verify_data: bool = False):
+        self.verify_data = verify_data
+
     @abstractmethod
     def data(self) -> str:
         '''
         Returns measurement data as string following a given line protocol.
         '''
+
+
+class _InfluxLineProtocolParser():
+    def __init__(self) -> None:
+        self.grammar = '''
+            line: name SPACE fields SPACE UNIX_TIME NEWLINE
+                | name COMMA tags SPACE fields SPACE UNIX_TIME NEWLINE
+
+            tags: tag
+                | tag COMMA tags
+
+            tag: tag_key EQUALS tag_value
+
+            fields: field
+                  | field COMMA fields
+
+            field: field_key EQUALS field_value
+
+            name: INFLUX_NAME
+
+            tag_key: INFLUX_NAME
+
+            tag_value: STRING
+                     | SIGNED_INT
+
+            field_key: INFLUX_NAME
+
+            field_value: SIGNED_FLOAT
+                       | SIGNED_INT
+                       | DOUBLE_QUOTED_STRING
+                       | BOOL
+
+            UNIX_TIME: SIGNED_INT
+
+            STRING: ("_"|"."|"-"|LETTER|DIGIT)+
+
+            BOOL: "True"
+                | "False"
+
+            COMMA: ","
+
+            EQUALS: "="
+
+            SPACE: " "
+
+            INFLUX_NAME: (LETTER|DIGIT) STRING*
+
+            NEWLINE: LF
+
+            DOUBLE_QUOTED_STRING: ESCAPED_STRING
+
+            %import common.DIGIT
+            %import common.ESCAPED_STRING
+            %import common.LF
+            %import common.LETTER
+            %import common.SIGNED_FLOAT
+            %import common.SIGNED_INT
+        '''
+
+    class _Transformer(lark.Transformer):  # type: ignore
+        def INFLUX_NAME(  # pylint: disable=invalid-name,no-self-use
+            self,
+            tok: lark.Token
+        ) -> lark.Token:
+            '''
+            Handles INFLUX_NAME tokens, making sure they conform to the
+            protocol's requirements.
+            '''
+            stok = str(tok)
+            if stok.startswith('_'):
+                line = tok.line
+                col = tok.column
+                ers = f'At line {line}, column {col}: Influx names ' \
+                      f'cannot start with an underscore: {stok}'
+                raise SyntaxError(ers)
+            return tok
+
+    def parse(self, istr: str) -> None:
+        '''
+        Attempts to parse the provided input. Raises an exception if parsing
+        fails.
+        '''
+        parser = lark.Lark(
+            self.grammar,
+            parser='lalr',
+            start='line',
+            transformer=_InfluxLineProtocolParser._Transformer()
+        )
+        parser.parse(istr)
 
 
 class InfluxDBMeasurement(Measurement):
@@ -166,8 +202,10 @@ class InfluxDBMeasurement(Measurement):
         self,
         measurement: str,
         values: Dict[str, Union[str, int, float, bool]],
-        tags: Optional[Dict[str, str]] = None
+        tags: Optional[Dict[str, str]] = None,
+        verify_data: bool = False
     ) -> None:
+        super().__init__(verify_data)
         self.time = str(int(time.time()) * 1000000000)
         self.measurement = utils.chomp(measurement)
         self.values = values
@@ -179,9 +217,9 @@ class InfluxDBMeasurement(Measurement):
         Formats a key for the line protocol.
         '''
         if isinstance(item, str):
-            item = item.replace(',', '\,')  # noqa: W605 pylint: disable=W1401
-            item = item.replace(' ', '\ ')  # noqa: W605 pylint: disable=W1401
-            item = item.replace('=', '\=')  # noqa: W605 pylint: disable=W1401
+            item = item.replace(',', r'\,')
+            item = item.replace(' ', r'\ ')
+            item = item.replace('=', r'\=')
 
         return str(item)
 
@@ -223,72 +261,125 @@ class InfluxDBMeasurement(Measurement):
     def data(self) -> str:
         '''
         Returns measurement data as string following InfluxDB line protocol.
+        Raises an exception if data verification is enabled and the data do not
+        adhere to the InfluxDB line protocol.
         '''
-        return '{}{} {} {}\n'.format(
+        result = '{}{} {} {}\n'.format(
             self.measurement,
             ',' + self._tags() if self.tags else '',
             self._values(),
             self.time
         )
+        if self.verify_data:
+            _InfluxLineProtocolParser().parse(result)
+        return result
 
 
-class TelegrafClient:
+class TLSConfig:
     '''
-    A straightforward client interface for interacting with a Telegraf daemon.
+    A straightforward Transport Layer Security (TLS) configuration container.
     '''
     def __init__(
         self,
-        ssl_key: str,
-        ssl_cert: str,
-        host: str = 'localhost',
-        port: int = 5555
+        certfile: str,
+        keyfile: str
+    ) -> None:
+        self.certfile = certfile
+        self.keyfile = keyfile
+
+        self.ssl_context = ssl.SSLContext()
+
+        self.ssl_context.load_cert_chain(
+            self.certfile,
+            self.keyfile
+        )
+
+
+class RabbitMQConnectionParams:
+    '''
+    A straightforward RabbitMQ broker configuration container.
+    '''
+    def __init__(  # pylint: disable=too-many-arguments
+        self,
+        host: str,
+        port: int,
+        vhost: str = '/',
+        connection_attempts: int = 2,
+        heartbeat: int = 360,                   # In seconds
+        blocked_connection_timeout: int = 300,  # In seconds
+        tls_config: Optional[TLSConfig] = None
     ) -> None:
         self.host = host
         self.port = port
-        self.ssl_key = ssl_key
-        self.ssl_cert = ssl_cert
-        self.sock: Optional[socket.socket] = None
-        self.ssock: Optional[ssl.SSLSocket] = None
+        self.vhost = vhost
+        self.connection_attempts = connection_attempts
+        self.heartbeat = heartbeat
+        self.blocked_connection_timeout = blocked_connection_timeout
+        self.tls_config = tls_config
 
-        self._connect()
 
-    def __del__(self) -> None:
-        if self.sock is not None:
-            self.sock.close()
-        if self.ssock is not None:
-            self.ssock.close()
+class RabbitMQBlockingClient:  # pylint: disable=too-many-instance-attributes
+    '''
+    A straightforward AMQP 0-9-1 blocking client interface that ultimately wraps
+    Pika.
+    '''
+    def __init__(  # pylint: disable=too-many-arguments
+        self,
+        conn_params: RabbitMQConnectionParams,
+        queue_name: str,
+        exchange: str,
+        routing_key: str,
+        verbose: bool = False,
+    ) -> None:
+        self.conn_params = conn_params
+        self.queue_name = queue_name
+        self.exchange = exchange
+        self.routing_key = routing_key
 
-    def _connect(self) -> None:
-        '''
-        Private connection.
-        '''
-        self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        self.sock.settimeout(10)
-
-        sslctx = ssl.SSLContext()
-        sslctx.load_cert_chain(certfile=self.ssl_cert, keyfile=self.ssl_key)
-
-        self.ssock = sslctx.wrap_socket(self.sock)
-
-        try:
-            self.ssock.connect((self.host, self.port))
-        except Exception as exception:
-            ers = 'Cannot connect to Telegraf client agent'
-            raise RuntimeError(ers) from exception
+        # Set pika logging level based on verbosity level.
+        if not verbose:
+            logging.getLogger("pika").setLevel(logging.WARNING)
 
     def send(self, measurement: Measurement, verbose: bool = False) -> None:
         '''
-        Sends the contexts of measurement to the Telegraf client agent.
+        Sends the contexts of measurement to the MQ server.
         '''
-        try:
-            # To silence mypy warnings
-            assert self.ssock is not None  # nosec
-            mdata = measurement.data()
-            if verbose:
-                logger.log(F'{type(self).__name__}:send({mdata.rstrip()})')
-            self.ssock.write(mdata.encode('utf-8'))
-        except Exception as exception:
-            ers = 'Sending data to Telegraf client agent failed'
-            raise RuntimeError(ers) from exception
+        # Establish the connection for each send. We do this because if the main
+        # thread creates an instance and we initialize a connection there, then
+        # long-running jobs may cause timeouts. This gets around that problem.
+        connp = self.conn_params
+        ssl_options = None
+        if connp.tls_config is not None:
+            ssl_context = connp.tls_config.ssl_context
+            ssl_options = pika.SSLOptions(ssl_context, connp.host)
+
+        credentials = pika.credentials.ExternalCredentials()
+        connection_params = pika.ConnectionParameters(
+            host=connp.host,
+            port=connp.port,
+            virtual_host=connp.vhost,
+            connection_attempts=connp.connection_attempts,
+            heartbeat=connp.heartbeat,
+            blocked_connection_timeout=connp.blocked_connection_timeout,
+            credentials=credentials,
+            ssl_options=ssl_options
+        )
+
+        with pika.BlockingConnection(connection_params) as connection:
+            channel = connection.channel()
+            channel.confirm_delivery()
+            msg = measurement.data()
+            try:
+                channel.basic_publish(
+                    exchange=self.exchange,
+                    routing_key=self.routing_key,
+                    body=msg,
+                    mandatory=True
+                )
+                if verbose:
+                    logger.log(F'{type(self).__name__} sent: ({msg.rstrip()})')
+            except pika.exceptions.UnroutableError:
+                logger.log(F'Error sending the following message: {msg}')
+
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

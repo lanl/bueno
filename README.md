@@ -62,7 +62,7 @@ automation.
 In a terminal perform the following.
 ```shell
 cd bueno # The directory in which setup.py is located.
-python3 -m pip install --user .
+python3 -m pip install --user --force-reinstall .
 ```
 Add bueno's installation prefix to `PATH`:
 ```shell
@@ -80,11 +80,24 @@ Now, the `bueno` command should be available for use.
 ```shell
 python3 -m pip uninstall bueno
 ```
+Or, for a completely clean uninstall (including dependencies)
+```shell
+# If needed, install pip-autoremove
+python3 -m pip install --user pip-autoremove
+# Remove bueno and its installed dependencies.
+pip-autoremove bueno
+```
+
+### Developer Mode Installation With pip
+```shell
+cd bueno # The directory in which setup.py is located.
+python3 -m pip install --user --force-reinstall -e .
+```
 
 ## Quick Start
-After installation, here are some quick examples for getting started.
-The following is the *hello world* equivalent of a bueno run script.
-This is a simplified version of the example described in more detail
+Once you have installed bueno, give the following examples a try.  The first is
+the bueno run script version of a *hello world* program.  This is a simplified
+version of the example described in more detail
 [here](https://lanl.github.io/bueno/html/bueno-run-getting-started.html).
 ```python
 # hello.py
@@ -100,8 +113,8 @@ Which is executed by:
 $ bueno run -a none -p hello.py
 ```
 
-Now, this script can be directly expanded to include other actions,
-or with just a few lines, bueno can execute an existing program.
+This script can be directly expanded to include other actions like executing
+another program.
 ```python
 # callbye.py
 from bueno.public import experiment
