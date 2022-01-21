@@ -37,6 +37,7 @@ jobs:
         python -m pip install --upgrade bandit
         # Package dependencies
         python -m pip install --upgrade pyyaml
+        python -m pip install types-PyYAML
     - name: Packaging
       run: |
         qa/run-packaging-tests
