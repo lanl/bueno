@@ -47,11 +47,6 @@ jobs:
     - name: Type Checks
       run: |
         qa/run-mypy-tests
-    # For interactive debugging
-    - uses: actions/checkout@v2
-    - name: Setup upterm session
-      uses: lhotari/action-upterm@v1
-    # For interactive debugging
     - name: Code Analysis
       run: |
         qa/run-pylint-tests
