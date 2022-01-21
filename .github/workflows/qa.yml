@@ -43,10 +43,6 @@ jobs:
     - name: Style Checks
       run: |
         qa/run-flake8-tests
-    - name: Type Checks
-      run: |
-        qa/run-packaging-tests
-        qa/run-mypy-tests
     - name: Code Analysis
       run: |
         qa/run-pylint-tests
