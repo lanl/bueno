@@ -37,7 +37,9 @@ jobs:
         python -m pip install --upgrade bandit
         # Package dependencies
         python -m pip install --upgrade pyyaml
-        python -m pip install types-PyYAML
+        python -m pip install --upgrade types-PyYAML
+        # XXX Hack for QA. Keep in sync with internal version.
+        python -m pip install --upgrade lark=1.0.0
     - name: Packaging
       run: |
         qa/run-packaging-tests
