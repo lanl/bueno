@@ -45,6 +45,11 @@ jobs:
       run: |
         qa/run-flake8-tests
     - name: Type Checks
+    # For interactive debugging
+    - uses: actions/checkout@v2
+    - name: Setup upterm session
+      uses: lhotari/action-upterm@v1
+    # For interactive debugging
       run: |
         qa/run-mypy-tests
     - name: Code Analysis
