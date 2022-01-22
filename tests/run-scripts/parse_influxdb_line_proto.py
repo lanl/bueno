@@ -12,7 +12,6 @@
 Test 1 for InfluxDB line protocol parser.
 '''
 
-import time
 import sys
 
 
