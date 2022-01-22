@@ -19,6 +19,7 @@ from typing import (
     Union
 )
 
+import copy
 import logging
 import ssl
 import time
@@ -28,6 +29,10 @@ import lark
 
 from bueno.public import logger
 from bueno.public import utils
+
+# InfluxDBMeasurement value types
+_IDBSimple = Union[str, int, float, bool]
+_InfluxDBValueType = Dict[str, Union[_IDBSimple, Dict[str, _IDBSimple]]]
 
 
 class Table:
@@ -194,6 +199,47 @@ class _InfluxLineProtocolParser():
         parser.parse(istr)
 
 
+def _unroll_dict_impl(
+    indict: Dict[str, Any], udict: Dict[str, Any]
+) -> Dict[str, Any]:
+    # Base case
+    if len(indict) == 0:
+        return udict
+    # Not base case
+    inkey = list(indict.keys())[0]
+    inval = indict[inkey]
+    # inval is not dictionary.
+    if not isinstance(inval, dict):
+        if inkey in udict.keys():
+            pvw = f'Previous value was {udict[inkey]}.'
+            raise ValueError(
+                f'Duplicate key generated for {{{inkey}: {inval}}}. {pvw}'
+            )
+        udict[inkey] = inval
+        del indict[inkey]
+        return _unroll_dict_impl(indict, udict)
+    # inval is a dictionary.
+    if len(inval) == 0:
+        del indict[inkey]
+        return _unroll_dict_impl(indict, udict)
+    valkey = list(inval.keys())[0]
+    valval = inval.pop(valkey)
+    new_key = f'{inkey}_{valkey}'
+    if new_key in indict.keys():
+        pvw = f'Previous value was {indict[new_key]}.'
+        raise ValueError(
+            f'Duplicate key generated for {{{new_key}: {valval}}}. {pvw}'
+        )
+    indict[new_key] = valval
+    return _unroll_dict_impl(indict, udict)
+
+
+def _unroll_dict(indict: Dict[str, Any]) -> Dict[str, Any]:
+    tmpd: Dict[str, Any] = {}
+    indict_copy = copy.deepcopy(indict)
+    return _unroll_dict_impl(indict_copy, tmpd)
+
+
 class InfluxDBMeasurement(Measurement):
     '''
     InfluxDB measurement type.
@@ -201,14 +247,14 @@ class InfluxDBMeasurement(Measurement):
     def __init__(
         self,
         measurement: str,
-        values: Dict[str, Union[str, int, float, bool]],
+        values: _InfluxDBValueType,
         tags: Optional[Dict[str, str]] = None,
         verify_data: bool = False
     ) -> None:
         super().__init__(verify_data)
         self.time = str(int(time.time()) * 1000000000)
         self.measurement = utils.chomp(measurement)
-        self.values = values
+        self.values = _unroll_dict(values)
         self.tags = tags or {}
 
     @staticmethod

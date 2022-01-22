@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -11,9 +11,7 @@ The good stuff typically called by __main__.
 '''
 
 import argparse
-import os
 import sys
-import traceback
 import typing
 
 from bueno import _version
@@ -88,20 +86,14 @@ class Bueno:
         service.Factory.build(pargs.command).start()
 
     @staticmethod
-    def main(pargs: argparse.Namespace) -> int:
+    def main(pargs: argparse.Namespace) -> None:
         '''
         Instantiates and runs a bueno service.
         '''
-        try:
-            Bueno(pargs)
-        except Exception as exptn:  # pylint: disable=W0703
-            print(exptn)
-            traceback.print_exc()
-            return os.EX_SOFTWARE
-        return os.EX_OK
+        Bueno(pargs)
 
 
-def main() -> int:
+def main() -> None:
     '''
     bueno's main().
     '''
@@ -109,6 +101,6 @@ def main() -> int:
         ers = '\nRunning this program as root is a bad idea... Exiting now.\n'
         sys.exit(ers)
 
-    return Bueno.main(ArgumentParser().parse())
+    Bueno.main(ArgumentParser().parse())
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

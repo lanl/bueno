@@ -12,11 +12,45 @@
 Test 1 for InfluxDB line protocol parser.
 '''
 
-import lark
+import time
+import sys
+
 
 from bueno.public import experiment
 from bueno.public import logger
 from bueno.public import datasink
+from bueno.core import metacls
+
+
+class _TheSpinner(metaclass=metacls.Singleton):
+    def __init__(self):
+        self.spinner = _TheSpinner.spinning_cursor()
+
+    @staticmethod
+    def spinning_cursor():
+        '''
+        Yields spinner symbols.
+        '''
+        while True:
+            for cursor in '|/-\\':
+                yield cursor
+
+    @staticmethod
+    def spin():
+        '''
+        Prints a spinner widget.
+        '''
+        sys.stdout.write(next(_TheSpinner().spinner))
+        sys.stdout.flush()
+        time.sleep(0.001)
+        sys.stdout.write('\b')
+
+
+def spin():
+    '''
+    Wrapper around spinner widget.
+    '''
+    _TheSpinner.spin()
 
 
 def main(_):
@@ -54,16 +88,30 @@ def main(_):
         {'fk0': "\\\"this 'is' fine\\\""}
     ]
 
+    logger.log('# Testing good inputs...')
     for name in good_names:
         for tag in good_tags:
             for field in good_fields:
+                spin()
                 measurement = datasink.InfluxDBMeasurement(
                     name,
                     tags=tag,
                     values=field,
                     verify_data=True
                 )
-                logger.log(f'Parsing GOOD: {measurement.data()}')
+                try:
+                    data = measurement.data()
+                except Exception as exception:  # pylint: disable=broad-except
+                    logger.log(f'{exception}')
+                    logger.log(f'# FAILED on {data}')
+                    measurement = datasink.InfluxDBMeasurement(
+                        name,
+                        tags=tag,
+                        values=field,
+                        verify_data=False
+                    )
+                    logger.log(f'# data = {measurement.data()}')
+                    sys.exit(1)
 
     bad_names = [
         '_a_bad_name',
@@ -71,9 +119,11 @@ def main(_):
         '-a_bad_name'
     ]
 
+    logger.log('# Testing bad name inputs...')
     for name in bad_names:
         for tag in good_tags:
             for field in good_fields:
+                spin()
                 measurement = datasink.InfluxDBMeasurement(
                     name,
                     tags=tag,
@@ -81,24 +131,28 @@ def main(_):
                     verify_data=True
                 )
                 try:
-                    logger.log(f'Parsing BAD NAME: {name}')
                     measurement.data()
-                    assert False
-                except SyntaxError as exception:
-                    logger.log(f'BAD: WHY: {exception}\n')
-                except (lark.exceptions.UnexpectedToken,
-                        lark.exceptions.UnexpectedCharacters) as exception:
-                    logger.log(f'BAD: WHY: {exception}\n')
+                    measurement = datasink.InfluxDBMeasurement(
+                        name,
+                        tags=tag,
+                        values=field,
+                        verify_data=False
+                    )
+                    logger.log(f'# BAD DATA GOT THRU in {measurement.data()}')
+                    sys.exit(1)
+                except Exception:  # pylint: disable=broad-except
+                    pass
 
     bad_tags = [
-        None,
         {'_tk0': "tk0"},
         {'tk0': 'tv0:tv1=tv2'}
     ]
 
+    logger.log('# Testing bad tag inputs...')
     for name in good_names:
         for tag in bad_tags:
             for field in good_fields:
+                spin()
                 measurement = datasink.InfluxDBMeasurement(
                     name,
                     tags=tag,
@@ -106,40 +160,48 @@ def main(_):
                     verify_data=True
                 )
                 try:
-                    if tag is None:
-                        continue
-                    logger.log(f'Parsing BAD TAG: {tag}')
                     measurement.data()
-                    assert False
-                except SyntaxError as exception:
-                    logger.log(f'BAD: WHY: {exception}\n')
-                except (lark.exceptions.UnexpectedToken,
-                        lark.exceptions.UnexpectedCharacters) as exception:
-                    logger.log(f'BAD: WHY: {exception}\n')
+                    measurement = datasink.InfluxDBMeasurement(
+                        name,
+                        tags=tag,
+                        values=field,
+                        verify_data=False
+                    )
+                    logger.log(f'# BAD DATA GOT THRU in {measurement.data()}')
+                    sys.exit(1)
+                except Exception:  # pylint: disable=broad-except
+                    pass
 
     bad_fields = [
         {'_fk0': "fv0"},
-        {'fk0': 'good', '_fk1': 'bad'}
+        {'fk0': 'good', '_fk1': 'bad'},
+        {'a': {'b': 1, 'c': True}, 'a_c': False}
     ]
 
+    logger.log('# Testing bad field inputs...')
     for name in good_names:
         for tag in good_tags:
             for field in bad_fields:
-                measurement = datasink.InfluxDBMeasurement(
-                    name,
-                    tags=tag,
-                    values=field,
-                    verify_data=True
-                )
+                spin()
                 try:
-                    logger.log(f'Parsing BAD FIELD: {field}')
+                    # This is here because we raise errors in construction
+                    measurement = datasink.InfluxDBMeasurement(
+                        name,
+                        tags=tag,
+                        values=field,
+                        verify_data=True
+                    )
                     measurement.data()
-                    assert False
-                except SyntaxError as exception:
-                    logger.log(f'BAD: WHY: {exception}\n')
-                except (lark.exceptions.UnexpectedToken,
-                        lark.exceptions.UnexpectedCharacters) as exception:
-                    logger.log(f'BAD: WHY: {exception}\n')
+                    measurement = datasink.InfluxDBMeasurement(
+                        name,
+                        tags=tag,
+                        values=field,
+                        verify_data=False
+                    )
+                    logger.log(f'# BAD DATA GOT THRU in {measurement.data()}')
+                    sys.exit(1)
+                except Exception:  # pylint: disable=broad-except
+                    pass
 
     good_vals = [
         'a_name_foo1 fk0="fv0" 1465839830100400200\n',
@@ -151,7 +213,7 @@ def main(_):
         'name fk0="fv0",fk1=-0.1 1465839830100400200\n',
         'name fk0=0.1,fk1=1e-08 1465839830100400200\n',
         'name fk0=0.1,fk1=1e-08,fk2=3,fk3="fv3" 1465839830100400200\n',
-        'name fk0=True,fk1=False,fk2=+0.3 1465839830100400200\n',
+        'name fk0=True,fk1=False,fk2=+0.3 1465839830100400200\n'
     ]
 
     bad_vals = [
@@ -163,23 +225,28 @@ def main(_):
         'name,tk0=tv0:tv1=tv2,tk1=tv1 fk0="fv0" 1465839830100400200\n'
     ]
 
+    logger.log('# Testing good raw inputs...')
     parser = datasink._InfluxLineProtocolParser()
 
     for good in good_vals:
-        logger.log(f'Parsing Good: {good}')
-        parser.parse(good)
-
-    for bad in bad_vals:
+        spin()
         try:
-            logger.log(f'Parsing Bad: {bad}')
-            parser.parse(bad)
-            assert False
-        except SyntaxError as exception:
-            logger.log(f'BAD: {bad}WHY: {exception}\n')
-        except (lark.exceptions.UnexpectedToken,
-                lark.exceptions.UnexpectedCharacters) as exception:
-            logger.log(f'BAD: {bad}WHY: {exception}\n')
-    logger.log('SUCCESS!')
+            parser.parse(good)
+        except Exception as exception:  # pylint: disable=broad-except
+            logger.log(f'{exception}')
+            logger.log(f'# FAILED on {good}')
+            sys.exit(1)
 
+    logger.log('# Testing bad raw inputs...')
+    for bad in bad_vals:
+        spin()
+        try:
+            parser.parse(bad)
+            logger.log(f'# BAD DATA GOT THRU in {bad}')
+            sys.exit(1)
+        except Exception:  # pylint: disable=broad-except
+            pass
+
+    logger.emlog('# Test Passed')
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab
