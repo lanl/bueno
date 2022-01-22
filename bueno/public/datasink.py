@@ -255,7 +255,10 @@ class InfluxDBMeasurement(Measurement):
         self.time = str(int(time.time()) * 1000000000)
         self.measurement = utils.chomp(measurement)
         self.values = _unroll_dict(values)
-        self.tags = tags or {}
+        if tags:
+            self.tags = _unroll_dict(tags)
+        else:
+            self.tags = {}
 
     @staticmethod
     def _format_key(item: Any) -> str:

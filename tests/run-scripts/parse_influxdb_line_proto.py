@@ -6,7 +6,7 @@
 # top-level directory of this distribution for more information.
 #
 
-# pylint: disable=protected-access
+# pylint: disable=protected-access,too-many-locals,too-many-branches
 
 '''
 Test 1 for InfluxDB line protocol parser.
@@ -41,7 +41,9 @@ def main(_):
         {'0': "tv0"},
         {'a': "tv0"},
         {'tk0': "tv0"},
-        {'tk0': "tv0", 'tk1': "00", 'tk2': "tv2_longer.long"}
+        {'tk0': "tv0", 'tk1': "00", 'tk2': "tv2_longer.long"},
+        {'a': {'b': '1', 'c': {'d': 'Double Nest'}}, 'e': 'f'},
+        {'a': {'b': 1, 'c': True}}
     ]
 
     good_fields = [
