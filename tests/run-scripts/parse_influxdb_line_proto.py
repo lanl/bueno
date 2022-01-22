@@ -19,38 +19,6 @@ import sys
 from bueno.public import experiment
 from bueno.public import logger
 from bueno.public import datasink
-from bueno.core import metacls
-
-
-class _TheSpinner(metaclass=metacls.Singleton):
-    def __init__(self):
-        self.spinner = _TheSpinner.spinning_cursor()
-
-    @staticmethod
-    def spinning_cursor():
-        '''
-        Yields spinner symbols.
-        '''
-        while True:
-            for cursor in '|/-\\':
-                yield cursor
-
-    @staticmethod
-    def spin():
-        '''
-        Prints a spinner widget.
-        '''
-        sys.stdout.write(next(_TheSpinner().spinner))
-        sys.stdout.flush()
-        time.sleep(0.001)
-        sys.stdout.write('\b')
-
-
-def spin():
-    '''
-    Wrapper around spinner widget.
-    '''
-    _TheSpinner.spin()
 
 
 def main(_):
@@ -85,14 +53,14 @@ def main(_):
         {'fk0': "tk0", 'fk1': 0},
         {'fk0': "tk.0", 'fk1': 0.0, 'fk2': -1.23, 'fk3': 1e-08},
         {'fk0': True, 'fk1': False and True},
-        {'fk0': "\\\"this 'is' fine\\\""}
+        {'fk0': "\\\"this 'is' fine\\\""},
+        {'a': {'b': 1, 'c': {'d': 'Double Nest'}}, 'e': 10.1}
     ]
 
     logger.log('# Testing good inputs...')
     for name in good_names:
         for tag in good_tags:
             for field in good_fields:
-                spin()
                 measurement = datasink.InfluxDBMeasurement(
                     name,
                     tags=tag,
@@ -123,7 +91,6 @@ def main(_):
     for name in bad_names:
         for tag in good_tags:
             for field in good_fields:
-                spin()
                 measurement = datasink.InfluxDBMeasurement(
                     name,
                     tags=tag,
@@ -152,7 +119,6 @@ def main(_):
     for name in good_names:
         for tag in bad_tags:
             for field in good_fields:
-                spin()
                 measurement = datasink.InfluxDBMeasurement(
                     name,
                     tags=tag,
@@ -182,7 +148,6 @@ def main(_):
     for name in good_names:
         for tag in good_tags:
             for field in bad_fields:
-                spin()
                 try:
                     # This is here because we raise errors in construction
                     measurement = datasink.InfluxDBMeasurement(
@@ -229,7 +194,6 @@ def main(_):
     parser = datasink._InfluxLineProtocolParser()
 
     for good in good_vals:
-        spin()
         try:
             parser.parse(good)
         except Exception as exception:  # pylint: disable=broad-except
@@ -239,7 +203,6 @@ def main(_):
 
     logger.log('# Testing bad raw inputs...')
     for bad in bad_vals:
-        spin()
         try:
             parser.parse(bad)
             logger.log(f'# BAD DATA GOT THRU in {bad}')
