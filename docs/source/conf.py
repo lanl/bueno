@@ -31,7 +31,7 @@ author = 'Los Alamos National Laboratory'
 
 # The full version, including alpha/beta/rc tags
 # IMPORTANT: Never change manually, always use bumpversion.
-release = '0.0.1-rc1'
+release = '0.0.1-rc1-rc1'
 
 # -- General configuration ---------------------------------------------------
 
