@@ -1,4 +1,4 @@
-.. Copyright (c) 2019-2021, Triad National Security, LLC
+.. Copyright (c) 2019-2022, Triad National Security, LLC
                             All rights reserved.
 
 bueno Development
@@ -14,6 +14,29 @@ all tests pass.
 .. code-block:: console
 
    $ ./qa/run-qa-suite.sh
+
+Releasing
+---------
+Install bumpversion
+
+.. code-block:: console
+
+   $ python3 -m pip install --user bumpversion
+
+Understand bueno's versioning convention:
+
+.. code-block:: console
+
+   major.minor.patch[-{rc}]
+
+Use bumpversion to roll a new release.
+
+.. code-block:: console
+
+   # Test creating a release candidate.
+   $ bumpversion --dry-run --verbose rc
+   # If everything looks good, actually create the release candidate.
+   $ bumpversion --verbose rc
 
 Building the Documentation
 --------------------------
