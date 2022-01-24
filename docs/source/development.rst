@@ -37,6 +37,8 @@ Use bumpversion to roll a new release.
    $ bumpversion --dry-run --verbose rc
    # If everything looks good, actually create the release candidate.
    $ bumpversion --verbose rc
+   # Push new tag
+   $ git push --tags
 
 Building the Documentation
 --------------------------
