@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>bueno Development &mdash; bueno 0.0.1 documentation</title>
+  <title>bueno Development &mdash; bueno 0.0.1-rc1 documentation</title>
   
 
   
@@ -91,6 +91,7 @@
 <li class="toctree-l1"><a class="reference internal" href="api-reference.html">Public Module Reference</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">bueno Development</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#automated-testing">Automated Testing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#releasing">Releasing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#building-the-documentation">Building the Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#building-rpms">Building RPMs</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#bueno-source-documentation">bueno Source Documentation</a><ul>
@@ -175,6 +176,26 @@ activities common to bueno development, testing, and documentation.</p>
 <p>Before pushing code, run bueno’s automated test suite locally and make certain
 all tests pass.</p>
 <div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./qa/run-qa-suite.sh
+</pre></div>
+</div>
+</div>
+<div class="section" id="releasing">
+<h2>Releasing<a class="headerlink" href="#releasing" title="Permalink to this headline">¶</a></h2>
+<p>Install bumpversion</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 -m pip install --user bumpversion
+</pre></div>
+</div>
+<p>Understand bueno’s versioning convention:</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="go">major.minor.patch[-{rc}]</span>
+</pre></div>
+</div>
+<p>Use bumpversion to roll a new release.</p>
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Test creating a release candidate.
+<span class="gp">$</span> bumpversion --dry-run --verbose rc
+<span class="gp">#</span> If everything looks good, actually create the release candidate.
+<span class="gp">$</span> bumpversion --verbose rc
+<span class="gp">#</span> Push new tag
+<span class="gp">$</span> git push --tags
 </pre></div>
 </div>
 </div>

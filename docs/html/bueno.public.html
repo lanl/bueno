@@ -7,7 +7,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>bueno.public package &mdash; bueno 0.0.1 documentation</title>
+  <title>bueno.public package &mdash; bueno 0.0.1-rc1 documentation</title>
   
 
   
@@ -82,27 +82,14 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
+<ul>
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
 <li class="toctree-l1"><a class="reference internal" href="bueno-run-getting-started.html">Run Scripts: Getting Started</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html">Run Scripts: More Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples.html#run-scripts-real-world-examples">Run Scripts: Real-World Examples</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api-reference.html">Public Module Reference</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="development.html">bueno Development</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="development.html#automated-testing">Automated Testing</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#building-the-documentation">Building the Documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="development.html#building-rpms">Building RPMs</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="development.html#bueno-source-documentation">bueno Source Documentation</a><ul class="current">
-<li class="toctree-l3 current"><a class="reference internal" href="bueno.html">bueno package</a><ul class="current">
-<li class="toctree-l4 current"><a class="reference internal" href="bueno.html#subpackages">Subpackages</a></li>
-<li class="toctree-l4"><a class="reference internal" href="bueno.html#module-bueno">Module contents</a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">bueno Development</a></li>
 </ul>
 
             
@@ -336,9 +323,15 @@ specified path.</p>
 </dd></dl>
 
 <dl class="py function">
+<dt id="bueno.public.data.clear">
+<code class="sig-prename descclassname"><span class="pre">bueno.public.data.</span></code><code class="sig-name descname"><span class="pre">clear</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.data.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears all cached data.</p>
+</dd></dl>
+
+<dl class="py function">
 <dt id="bueno.public.data.write">
 <code class="sig-prename descclassname"><span class="pre">bueno.public.data.</span></code><code class="sig-name descname"><span class="pre">write</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">basep</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.data.write" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes build data rooted at basep.</p>
+<dd><p>Writes data rooted at basep.</p>
 </dd></dl>
 
 </div>
@@ -347,20 +340,22 @@ specified path.</p>
 <p>Convenience data sinks.</p>
 <dl class="py class">
 <dt id="bueno.public.datasink.InfluxDBMeasurement">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">InfluxDBMeasurement</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurement</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.InfluxDBMeasurement" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">InfluxDBMeasurement</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurement</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">values</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">bool</span><span class="p"><span class="pre">,</span> </span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tags</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verify_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.InfluxDBMeasurement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#bueno.public.datasink.Measurement" title="bueno.public.datasink.Measurement"><code class="xref py py-class docutils literal notranslate"><span class="pre">bueno.public.datasink.Measurement</span></code></a></p>
 <p>InfluxDB measurement type.</p>
 <dl class="py method">
 <dt id="bueno.public.datasink.InfluxDBMeasurement.data">
 <code class="sig-name descname"><span class="pre">data</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">str</span><a class="headerlink" href="#bueno.public.datasink.InfluxDBMeasurement.data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns measurement data as string following InfluxDB line protocol.</p>
+<dd><p>Returns measurement data as string following InfluxDB line protocol.
+Raises an exception if data verification is enabled and the data do not
+adhere to the InfluxDB line protocol.</p>
 </dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
 <dt id="bueno.public.datasink.Measurement">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">Measurement</span></code><a class="headerlink" href="#bueno.public.datasink.Measurement" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">Measurement</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">verify_data</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.Measurement" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">abc.ABC</span></code></p>
 <p>Abstract measurement type.</p>
 <dl class="py method">
@@ -369,6 +364,34 @@ specified path.</p>
 <dd><p>Returns measurement data as string following a given line protocol.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.datasink.RabbitMQBlockingClient">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">RabbitMQBlockingClient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">conn_params</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#bueno.public.datasink.RabbitMQConnectionParams" title="bueno.public.datasink.RabbitMQConnectionParams"><span class="pre">bueno.public.datasink.RabbitMQConnectionParams</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">queue_name</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exchange</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">routing_key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.RabbitMQBlockingClient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A straightforward AMQP 0-9-1 blocking client interface that ultimately wraps
+Pika.</p>
+<dl class="py method">
+<dt id="bueno.public.datasink.RabbitMQBlockingClient.send">
+<code class="sig-name descname"><span class="pre">send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurement</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#bueno.public.datasink.Measurement" title="bueno.public.datasink.Measurement"><span class="pre">bueno.public.datasink.Measurement</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.datasink.RabbitMQBlockingClient.send" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sends the contexts of measurement to the MQ server.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.datasink.RabbitMQConnectionParams">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">RabbitMQConnectionParams</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">vhost</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'/'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">connection_attempts</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">heartbeat</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">360</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">blocked_connection_timeout</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">300</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">tls_config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#bueno.public.datasink.TLSConfig" title="bueno.public.datasink.TLSConfig"><span class="pre">bueno.public.datasink.TLSConfig</span></a><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.RabbitMQConnectionParams" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A straightforward RabbitMQ broker configuration container.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt id="bueno.public.datasink.TLSConfig">
+<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">TLSConfig</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">certfile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">keyfile</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.TLSConfig" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A straightforward Transport Layer Security (TLS) configuration container.</p>
 </dd></dl>
 
 <dl class="py class">
@@ -393,38 +416,6 @@ specified path.</p>
 <dt id="bueno.public.datasink.Table.emit">
 <code class="sig-name descname"><span class="pre">emit</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.datasink.Table.emit" title="Permalink to this definition">¶</a></dt>
 <dd><p>Emits the contents of the table using logger.log().</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="bueno.public.datasink.TelegrafClient">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">TelegrafClient</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ssl_key</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ssl_cert</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">host</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'localhost'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">5555</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.TelegrafClient" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A straightforward client interface for interacting with a Telegraf daemon.</p>
-<dl class="py method">
-<dt id="bueno.public.datasink.TelegrafClient.send">
-<code class="sig-name descname"><span class="pre">send</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">measurement</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><a class="reference internal" href="#bueno.public.datasink.Measurement" title="bueno.public.datasink.Measurement"><span class="pre">bueno.public.datasink.Measurement</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.datasink.TelegrafClient.send" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sends the contexts of measurement to the Telegraf client agent.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt id="bueno.public.datasink.TelegrafClientAgent">
-<em class="property"><span class="pre">class</span> </em><code class="sig-prename descclassname"><span class="pre">bueno.public.datasink.</span></code><code class="sig-name descname"><span class="pre">TelegrafClientAgent</span></code><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">exe</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">bool</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#bueno.public.datasink.TelegrafClientAgent" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>A thin wrapper for telegraf client agent management.</p>
-<dl class="py method">
-<dt id="bueno.public.datasink.TelegrafClientAgent.start">
-<code class="sig-name descname"><span class="pre">start</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.datasink.TelegrafClientAgent.start" title="Permalink to this definition">¶</a></dt>
-<dd><p>Starts the Telegraf client agent. Raises a RuntimeError on failure.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt id="bueno.public.datasink.TelegrafClientAgent.stop">
-<code class="sig-name descname"><span class="pre">stop</span></code><span class="sig-paren">(</span><span class="sig-paren">)</span> &#x2192; <span class="pre">None</span><a class="headerlink" href="#bueno.public.datasink.TelegrafClientAgent.stop" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stops the Telegraf client agent.</p>
 </dd></dl>
 
 </dd></dl>
