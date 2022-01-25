@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2021 Triad National Security, LLC
+# Copyright (c) 2021-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -39,14 +39,14 @@ def main(argv):
     # Parse provided arguments
     config.parseargs()
     for genspec in experiment.readgs(config.args.input, config):
-        logger.log(F'name:        {config.args.name}')
-        logger.log(F'description: {config.args.description}')
-        logger.log(F'executable:  {config.args.executable}')
-        logger.log(F'input:       {config.args.input}')
-        logger.log(F'csv_output:  {config.args.csv_output}')
+        logger.log(f'name:        {config.args.name}')
+        logger.log(f'description: {config.args.description}')
+        logger.log(f'executable:  {config.args.executable}')
+        logger.log(f'input:       {config.args.input}')
+        logger.log(f'csv_output:  {config.args.csv_output}')
         # We can perform 'genspec' substitutions as necessary.
         logger.log('')
-        logger.log(F'genspec: {genspec}')
+        logger.log(f'genspec: {genspec}')
         numpes = range(1, 4)
         cmds = experiment.generate(
             genspec,
@@ -54,7 +54,7 @@ def main(argv):
             [config.args.executable] * len(numpes)
         )
         for cmd in cmds:
-            logger.log(F'Generated Command: {cmd}')
+            logger.log(f'Generated Command: {cmd}')
         logger.log('=' * 70)
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

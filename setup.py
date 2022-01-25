@@ -26,7 +26,7 @@ if sys.version_info < __min_py_version__:
 
 def _get_3rd_party_path(name, version):
     path = os.path.join(os.getcwd(), '3rd-party', name)
-    return F'file://localhost/{path}/{version}.tar.gz'
+    return f'file://localhost/{path}/{version}.tar.gz'
 
 
 def package_setup(package_name, package_vers):
@@ -46,8 +46,8 @@ def package_setup(package_name, package_vers):
         # Package Requirements
         install_requires=[
             'pyyaml',
-            F'pika @ {_get_3rd_party_path("pika", "1.2.0")}',
-            F'lark @ {_get_3rd_party_path("lark", "1.0.0")}'
+            f'pika @ {_get_3rd_party_path("pika", "1.2.0")}',
+            f'lark @ {_get_3rd_party_path("lark", "1.0.0")}'
         ],
         scripts=[
             'bin/bueno'

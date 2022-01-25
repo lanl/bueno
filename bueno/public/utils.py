@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -99,12 +99,12 @@ def yamlp(idict: Any, label: Union[None, str] = None) -> None:
     Emits YAML output from the provided dictionary.
     '''
     if not emptystr(label):
-        logger.log(F'# Begin {label} Configuration (YAML)')
+        logger.log(f'# Begin {label} Configuration (YAML)')
 
     logger.log(yamls(idict))
 
     if not emptystr(label):
-        logger.log(F'# End {label} Configuration (YAML)')
+        logger.log(f'# End {label} Configuration (YAML)')
 
 
 def ehorf() -> str:

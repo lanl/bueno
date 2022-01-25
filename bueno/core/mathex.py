@@ -1,5 +1,5 @@
 #
-# Copyright (c)      2020 Triad National Security, LLC
+# Copyright (c) 2020-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -44,10 +44,10 @@ class _TheCalculator(metaclass=metacls.Singleton):
         pos = len(self.input)
         if node is not None:
             pos = node.col_offset
-        emsg = F'{__name__}: Syntax error at index {pos} ({msg}).'
+        emsg = f'{__name__}: Syntax error at index {pos} ({msg}).'
         offset = '~' * pos
         mark = offset + '^'
-        return F'{emsg}\n{self.input}\n{mark}'
+        return f'{emsg}\n{self.input}\n{mark}'
 
     @typing.no_type_check
     def _eval(self, node):

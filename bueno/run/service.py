@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -79,7 +79,7 @@ class _ImageStager():
 
         fex = [x for x in tfex if fname.endswith(x)]
         if not fex:
-            raise ValueError(F'{fname} does not end in any of {tfex}.'
+            raise ValueError(f'{fname} does not end in any of {tfex}.'
                              'Cannot determine target destination after '
                              'container image staging.')
         # Return the file name without whatever file extension it once had.
@@ -91,8 +91,8 @@ class _ImageStager():
         directory. The staged image path is returned if the staging completed
         successfully.
         '''
-        stage_cmd = F'{_ImageStager.prun_generate()} ' \
-                    F'{cntrimg.activator().tar2dirs(imgp, self.basep)}'
+        stage_cmd = f'{_ImageStager.prun_generate()} ' \
+                    f'{cntrimg.activator().tar2dirs(imgp, self.basep)}'
         runargs = {
             'echo': True,
             'verbose': False
@@ -131,7 +131,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
         @typing.no_type_check
         def __call__(self, parser, namespace, values, option_string=None):
             if len(values) == 0:
-                helps = F'{option_string} requires at least one ' \
+                helps = f'{option_string} requires at least one ' \
                         'argument (none provided).\nPlease provide ' \
                         'a path to the program you wish to run, ' \
                         'optionally followed by program-specific arguments.'
@@ -139,7 +139,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
             # Capture and update values[0] to an absolute path.
             prog = values[0] = os.path.abspath(values[0])
             if not os.path.isfile(prog):
-                estr = F'{prog} is not a file. Cannot continue.'
+                estr = f'{prog} is not a file. Cannot continue.'
                 parser.error(estr)
             setattr(namespace, self.dest, values)
 
@@ -155,7 +155,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
         def __call__(self, parser, namespace, values, option_string=None):
             imgp = os.path.abspath(values)
             if not os.path.exists(imgp):
-                estr = F'Cannot access {imgp}'
+                estr = f'Cannot access {imgp}'
                 parser.error(estr)
             setattr(namespace, self.dest, imgp)
 
@@ -191,13 +191,13 @@ class impl(service.Base):  # pylint: disable=invalid-name
             for path in paths:
                 modpath = os.path.abspath(path)
                 if not os.path.exists(modpath):
-                    estr = F'Cannot access {modpath}'
+                    estr = f'Cannot access {modpath}'
                     parser.error(estr)
                 if not os.path.isdir(modpath):
                     estr = 'Cannot provide regular ' \
-                           F'files to {self.dest}: {path}'
+                           f'files to {self.dest}: {path}'
                     parser.error(estr)
-                sys.path.append(rF'{modpath}')
+                sys.path.append(rf'{modpath}')
             setattr(namespace, self.dest, values)
 
     def __init__(self, argv: List[str]) -> None:
@@ -239,9 +239,9 @@ class impl(service.Base):  # pylint: disable=invalid-name
         self.argp.add_argument(
             '-a', '--image-activator',
             type=str,
-            help=F'Specifies the image activator used to execute '
-                 F'commands within a container. '
-                 F'Default: {impl._defaults.imgactvtr}',
+            help=f'Specifies the image activator used to execute '
+                 f'commands within a container. '
+                 f'Default: {impl._defaults.imgactvtr}',
             default=impl._defaults.imgactvtr,
             choices=cntrimg.ImageActivatorFactory.available(),
             required=False,
@@ -315,10 +315,10 @@ class impl(service.Base):  # pylint: disable=invalid-name
             hlps = 'Unstaged executions require access to ' \
                    'an image directory path.'
             if not os.path.isdir(imgp):
-                estr = F'{imgp} is not a directory. Cannot continue.\n{hlps}'
+                estr = f'{imgp} is not a directory. Cannot continue.\n{hlps}'
                 raise RuntimeError(estr)
             self.inflated_cntrimg_path = imgp
-            logger.log(F'# Image path: {imgp}')
+            logger.log(f'# Image path: {imgp}')
             cntrimg.activator().set_img_path(imgp)
             return
         # The 'stage' path.
@@ -328,18 +328,18 @@ class impl(service.Base):  # pylint: disable=invalid-name
         try:
             istf = tarfile.is_tarfile(imgp)
         except Exception as exception:
-            estr = F'{exception}. Cannot continue.\n{hlps}'
+            estr = f'{exception}. Cannot continue.\n{hlps}'
             raise RuntimeError(estr) from exception
         # We do this check here so we can raise an exception that isn't caught
         # above because it produces redundant error messages. is_tarfile() can
         # raise exceptions, so that's what the above try/except block is for.
         if not istf:
             raise RuntimeError(
-                F'{imgp} is not a tarball. Cannot continue.\n{hlps}'
+                f'{imgp} is not a tarball. Cannot continue.\n{hlps}'
             )
         self.inflated_cntrimg_path = _ImageStager().stage(imgp)
         # Let the user and image activator know about the image's path.
-        logger.log(F'# Staged image path: {self.inflated_cntrimg_path}')
+        logger.log(f'# Staged image path: {self.inflated_cntrimg_path}')
         cntrimg.activator().set_img_path(self.inflated_cntrimg_path)
 
     def _add_container_data(self) -> None:
@@ -351,7 +351,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
         # Skip any image activators that do not have build data.
         if not cntrimg.activator().requires_img_activation():
             iact = self.args.image_activator
-            logger.log(F'# Note: the {iact} activator has no metadata\n')
+            logger.log(f'# Note: the {iact} activator has no metadata\n')
             return
         imgdir = self.inflated_cntrimg_path
         # The subdirectory where container data are stored.
@@ -364,7 +364,7 @@ class impl(service.Base):  # pylint: disable=invalid-name
         if not os.path.exists(buildl):
             logger.log('# Note: container image provides no data\n')
             return
-        logger.log(F'# Adding data from {imgdir}\n')
+        logger.log(f'# Adding data from {imgdir}\n')
         mdatadir = 'container'
         data.add_asset(data.FileAsset(buildl, mdatadir))
 
@@ -377,19 +377,19 @@ class impl(service.Base):  # pylint: disable=invalid-name
 
     def _run(self) -> None:
         pname = os.path.basename(self.args.program[0])
-        logger.emlog(F'# Begin Program Output ({pname})')
+        logger.emlog(f'# Begin Program Output ({pname})')
         _Runner.run(self.args.program)
         logger.emlog('# End Program Output')
 
     def _write_data(self) -> None:
         outp = experiment.flush_data()
-        logger.log(F'# {self.prog} Output Written to {outp}')
+        logger.log(f'# {self.prog} Output Written to {outp}')
 
     def _experiment_setup(self) -> None:
         experiment.output_path(self.args.output_path)
 
     def start(self) -> None:
-        logger.emlog(F'# Starting {self.prog} at {utils.nows()}')
+        logger.emlog(f'# Starting {self.prog} at {utils.nows()}')
         logger.log(F"# $ {' '.join(sys.argv)}\n")
 
         try:
@@ -402,8 +402,8 @@ class impl(service.Base):  # pylint: disable=invalid-name
             self._run()
             etime = utils.now()
 
-            logger.log(F'# {self.prog} Time {etime - stime}')
-            logger.log(F'# {self.prog} Done {utils.nows()}')
+            logger.log(f'# {self.prog} Time {etime - stime}')
+            logger.log(f'# {self.prog} Done {utils.nows()}')
 
             self._write_data()
         except Exception as exception:

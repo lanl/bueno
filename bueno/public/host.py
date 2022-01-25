@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -151,12 +151,12 @@ def run(  # pylint: disable=too-many-arguments
         # The user wants us to run the string exactly as provided.
         if verbatim:
             return cmd
-        return F'{constants.BASH_MAGIC} {shlex.quote(cmd)}'
+        return f'{constants.BASH_MAGIC} {shlex.quote(cmd)}'
 
     realcmd = getrealcmd(cmd, verbatim)
 
     if echo:
-        logger.log(F'# $ {realcmd}')
+        logger.log(f'# $ {realcmd}')
 
     # Output list of strings used to (optionally) capture command output.
     olst: List[str] = []

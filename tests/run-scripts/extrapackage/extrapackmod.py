@@ -9,4 +9,4 @@ def say_hello():
     '''
     Says hello.
     '''
-    logger.log(F'hello from {__name__}')
+    logger.log(f'hello from {__name__}')

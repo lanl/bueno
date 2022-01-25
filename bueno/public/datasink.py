@@ -57,7 +57,7 @@ class Table:
             self.fmts = str()
             # Generate format string based on max column lengths.
             for mcl in self.mcls:
-                self.fmts += F'{{:<{mcl}s}}'
+                self.fmts += f'{{:<{mcl}s}}'
 
         def format(self, row: 'Table.Row') -> str:
             '''
@@ -278,7 +278,7 @@ class InfluxDBMeasurement(Measurement):
         Formats a value's value for the line protocol.
         '''
         if isinstance(item, str):
-            item = F'"{item}"'
+            item = f'"{item}"'
 
         return str(item)
 
@@ -297,7 +297,7 @@ class InfluxDBMeasurement(Measurement):
         '''
         kfmt = InfluxDBMeasurement._format_key
         vfmt = InfluxDBMeasurement._format_value_value
-        return ','.join(F'{kfmt(k)}={vfmt(v)}' for k, v in self.values.items())
+        return ','.join(f'{kfmt(k)}={vfmt(v)}' for k, v in self.values.items())
 
     def _tags(self) -> str:
         '''
@@ -305,7 +305,7 @@ class InfluxDBMeasurement(Measurement):
         '''
         kfmt = InfluxDBMeasurement._format_key
         vfmt = InfluxDBMeasurement._format_tag_value
-        return ','.join(F'{kfmt(k)}={vfmt(v)}' for k, v in self.tags.items())
+        return ','.join(f'{kfmt(k)}={vfmt(v)}' for k, v in self.tags.items())
 
     def data(self) -> str:
         '''
@@ -426,9 +426,9 @@ class RabbitMQBlockingClient:  # pylint: disable=too-many-instance-attributes
                     mandatory=True
                 )
                 if verbose:
-                    logger.log(F'{type(self).__name__} sent: ({msg.rstrip()})')
+                    logger.log(f'{type(self).__name__} sent: ({msg.rstrip()})')
             except pika.exceptions.UnroutableError:
-                logger.log(F'Error sending the following message: {msg}')
+                logger.log(f'Error sending the following message: {msg}')
 
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

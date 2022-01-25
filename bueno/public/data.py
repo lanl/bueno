@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -74,7 +74,7 @@ class PythonModuleAsset(FileAsset):
     '''
     def __init__(self, mod: ModuleType) -> None:
         if not isinstance(mod, ModuleType):
-            estr = F'{self.__class__} expects a module.'
+            estr = f'{self.__class__} expects a module.'
             raise ValueError(estr)
         # Absolute path to source file asset.
         fpath = Path(os.path.abspath(mod.__file__))
@@ -223,7 +223,7 @@ class _Assets(metaclass=metacls.Singleton):
         '''
         Writes data contained in assets.
         '''
-        logger.log(F'# Writing Data Assets at {utils.nows()}')
+        logger.log(f'# Writing Data Assets at {utils.nows()}')
         for asset in self.assets:
             asset.write(basep)
         self.clear()

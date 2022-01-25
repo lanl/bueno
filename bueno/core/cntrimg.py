@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2020 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -167,12 +167,12 @@ class CharlieCloudImageActivator(BaseImageActivator):
     ) -> List[str]:
         imgp = self.get_img_path()
         ccargs = [
-            F'--set-env={imgp}/ch/environment',
-            F'{imgp}'
+            f'--set-env={imgp}/ch/environment',
+            f'{imgp}'
         ]
         # Charliecloud activation command string.
-        ccrc = F'{self.runcmd} {" ".join(ccargs)}'
-        bmgc = F'{constants.BASH_MAGIC}'
+        ccrc = f'{self.runcmd} {" ".join(ccargs)}'
+        bmgc = f'{constants.BASH_MAGIC}'
         # First command.
         cmdf = cmds[0]
         # The rest of the commands.
@@ -180,9 +180,9 @@ class CharlieCloudImageActivator(BaseImageActivator):
         # Are multiple command strings provided?
         multicmd = len(cmds) > 1
         # Default command string if a single command is provided.
-        cmdstr = F'{ccrc} -- {bmgc} {shlex.quote(cmdf)}'
+        cmdstr = f'{ccrc} -- {bmgc} {shlex.quote(cmdf)}'
         if multicmd:
-            cmdstr = F'{cmdf} {ccrc} --join -- {bmgc} {shlex.quote(cmdr)}'
+            cmdstr = f'{cmdf} {ccrc} --join -- {bmgc} {shlex.quote(cmdr)}'
         runargs = {
             'verbatim': True,
             'echo': echo,
@@ -195,7 +195,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
     def set_img_path(self, img_path: str) -> None:
         if not os.path.isdir(img_path):
             hlp = 'Directory expected.'
-            ers = F'Invalid container image path detected: {img_path}\n{hlp}'
+            ers = f'Invalid container image path detected: {img_path}\n{hlp}'
             raise RuntimeError(ers)
         self._imgp = img_path
 
@@ -203,7 +203,7 @@ class CharlieCloudImageActivator(BaseImageActivator):
         return True
 
     def tar2dirs(self, src: str, dst: str) -> str:
-        return F'ch-tar2dir {src} {dst}'
+        return f'ch-tar2dir {src} {dst}'
 
 
 class NoneImageActivator(BaseImageActivator):

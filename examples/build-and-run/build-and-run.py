@@ -1,11 +1,11 @@
+import sys
+import time
+
 from bueno.public import container
 from bueno.public import experiment
 from bueno.public import host
 from bueno.public import logger
 from bueno.public import utils
-
-import sys
-import time
 
 
 def main(argv):
@@ -34,7 +34,7 @@ def main(argv):
 
         telapsed = etime - stime
         etimes.append(telapsed)
-        logger.log(F'# Execution Time: {telapsed}\n')
+        logger.log(f'# Execution Time: {telapsed}\n')
         # Take a break between runs.
         time.sleep(1)
 

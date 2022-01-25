@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020-2021 Triad National Security, LLC
+# Copyright (c) 2020-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -27,7 +27,7 @@ def main(argv):
 
     epath = str(experiment.foutput())
     path = ocache.path(epath)
-    logger.log(F'Encoded Path: {epath} Decoded: {path}')
+    logger.log(f'Encoded Path: {epath} Decoded: {path}')
 
     adict = {
         'Application': {'argv': argv}

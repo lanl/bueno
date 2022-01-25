@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2020-2021 Triad National Security, LLC
+# Copyright (c) 2020-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -45,12 +45,12 @@ def main(_):
     ]
 
     for i in exprs:
-        logger.log(F'# Testing {i}')
+        logger.log(f'# Testing {i}')
         pyans = int(eval(i))
         means = mathex.evaluate(i)
-        logger.log(F'# Python says the answer is {pyans}')
-        logger.log(F'# Mathex says the answer is {means}')
+        logger.log(f'# Python says the answer is {pyans}')
+        logger.log(f'# Mathex says the answer is {means}')
         # Our goal is consistency with Python.
         if pyans != means:
-            raise ValueError(F'{pyans} != {means}')
+            raise ValueError(f'{pyans} != {means}')
         logger.log('')

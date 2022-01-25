@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -106,7 +106,7 @@ class Factory:
         # Build the import_module string, following the project's service
         # structure convention. Then feed it to import_module to get the
         # requested service module.
-        imod = F'bueno.{sname}.service'
+        imod = f'bueno.{sname}.service'
         service = importlib.import_module(imod)
         # Return the service instance.
         return service.impl(sargv)  # type: ignore

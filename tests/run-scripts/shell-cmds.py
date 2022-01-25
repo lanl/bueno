@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -33,12 +33,12 @@ def main(argv):
     host.run('ls *', **shargs)
 
     logger.emlog('# Testing redirection...')
-    logger.log(F'# Adding text to {fname}:')
-    host.run(F'echo "Some Text" | tee {fname}', **shargs)
-    host.run(F'echo "More \'Text\'" >> {fname}', **shargs)
+    logger.log(f'# Adding text to {fname}:')
+    host.run(f'echo "Some Text" | tee {fname}', **shargs)
+    host.run(f'echo "More \'Text\'" >> {fname}', **shargs)
 
-    logger.emlog(F'# The contents of {fname} are:')
-    host.run(F'cat {fname}', **shargs)
+    logger.emlog(f'# The contents of {fname} are:')
+    host.run(f'cat {fname}', **shargs)
 
     logger.emlog('# Testing quoting...')
     container.run('echo "Some \'Text\'"')

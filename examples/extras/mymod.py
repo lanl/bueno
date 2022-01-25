@@ -2,4 +2,4 @@ from bueno.public import logger
 
 
 def say_hello():
-    logger.log(F'hello from {__name__}')
+    logger.log(f'hello from {__name__}')

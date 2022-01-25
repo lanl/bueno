@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -167,7 +167,7 @@ def getenv(name: str) -> Union[str, None]:
     '''
     Get an environment variable, return None if it does not exist.
     '''
-    res = capture(F'printenv {name}', check_exit_code=False)
+    res = capture(f'printenv {name}', check_exit_code=False)
     if not utils.emptystr(res):
         return res
     return None
@@ -209,7 +209,7 @@ class ImageStager(metaclass=metacls.Singleton):
         if host.which(cmd) is None:
             helps = 'A custom image stager can be set via ' \
                     'ImageStager.staging_cmd_hook.'
-            raise RuntimeError(F'{cmd} not found.\n{helps}')
+            raise RuntimeError(f'{cmd} not found.\n{helps}')
         envvars = ['SLURM_JOB_NUM_NODES', 'SLURM_NNODES']
         varvals = list(
             filter(lambda x: x is not None, [os.getenv(x) for x in envvars])
@@ -218,6 +218,6 @@ class ImageStager(metaclass=metacls.Singleton):
             errs = 'Cannot determine the number of nodes in your job.'
             raise RuntimeError(errs)
         nnodes = varvals[0]
-        return F'{cmd} -n {nnodes} -N {nnodes}'
+        return f'{cmd} -n {nnodes} -N {nnodes}'
 
 # vim: ft=python ts=4 sts=4 sw=4 expandtab

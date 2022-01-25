@@ -1,4 +1,4 @@
-# Copyright (c) 2019-2021 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -155,8 +155,8 @@ class _TheFOutputCache(metaclass=metacls.Singleton):
                 path = os.path.join(basep, str(subd))
                 if not os.path.isdir(path):
                     return str(subd)
-            errs = F'Cannot find usable data directory after {maxt} tries.\n' \
-                   F'Base output directory searched was: {basep}'
+            errs = f'Cannot find usable data directory after {maxt} tries.\n' \
+                   f'Base output directory searched was: {basep}'
             raise RuntimeError(errs)
         path = epath
         path = path.replace('%d', utils.dates())
@@ -190,7 +190,7 @@ def flush_data(opath: Optional[str] = None) -> str:
     cached_path = _TheFOutputCache().path(iopath)
     real_opath = os.path.join(based, cached_path)
     real_opath = os.path.abspath(real_opath)
-    logger.log(F'# Flushing Data to {real_opath}')
+    logger.log(f'# Flushing Data to {real_opath}')
     # Clear all cached data because /dev/null was requested as output path.
     if based == _DEV_NULL:
         data.clear()
@@ -226,7 +226,7 @@ class CLIAddArgsAction:
         Method that shall be used by derived classes to add a custom collection
         of arguments to the calling CLIConfiguration instance via addargs().
         '''
-        ers = F'__call__() not defined by {type(self).__name__} subclass.'
+        ers = f'__call__() not defined by {type(self).__name__} subclass.'
         raise NotImplementedError(ers)
 
 
@@ -335,7 +335,7 @@ def name(ename: Optional[str] = None) -> Optional[str]:
     if ename is None:
         return _TheExperiment().name
     if not isinstance(ename, str):
-        estr = F'{__name__}.name() expects a string.'
+        estr = f'{__name__}.name() expects a string.'
         raise ValueError(estr)
     _TheExperiment().name = ename
     return None
@@ -349,7 +349,7 @@ def output_path(path: Optional[str] = None) -> Optional[str]:
     if path is None:
         return _TheExperiment().output_path
     if not isinstance(path, str):
-        estr = F'{__name__}.output_path() expects a string.'
+        estr = f'{__name__}.output_path() expects a string.'
         raise ValueError(estr)
     _TheExperiment().output_path = path
     return None
@@ -362,7 +362,7 @@ def generate(spec: str, *args: Any) -> List[str]:
     generated from the provided specification and corresponding inputs.
     '''
     if not isinstance(spec, str):
-        estr = F'{__name__}.generate() expects a string specification.'
+        estr = f'{__name__}.generate() expects a string specification.'
         raise ValueError(estr)
 
     argg = zip(* args)
@@ -376,7 +376,7 @@ def _expand_all_shell_vars(instr: str) -> str:
     matches = re.findall(res, instr)
     for match in matches:
         exval = os.getenv(match, default='')
-        instr = instr.replace(F'${{{match}}}', exval)
+        instr = instr.replace(f'${{{match}}}', exval)
     return instr
 
 
@@ -394,7 +394,7 @@ def readgs(
     # -a/--aarg [ARG_PARAMS] -b/--bargs [ARG PARAMS]
     # -c/--carg [ARG PARAMS] [positional arguments]
     '''
-    logger.emlog(F'# Reading Generate Specification File: {gspath}')
+    logger.emlog(f'# Reading Generate Specification File: {gspath}')
     # Emit contents of gs file.
     logger.log('# Begin Generate Specification')
     logger.log(utils.chomp(str().join(utils.cat(gspath))))
@@ -418,7 +418,7 @@ def readgs(
             gsargs = None
             if config is not None:
                 if not isinstance(config, CLIConfiguration):
-                    estr = F'{__name__} expects an instance of CLIConfiguration'
+                    estr = f'{__name__} expects an instance of CLIConfiguration'
                     raise ValueError(estr)
                 gsargs = parsedargs(config.argparser, argv)
                 config.update(gsargs)
@@ -461,7 +461,7 @@ class _CLIArgsAddActions:
 
         @typing.no_type_check
         def __call__(self, parser, namespace, values, option_string=None):
-            malf_helps = F'{option_string} malformed input. ' \
+            malf_helps = f'{option_string} malformed input. ' \
                          'An int, int, str, str tuple is excepted.'
             optt = tuple()
             try:
@@ -474,21 +474,21 @@ class _CLIArgsAddActions:
             # Make sure we are dealing with a 4-tuple.
             nopts = len(optt)
             if nopts != 4:
-                helps = F'{option_string} requires a 4-tuple of values. ' \
-                        F'{nopts} values provided: {optt}.'
+                helps = f'{option_string} requires a 4-tuple of values. ' \
+                        f'{nopts} values provided: {optt}.'
                 parser.error(helps)
             # Check type of each element.
             if not isinstance(optt[0], int):
-                helps = F'{option_string}: The first value must be an int.'
+                helps = f'{option_string}: The first value must be an int.'
                 parser.error(helps)
             if not isinstance(optt[1], int):
-                helps = F'{option_string}: The second value must be an int.'
+                helps = f'{option_string}: The second value must be an int.'
                 parser.error(helps)
             if not isinstance(optt[2], str):
-                helps = F'{option_string}: The third value must be a string.'
+                helps = f'{option_string}: The third value must be a string.'
                 parser.error(helps)
             if not isinstance(optt[3], str):
-                helps = F'{option_string}: The fourth value must be a string.'
+                helps = f'{option_string}: The fourth value must be a string.'
                 parser.error(helps)
             setattr(namespace, self.dest, optt)
 
@@ -629,18 +629,18 @@ def runcmds(
     '''
     # Make sure that the provided stop value make sense.
     if stop < 0:
-        estr = F'{__name__}.{fname} start and ' \
+        estr = f'{__name__}.{fname} start and ' \
                'stop must both be positive values.'
         raise ValueError(estr)
     if start > stop:
-        estr = F'{__name__}.{fname} value error: ' \
+        estr = f'{__name__}.{fname} value error: ' \
                'start cannot be less than stop.'
         raise ValueError(estr)
     # Find all variables in the provided function specification string. Also
     # enforce that *at least one* variable is provided.
     if _runcmds_nargs(nfun, vidx_res) == 0:
         # We didn't find at least one variable.
-        estr = F'{__name__}.{fname} syntax error: ' \
+        estr = f'{__name__}.{fname} syntax error: ' \
                'At least one variable must be present. ' \
                F"'nidx' was not found in the following expression:\n{nfun}"
         raise SyntaxError(estr)
@@ -660,7 +660,7 @@ def runcmds(
     n_res = '%n'
     if _runcmds_nargs(spec, n_res) == 0:
         wstr = F"# WARNING: '{n_res}' not found in " \
-               F'the following expression:\n# {spec}'
+               f'the following expression:\n# {spec}'
         logger.emlog(wstr)
     regex = re.compile(n_res)
     cmds = []
@@ -826,7 +826,7 @@ def foutput(fmtstr: Optional[str] = None) -> Optional[str]:
     if fmtstr is None:
         return _TheExperiment().foutput
     if not isinstance(fmtstr, str):
-        estr = F'{__name__}.foutput() expects a string.'
+        estr = f'{__name__}.foutput() expects a string.'
         raise ValueError(estr)
     _TheExperiment().foutput = fmtstr
     return None

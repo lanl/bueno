@@ -25,10 +25,10 @@ def post_action(**kwargs):
     etm = kwargs.pop('end_time')
     tet = kwargs.pop('exectime')
 
-    logger.log(F'Command: {cmd}')
-    logger.log(F'Start time: {stm}')
-    logger.log(F'End time: {etm}')
-    logger.log(F'Total Execution Time (s): {tet}\n')
+    logger.log(f'Command: {cmd}')
+    logger.log(f'Start time: {stm}')
+    logger.log(f'End time: {etm}')
+    logger.log(f'Total Execution Time (s): {tet}\n')
 
     # It is possible to process the many outputs of the example application.
     lines = [x.rstrip() for x in out]
@@ -36,7 +36,7 @@ def post_action(**kwargs):
         # Scan application output for "Data" tag.
         if line.startswith('Data'):
             data = line.split(': ')[1]
-            logger.log(F' >> Data {i} is {data}')
+            logger.log(f' >> Data {i} is {data}')
             continue
 
 
