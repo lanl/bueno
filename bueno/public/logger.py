@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2021 Triad National Security, LLC
+# Copyright (c) 2019-2022 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -24,7 +24,7 @@ def emlog(msg: str, *args: Any, **kwargs: Any) -> None:
     '''
     Logs the provided message to a central logger with emphasis.
     '''
-    realmsg = '\n#\n' + msg + '\n#\n'
+    realmsg = f'\n#\n{msg}\n#\n'
     _TheLogger().log(realmsg, *args, **kwargs)
 
 
