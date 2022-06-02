@@ -1,67 +1,32 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; bueno 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   
-  <title>Introduction &mdash; bueno 0.0.1-rc1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Installing bueno" href="installation.html" />
     <link rel="prev" title="bueno" href="index.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #333131" >
-          
-
-          
             <a href="index.html">
-          
-
-          
-            
             <img src="_static/bueno_gray.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -69,19 +34,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#motivation">Motivation</a></li>
@@ -100,73 +54,32 @@
 <li class="toctree-l1"><a class="reference internal" href="development.html">bueno Development</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #333131" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">bueno</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Introduction</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/intro.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="introduction">
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline"></a></h1>
 <p>Computer system benchmarking provides a means to compare or assess the
 performance of hardware or software against a point of reference. Because of
 some of the reasons discussed here, achieving experimental reproducibility in
@@ -181,8 +94,8 @@ automated capturing of relevant <em>eatures</em> that define a sufficiently prec
 experiment. The following provides additional motivation, followed by a summary
 of bueno’s current software architecture, feature set, usage, and methodology
 toward this goal.</p>
-<div class="section" id="motivation">
-<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline">¶</a></h2>
+<section id="motivation">
+<h2>Motivation<a class="headerlink" href="#motivation" title="Permalink to this headline"></a></h2>
 <p>Experimental reproducibility is a crucial component of the scientific process.
 Capturing the relevant features that define a sufficiently precise experiment is
 a difficult task. This difficulty is mostly due to the diversity and non-trivial
@@ -219,16 +132,16 @@ environmental controls.</p></li>
 have complicated software dependencies with non-trivial interactions, so
 capturing relevant experimental characteristics is burdensome without
 automation.</p>
-</div>
-<div class="section" id="software-overview">
-<h2>Software Overview<a class="headerlink" href="#software-overview" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="software-overview">
+<h2>Software Overview<a class="headerlink" href="#software-overview" title="Permalink to this headline"></a></h2>
 <p>In this section, we begin with an overview of bueno’s core software
 architecture. We then provide a brief introduction to container technology and
 motivate its use in bueno. Finally, we summarize bueno’s command-line interface
 (CLI) and module services.</p>
-</div>
-<div class="section" id="core-framework">
-<h2>Core Framework<a class="headerlink" href="#core-framework" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="core-framework">
+<h2>Core Framework<a class="headerlink" href="#core-framework" title="Permalink to this headline"></a></h2>
 <p><a class="reference external" href="https://github.com/lanl/bueno">bueno</a> is an open-source (BSD-3) software
 framework written in type-annotated Python 3. Its internal software architecture
 is straightforward and organized into three major components: <code class="docutils literal notranslate"><span class="pre">core</span></code>,
@@ -241,9 +154,9 @@ drives the bueno framework.  Finally, the <code class="docutils literal notransl
 <a class="reference internal" href="#command-line-interface-services"><span class="std std-ref">Command Line Interface Services</span></a>, implements the infrastructure made
 accessible through a CLI that carries out a specific task, for example,
 executing a run script.</p>
-</div>
-<div class="section" id="use-of-container-technology">
-<h2>Use of Container Technology<a class="headerlink" href="#use-of-container-technology" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="use-of-container-technology">
+<h2>Use of Container Technology<a class="headerlink" href="#use-of-container-technology" title="Permalink to this headline"></a></h2>
 <p>Container technology has garnered attention recently, especially in cloud and
 HPC environments. This attention is well-deserved, as this approach has
 demonstrated broad utility in software development and deployment tasks. In the
@@ -268,9 +181,9 @@ features that define a sufficiently precise experiment. For this reason, bueno
 implements features that make use of containers to improve the likelihood of
 experimental reproducibility. Currently, bueno supports unprivileged container
 activation through <a class="reference external" href="https://github.com/hpc/charliecloud">Charliecloud</a>.</p>
-</div>
-<div class="section" id="command-line-interface-services">
-<h2>Command Line Interface Services<a class="headerlink" href="#command-line-interface-services" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="command-line-interface-services">
+<h2>Command Line Interface Services<a class="headerlink" href="#command-line-interface-services" title="Permalink to this headline"></a></h2>
 <p>CLI services are currently made available through bueno’s <code class="docutils literal notranslate"><span class="pre">run</span></code> command.  The
 <code class="docutils literal notranslate"><span class="pre">run</span></code> service coordinates container image activation and the execution of
 bueno run scripts, a programmatic description of the steps required to conduct a
@@ -279,9 +192,9 @@ activators implemented in bueno: <code class="docutils literal notranslate"><spa
 Charliecloud to activate a given container image. The latter is a pass-through
 to the host, which offers a lower degree of reproducibility when compared to the
 former.</p>
-</div>
-<div class="section" id="module-services">
-<h2>Module Services<a class="headerlink" href="#module-services" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="module-services">
+<h2>Module Services<a class="headerlink" href="#module-services" title="Permalink to this headline"></a></h2>
 <p>Because of the diversity among computer platforms, system software, and programs
 of interest, program execution and subsequent analysis of their generated
 outputs are expressed through Python programs executed by bueno’s <code class="docutils literal notranslate"><span class="pre">run</span></code>
@@ -290,55 +203,38 @@ programs to aid in conducting benchmarking activities. Example functionality
 includes command dispatch to the host or container, logging, data asset
 agglomeration, concise expression of structured experimental inputs, and
 programmable pre- and post-experiment actions.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installing bueno" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="index.html" class="btn btn-neutral float-left" title="bueno" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installing bueno" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Triad National Security, LLC.
-
-    </p>
+    <p>&#169; Copyright 2021, Triad National Security, LLC.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

@@ -1,67 +1,32 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Run Scripts: More Examples &mdash; bueno 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   
-  <title>Run Scripts: More Examples &mdash; bueno 0.0.1-rc1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Public Module Reference" href="api-reference.html" />
     <link rel="prev" title="Run Scripts: Getting Started" href="bueno-run-getting-started.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #333131" >
-          
-
-          
             <a href="index.html">
-          
-
-          
-            
             <img src="_static/bueno_gray.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -69,19 +34,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
@@ -111,75 +65,34 @@
 <li class="toctree-l1"><a class="reference internal" href="development.html">bueno Development</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #333131" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">bueno</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Run Scripts: More Examples</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/examples.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="run-scripts-more-examples">
-<h1>Run Scripts: More Examples<a class="headerlink" href="#run-scripts-more-examples" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="hello-container">
-<h2>Hello Container<a class="headerlink" href="#hello-container" title="Permalink to this headline">¶</a></h2>
+             
+  <section id="run-scripts-more-examples">
+<h1>Run Scripts: More Examples<a class="headerlink" href="#run-scripts-more-examples" title="Permalink to this headline"></a></h1>
+<section id="hello-container">
+<h2>Hello Container<a class="headerlink" href="#hello-container" title="Permalink to this headline"></a></h2>
 <p>There are different ways to execute commands in bueno run scripts. The following
 illustrates the most straightforward way to execute commands targeting both the
 container and the host shell (bash-like) emulator.</p>
@@ -204,22 +117,22 @@ more than a pass-through to the host and therefore equivalent to the direct
 <code class="docutils literal notranslate"><span class="pre">host.run()</span></code> invocation. We will detail how to change this behavior in an
 upcoming example.</p>
 <p><span class="raw-html"><br/></span></p>
-</div>
-<div class="section" id="custom-actions">
-<h2>Custom Actions<a class="headerlink" href="#custom-actions" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="custom-actions">
+<h2>Custom Actions<a class="headerlink" href="#custom-actions" title="Permalink to this headline"></a></h2>
 <p>In this example, we consider a straightforward bueno run script with both pre-
 and post-experiment actions. These custom actions are implemented as separate,
 user-defined methods provided as callback functions to bueno that are
 automatically invoked at appropriate times before and after experiment
 execution, respectively.</p>
-<div class="section" id="setup">
-<h3>Setup<a class="headerlink" href="#setup" title="Permalink to this headline">¶</a></h3>
+<section id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Permalink to this headline"></a></h3>
 <p>As the name implies, a <code class="docutils literal notranslate"><span class="pre">pre-action</span></code> occurs before the application is executed.
 This action provides an opportunity to perform any setup needed to run the
 application.</p>
-</div>
-<div class="section" id="gathering-information">
-<h3>Gathering information<a class="headerlink" href="#gathering-information" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="gathering-information">
+<h3>Gathering information<a class="headerlink" href="#gathering-information" title="Permalink to this headline"></a></h3>
 <p>In the definition for our post-action callback function, you will find that the
 variable number of arguments passed in <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> is broken down into specific,
 meaningful values. They are:</p>
@@ -237,15 +150,15 @@ contain timing information gathered from the execution of our test application.
 All of these values are used within the <code class="docutils literal notranslate"><span class="pre">post_action</span></code> scope to record
 experiment-specific data.</p>
 <p><span class="raw-html"><br/></span></p>
-</div>
-</div>
-<div class="section" id="data">
-<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline"></a></h2>
 <p>This is an overview of some of the data acquisition and recording tools
 provided by bueno. This example will record the executed application’s output
 and some additional information about the system on which it was executed.</p>
-<div class="section" id="exploring-the-code">
-<h3>Exploring the code:<a class="headerlink" href="#exploring-the-code" title="Permalink to this headline">¶</a></h3>
+<section id="exploring-the-code">
+<h3>Exploring the code:<a class="headerlink" href="#exploring-the-code" title="Permalink to this headline"></a></h3>
 <p>The following lines in the example run script setup two additional data
 assets. The first is called <code class="docutils literal notranslate"><span class="pre">some-data.txt</span></code>. Because there is no information
 assigned to this asset, it will simply generate an empty file.  The file will be
@@ -274,9 +187,9 @@ it was run.</p>
 <span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="trying-it-out">
-<h3>Trying it Out<a class="headerlink" href="#trying-it-out" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="trying-it-out">
+<h3>Trying it Out<a class="headerlink" href="#trying-it-out" title="Permalink to this headline"></a></h3>
 <p>To test this for yourself, execute the following command:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>bueno run -a none -p data.py
 </pre></div>
@@ -285,21 +198,21 @@ it was run.</p>
 gathered and where it was saved. Several files are generated each time the run
 script is executed. Information about the host environment can be found in
 <code class="docutils literal notranslate"><span class="pre">environment.yaml</span></code>. For example,</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Host</span><span class="p">:</span>
-  <span class="nt">hostname</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">localhost.localdomain</span>
-  <span class="nt">kernel</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Linux</span>
-  <span class="nt">kernel_release</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">5.6.6-300.fc32.x86_64</span>
-  <span class="nt">os_release</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">Fedora 32 (Workstation Edition)</span>
-  <span class="nt">whoami</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">user</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Host</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">hostname</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">localhost.localdomain</span><span class="w"></span>
+<span class="w">  </span><span class="nt">kernel</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Linux</span><span class="w"></span>
+<span class="w">  </span><span class="nt">kernel_release</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5.6.6-300.fc32.x86_64</span><span class="w"></span>
+<span class="w">  </span><span class="nt">os_release</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Fedora 32 (Workstation Edition)</span><span class="w"></span>
+<span class="w">  </span><span class="nt">whoami</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">user</span><span class="w"></span>
 </pre></div>
 </div>
 <p>the run configuration stored in <code class="docutils literal notranslate"><span class="pre">run.yaml</span></code>:</p>
-<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Configuration</span><span class="p">:</span>
-  <span class="nt">do_not_stage</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">false</span>
-  <span class="nt">extras</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
-  <span class="nt">image</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">null</span>
-  <span class="nt">image_activator</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">none</span>
-  <span class="nt">output_path</span><span class="p">:</span> <span class="l l-Scalar l-Scalar-Plain">/home/user/bueno/examples/data</span>
+<div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><span class="nt">Configuration</span><span class="p">:</span><span class="w"></span>
+<span class="w">  </span><span class="nt">do_not_stage</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span><span class="w"></span>
+<span class="w">  </span><span class="nt">extras</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="w">  </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">null</span><span class="w"></span>
+<span class="w">  </span><span class="nt">image_activator</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">none</span><span class="w"></span>
+<span class="w">  </span><span class="nt">output_path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/home/user/bueno/examples/data</span><span class="w"></span>
 </pre></div>
 </div>
 <p>and you will find that the second asset defined in the run script created a file
@@ -311,10 +224,10 @@ number of data assets as well as quite a few formats. Please consult
 <a class="reference external" href="https://github.com/lanl/bueno/blob/master/bueno/public/data.py">this</a> for
 a full list.</p>
 <p><span class="raw-html"><br/></span></p>
-</div>
-</div>
-<div class="section" id="extras">
-<h2>Extras<a class="headerlink" href="#extras" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="extras">
+<h2>Extras<a class="headerlink" href="#extras" title="Permalink to this headline"></a></h2>
 <p>This example demonstrates how to use bueno’s <code class="docutils literal notranslate"><span class="pre">--extras</span></code> feature when executing a
 bueno run script. Additionally, it demonstrates how bueno utilities can test the
 validity of import statements to give meaningful warnings instead of simply
@@ -343,11 +256,11 @@ that we have been using for the last few examples:</p>
 </pre></div>
 </div>
 <p><span class="raw-html"><br/></span></p>
-</div>
-<div class="section" id="build-and-run">
-<h2>Build And Run<a class="headerlink" href="#build-and-run" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="build">
-<h3>Build<a class="headerlink" href="#build" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="build-and-run">
+<h2>Build And Run<a class="headerlink" href="#build-and-run" title="Permalink to this headline"></a></h2>
+<section id="build">
+<h3>Build<a class="headerlink" href="#build" title="Permalink to this headline"></a></h3>
 <p>Previous examples used only bueno’s <code class="docutils literal notranslate"><span class="pre">none</span></code> image activator. This example,
 however, explores using bueno’s <code class="docutils literal notranslate"><span class="pre">charliecloud</span></code> image activator. We will start by
 building a container image using Charliecloud for <code class="docutils literal notranslate"><span class="pre">nbody</span></code>, our example MPI
@@ -358,10 +271,10 @@ application.</p>
 <p>Once completed, there will be a new directory named <code class="docutils literal notranslate"><span class="pre">nbody-img</span></code> in your working
 directory. We will use the contents of this directory when executing the bueno
 run script.</p>
-</div>
+</section>
 <hr class="docutils" />
-<div class="section" id="run">
-<h3>Run<a class="headerlink" href="#run" title="Permalink to this headline">¶</a></h3>
+<section id="run">
+<h3>Run<a class="headerlink" href="#run" title="Permalink to this headline"></a></h3>
 <p>Instead of simply instructing bueno to execute our run script as we have in the
 past, we will provide bueno with a container image to work with.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bueno</span> <span class="n">run</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="ow">not</span><span class="o">-</span><span class="n">stage</span> <span class="o">-</span><span class="n">i</span> <span class="n">nbody</span><span class="o">-</span><span class="n">img</span> <span class="o">-</span><span class="n">p</span> <span class="n">build</span><span class="o">-</span><span class="ow">and</span><span class="o">-</span><span class="n">run</span><span class="o">.</span><span class="n">py</span>
@@ -385,11 +298,11 @@ following tip:</p>
 </pre></div>
 </div>
 </div></blockquote>
-</div>
-</div>
-</div>
-<div class="section" id="run-scripts-real-world-examples">
-<h1>Run Scripts: Real-World Examples<a class="headerlink" href="#run-scripts-real-world-examples" title="Permalink to this headline">¶</a></h1>
+</section>
+</section>
+</section>
+<section id="run-scripts-real-world-examples">
+<h1>Run Scripts: Real-World Examples<a class="headerlink" href="#run-scripts-real-world-examples" title="Permalink to this headline"></a></h1>
 <p>For more information on bueno’s use in practice, including source code and
 online documentation, please consult the information linked below:</p>
 <ul class="simple">
@@ -400,54 +313,37 @@ online documentation, please consult the information linked below:</p>
 </ul>
 </li>
 </ul>
-</div>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="api-reference.html" class="btn btn-neutral float-right" title="Public Module Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="bueno-run-getting-started.html" class="btn btn-neutral float-left" title="Run Scripts: Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api-reference.html" class="btn btn-neutral float-right" title="Public Module Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Triad National Security, LLC.
-
-    </p>
+    <p>&#169; Copyright 2021, Triad National Security, LLC.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

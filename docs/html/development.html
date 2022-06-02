@@ -1,67 +1,32 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>bueno Development &mdash; bueno 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   
-  <title>bueno Development &mdash; bueno 0.0.1-rc1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="bueno package" href="bueno.html" />
     <link rel="prev" title="bueno.public package" href="bueno.public.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #333131" >
-          
-
-          
             <a href="index.html">
-          
-
-          
-            
             <img src="_static/bueno_gray.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -69,19 +34,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
@@ -102,87 +56,46 @@
 </li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #333131" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">bueno</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>bueno Development</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/development.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="bueno-development">
-<h1>bueno Development<a class="headerlink" href="#bueno-development" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="bueno-development">
+<h1>bueno Development<a class="headerlink" href="#bueno-development" title="Permalink to this headline"></a></h1>
 <p>This section is meant for bueno developers. Here we document how to accomplish
 activities common to bueno development, testing, and documentation.</p>
-<div class="section" id="automated-testing">
-<h2>Automated Testing<a class="headerlink" href="#automated-testing" title="Permalink to this headline">¶</a></h2>
+<section id="automated-testing">
+<h2>Automated Testing<a class="headerlink" href="#automated-testing" title="Permalink to this headline"></a></h2>
 <p>Before pushing code, run bueno’s automated test suite locally and make certain
 all tests pass.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> ./qa/run-qa-suite.sh
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>./qa/run-qa-suite.sh
 </pre></div>
 </div>
-</div>
-<div class="section" id="releasing">
-<h2>Releasing<a class="headerlink" href="#releasing" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="releasing">
+<h2>Releasing<a class="headerlink" href="#releasing" title="Permalink to this headline"></a></h2>
 <p>Install bumpversion</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 -m pip install --user bumpversion
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3 -m pip install --user bumpversion
 </pre></div>
 </div>
 <p>Understand bueno’s versioning convention:</p>
@@ -190,44 +103,44 @@ all tests pass.</p>
 </pre></div>
 </div>
 <p>Use bumpversion to roll a new release.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">#</span> Test creating a release candidate.
-<span class="gp">$</span> bumpversion --dry-run --verbose rc
-<span class="gp">#</span> If everything looks good, actually create the release candidate.
-<span class="gp">$</span> bumpversion --verbose rc
-<span class="gp">#</span> Push new tag
-<span class="gp">$</span> git push --tags
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp"># </span>Test creating a release candidate.
+<span class="gp">$ </span>bumpversion --dry-run --verbose rc
+<span class="gp"># </span>If everything looks good, actually create the release candidate.
+<span class="gp">$ </span>bumpversion --verbose rc
+<span class="gp"># </span>Push new tag
+<span class="gp">$ </span>git push --tags
 </pre></div>
 </div>
-</div>
-<div class="section" id="building-the-documentation">
-<h2>Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="building-the-documentation">
+<h2>Building the Documentation<a class="headerlink" href="#building-the-documentation" title="Permalink to this headline"></a></h2>
 <p>Install Sphinx and the RTD theme.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 -m pip install --user sphinx
-<span class="gp">$</span> python3 -m pip install --user sphinx_rtd_theme
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3 -m pip install --user sphinx
+<span class="gp">$ </span>python3 -m pip install --user sphinx_rtd_theme
 </pre></div>
 </div>
 <p>Build the documentation.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> docs
-<span class="gp">$</span> ./build-docs.sh
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> docs
+<span class="gp">$ </span>./build-docs.sh
 </pre></div>
 </div>
 <p>If the project’s code structure has changed in a meaningful way (e.g., the
 addition of a package or module), it may be necessary to re-run the following
 before executing <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">html</span></code>.</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> <span class="nb">cd</span> docs
-<span class="gp">$</span> sphinx-apidoc -f -o source/ ../bueno
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span><span class="nb">cd</span> docs
+<span class="gp">$ </span>sphinx-apidoc -f -o source/ ../bueno
 </pre></div>
 </div>
-</div>
-<div class="section" id="building-rpms">
-<h2>Building RPMs<a class="headerlink" href="#building-rpms" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="building-rpms">
+<h2>Building RPMs<a class="headerlink" href="#building-rpms" title="Permalink to this headline"></a></h2>
 <p>Prerequisites: <code class="docutils literal notranslate"><span class="pre">rpm-build</span></code></p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> python3 setup.py bdist_rpm
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>python3 setup.py bdist_rpm
 </pre></div>
 </div>
-</div>
-<div class="section" id="bueno-source-documentation">
-<h2>bueno Source Documentation<a class="headerlink" href="#bueno-source-documentation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="bueno-source-documentation">
+<h2>bueno Source Documentation<a class="headerlink" href="#bueno-source-documentation" title="Permalink to this headline"></a></h2>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="bueno.html">bueno package</a><ul>
@@ -269,55 +182,38 @@ before executing <code class="docutils literal notranslate"><span class="pre">ma
 </li>
 </ul>
 </div>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="bueno.html" class="btn btn-neutral float-right" title="bueno package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="bueno.public.html" class="btn btn-neutral float-left" title="bueno.public package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="bueno.html" class="btn btn-neutral float-right" title="bueno package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Triad National Security, LLC.
-
-    </p>
+    <p>&#169; Copyright 2021, Triad National Security, LLC.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

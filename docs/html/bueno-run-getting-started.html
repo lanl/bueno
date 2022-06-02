@@ -1,67 +1,32 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Run Scripts: Getting Started &mdash; bueno 0.0.1 documentation</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   
-  <title>Run Scripts: Getting Started &mdash; bueno 0.0.1-rc1 documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
-  
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Run Scripts: More Examples" href="examples.html" />
     <link rel="prev" title="Installing bueno" href="installation.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search"  style="background: #333131" >
-          
-
-          
             <a href="index.html">
-          
-
-          
-            
             <img src="_static/bueno_gray.png" class="logo" alt="Logo"/>
-          
           </a>
-
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -69,19 +34,8 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents:</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installing bueno</a></li>
@@ -96,80 +50,39 @@
 <li class="toctree-l1"><a class="reference internal" href="development.html">bueno Development</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #333131" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">bueno</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Run Scripts: Getting Started</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
             <a href="_sources/bueno-run-getting-started.rst.txt" rel="nofollow"> View page source</a>
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="run-scripts-getting-started">
-<h1>Run Scripts: Getting Started<a class="headerlink" href="#run-scripts-getting-started" title="Permalink to this headline">¶</a></h1>
+             
+  <section id="run-scripts-getting-started">
+<h1>Run Scripts: Getting Started<a class="headerlink" href="#run-scripts-getting-started" title="Permalink to this headline"></a></h1>
 <p><code class="docutils literal notranslate"><span class="pre">bueno</span> <span class="pre">run</span></code> coordinates container image activation and the execution of bueno
 run scripts—a programmatic description of the steps required to conduct a
 benchmarking activity. Currently, there are two image activators implemented in
 bueno: <code class="docutils literal notranslate"><span class="pre">charliecloud</span></code> and <code class="docutils literal notranslate"><span class="pre">none</span></code>. The former uses <a class="reference external" href="https://hpc.github.io/charliecloud/">Charliecloud</a> to activate a given container image and
 the latter is a pass-through to the host.</p>
-<div class="section" id="hello-world">
-<h2>Hello World!<a class="headerlink" href="#hello-world" title="Permalink to this headline">¶</a></h2>
+<section id="hello-world">
+<h2>Hello World!<a class="headerlink" href="#hello-world" title="Permalink to this headline"></a></h2>
 <p>Below is the source code of the simplest bueno run script named <code class="docutils literal notranslate"><span class="pre">hello.py</span></code>.
 Please note that the source code contains helpful comments that aid in
 understanding fundamental bueno run script structure.</p>
@@ -195,7 +108,7 @@ understanding fundamental bueno run script structure.</p>
 <p>In the following example, we execute <code class="docutils literal notranslate"><span class="pre">hello.py</span></code> using the <code class="docutils literal notranslate"><span class="pre">none</span></code> (i.e.,
 <em>host pass-through</em>) image activator.  To execute the script, run the following
 command (assumes <code class="docutils literal notranslate"><span class="pre">hello.py</span></code> is stored in your current working directory):</p>
-<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$</span> bueno run -a none -p hello.py
+<div class="highlight-console notranslate"><div class="highlight"><pre><span></span><span class="gp">$ </span>bueno run -a none -p hello.py
 </pre></div>
 </div>
 <p>This program invocation should produce console output similar to the following:</p>
@@ -220,7 +133,7 @@ command (assumes <code class="docutils literal notranslate"><span class="pre">he
 <span class="n">Host</span><span class="p">:</span>
   <span class="n">hostname</span><span class="p">:</span> <span class="n">localhost</span><span class="o">.</span><span class="n">localdomain</span>
   <span class="n">kernel</span><span class="p">:</span> <span class="n">Linux</span>
-  <span class="n">kernel_release</span><span class="p">:</span> <span class="mf">5.3</span><span class="o">.</span><span class="mi">7</span><span class="o">-</span><span class="mf">200.</span><span class="n">fc30</span><span class="o">.</span><span class="n">x86_64</span>
+  <span class="n">kernel_release</span><span class="p">:</span> <span class="mf">5.3.7</span><span class="o">-</span><span class="mf">200.</span><span class="n">fc30</span><span class="o">.</span><span class="n">x86_64</span>
   <span class="n">os_release</span><span class="p">:</span> <span class="n">Fedora</span> <span class="mi">30</span> <span class="p">(</span><span class="n">Workstation</span> <span class="n">Edition</span><span class="p">)</span>
   <span class="n">whoami</span><span class="p">:</span> <span class="n">samuel</span>
 <span class="c1"># End run Configuration (YAML)</span>
@@ -242,60 +155,43 @@ command (assumes <code class="docutils literal notranslate"><span class="pre">he
 <span class="c1"># run Output Written to: /home/samuel/devel/bueno/examples/hello/hello-world/2020-04-24/0</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="more-bueno-run-help">
-<h2>More bueno run Help<a class="headerlink" href="#more-bueno-run-help" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="more-bueno-run-help">
+<h2>More bueno run Help<a class="headerlink" href="#more-bueno-run-help" title="Permalink to this headline"></a></h2>
 <p>Additional run service information is provided by the output of <code class="docutils literal notranslate"><span class="pre">bueno</span> <span class="pre">run</span>
 <span class="pre">--help</span></code>.</p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="examples.html" class="btn btn-neutral float-right" title="Run Scripts: More Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="installation.html" class="btn btn-neutral float-left" title="Installing bueno" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="Run Scripts: More Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Triad National Security, LLC.
-
-    </p>
+    <p>&#169; Copyright 2021, Triad National Security, LLC.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
