@@ -11,4 +11,4 @@ set -e
 
 echo "Testing for Style Conformity"
 
-flake8
+flake8 --exclude=spack-repo
