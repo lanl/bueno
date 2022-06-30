@@ -24,6 +24,7 @@ bueno run -a none -o output -p ./run-scripts/runcmds.py
 bueno run -a none -o output -p ./run-scripts/datasink.py
 bueno run -a none -o output -p ./run-scripts/format_path.py
 bueno run -a none -o output -p ./run-scripts/parse_influxdb_line_proto.py
+bueno run -a none -o output -p ./run-scripts/json_measurement.py
 
 # Test suppression of data files.
 bueno run -a none -o /dev/null -p ./run-scripts/dataflush.py

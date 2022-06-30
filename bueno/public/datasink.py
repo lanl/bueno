@@ -20,10 +20,12 @@ from typing import (
 )
 
 import copy
+from datetime import datetime
 import logging
 import ssl
 import time
 
+import json
 import pika  # type: ignore
 import lark
 
@@ -33,6 +35,8 @@ from bueno.public import utils
 # InfluxDBMeasurement value types
 _IDBSimple = Union[str, int, float, bool]
 _InfluxDBValueType = Dict[str, Union[_IDBSimple, Dict[str, _IDBSimple]]]
+
+_JSONValueType = Dict[Any, Any]
 
 
 class Table:
@@ -100,8 +104,6 @@ class Measurement(ABC):
     '''
     Abstract measurement type.
     '''
-    def __init__(self, verify_data: bool = False):
-        self.verify_data = verify_data
 
     @abstractmethod
     def data(self) -> str:
@@ -240,6 +242,38 @@ def _unroll_dict(indict: Dict[str, Any]) -> Dict[str, Any]:
     return _unroll_dict_impl(indict_copy, tmpd)
 
 
+class JSONMeasurement(Measurement):
+    '''
+    JSON measurement type.
+    '''
+    def __init__(
+        self,
+        values: _JSONValueType,
+        posix_time_stamp: float = 0.0
+    ) -> None:
+        # Capture the time, or use the one the caller provided.
+        if posix_time_stamp:
+            self.time = posix_time_stamp
+        else:
+            self.time = datetime.now().timestamp()
+
+        self.values = values
+        tstamp = datetime.fromtimestamp(self.time)
+        if 'timestamp' in self.values:
+            logger.emlog(
+                '# Warning: \'timestamp\' is a reserved key present in your '
+                'data. We are overwriting it for our needs.'
+            )
+        # See ISO 8601 for this format specification.
+        self.values['timestamp'] = tstamp.strftime('%Y-%m-%dT%H:%M:%S')
+
+    def data(self) -> str:
+        '''
+        Returns measurement data as a JSON string.
+        '''
+        return json.dumps(self.values)
+
+
 class InfluxDBMeasurement(Measurement):
     '''
     InfluxDB measurement type.
@@ -251,7 +285,7 @@ class InfluxDBMeasurement(Measurement):
         tags: Optional[Dict[str, str]] = None,
         verify_data: bool = False
     ) -> None:
-        super().__init__(verify_data)
+        self.verify_data = verify_data
         self.time = str(int(time.time()) * 1000000000)
         self.measurement = utils.chomp(measurement)
         self.values = _unroll_dict(values)
@@ -309,7 +343,7 @@ class InfluxDBMeasurement(Measurement):
 
     def data(self) -> str:
         '''
-        Returns measurement data as string following InfluxDB line protocol.
+        Returns measurement data as a string following InfluxDB line protocol.
         Raises an exception if data verification is enabled and the data do not
         adhere to the InfluxDB line protocol.
         '''
