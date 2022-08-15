@@ -19,6 +19,7 @@ from typing import (
     Union
 )
 
+import collections
 import copy
 from datetime import datetime
 import logging
@@ -271,7 +272,13 @@ class JSONMeasurement(Measurement):
         '''
         Returns measurement data as a JSON string.
         '''
-        return json.dumps(self.values)
+        # Create an ordered dict so that we can place the timestamp key at the
+        # beginning of the items.  This is because Splunk wants to see the
+        # timestamp information early in the string body.
+        ovalues = collections.OrderedDict(self.values)
+        # This moves 'timestamp' to the beginning.
+        ovalues.move_to_end('timestamp', False)
+        return json.dumps(ovalues)
 
 
 class InfluxDBMeasurement(Measurement):
