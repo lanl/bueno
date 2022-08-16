@@ -56,7 +56,7 @@ def main():
     '''
     package_name = 'bueno'
     # IMPORTANT: Never change manually, always use bumpversion.
-    package_vers = '0.0.1'
+    package_vers = '0.0.2-rc1'
 
     package_setup(package_name, package_vers)
 
