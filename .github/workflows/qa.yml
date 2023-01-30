@@ -31,7 +31,6 @@ jobs:
         python -m pip install --upgrade setuptools
         python -m pip install --upgrade wheel
         python -m pip install --upgrade codecov coverage==4.5.4
-        python -m pip install --upgrade flake8
         python -m pip install --upgrade mypy==0.910
         python -m pip install --upgrade pylint==2.12.2
         python -m pip install --upgrade bandit
@@ -40,23 +39,25 @@ jobs:
         python -m pip install --upgrade types-PyYAML
         # XXX Hack for QA. Keep in sync with internal version.
         python -m pip install --upgrade lark==1.0.0
+      if: ${{ matrix.python-version == 3.9 }}
+      run: |
+        python -m pip install --upgrade flake8==6.0.0
     - name: Packaging
       run: |
         qa/run-packaging-tests
     - name: Style Checks
+      # XX Hack because flake8 < 6.0.0 is broken and not available for all
+      # Python versions.
       if: ${{ matrix.python-version == 3.9 }}
       run: |
         qa/run-flake8-tests
     - name: Type Checks
-      if: ${{ matrix.python-version }} == 3.9
       run: |
         qa/run-mypy-tests
     - name: Code Analysis
-      if: ${{ matrix.python-version }} == 3.9
       run: |
         qa/run-pylint-tests
     - name: Security
-      if: ${{ matrix.python-version }} == 3.9
       run: |
         qa/run-bandit-tests
     - name: Regression
