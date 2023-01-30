@@ -39,9 +39,6 @@ jobs:
         python -m pip install --upgrade types-PyYAML
         # XXX Hack for QA. Keep in sync with internal version.
         python -m pip install --upgrade lark==1.0.0
-      if: ${{ matrix.python-version == 3.9 }}
-      run: |
-        python -m pip install --upgrade flake8==6.0.0
     - name: Packaging
       run: |
         qa/run-packaging-tests
@@ -50,6 +47,7 @@ jobs:
       # Python versions.
       if: ${{ matrix.python-version == 3.9 }}
       run: |
+        python -m pip install --upgrade flake8==6.0.0
         qa/run-flake8-tests
     - name: Type Checks
       run: |
