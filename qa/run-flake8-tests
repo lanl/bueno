@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-# Copyright (c)      2020 Triad National Security, LLC
+# Copyright (c) 2020-2023 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -10,5 +10,8 @@
 set -e
 
 echo "Testing for Style Conformity"
+
+echo "flake8 Version:"
+flake8 --version
 
 flake8 --exclude=spack-repo
