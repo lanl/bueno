@@ -17,7 +17,7 @@ jobs:
       max-parallel: 2
       fail-fast: true
       matrix:
-        python-version: [3.7, 3.9]
+        python-version: [3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v2
@@ -44,15 +44,19 @@ jobs:
       run: |
         qa/run-packaging-tests
     - name: Style Checks
+      if: ${{ matrix.python-version }} == 3.9
       run: |
         qa/run-flake8-tests
     - name: Type Checks
+      if: ${{ matrix.python-version }} == 3.9
       run: |
         qa/run-mypy-tests
     - name: Code Analysis
+      if: ${{ matrix.python-version }} == 3.9
       run: |
         qa/run-pylint-tests
     - name: Security
+      if: ${{ matrix.python-version }} == 3.9
       run: |
         qa/run-bandit-tests
     - name: Regression
