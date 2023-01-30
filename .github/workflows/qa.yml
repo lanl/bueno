@@ -44,7 +44,7 @@ jobs:
       run: |
         qa/run-packaging-tests
     - name: Style Checks
-      if: ${{ matrix.python-version }} == '3.9'
+      if: ${{ matrix.python-version == 3.9 }}
       run: |
         qa/run-flake8-tests
     - name: Type Checks
