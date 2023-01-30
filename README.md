@@ -138,6 +138,7 @@ $ bueno run -a none -p callbye.py
 * [Custom Data](./examples/data)
 * [Importing Extra Functionality at Run-Time](./examples/extras)
 * [Building and Running a Container](./examples/build-and-run)
+* [Reading Input Files With experiment.readgs()](./examples/read-input)
 
 ## Example Application Run Scripts
 * [Proxy Applications](https://github.com/lanl/bueno-run-proxies)
