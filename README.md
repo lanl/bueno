@@ -147,5 +147,16 @@ $ bueno run -a none -p callbye.py
 * [Toward Well-Provenanced Computer System Benchmarking: An Update](
   docs/reports/bueno-report-2021.pdf) ([BibTeX](docs/reports/bueno-report-2021.bib))
 
+## Citing bueno
+```
+@techreport{gutierrez2021bueno,
+    title={{Toward Well-Provenanced Computer System Benchmarking: An Update}},
+    author={Gutierrez, Samuel K. and Pritchard, Howard P.},
+    year={2021},
+    note = {LA-UR-21-29427},
+    institution={Los Alamos National Laboratory, Los Alamos, NM (United States)}
+}
+```
+
 ### Los Alamos National Laboratory Code Release
 C19133 bueno
