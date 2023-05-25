@@ -1,4 +1,4 @@
-# Copyright (c) 2019-2022 Triad National Security, LLC
+# Copyright (c) 2019-2023 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -456,7 +456,7 @@ class _CLIArgsAddActions:
         Custom action class used for 'runcmds' argument handling.
         '''
         @typing.no_type_check
-        def __init__(self, option_strings, dest, nargs=None, **kwargs):
+        def __init__(self, option_strings, dest, _=None, **kwargs):
             super().__init__(option_strings, dest, **kwargs)
 
         @typing.no_type_check
@@ -465,7 +465,7 @@ class _CLIArgsAddActions:
                          'An int, int, str, str tuple is excepted.'
             optt = tuple()
             try:
-                optt = ast.literal_eval(values)
+                optt = ast.literal_eval(str(values))
             except (ValueError, SyntaxError):
                 parser.error(malf_helps)
             # Make sure that the evaluated type is tuple.
