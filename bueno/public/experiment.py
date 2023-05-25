@@ -221,7 +221,7 @@ class CLIAddArgsAction:
     Base action class used to add additional arguments to a CLIConfiguration
     instance.
     '''
-    def __call__(self, clic: 'CLIConfiguration') -> None:
+    def __call__(self, _: 'CLIConfiguration') -> None:
         '''
         Method that shall be used by derived classes to add a custom collection
         of arguments to the calling CLIConfiguration instance via addargs().
@@ -367,7 +367,7 @@ def generate(spec: str, *args: Any) -> List[str]:
 
     argg = zip(* args)
 
-    return [spec.format(*a) for a in argg]
+    return [spec.format(*a) for a in argg]  # type: ignore
 
 
 def _expand_all_shell_vars(instr: str) -> str:

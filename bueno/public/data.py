@@ -1,5 +1,5 @@
 #
-# Copyright (c) 2019-2022 Triad National Security, LLC
+# Copyright (c) 2019-2023 Triad National Security, LLC
 #                         All rights reserved.
 #
 # This file is part of the bueno project. See the LICENSE file at the
@@ -77,7 +77,7 @@ class PythonModuleAsset(FileAsset):
             estr = f'{self.__class__} expects a module.'
             raise ValueError(estr)
         # Absolute path to source file asset.
-        fpath = Path(os.path.abspath(mod.__file__))
+        fpath = Path(os.path.abspath(str(mod.__file__)))
         # Module's parent directory to store the provided module file.
         pdir = fpath.parent.parts[-1]
         super().__init__(str(fpath), str(pdir))
