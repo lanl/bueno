@@ -367,7 +367,7 @@ def generate(spec: str, *args: Any) -> List[str]:
 
     argg = zip(* args)
 
-    return [spec.format(*a) for a in argg]  # type: ignore
+    return [spec.format(*a) for a in argg]
 
 
 def _expand_all_shell_vars(instr: str) -> str:
